@@ -77,11 +77,6 @@ public class ItemBuilder {
         return this.itemStack;
     }
 
-    @Deprecated
-    public Unsafe unsafe() {
-        return new Unsafe(this);
-    }
-
 }
 
 
