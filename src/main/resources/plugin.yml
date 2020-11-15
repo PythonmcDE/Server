@@ -1,2 +1,32 @@
 name: Volcanmc
-description: This is a Plugin of two German programmers.
+main: me.bluenitrox.school.SchoolMode
+description: "This is a Plugin of two German programmers."
+authors: [1BlueNitrox - Daarkii]
+version: 1.0
+
+commands:
+  set:
+    description: "This Command set a Location if you want"
+    aliases:
+      - setlocation
+  money:
+    description: "This Command update your balance"
+    aliases:
+      - balance
+      - konto
+      - kontostand
+      - geld
+      - gems
+      - gem
+  gm:
+    description: "This Command set you or a Player in the Gamemode 0/1/2/3. Usage: /gm <1/2/3/0> [Player]"
+    aliases:
+      - gamemode
+  heal:
+    description: "This Command heal you or a Player. Usage: /heal [Player]"
+  feed:
+    description: "This Command feeds you or a Player. Usage: /feed [Player]"
+  fly:
+    description: "This Command set you or a Player in the Flymode. Usage: /fly [Player]"
+    aliases:
+      - fliegen

@@ -41,6 +41,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>LATEST</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.github.azbh111/craftbukkit-1.8.8 -->
         <dependency>
             <groupId>com.github.azbh111</groupId>
