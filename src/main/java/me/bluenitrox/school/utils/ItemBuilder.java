@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ItemBuilder {
-    private final ItemStack itemStack;
+    public static ItemStack itemStack;
     private ItemMeta itemMeta;
 
     public ItemBuilder(Material material) {
@@ -76,6 +76,12 @@ public class ItemBuilder {
         this.itemStack.setItemMeta(this.itemMeta);
         return this.itemStack;
     }
+
+    @Deprecated
+    public Unsafe unsafe() {
+        return new Unsafe(this);
+    }
+
 }
 
 

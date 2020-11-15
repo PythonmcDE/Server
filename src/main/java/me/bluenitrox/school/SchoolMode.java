@@ -11,12 +11,20 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import sun.awt.SunHints;
 
+import javax.print.attribute.standard.MediaSize;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class SchoolMode extends JavaPlugin {
+
+    /*
+
+    ANTIDUPE
+    beim Item aufsammeln / aus kiste nehmen / joinen / kiste öffnen / ofen etc. durchsyncen
+
+     */
 
     public static SchoolMode instance;
     public static HashMap<UUID, Float> playerMoney = new HashMap<>();
@@ -46,6 +54,8 @@ public class SchoolMode extends JavaPlugin {
         getCommand("fly").setExecutor(new Fly());
         getCommand("set").setExecutor(new SetLocations());
         getCommand("money").setExecutor(new Money());
+        getCommand("test").setExecutor(new NBTTagtest());
+        getCommand("testzwei").setExecutor(new OtherTest());
 
 
         //
