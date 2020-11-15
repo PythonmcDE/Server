@@ -60,13 +60,13 @@ public class NBTTags {
         item.setItemMeta(meta);
     }
 
-    public NBTBase getNBTTag(String key){
-        try{
+    public NBTBase getNBTTag(String key) {
+        try {
             net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
 
             NBTTagCompound comp = nmsItem.getTag();
             return comp.get(key);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
             e.printStackTrace();
             return null;

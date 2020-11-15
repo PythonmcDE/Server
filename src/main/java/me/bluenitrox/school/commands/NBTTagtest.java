@@ -1,5 +1,6 @@
 package me.bluenitrox.school.commands;
 
+import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.NBTTags;
 import org.bukkit.Material;
@@ -15,9 +16,7 @@ public class NBTTagtest implements CommandExecutor{
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player)cs;
         ItemStack i = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("§bMashala krass").build();
-        NBTTags nbt = new NBTTags(i);
-        nbt.setNBTTag("Coolness", "400");
-        p.getInventory().addItem(i);
+        p.getInventory().addItem(Antidupe.addID(i));
         return false;
     }
 }
