@@ -25,7 +25,9 @@ public class Antidupe {
                     NBTTags nbt = new NBTTags(inv.getItem(i));
                     if (nbt.getNBTTag("antidupe") != null) {
                         if (ids.contains(nbt.getNBTTag("antidupe").toString())) {
-                            inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Dupen §4<3").build());
+                            inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
+                                    .setLore("§8» §7Du wurdest nun als §bDuplizierer §7markiert.",
+                                    "§8» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
                         }
                         ids.add(nbt.getNBTTag("antidupe").toString());
                     }
