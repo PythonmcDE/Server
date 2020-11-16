@@ -64,6 +64,8 @@ public class CaseAPI {
 
         clearAllArrays();
 
+
+
         return caseitems.casepot;
     }
 
