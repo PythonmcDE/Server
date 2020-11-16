@@ -14,7 +14,8 @@ public class OtherTest implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender cs, Command command, String s, String[] strings) {
         Player p = (Player)cs;
-        Antidupe.checkInventory(p.getInventory());
+        CaseAPI caseapi = new CaseAPI();
+        caseapi.openCaseAnimation(p,0);
         return false;
     }
 }
