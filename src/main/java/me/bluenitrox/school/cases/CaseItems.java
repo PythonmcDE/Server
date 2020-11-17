@@ -33,7 +33,59 @@ public class CaseItems {
     }
 
     void registerDaily(){
+        ItemStack is1 = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§8Bronzehelm").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false)
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lTank I").build();
+        ItemStack is2 = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§8Bronzeharnish").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false)
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lTank I").build();
+        ItemStack is3 = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§8Bronzebeinschutz").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false)
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lTank I").build();
+        ItemStack is4 = new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§8Bronzeschuhe").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false)
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lTank I").build();
 
+
+        ItemStack is5 = new ItemBuilder(Material.IRON_HELMET).setDisplayname("§8Diebeskaputze").addEnchant(Enchantment.PROTECTION_PROJECTILE,4, false)
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lStacheln I").build();
+        ItemStack is6 = new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayname("§8Diebesjacke").addEnchant(Enchantment.PROTECTION_PROJECTILE,4, false)
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lStacheln I").build();
+        ItemStack is7 = new ItemBuilder(Material.IRON_LEGGINGS).setDisplayname("§8Diebeshose").addEnchant(Enchantment.PROTECTION_PROJECTILE,4, false)
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lStacheln I").build();
+        ItemStack is8 = new ItemBuilder(Material.IRON_BOOTS).setDisplayname("§8Diebesschuhe").addEnchant(Enchantment.PROTECTION_PROJECTILE,4, false)
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lStacheln I").build();
+
+        ItemStack is9 = new ItemBuilder(Material.IRON_SWORD).setDisplayname("§8Vollstrecker").addEnchant(Enchantment.DAMAGE_ALL, 3, false)
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§c§lErbittert I").build();
+        ItemStack is10 = new ItemBuilder(Material.STONE_SWORD).setDisplayname("§8Hirschfänger").addEnchant(Enchantment.DAMAGE_ALL, 4, false)
+                .addEnchant(Enchantment.DURABILITY, 3, false).addEnchant(Enchantment.LOOT_BONUS_MOBS, 2, false).build();
+
+        ItemStack is11 = new ItemBuilder(Material.BOW).setDisplayname("§8Rabaukenbogen").addEnchant(Enchantment.ARROW_DAMAGE, 3, false)
+                .addEnchant(Enchantment.DURABILITY, 3, false).addEnchant(Enchantment.ARROW_KNOCKBACK, 1, false).setLore("§9§lDynamite I").build();
+        ItemStack is12 = new ItemBuilder(Material.BOW).setDisplayname("§8Elfenbogen").addEnchant(Enchantment.ARROW_DAMAGE, 4, false)
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§9§lTod I").build();
+
+        ItemStack is13 = new ItemBuilder(Material.STONE_PICKAXE).setDisplayname("§8Felsenbrecher").addEnchant(Enchantment.DIG_SPEED, 6, true)
+                .addEnchant(Enchantment.DURABILITY, 6, true).setLore("§6§lLaser I").build();
+        ItemStack is14 = new ItemBuilder(Material.STONE_PICKAXE).setDisplayname("§8Erntesichel").addEnchant(Enchantment.DIG_SPEED, 5, false)
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§6§lRausch I").build();
+
+        ItemStack is15 = new ItemBuilder(Material.IRON_BOOTS).setDisplayname("§8Gefederte Schuhe").addEnchant(Enchantment.PROTECTION_FALL, 4, false)
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lEis I").build();
+
+
+        daily.add(is1);
+        daily.add(is2);
+        daily.add(is3);
+        daily.add(is4);
+        daily.add(is5);
+        daily.add(is6);
+        daily.add(is7);
+        daily.add(is8);
+        daily.add(is9);
+        daily.add(is10);
+        daily.add(is11);
+        daily.add(is12);
+        daily.add(is13);
+        daily.add(is14);
+        daily.add(is15);
     }
 
     void registerGewöhnlich(){

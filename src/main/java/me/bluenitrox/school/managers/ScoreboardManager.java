@@ -1,6 +1,7 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
+import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
@@ -12,6 +13,8 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutScoreboardScore;
 import net.minecraft.server.v1_8_R3.Scoreboard;
 import net.minecraft.server.v1_8_R3.ScoreboardObjective;
 import net.minecraft.server.v1_8_R3.ScoreboardScore;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
 
 public class ScoreboardManager {
 
@@ -19,7 +22,7 @@ public class ScoreboardManager {
         //p.setDisplayName("§8[§6" + exp.getLevel(p.getUniqueId()) + "§8]§r " + p.getName());
         Scoreboard scoreboard = new Scoreboard();
         ScoreboardObjective obj = scoreboard.registerObjective("TEST", IScoreboardCriteria.b);
-        obj.setDisplayName("   §c§lVolcanMC.de");
+        obj.setDisplayName("   §c§lDemonMC.de");
         PacketPlayOutScoreboardObjective createPacket = new PacketPlayOutScoreboardObjective(obj, 0);
         PacketPlayOutScoreboardDisplayObjective display = new PacketPlayOutScoreboardDisplayObjective(1, obj);
 
@@ -79,6 +82,7 @@ public class ScoreboardManager {
         sendPacket(pa15, p);
         sendPacket(pa16, p);
         sendPacket(pa17, p);
+
     }
 
     private static void sendPacket(Packet packet, Player p) {

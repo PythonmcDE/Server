@@ -33,6 +33,7 @@ public class SchoolMode extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
         Bukkit.getConsoleSender().sendMessage("§4Plugin §4aktivieren... §4(0/4)");
         register(Bukkit.getPluginManager());

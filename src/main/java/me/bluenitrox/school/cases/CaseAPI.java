@@ -1,9 +1,18 @@
 package me.bluenitrox.school.cases;
 
+import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.utils.Antidupe;
+import me.bluenitrox.school.utils.Firework;
+import me.bluenitrox.school.utils.ItemBuilder;
+import me.bluenitrox.school.utils.NBTTags;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,20 +20,69 @@ import java.util.Random;
 public class CaseAPI {
 
 
-    public void openCaseAnimation(Player p, int cases) {
+    public void openCase(Player p, int cases) {
+        ItemStack[] caseInhalt = CaseItems.casepot.toArray(new ItemStack[0]);
         CaseItems.casepot.clear();
         clearAllArrays();
         getCasePot(cases);
 
         Inventory inv = Bukkit.createInventory(null, 9 * 3, toCase(cases));
 
+        ItemStack hopper = new ItemBuilder(Material.HOPPER).setDisplayname("§e§lDein Gewinn").setLore("§b» §7Wenn die Case zum Stillstand kommt, bekommst", "§b» §7du das Item auf diesem Slot.").addEnchant(Enchantment.ARROW_DAMAGE, 10, false).build();
+
+        inv.setItem(4, hopper);
         for(int i = 9; i<= 17;i++){
             inv.setItem(i,getCasePot(cases).get(i));
         }
 
         p.openInventory(inv);
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                startAnimation(p, inv, cases);
+            }
+        }.runTaskLaterAsynchronously(SchoolMode.getInstance(),10);
     }
 
+    private int rounds = 0;
+
+    private void startAnimation(Player p, Inventory inv, int cases) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if(rounds >= 40){
+                    this.cancel();
+                    p.playSound(p.getLocation(), Sound.LEVEL_UP , 1L, 1L);
+                    ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE,(short) 15).setDisplayname(" ").build();
+                    for(int i = 0; i <= 12; i++){
+                        inv.setItem(i, glas);
+                    }
+                    for(int i = 15; i <= 26; i++){
+                        inv.setItem(i, glas);
+                    }
+                    inv.setItem(14, Antidupe.addID(inv.getItem(14)));
+
+                    Firework.Firework(p);
+
+                    p.openInventory(inv);
+                }
+
+                for (int i1 = 9; i1 <= 17; i1++) {
+                    if (i1 <= 16) {
+                        p.sendMessage("1");
+                        inv.setItem(i1, inv.getItem(i1 + 1));
+                    } else {
+                        p.sendMessage("2");
+                        inv.setItem(i1, getCasePot(cases).get(new Random().nextInt(CaseItems.casepot.size())));
+                    }
+                }
+                p.openInventory(inv);
+                p.playSound(p.getLocation(), Sound.NOTE_STICKS, 1L , 1L);
+                rounds++;
+            }
+        }.runTaskTimer(SchoolMode.getInstance(), 5,5);
+
+    }
 
     public ArrayList<ItemStack> getCasePot(int cases) {
         CaseItems caseitems = new CaseItems();

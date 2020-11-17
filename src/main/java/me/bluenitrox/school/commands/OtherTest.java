@@ -15,7 +15,7 @@ public class OtherTest implements CommandExecutor {
     public boolean onCommand(CommandSender cs, Command command, String s, String[] strings) {
         Player p = (Player)cs;
         CaseAPI caseapi = new CaseAPI();
-        caseapi.openCaseAnimation(p,0);
+        caseapi.openCase(p,0);
         return false;
     }
 }
