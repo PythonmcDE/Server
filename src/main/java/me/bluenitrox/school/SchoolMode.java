@@ -1,8 +1,8 @@
 package me.bluenitrox.school;
 
+import me.bluenitrox.school.cases.GetCases;
 import me.bluenitrox.school.commands.*;
-import me.bluenitrox.school.listener.PlayerJoinListener;
-import me.bluenitrox.school.listener.PlayerQuitListener;
+import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
 import me.bluenitrox.school.utils.Antidupe;
@@ -66,6 +66,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("money").setExecutor(new Money());
         getCommand("test").setExecutor(new NBTTagtest());
         getCommand("testzwei").setExecutor(new OtherTest());
+        getCommand("getcases").setExecutor(new GetCases());
 
 
         //
@@ -76,6 +77,10 @@ public class SchoolMode extends JavaPlugin {
 
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new PlayerQuitListener(), this);
+        pm.registerEvents(new InventoryClickEvent(), this);
+        pm.registerEvents(new PlayerInteractEvent(), this);
+        pm.registerEvents(new InventoryOpenEvent(), this);
+        pm.registerEvents(new InventoryCloseEvent(), this);
 
 
         //

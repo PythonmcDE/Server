@@ -32,3 +32,4 @@ commands:
       - fliegen
   test:
   testzwei:
+  getcases:

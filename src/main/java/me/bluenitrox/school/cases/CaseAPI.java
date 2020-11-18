@@ -15,36 +15,50 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
+import java.util.UUID;
 
 public class CaseAPI {
 
+    public static String gewöhnlich = "§8§lGewöhnliche Case";
+    public static String selten = "§b§lSeltene Case";
+    public static String episch = "§5§lEpische Case";
+    public static String legendär = "§c§lLegendäre Case";
+    public static String mysthische = "§6§lMysthische Case";
+    public static String daily = "§e§lDaily Case";
+    public static String tier = "§6§lTier Case";
+    private int rounds = 0;
+    public static HashMap<Player, ArrayList<ItemStack>> caseitemshash = new HashMap<>();
+    public static ArrayList<ItemStack> casepot;
+    public static ArrayList<UUID> opencase = new ArrayList<>();
 
     public void openCase(Player p, int cases) {
-        ItemStack[] caseInhalt = CaseItems.casepot.toArray(new ItemStack[0]);
-        CaseItems.casepot.clear();
+        opencase.add(p.getUniqueId());
         clearAllArrays();
-        getCasePot(cases);
+        getCasePot(cases,p);
 
-        Inventory inv = Bukkit.createInventory(null, 9 * 3, toCase(cases));
+        Inventory inv = Bukkit.getServer().createInventory(null, 9 * 3, toCase(cases));
 
         ItemStack hopper = new ItemBuilder(Material.HOPPER).setDisplayname("§e§lDein Gewinn").setLore("§b» §7Wenn die Case zum Stillstand kommt, bekommst", "§b» §7du das Item auf diesem Slot.").addEnchant(Enchantment.ARROW_DAMAGE, 10, false).build();
 
-        inv.setItem(4, hopper);
         for(int i = 9; i<= 17;i++){
-            inv.setItem(i,getCasePot(cases).get(i));
+            inv.setItem(i,caseitemshash.get(p).get(i));
+            inv.setItem(i-9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))
+                    .setDisplayname(rareFromShort(rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))).build());
+            inv.setItem(i+9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))
+                    .setDisplayname(rareFromShort(rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))).build());
         }
 
+        inv.setItem(4, hopper);
         p.openInventory(inv);
         new BukkitRunnable(){
             @Override
             public void run() {
                 startAnimation(p, inv, cases);
             }
-        }.runTaskLaterAsynchronously(SchoolMode.getInstance(),10);
+        }.runTaskLaterAsynchronously(SchoolMode.getInstance(),5);
     }
-
-    private int rounds = 0;
 
     private void startAnimation(Player p, Inventory inv, int cases) {
         new BukkitRunnable() {
@@ -52,31 +66,73 @@ public class CaseAPI {
             public void run() {
                 if(rounds >= 40){
                     this.cancel();
+                    Inventory wininv = Bukkit.getServer().createInventory(null, 9*3, "§e§lCase Gewinn");
                     p.playSound(p.getLocation(), Sound.LEVEL_UP , 1L, 1L);
                     ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE,(short) 15).setDisplayname(" ").build();
+                    ItemStack hopper = new ItemBuilder(Material.HOPPER).setDisplayname("§e§lDein Gewinn").setLore("§b» §7Wenn die Case zum Stillstand kommt, bekommst", "§b» §7du das Item auf diesem Slot.").addEnchant(Enchantment.ARROW_DAMAGE, 10, false).build();
+
                     for(int i = 0; i <= 12; i++){
-                        inv.setItem(i, glas);
+                        if(i != 4) {
+                            wininv.setItem(i, new ItemBuilder(Material.AIR).build());
+                            wininv.setItem(i, glas);
+                        }
                     }
-                    for(int i = 15; i <= 26; i++){
-                        inv.setItem(i, glas);
+                    for(int i = 14; i <= 26; i++){
+                        wininv.setItem(i, new ItemBuilder(Material.AIR).build());
+                        wininv.setItem(i, glas);
                     }
-                    inv.setItem(14, Antidupe.addID(inv.getItem(14)));
+                    wininv.setItem(4, hopper);
+
+                    if(inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Eisenblöcke") ||
+                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Goldblöcke")||
+                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Enderperlen")||
+                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Goldene Äpfel")||
+                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Pfeile")||
+                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Diamantblöcke")||
+                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§6§lSchool XP")){
+
+                    }
+                    if(addItemIDBool(inv) == false) {
+                        wininv.setItem(13, Antidupe.addID(inv.getItem(13)));
+                    }else {
+                        wininv.setItem(13, inv.getItem(13));
+                    }
 
                     Firework.Firework(p);
 
-                    p.openInventory(inv);
+                    p.openInventory(wininv);
+                    opencase.remove(p.getUniqueId());
+                    caseitemshash.remove(p);
+                    rounds = 0;
+                    return;
                 }
 
                 for (int i1 = 9; i1 <= 17; i1++) {
                     if (i1 <= 16) {
-                        p.sendMessage("1");
-                        inv.setItem(i1, inv.getItem(i1 + 1));
+                        if(i1 == 13){
+                            inv.setItem(i1, inv.getItem(i1 + 1));
+                            inv.setItem(i1+9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(inv.getItem(i1+1).getItemMeta().getDisplayName()))
+                                    .setDisplayname(rareFromShort(rareFromColor(inv.getItem(i1+1).getItemMeta().getDisplayName()))).build());
+                        }else {
+                            inv.setItem(i1, inv.getItem(i1 + 1));
+                            inv.setItem(i1 + 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(inv.getItem(i1 + 1).getItemMeta().getDisplayName()))
+                                    .setDisplayname(rareFromShort(rareFromColor(inv.getItem(i1 + 1).getItemMeta().getDisplayName()))).build());
+                            inv.setItem(i1 - 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(inv.getItem(i1 + 1).getItemMeta().getDisplayName()))
+                                    .setDisplayname(rareFromShort(rareFromColor(inv.getItem(i1 + 1).getItemMeta().getDisplayName()))).build());
+                        }
                     } else {
-                        p.sendMessage("2");
-                        inv.setItem(i1, getCasePot(cases).get(new Random().nextInt(CaseItems.casepot.size())));
+                        ItemStack is = caseitemshash.get(p).get(new Random().nextInt(caseitemshash.get(p).size()));
+                        inv.setItem(i1, is);
+                        inv.setItem(i1-9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(is.getItemMeta().getDisplayName()))
+                                .setDisplayname(rareFromShort(rareFromColor(is.getItemMeta().getDisplayName()))).build());
+                        inv.setItem(i1+9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(is.getItemMeta().getDisplayName()))
+                                .setDisplayname(rareFromShort(rareFromColor(is.getItemMeta().getDisplayName()))).build());
+
                     }
                 }
-                p.openInventory(inv);
+                ItemStack hopper = new ItemBuilder(Material.HOPPER).setDisplayname("§e§lDein Gewinn").setLore("§b» §7Wenn die Case zum Stillstand kommt, bekommst", "§b» §7du das Item auf diesem Slot.").addEnchant(Enchantment.ARROW_DAMAGE, 10, false).build();
+                inv.setItem(4,hopper);
+                p.updateInventory();
                 p.playSound(p.getLocation(), Sound.NOTE_STICKS, 1L , 1L);
                 rounds++;
             }
@@ -84,7 +140,8 @@ public class CaseAPI {
 
     }
 
-    public ArrayList<ItemStack> getCasePot(int cases) {
+    public void getCasePot(int cases, Player p) {
+        casepot = new ArrayList<>();
         CaseItems caseitems = new CaseItems();
         /*
         0 = Daily
@@ -95,50 +152,68 @@ public class CaseAPI {
         5 = Mysthische
         6 = Tier
          */
+
+        registerAllInRightOrder(cases, caseitems);
+
+
+        caseitemshash.put(p, casepot);
+
+    }
+
+    private boolean addItemIDBool(Inventory inv){
+        if(inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Eisenblöcke") ||
+                inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Goldblöcke")||
+                inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Enderperlen")||
+                inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Goldene Äpfel")||
+                inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Pfeile")||
+                inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Diamantblöcke")||
+                inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§6§lSchool XP")){
+            return true;
+        }
+        return false
+    }
+
+    private void registerAllInRightOrder(int cases, CaseItems caseitems){
         registerAllCases(caseitems);
 
 
         if (cases == 0) {
             for (int i = 0; i <= 128; i++) {
-                CaseItems.casepot.add(CaseItems.daily.get(new Random().nextInt(CaseItems.daily.size())));
+                casepot.add(CaseItems.daily.get(new Random().nextInt(CaseItems.daily.size())));
             }
         } else if (cases == 1) {
             allCasesGet(80, 30, 10, 5);
         } else if (cases == 2) {
-            allCasesGet(75, 40, 12, 7);
+            allCasesGet(70, 40, 12, 7);
         } else if (cases == 3) {
             allCasesGet(60, 40, 25, 10);
         } else if (cases == 4) {
             allCasesGet(60, 40, 40, 20);
         } else if (cases == 5) {
             for (int i = 0; i <= 60; i++) {
-                CaseItems.casepot.add(CaseItems.mysthische.get(new Random().nextInt(CaseItems.mysthische.size())));
+                casepot.add(CaseItems.mysthische.get(new Random().nextInt(CaseItems.mysthische.size())));
             }
         } else if (cases == 6) {
             for (int i = 0; i <= 60; i++) {
-                CaseItems.casepot.add(CaseItems.tier.get(new Random().nextInt(CaseItems.tier.size())));
+                casepot.add(CaseItems.tier.get(new Random().nextInt(CaseItems.tier.size())));
             }
         }
 
         clearAllArrays();
-
-
-
-        return caseitems.casepot;
     }
 
     private void allCasesGet(int i1, int x, int y, int z) {
         for (int i = 0; i <= i1; i++) {
-            CaseItems.casepot.add(CaseItems.gewöhnlich.get(new Random().nextInt(CaseItems.gewöhnlich.size())));
+            casepot.add(CaseItems.gewöhnlich.get(new Random().nextInt(CaseItems.gewöhnlich.size())));
         }
         for (int i = 0; i <= x; i++) {
-            CaseItems.casepot.add(CaseItems.selten.get(new Random().nextInt(CaseItems.selten.size())));
+            casepot.add(CaseItems.selten.get(new Random().nextInt(CaseItems.selten.size())));
         }
         for (int i = 0; i <= y; i++) {
-            CaseItems.casepot.add(CaseItems.episch.get(new Random().nextInt(CaseItems.episch.size())));
+            casepot.add(CaseItems.episch.get(new Random().nextInt(CaseItems.episch.size())));
         }
         for (int i = 0; i <= z; i++) {
-            CaseItems.casepot.add(CaseItems.legendär.get(new Random().nextInt(CaseItems.legendär.size())));
+            casepot.add(CaseItems.legendär.get(new Random().nextInt(CaseItems.legendär.size())));
         }
     }
 
@@ -162,22 +237,67 @@ public class CaseAPI {
         CaseItems.tier.clear();
     }
 
+    private short rareFromColor(String name){
+        if(name.startsWith("§6")){
+            return 1;
+        }else if(name.startsWith("§5")){
+            return 10;
+        }else if(name.startsWith("§b")){
+            return 3;
+        }else {
+            return 8;
+        }
+    }
+
+    private String rareFromShort(short rare){
+        if(rare == 1){
+            return "§6§lLegendär";
+        }else if(rare == 10){
+            return "§5§lEpisch";
+        }else if(rare == 3){
+            return "§b§lSelten";
+        }else if(rare == 8){
+            return "§7§lGewöhnlich";
+        }else {
+            return null;
+        }
+    }
+
     private String toCase(int cases) {
         if (cases == 0) {
-            return "§e§lDaily Case";
+            return daily;
         } else if (cases == 1) {
-            return "§7§lGewöhnliche Case";
+            return gewöhnlich;
         } else if (cases == 2) {
-            return "§b§lSeltene Case";
+            return selten;
         } else if (cases == 3) {
-            return "§5§lEpische Case";
+            return episch;
         } else if (cases == 4) {
-            return "§c§lLegendäre Case";
+            return legendär;
         } else if (cases == 5) {
-            return "§6§lMysthische Case";
+            return mysthische;
         } else if (cases == 6) {
-            return "§c§lTier Case";
+            return tier;
         }
         return null;
+    }
+
+    public int fromCase(String cases){
+        if(cases.equalsIgnoreCase(daily)){
+            return 0;
+        }else if(cases.equalsIgnoreCase(gewöhnlich)){
+            return 1;
+        }else if(cases.equalsIgnoreCase(selten)){
+            return 2;
+        }else if(cases.equalsIgnoreCase(episch)){
+            return 3;
+        }else if(cases.equalsIgnoreCase(legendär)){
+            return 4;
+        }else if(cases.equalsIgnoreCase(mysthische)){
+            return 5;
+        }else if(cases.equalsIgnoreCase(tier)){
+            return 6;
+        }
+        return 0;
     }
 }

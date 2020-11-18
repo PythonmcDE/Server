@@ -3,6 +3,7 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
+import me.bluenitrox.school.utils.Antidupe;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -37,6 +38,7 @@ public class PlayerJoinListener implements Listener {
         p.setGameMode(GameMode.SURVIVAL);
         e.setJoinMessage(null);
         p.teleport(new LocationManager("spawn").getLocation());
+        Antidupe.checkInventory(e.getPlayer().getInventory());
     }
 }
 
