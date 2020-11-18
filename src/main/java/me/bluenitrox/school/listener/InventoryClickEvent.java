@@ -12,7 +12,7 @@ public class InventoryClickEvent implements Listener {
     @EventHandler
     public void onClick(final org.bukkit.event.inventory.InventoryClickEvent e){
         Player p = (Player)e.getWhoClicked();
-        if(CaseAPI.opencase.contains(e.getWhoClicked().getUniqueId())){
+        if(CaseAPI.opencase.contains(p)){
             e.setCancelled(true);
             return;
         }

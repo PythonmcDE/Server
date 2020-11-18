@@ -98,6 +98,14 @@ public class MessageManager {
         }
     }
 
+    public static String CANTCRAFTTHIS(int i){
+        if(i == 0){
+            return PREFIX + "§7Dieses Item kannst du §cnicht §7herstellen.";
+        }else {
+            return PREFIX + "§7You §ccan't §7craft this Item.";
+        }
+    }
+
     public static int MONEY_BOOSTER_BOOST = 2;
 
 }

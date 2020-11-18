@@ -30,7 +30,7 @@ public class PlayerInteractEvent implements Listener {
                 || p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(CaseAPI.legendär)
                 || p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(CaseAPI.mysthische)
                 || p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(CaseAPI.tier))){
-            if(CaseAPI.opencase.contains(p.getUniqueId())){
+            if(CaseAPI.opencase.contains(p)){
                 return;
             }
             e.setCancelled(true);

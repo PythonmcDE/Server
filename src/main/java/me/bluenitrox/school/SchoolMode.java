@@ -81,7 +81,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PlayerInteractEvent(), this);
         pm.registerEvents(new InventoryOpenEvent(), this);
         pm.registerEvents(new InventoryCloseEvent(), this);
-
+        pm.registerEvents(new PreCraftEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/4)");

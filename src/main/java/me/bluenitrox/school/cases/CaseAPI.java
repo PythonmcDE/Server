@@ -31,10 +31,10 @@ public class CaseAPI {
     private int rounds = 0;
     public static HashMap<Player, ArrayList<ItemStack>> caseitemshash = new HashMap<>();
     public static ArrayList<ItemStack> casepot;
-    public static ArrayList<UUID> opencase = new ArrayList<>();
+    public static ArrayList<Player> opencase = new ArrayList<>();
 
     public void openCase(Player p, int cases) {
-        opencase.add(p.getUniqueId());
+        opencase.add(p);
         clearAllArrays();
         getCasePot(cases,p);
 
@@ -83,15 +83,7 @@ public class CaseAPI {
                     }
                     wininv.setItem(4, hopper);
 
-                    if(inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Eisenblöcke") ||
-                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Goldblöcke")||
-                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Enderperlen")||
-                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Goldene Äpfel")||
-                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Pfeile")||
-                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Diamantblöcke")||
-                            inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§6§lSchool XP")){
 
-                    }
                     if(addItemIDBool(inv) == false) {
                         wininv.setItem(13, Antidupe.addID(inv.getItem(13)));
                     }else {
@@ -101,7 +93,7 @@ public class CaseAPI {
                     Firework.Firework(p);
 
                     p.openInventory(wininv);
-                    opencase.remove(p.getUniqueId());
+                    opencase.remove(p);
                     caseitemshash.remove(p);
                     rounds = 0;
                     return;
@@ -167,10 +159,11 @@ public class CaseAPI {
                 inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Goldene Äpfel")||
                 inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Pfeile")||
                 inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Diamantblöcke")||
-                inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§6§lSchool XP")){
+                inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§6§lSchool XP") ||
+                inv.getItem(13).getItemMeta().getDisplayName().equalsIgnoreCase("§7Smaragdblöcke")){
             return true;
         }
-        return false
+        return false;
     }
 
     private void registerAllInRightOrder(int cases, CaseItems caseitems){
