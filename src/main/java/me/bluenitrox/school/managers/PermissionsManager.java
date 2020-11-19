@@ -14,5 +14,11 @@ public class PermissionsManager {
     public static final String SETLOCATION = "System.location.set";
     public static final String CHANGEMONEY = "System.Money.Change";
     public static final String GETMONEYOTHER = "System.money.other";
+    public static final String TP_MINE = "System.Tp.Mine";
+    public static final String SELL = "System.Sell";
+    public static final String UPDATE_MINE = "System.Mine.Update";
+    public static final String SET_MINE = "System.Mine.Set";
+    public static final String MINE_HELP = "System.Mine.Help";
+    public static final String BUILD = "System.Build";
 
 }

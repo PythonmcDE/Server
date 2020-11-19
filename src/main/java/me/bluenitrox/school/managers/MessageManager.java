@@ -1,8 +1,15 @@
 package me.bluenitrox.school.managers;
 
+import me.bluenitrox.school.mysql.MySQL;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+
 public class MessageManager {
 
-    public static String PREFIX = "Hier der Prefix...";
+    public static String PREFIX = "§c§lDemonMC §8» ";
     public static String ERROR = PREFIX + "§7Es ist ein §cFehler §7aufgetreten! Bitte Versuche es erneut";
     public static String NOPLAYER = PREFIX + "§7Dazu musst du ein §cSpieler §7sein";
     public static String KONTOSTANDOFOTHER = PREFIX + "§7Der Kontostand des Spielers §e";
@@ -17,6 +24,19 @@ public class MessageManager {
     public static String SETFLYOTHERFALSE = PREFIX + "§7Du hast den Spieler aus dem §cFlugmodus §7gesetzt.";
     public static String PLAYERSETGAMEMODE = PREFIX + "§7Du hast den Spieler in den §5Gamemode §7gesetzt!";
     public static String PLAYERFEED = PREFIX + "§7Der Hunger des Spielers wurde gestillt.";
+    public static String SUCCESS_MINE_CHANGE = PREFIX + "§7Die Mine von dem Spieler wurde §cerfolgreich §7geupdatet";
+    public static String SUCCESS_MINE_CHANGE_OTHER = PREFIX + "§7Deine Mine wurde geupdatet";
+    public static String ERROR_MINE_CHANGE = PREFIX + "§7Die Mine von dem Spieler konnte §cnicht §7geupdatet werden";
+    public static String QUIT_BUILD = PREFIX + "§7Du bist nun §cnicht mehr §7im §6Buildmodus";
+    public static String JOIN_BUILD = PREFIX + "§7Du bist §anun §7im §6Buildmodus";
+    public static String MINE_HELP_DESCRIPTION = PREFIX + "§7Anleitung zum §aeinrichten §7einer neuen Mine: \n 1. " +
+            "Die Beiden Eckpunkte der neuen Mine setzten mit folgendem Namen: eckpoint + (1 oder 2) + mine + (Nummer der neuen Mine). " +
+            "Die Klammern musst du mit deinen Werten füllen. Am Ende sollte es ein Name sein, der diesem hier ähnelt §6eckpoint1mine1 §7 \n 2. " +
+            "Jetzt benutz du den Command: §6/mine create <Name> <Eckpunkt 1> <Eckpunkt 2> <Blocksforreset>. §7Im Namen gibst du der neuen Mine " +
+            "ihren Name. Dieser sollte folgendermaßen aussehen: §6mine<Nummer>§7. Also z.B. mine1 die Nummer sollte selbst erklärend sein. Bei " +
+            "Eckpunkt 1 und 2 trägst du deine eben erstellten Eckpunkte §6in Richtiger Reihenfolge§7 ein. Also der Eckpunkt 1 im Command ist dein " +
+            "Erstellter Eckpunkt der mit dem Name §6eckpoint1.. §7anfangen sollte. Zum Schluss gibst du noch eine Anzahl ein, nach wie vielen abgebauten " +
+            "Blöcke dich die Mine auffüllen soll. \n 3. Command absenden!";
 
     public static String PLAYERWASSETGAMEMODE(int i){
         if(i == 0){
@@ -107,5 +127,57 @@ public class MessageManager {
     }
 
     public static int MONEY_BOOSTER_BOOST = 2;
+    public static int MAX_MINE = getMaxMine();
+
+    private static int getMaxMine() {
+        int mine = 0;
+
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT id FROM minen ORDER BY id DESC LIMIT 1")) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                mine = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return mine;
+    }
+
+    public static int MINE_1_PREIS = 1200000;
+    public static int MINE_2_PREIS = 1200000;
+    public static int MINE_3_PREIS = 1200000;
+    public static int MINE_4_PREIS = 1200000;
+    public static int MINE_5_PREIS = 1200000;
+    public static int MINE_6_PREIS = 1200000;
+    public static int MINE_7_PREIS = 1200000;
+    public static int MINE_8_PREIS = 1200000;
+    public static int MINE_9_PREIS = 1200000;
+    public static int MINE_10_PREIS = 1200000;
+    public static int MINE_11_PREIS = 1200000;
+    public static int MINE_12_PREIS = 1200000;
+    public static int MINE_13_PREIS = 1200000;
+    public static int MINE_14_PREIS = 1200000;
+    public static int MINE_15_PREIS = 1200000;
+
+    public static final HashMap<String, Integer> blocksforreset = fillMap();
+
+
+    private static HashMap<String, Integer> fillMap() {
+        HashMap<String, Integer> blocksforreset = new HashMap<>();
+        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM minen")) {
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                String name = rs.getString("name");
+                Integer blocks = rs.getInt("blocksforreset");
+                blocksforreset.put(name, blocks);
+            }
+            return blocksforreset;
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }
+

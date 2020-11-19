@@ -3,20 +3,22 @@ package me.bluenitrox.school;
 import me.bluenitrox.school.cases.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.listener.*;
+import me.bluenitrox.school.mine.commands.Sell;
+import me.bluenitrox.school.mine.listener.BlockEvent;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import sun.awt.SunHints;
-
-import javax.print.attribute.standard.MediaSize;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.UUID;
 
 public class SchoolMode extends JavaPlugin {
@@ -30,6 +32,11 @@ public class SchoolMode extends JavaPlugin {
 
     public static SchoolMode instance;
     public static HashMap<UUID, Float> playerMoney = new HashMap<>();
+    public static HashMap<UUID, Float> playerExp = new HashMap<>();
+    public static HashMap<UUID, Integer> playerBlocks = new HashMap<>();
+    public static HashMap<UUID, Integer> playerMine = new HashMap<>();
+    private static final Random r = new Random();
+
 
     @Override
     public void onEnable() {
@@ -67,6 +74,9 @@ public class SchoolMode extends JavaPlugin {
         getCommand("test").setExecutor(new NBTTagtest());
         getCommand("testzwei").setExecutor(new OtherTest());
         getCommand("getcases").setExecutor(new GetCases());
+        getCommand("mine").setExecutor(new Mine());
+        getCommand("sell").setExecutor(new Sell());
+        getCommand("build").setExecutor(new Build());
 
 
         //
@@ -82,6 +92,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new InventoryOpenEvent(), this);
         pm.registerEvents(new InventoryCloseEvent(), this);
         pm.registerEvents(new PreCraftEvent(), this);
+        pm.registerEvents(new BlockEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/4)");
@@ -163,6 +174,30 @@ public class SchoolMode extends JavaPlugin {
     Money System
 
      */
+    public static int getPlayerBlocks(UUID uuid) {
+        return playerBlocks.get(uuid);
+    }
+
+    public static int getPlayerMine(UUID uuid) {
+        return playerMine.get(uuid);
+    }
+
+    public static void setPlayerMine(UUID uuid, int amount) {
+        playerMine.put(uuid, amount);
+    }
+
+    public static float getPlayerExp(UUID uuid) {
+        return playerExp.get(uuid);
+    }
+
+    public static String getPlayerExpString(UUID uuid) {
+        float exp = playerExp.get(uuid);
+        return ValuetoString.valueToString(exp);
+    }
+
+    public static void setPlayerExp(UUID uuid, float amount) {
+        playerExp.put(uuid, amount);
+    }
 
 
     public static float getPlayerMoney(UUID uuid) {
@@ -174,8 +209,25 @@ public class SchoolMode extends JavaPlugin {
         return ValuetoString.valueToString(money);
     }
 
+    public static void setPlayerBlocks(UUID uuid, int amount) {
+        playerBlocks.put(uuid, amount);
+    }
+
     public static void setPlayerMoney(UUID uuid, float amount) {
         playerMoney.put(uuid, amount);
+    }
+
+    public static int getRandomInt(int bound){
+        Random r = SchoolMode.r;
+
+        return r.nextInt(bound) + 1;
+    }
+
+    public static int getLevel(ItemStack item, Enchantment ench){
+        if(item.containsEnchantment(ench)){
+            return item.getEnchantmentLevel(ench);
+        }
+        return 0;
     }
 
     /*

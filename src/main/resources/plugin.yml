@@ -33,3 +33,14 @@ commands:
   test:
   testzwei:
   getcases:
+  build:
+    aliases:
+      - bauen
+  mine:
+    aliases:
+      - minen
+  sell:
+    aliases:
+      - verkaufen
+      - sells
+      - händler
