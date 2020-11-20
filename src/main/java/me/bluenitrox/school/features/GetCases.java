@@ -1,4 +1,4 @@
-package me.bluenitrox.school.cases;
+package me.bluenitrox.school.features;
 
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;

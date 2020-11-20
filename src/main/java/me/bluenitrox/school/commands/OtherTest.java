@@ -1,10 +1,6 @@
 package me.bluenitrox.school.commands;
 
-import me.bluenitrox.school.cases.CaseAPI;
-import me.bluenitrox.school.cases.CaseItems;
-import me.bluenitrox.school.utils.Antidupe;
-import me.bluenitrox.school.utils.NBTTags;
-import org.bukkit.Material;
+import me.bluenitrox.school.features.CaseAPI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

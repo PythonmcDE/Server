@@ -1,6 +1,6 @@
 package me.bluenitrox.school.listener;
 
-import me.bluenitrox.school.cases.CaseAPI;
+import me.bluenitrox.school.features.CaseAPI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

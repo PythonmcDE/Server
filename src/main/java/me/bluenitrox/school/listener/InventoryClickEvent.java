@@ -1,11 +1,9 @@
 package me.bluenitrox.school.listener;
 
-import me.bluenitrox.school.cases.CaseAPI;
-import org.bukkit.Material;
+import me.bluenitrox.school.features.CaseAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 
 public class InventoryClickEvent implements Listener {
 

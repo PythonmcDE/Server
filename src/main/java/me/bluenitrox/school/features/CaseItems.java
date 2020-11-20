@@ -1,4 +1,4 @@
-package me.bluenitrox.school.cases;
+package me.bluenitrox.school.features;
 
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Color;
@@ -10,7 +10,6 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 public class CaseItems {
 

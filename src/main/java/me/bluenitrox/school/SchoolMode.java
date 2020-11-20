@@ -1,6 +1,6 @@
 package me.bluenitrox.school;
 
-import me.bluenitrox.school.cases.GetCases;
+import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.mine.commands.Sell;

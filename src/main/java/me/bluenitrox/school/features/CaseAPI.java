@@ -1,10 +1,9 @@
-package me.bluenitrox.school.cases;
+package me.bluenitrox.school.features;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.Firework;
 import me.bluenitrox.school.utils.ItemBuilder;
-import me.bluenitrox.school.utils.NBTTags;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -17,7 +16,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.UUID;
 
 public class CaseAPI {
 

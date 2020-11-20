@@ -1,7 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import de.Herbystar.TTA.TTA_Methods;
-import me.bluenitrox.school.cases.CaseAPI;
+import me.bluenitrox.school.features.CaseAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
