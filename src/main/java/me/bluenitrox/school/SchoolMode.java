@@ -4,7 +4,7 @@ import me.bluenitrox.school.cases.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.mine.commands.Sell;
-import me.bluenitrox.school.mine.listener.BlockEvent;
+import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
 import me.bluenitrox.school.utils.Antidupe;
@@ -92,7 +92,8 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new InventoryOpenEvent(), this);
         pm.registerEvents(new InventoryCloseEvent(), this);
         pm.registerEvents(new PreCraftEvent(), this);
-        pm.registerEvents(new BlockEvent(), this);
+        pm.registerEvents(new BreakBlockEvent(), this);
+        pm.registerEvents(new PlayerCommandPreprocessEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/4)");

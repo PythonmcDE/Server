@@ -6,7 +6,7 @@ import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
-import me.bluenitrox.school.mine.listener.BlockEvent;
+import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
@@ -134,14 +134,14 @@ public class MinenManager {
         if(mine != null) {
             if (isAllowedtoMine(p, block)) {
                 PlayerBreakBlockManager.updateBlocks(p.getUniqueId(), false);
-                BlockEvent.minen.put(mine, BlockEvent.minen.getOrDefault(mine, 0) + 1);
-                double abgebauteBloeckeInProzent = 0.0051 * BlockEvent.minen.getOrDefault(mine, 0);
+                BreakBlockEvent.minen.put(mine, BreakBlockEvent.minen.getOrDefault(mine, 0) + 1);
+                double abgebauteBloeckeInProzent = 0.0051 * BreakBlockEvent.minen.getOrDefault(mine, 0);
                 abgebauteBloeckeInProzent = ValuetoString.round(abgebauteBloeckeInProzent, 2);
 
                 TTA_Methods.sendActionBar(p, "§6" + abgebauteBloeckeInProzent + "% §7der Mine ist abgebaut" + " NOCH IN ENGLISH!!!");
-                if(BlockEvent.minen.get(mine) >= MessageManager.blocksforreset.get("mine" + mine)) {
+                if(BreakBlockEvent.minen.get(mine) >= MessageManager.blocksforreset.get("mine" + mine)) {
                     refillMine(mine);
-                    BlockEvent.minen.put(mine, 0);
+                    BreakBlockEvent.minen.put(mine, 0);
                     return true;
                 }
                 return true;

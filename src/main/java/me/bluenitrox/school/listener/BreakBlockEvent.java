@@ -1,4 +1,4 @@
-package me.bluenitrox.school.mine.listener;
+package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.commands.Build;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;
@@ -11,7 +11,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class BlockEvent implements Listener {
+public class BreakBlockEvent implements Listener {
 
     public int dropBonus;
     public ArrayList<String> allowedWorldToBuild = new ArrayList<>();
@@ -19,7 +19,7 @@ public class BlockEvent implements Listener {
 
     public static ConcurrentHashMap<String, Integer> minen = new ConcurrentHashMap<>();
 
-    public BlockEvent() {
+    public BreakBlockEvent() {
         allowedWorldToBuild.add("plotworld");
     }
 
