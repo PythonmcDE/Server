@@ -161,6 +161,13 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
 
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `minen` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `name` VARCHAR(6) NOT NULL , `eckpoint1` VARCHAR(30) NOT NULL , `eckpoint2` VARCHAR(30) NOT NULL , `blocksforreset` INT(11) NOT NULL , PRIMARY KEY (`id`))");
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/4)");
     }
 

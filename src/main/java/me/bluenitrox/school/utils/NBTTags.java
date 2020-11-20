@@ -73,6 +73,20 @@ public class NBTTags {
         }
     }
 
+    public static Object getNMSCompound(Object nmsItem) {
+        return (((net.minecraft.server.v1_8_R3.ItemStack) nmsItem)
+                .hasTag()) ? ((net.minecraft.server.v1_8_R3.ItemStack) nmsItem)
+                .getTag() : new net.minecraft.server.v1_8_R3.NBTTagCompound();
+    }
+
+    public static Object getNMSItem(ItemStack itemStack) {
+        return org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack.asNMSCopy(itemStack);
+    }
+
+    public static boolean hasTag(String key, ItemStack itemStack) {
+        return ((net.minecraft.server.v1_8_R3.NBTTagCompound) getNMSCompound(getNMSItem(itemStack))).hasKey(key);
+    }
+
     public String getNBTTagString(String key){
         try{
             net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);

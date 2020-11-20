@@ -32,8 +32,7 @@ public class BlockEvent implements Listener {
         }
         if(p.getWorld().getName().equalsIgnoreCase(plotworld)) return;
 
-        if(!(PlayerBreakBlockManager.breakBlock(p, e.getBlock().getLocation(), dropBonus))) {
-            e.setCancelled(true);
+        if((PlayerBreakBlockManager.breakBlock(p, e.getBlock().getLocation(), dropBonus))) {
         }else {
             e.setCancelled(true);
             e.setExpToDrop(0);

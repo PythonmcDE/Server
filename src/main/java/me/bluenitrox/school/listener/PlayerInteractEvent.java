@@ -16,7 +16,9 @@ public class PlayerInteractEvent implements Listener {
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (p.getItemInHand() != null) {
                 if (p.getItemInHand().getItemMeta() != null) {
-                    interactCase(p,e);
+                    if(p.getItemInHand().getItemMeta().getDisplayName() != null) {
+                        interactCase(p, e);
+                    }
                 }
             }
         }

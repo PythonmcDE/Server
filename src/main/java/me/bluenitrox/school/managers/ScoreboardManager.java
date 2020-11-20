@@ -28,7 +28,7 @@ public class ScoreboardManager {
 
         ScoreboardScore a1 = new ScoreboardScore(scoreboard, obj, " ");
         ScoreboardScore a2 = new ScoreboardScore(scoreboard, obj, "§8● §7Aktuelles Level");
-        ScoreboardScore a11 = new ScoreboardScore(scoreboard, obj, "   §6LEVEL HERE");
+        ScoreboardScore a11 = new ScoreboardScore(scoreboard, obj, "   §6" + ExpManager.getLevel(p.getUniqueId()));
         ScoreboardScore a4 = new ScoreboardScore(scoreboard, obj, "           ");
         ScoreboardScore a5 = new ScoreboardScore(scoreboard, obj, "§8● §7Nächstes Level");
         ScoreboardScore a12 = new ScoreboardScore(scoreboard, obj, "   §a▊▊▊▊§7▊▊");

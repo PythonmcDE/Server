@@ -16,22 +16,18 @@ public class PlayerQuitListener implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         e.setQuitMessage(null);
-        //if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId())) {
-        if(SchoolMode.playerMoney.containsKey(p.getUniqueId())){
+        if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId())) {
             try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ? WHERE spieleruuid = ?")) {
                 ps.setFloat(1, SchoolMode.getPlayerMoney(p.getUniqueId()));
-                //ps.setFloat(2, SchoolMode.getPlayerExp(p.getUniqueId()));
-               // ps.setInt(3, SchoolMode.getPlayerMine(p.getUniqueId()));
-                //ps.setInt(4, SchoolMode.getPlayerBlocks(p.getUniqueId()));
-                ps.setInt(2,0);
-                ps.setInt(3,1);
-                ps.setInt(4,0);
+                ps.setFloat(2, SchoolMode.getPlayerExp(p.getUniqueId()));
+                ps.setInt(3, SchoolMode.getPlayerMine(p.getUniqueId()));
+                ps.setInt(4, SchoolMode.getPlayerBlocks(p.getUniqueId()));
                 ps.setString(5, p.getUniqueId().toString());
                 ps.executeUpdate();
 
-                //SchoolMode.playerBlocks.remove(p.getUniqueId());
-                //SchoolMode.playerExp.remove(p.getUniqueId());
-                //SchoolMode.playerMine.remove(p.getUniqueId());
+                SchoolMode.playerBlocks.remove(p.getUniqueId());
+                SchoolMode.playerExp.remove(p.getUniqueId());
+                SchoolMode.playerMine.remove(p.getUniqueId());
                 SchoolMode.playerMoney.remove(p.getUniqueId());
             }catch (SQLException ex) {
                 ex.printStackTrace();

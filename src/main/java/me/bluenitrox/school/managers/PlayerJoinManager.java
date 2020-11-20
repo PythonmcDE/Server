@@ -1,6 +1,7 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mysql.MySQL;
 
 import java.sql.PreparedStatement;
@@ -18,13 +19,13 @@ public class PlayerJoinManager {
             configuratePlayer(uuid);
         }
         float money = MoneyManager.getMoneyDatabase(uuid);
-        //float exp = ExpManager.getExpDatabase(uuid);
-        //int mine = MinenManager.getMineDatabase(uuid);
-        //int blocks = PlayerBreakBlockManager.getBlocksDatabase(uuid);
+        float exp = ExpManager.getExpDatabase(uuid);
+        int mine = MinenManager.getMineDatabase(uuid);
+        int blocks = PlayerBreakBlockManager.getBlocksDatabase(uuid);
         SchoolMode.setPlayerMoney(uuid, money);
-       // SchoolMode.setPlayerExp(uuid, exp);
-       // SchoolMode.setPlayerMine(uuid, mine);
-       // SchoolMode.setPlayerBlocks(uuid, blocks);
+        SchoolMode.setPlayerExp(uuid, exp);
+        SchoolMode.setPlayerMine(uuid, mine);
+        SchoolMode.setPlayerBlocks(uuid, blocks);
 
     }
     public static void configuratePlayer(UUID uuid) {
@@ -33,7 +34,7 @@ public class PlayerJoinManager {
                 ps.setString(1, uuid.toString());
                 ps.setFloat(2, 1000);
                 ps.setInt(3, 1);
-                ps.setFloat(4, 0);
+                ps.setFloat(4, 1);
                 ps.setInt(5, 1);
                 ps.setInt(6, 0);
                 ps.setInt(7, 0);

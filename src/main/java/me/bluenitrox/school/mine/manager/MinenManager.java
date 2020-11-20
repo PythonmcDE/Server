@@ -182,10 +182,11 @@ public class MinenManager {
                 String temp = rs.getString("eckpoint1");
                 String temp2 = rs.getString("eckpoint2");
 
-                loc1 = new LocationManager(temp).getLocation();
-                loc2 = new LocationManager(temp2).getLocation();
+                loc1 = new LocationManager(temp + mine).getLocation();
+                loc2 = new LocationManager(temp2 + mine).getLocation();
                 templist.add(loc1);
                 templist.add(loc2);
+                return templist;
             }
         }catch (SQLException e){
             e.printStackTrace();

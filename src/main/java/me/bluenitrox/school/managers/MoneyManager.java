@@ -18,17 +18,14 @@ public class MoneyManager {
                 ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
             }
         } else {
-            if(beachtungVonDoubleGemBooster) {
-                //TODO CHECK OB DOUBLE MONEY AN IST WENN JA VERDOPPELN
-                float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
-                newAmount = newAmount * MessageManager.MONEY_BOOSTER_BOOST;
-                SchoolMode.setPlayerMoney(uuid, newAmount);
-                ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
-            }else {
-                float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
-                SchoolMode.setPlayerMoney(uuid, newAmount);
-                ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
-            }
+            /*//TODO CHECK OB DOUBLE MONEY AN IST WENN JA VERDOPPELN
+                    float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
+                    newAmount = newAmount * MessageManager.MONEY_BOOSTER_BOOST;
+                    SchoolMode.setPlayerMoney(uuid, newAmount);
+                    ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));*/
+            float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
+            SchoolMode.setPlayerMoney(uuid, newAmount);
+            ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
         }
     }
 
