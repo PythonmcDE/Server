@@ -33,6 +33,13 @@ commands:
   test:
   testzwei:
   getcases:
+  ah:
+    aliases:
+      - auktionshaus
+      - auctionhouse
+      - trade
+      - house
+      - haus
   build:
     aliases:
       - bauen

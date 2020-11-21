@@ -1,13 +1,17 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.ah.AhManager;
+import me.bluenitrox.school.features.InventoryLoader;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.Inventory;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PlayerQuitListener implements Listener {
@@ -16,6 +20,11 @@ public class PlayerQuitListener implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         e.setQuitMessage(null);
+
+        InventoryLoader.update(p.getUniqueId(),InventoryLoader.encodeItem(p.getInventory()));
+
+        //p.getInventory().clear();
+
         if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId())) {
             try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ? WHERE spieleruuid = ?")) {
                 ps.setFloat(1, SchoolMode.getPlayerMoney(p.getUniqueId()));
@@ -33,7 +42,20 @@ public class PlayerQuitListener implements Listener {
                 ex.printStackTrace();
             }
         }
-        //Maps aus der Main leeren
-        //Daten übertragen
+        removeAhItems(e.getPlayer());
+    }
+
+    private void removeAhItems(Player e){
+        if (AhManager.getAhItems(e.getPlayer()) != 0) {
+            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItems WHERE spieleruuid = ?")) {
+                ps.setString(1, e.getPlayer().getUniqueId().toString());
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    AhManager.removeItem(rs.getInt(1));
+                }
+            } catch (SQLException ee) {
+                ee.printStackTrace();
+            }
+        }
     }
 }

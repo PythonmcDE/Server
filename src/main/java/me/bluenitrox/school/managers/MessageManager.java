@@ -126,6 +126,9 @@ public class MessageManager {
         }
     }
 
+
+    public static boolean ah = true;
+
     public static int MONEY_BOOSTER_BOOST = 2;
     public static int MAX_MINE = getMaxMine();
 

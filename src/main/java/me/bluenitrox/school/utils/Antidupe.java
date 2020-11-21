@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Antidupe {
 
     public static int nextItemID;
-    public static ArrayList<Integer> ids = new ArrayList<>();
+    public static ArrayList<Integer> ids;
 
     public static ItemStack addID(ItemStack i){
         NBTTags nbt = new NBTTags(i);
@@ -20,63 +20,89 @@ public class Antidupe {
         return i;
     }
 
-    public static void checkInventory(Inventory inv){
+    public static void checkInventory(Inventory inv,Player p){
+        ids = new ArrayList<>();
         for(int i = 0; i <= 35; i++) {
-            if (inv.getItem(i) != null) {
-                if (inv.getItem(i).getItemMeta() != null) {
-                    NBTTags nbt = new NBTTags(inv.getItem(i));
-                    if (nbt.getNBTTag("antidupe") != null) {
-                        if (ids.contains(nbt.getNBTTag("antidupe").toString())) {
-                            inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
-                                    .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
-                                            "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
-                        }
-                        ids.add(Integer.parseInt(nbt.getNBTTag("antidupe").toString()));
-                    }
-
-                }
-            }
-        }
-        ids.clear();
-    }
-
-    public static void checkAllInventorys(Inventory inv){
-        for(int i = 0; i <= 35; i++) {
-            if (inv.getItem(i) != null) {
-                if (inv.getItem(i).getItemMeta() != null) {
-                    NBTTags nbt = new NBTTags(inv.getItem(i));
-                    if (nbt.getNBTTag("antidupe") != null) {
-                        if (ids.contains(nbt.getNBTTag("antidupe").toString())) {
-                            inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
-                                    .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
-                                            "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
-                        }
-                        ids.add(Integer.parseInt(nbt.getNBTTag("antidupe").toString()));
-                    }
-
-                }
-            }
-        }
-    }
-
-    public static void checkChest(Inventory inv, Player p){
-        for(int i = 0; i <= inv.getSize() + 35; i++){
             if(inv.getItem(i) != null){
                 if (inv.getItem(i).getItemMeta() != null) {
                     NBTTags nbt = new NBTTags(inv.getItem(i));
                     if (nbt.getNBTTag("antidupe") != null) {
                         String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
                         int id = Integer.parseInt(test[1]);
-                        ids.add(id);
                         if(ids != null) {
-                            p.sendMessage("ID Array " + ids.get(0));
                             if (ids.contains(id)) {
                                 inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
                                                 "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
                             }
                         }
+                        ids.add(id);
                     }
+                }
+            }
+        }
+        ids.clear();
+    }
+
+    public static void checkAllInventorys(Inventory inv, Player p){
+        for(int i = 0; i < 36; i++) {
+            if(inv.getItem(i) != null){
+                if (inv.getItem(i).getItemMeta() != null) {
+                    NBTTags nbt = new NBTTags(inv.getItem(i));
+                    if (nbt.getNBTTag("antidupe") != null) {
+                        String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
+                        int id = Integer.parseInt(test[1]);
+                        if(ids != null) {
+                            if (ids.contains(id)) {
+                                inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
+                                        .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
+                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                            }
+                        }
+                        ids.add(id);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void checkChest(Inventory inv, Player p){
+        ids = new ArrayList<>();
+        for(int i = 0; i <= inv.getSize() - 1; i++){
+            if(inv.getItem(i) != null){
+                if (inv.getItem(i).getItemMeta() != null) {
+                    NBTTags nbt = new NBTTags(inv.getItem(i));
+                    if (nbt.getNBTTag("antidupe") != null) {
+                        String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
+                        int id = Integer.parseInt(test[1]);
+                        if(ids != null) {
+                            if (ids.contains(id)) {
+                                inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
+                                        .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
+                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                            }
+                        }
+                        ids.add(id);
+                    }
+                }
+            }
+        }
+        Inventory invzwei = p.getInventory();
+        for(int i = 0; i < inv.getSize() + 36 -1; i++) {
+            if (invzwei.getItem(i) != null) {
+                if (invzwei.getItem(i).getItemMeta() != null) {
+                    NBTTags nbt = new NBTTags(invzwei.getItem(i));
+                    if (nbt.getNBTTag("antidupe") != null) {
+                        String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
+                        int id = Integer.parseInt(test[1]);
+                        if (ids.contains(id)) {
+                            invzwei.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
+                                    .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
+                                            "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                        }
+                        ids.add(id);
+                    }
+
                 }
             }
         }

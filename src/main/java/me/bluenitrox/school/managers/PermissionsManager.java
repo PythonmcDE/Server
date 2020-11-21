@@ -20,5 +20,10 @@ public class PermissionsManager {
     public static final String SET_MINE = "System.Mine.Set";
     public static final String MINE_HELP = "System.Mine.Help";
     public static final String BUILD = "System.Build";
+    public static final String AHITEMSEINS = "System.ah.moreitems.1";
+    public static final String AHITEMSZWEI = "System.ah.moreitems.2";
+    public static final String AHITEMSDREI = "System.ah.moreitems.3";
+    public static final String AHITEMSVIER = "System.ah.moreitems.4";
+    public static final String AHOFF = "System.ah.offline";
 
 }

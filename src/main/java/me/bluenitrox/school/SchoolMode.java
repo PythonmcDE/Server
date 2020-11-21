@@ -1,5 +1,7 @@
 package me.bluenitrox.school;
 
+import me.bluenitrox.school.ah.AhListener;
+import me.bluenitrox.school.ah.Ah_CMD;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.listener.*;
@@ -11,12 +13,16 @@ import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
@@ -46,6 +52,7 @@ public class SchoolMode extends JavaPlugin {
         register(Bukkit.getPluginManager());
         startMySQL();
         getCurrentDupeID();
+        startAntiDupe();
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
     }
 
@@ -77,6 +84,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("mine").setExecutor(new Mine());
         getCommand("sell").setExecutor(new Sell());
         getCommand("build").setExecutor(new Build());
+        getCommand("ah").setExecutor(new Ah_CMD());
 
 
         //
@@ -94,9 +102,26 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PreCraftEvent(), this);
         pm.registerEvents(new BreakBlockEvent(), this);
         pm.registerEvents(new PlayerCommandPreprocessEvent(), this);
+        pm.registerEvents(new AhListener(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/4)");
+    }
+
+    private void startAntiDupe(){
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                Antidupe.ids = new ArrayList<>();
+                for(Player all: Bukkit.getOnlinePlayers()){
+                    Antidupe.checkAllInventorys(all.getInventory(), all);
+                    Antidupe.ids.clear();
+                    all.sendMessage("ARRAY CLEARED");
+                    return;
+                }
+            }
+        }.runTaskTimerAsynchronously(this,20*5, 20*5);
     }
 
     private void getCurrentDupeID(){
@@ -156,7 +181,7 @@ public class SchoolMode extends JavaPlugin {
         }
 
         try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `datatable` ( `dupeid` INT(11) NOT NULL , PRIMARY KEY (`dupeid`))");
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `datatable` ( `dupeid` INT(11) NOT NULL ,`UUID` VARCHAR(36) NOT NULL, Inv Text , PRIMARY KEY (`dupeid`))");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -166,6 +191,13 @@ public class SchoolMode extends JavaPlugin {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `minen` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `name` VARCHAR(6) NOT NULL , `eckpoint1` VARCHAR(30) NOT NULL , `eckpoint2` VARCHAR(30) NOT NULL , `blocksforreset` INT(11) NOT NULL , PRIMARY KEY (`id`))");
             ps.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try{
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS AhItems ( `id` INT(11) NOT NULL AUTO_INCREMENT , `spieleruuid` CHAR(36) NOT NULL , `item` TEXT NOT NULL , `preis` INT(11) NOT NULL , PRIMARY KEY (`id`))");
+            ps.executeUpdate();
+        }catch (SQLException e){
             e.printStackTrace();
         }
 

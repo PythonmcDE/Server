@@ -16,6 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import me.bluenitrox.school.features.CaseItems;
 
 public class CaseAPI {
 
@@ -219,13 +220,27 @@ public class CaseAPI {
     }
 
     private void clearAllArrays(){
-        CaseItems.daily.clear();
-        CaseItems.gewöhnlich.clear();
-        CaseItems.selten.clear();
-        CaseItems.episch.clear();
-        CaseItems.legendär.clear();
-        CaseItems.mysthische.clear();
-        CaseItems.tier.clear();
+        if(CaseItems.daily != null) {
+            CaseItems.daily.clear();
+        }
+        if(CaseItems.gewöhnlich != null) {
+            CaseItems.gewöhnlich.clear();
+        }
+        if(CaseItems.selten != null) {
+            CaseItems.selten.clear();
+        }
+        if(CaseItems.episch != null) {
+            CaseItems.episch.clear();
+        }
+        if(CaseItems.legendär != null) {
+            CaseItems.legendär.clear();
+        }
+        if(CaseItems.mysthische != null) {
+            CaseItems.mysthische.clear();
+        }
+        if(CaseItems.tier != null) {
+            CaseItems.tier.clear();
+        }
     }
 
     private short rareFromColor(String name){

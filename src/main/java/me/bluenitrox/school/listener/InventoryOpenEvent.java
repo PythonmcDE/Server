@@ -11,13 +11,6 @@ public class InventoryOpenEvent implements Listener {
 
     @EventHandler
     public void onOpen(final org.bukkit.event.inventory.InventoryOpenEvent e){
-        if(e.getInventory().getType() == InventoryType.PLAYER) {
-            Bukkit.getOnlinePlayers().forEach(player -> {
-                Antidupe.checkAllInventorys(player.getInventory());
-                Antidupe.ids.clear();
-                return;
-            });
-        }
         if(e.getInventory().getType() == InventoryType.CHEST){
             Antidupe.checkChest(e.getInventory(), (Player) e.getPlayer());
             return;

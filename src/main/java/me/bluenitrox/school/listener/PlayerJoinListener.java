@@ -1,5 +1,8 @@
 package me.bluenitrox.school.listener;
 
+import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.features.InventoryLoader;
+import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
@@ -21,12 +24,16 @@ public class PlayerJoinListener implements Listener {
         Player p = e.getPlayer();
         PlayerJoinManager.cachPlayerData(p.getUniqueId());
 
+        //p.getInventory().clear();
+        InventoryLoader.loadInv(p);
+
         //
 
         org.bukkit.scoreboard.ScoreboardManager manager = (org.bukkit.scoreboard.ScoreboardManager) Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
-        Objective objective = board.registerNewObjective("§6§lLevel", "deaths");
+        Objective objective = board.registerNewObjective("showhealth", "health");
         objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+        objective.setDisplayName(" §6§lLevel");
         for(Player online : Bukkit.getOnlinePlayers()){
             online.setScoreboard(board);
         }
@@ -38,7 +45,7 @@ public class PlayerJoinListener implements Listener {
         p.setGameMode(GameMode.SURVIVAL);
         e.setJoinMessage(null);
         p.teleport(new LocationManager("spawn").getLocation());
-        Antidupe.checkInventory(e.getPlayer().getInventory());
+        Antidupe.checkInventory(e.getPlayer().getInventory(), e.getPlayer());
     }
 }
 

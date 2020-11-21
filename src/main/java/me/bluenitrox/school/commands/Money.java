@@ -17,6 +17,8 @@ import org.bukkit.entity.Player;
 
 public class Money implements CommandExecutor {
 
+    private SchoolMode SchoolMode;
+
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player)cs;
