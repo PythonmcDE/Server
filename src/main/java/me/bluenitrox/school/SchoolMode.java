@@ -5,6 +5,7 @@ import me.bluenitrox.school.ah.Ah_CMD;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.listener.*;
+import me.bluenitrox.school.managers.LevelManager;
 import me.bluenitrox.school.mine.commands.Sell;
 import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mysql.MySQL;
@@ -53,6 +54,7 @@ public class SchoolMode extends JavaPlugin {
         startMySQL();
         getCurrentDupeID();
         startAntiDupe();
+        LevelManager.registerLevel();
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
     }
 

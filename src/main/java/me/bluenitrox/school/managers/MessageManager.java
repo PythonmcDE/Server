@@ -126,6 +126,14 @@ public class MessageManager {
         }
     }
 
+    public static String SCHOOLXP(int i){
+        if(i == 0){
+            return PREFIX + "§7Folgender School XP Wert wurde dir gutgeschrieben: §6";
+        }else {
+            return PREFIX + "§7You have been credited with the following School XP value: §6";
+        }
+    }
+
 
     public static boolean ah = true;
 

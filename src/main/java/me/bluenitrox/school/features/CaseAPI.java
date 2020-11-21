@@ -244,7 +244,9 @@ public class CaseAPI {
     }
 
     private short rareFromColor(String name){
-        if(name.startsWith("§6")){
+        if(name.startsWith("§6§l")){
+            return 10;
+        }else if(name.startsWith("§6")){
             return 1;
         }else if(name.startsWith("§5")){
             return 10;

@@ -22,13 +22,8 @@ public class ExpManager {
     public static int getLevel(UUID uuid) {
         float xp = getExp(uuid);
 
-        double level = Math.sqrt((xp / 1000));
-        return (int) Math.floor(level);
-    }
 
-    public static int getLevelByXp(float xp) {
-        double level = Math.sqrt((xp / 1000));
-        return (int) Math.floor(level);
+        return 1;
     }
 
     public static float getExpDatabase(UUID uuid) {
@@ -61,12 +56,6 @@ public class ExpManager {
             float newAmount = getExp(uuid) + amount;
             SchoolMode.setPlayerExp(uuid, newAmount);
         }
-    }
-
-    public static boolean checkLevelUp(UUID uuid, float oldXp, float newXp) {
-        double oldlevel = getLevelByXp(oldXp);
-        double newLevel = getLevelByXp(newXp);
-        return newLevel > oldlevel;
     }
 
 
