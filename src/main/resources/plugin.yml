@@ -33,6 +33,7 @@ commands:
   test:
   testzwei:
   getcases:
+  exp:
   ah:
     aliases:
       - auktionshaus

@@ -25,18 +25,20 @@ public class PlayerQuitListener implements Listener {
 
         //p.getInventory().clear();
 
-        if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId())) {
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ? WHERE spieleruuid = ?")) {
+        if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId()) && SchoolMode.playerlevel.containsKey(p.getUniqueId())) {
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ?, level = ? WHERE spieleruuid = ?")) {
                 ps.setFloat(1, SchoolMode.getPlayerMoney(p.getUniqueId()));
                 ps.setFloat(2, SchoolMode.getPlayerExp(p.getUniqueId()));
                 ps.setInt(3, SchoolMode.getPlayerMine(p.getUniqueId()));
                 ps.setInt(4, SchoolMode.getPlayerBlocks(p.getUniqueId()));
-                ps.setString(5, p.getUniqueId().toString());
+                ps.setInt(5, SchoolMode.playerlevel.get(p.getUniqueId()));
+                ps.setString(6, p.getUniqueId().toString());
                 ps.executeUpdate();
 
                 SchoolMode.playerBlocks.remove(p.getUniqueId());
                 SchoolMode.playerExp.remove(p.getUniqueId());
                 SchoolMode.playerMine.remove(p.getUniqueId());
+                SchoolMode.playerlevel.remove(p.getUniqueId());
                 SchoolMode.playerMoney.remove(p.getUniqueId());
             }catch (SQLException ex) {
                 ex.printStackTrace();

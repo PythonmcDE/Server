@@ -2,6 +2,7 @@ package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.mysql.MySQL;
+import me.bluenitrox.school.utils.Firework;
 import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -20,10 +21,21 @@ import java.util.UUID;
 public class ExpManager {
 
     public static int getLevel(UUID uuid) {
+        return SchoolMode.playerlevel.get(uuid);
+    }
+
+    public static boolean checkLevelUp(float exp, float neededfornextlevel){
+        if(exp >= neededfornextlevel){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public static float neededExp(UUID uuid){
         float xp = getExp(uuid);
-
-
-        return 1;
+        float needed = LevelManager.level.get(getLevel(uuid));
+        return xp - needed;
     }
 
     public static float getExpDatabase(UUID uuid) {
@@ -34,6 +46,22 @@ public class ExpManager {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 xp = rs.getFloat("exp");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return xp;
+    }
+
+    public static int getLevelDatabase(UUID uuid) {
+        int xp = 0;
+
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT level FROM spielerdaten WHERE spieleruuid = ?")) {
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                xp = rs.getInt("level");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,19 +84,30 @@ public class ExpManager {
             float newAmount = getExp(uuid) + amount;
             SchoolMode.setPlayerExp(uuid, newAmount);
         }
+        if(checkLevelUp(getExp(uuid),LevelManager.level.get(SchoolMode.playerlevel.get(uuid)))){
+            SchoolMode.playerlevel.put(uuid, SchoolMode.playerlevel.get(uuid) + 1);
+            Bukkit.getPlayer(uuid).sendMessage("Levelup");
+            Firework.Firework(Bukkit.getPlayer(uuid));
+            ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+        }
     }
 
+    public static void updateLevelDatabase(UUID uuid, float amount, boolean remove) {
+        float currMoney = getLevelDatabase(uuid);
+        float newAmount;
+        if (remove) {
+            newAmount = currMoney - amount;
+        } else {
+            newAmount = (currMoney + amount);
+        }
 
-    public static float getExpToNextLevel(UUID uuid) {
-        float aktuelleXpAusDemLevel = (float)((getExp(uuid) - (1000 * Math.pow(getLevel(uuid), 2))));
-        float xpZumNaechstenLevel = (float)((1000 * Math.pow((getLevel(uuid) + 1), 2)) - (1000 * Math.pow((getLevel(uuid)), 2)));
-
-        return xpZumNaechstenLevel - aktuelleXpAusDemLevel;
-    }
-
-    public static String getExpToNextLevelString(UUID uuid) {
-        float exp = getExpToNextLevel(uuid);
-        return ValuetoString.valueToString(exp);
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET level = ? WHERE spieleruuid = ?")) {
+            ps.setFloat(1, newAmount);
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

@@ -134,6 +134,30 @@ public class MessageManager {
         }
     }
 
+    public static String CURRENTLEVEL(int i){
+        if(i == 0){
+            return PREFIX + "§7Dein Level: §6§l";
+        }else {
+            return PREFIX + "§7Your Level: §6§l";
+        }
+    }
+
+    public static String TOTALEXP(int i){
+        if(i == 0){
+            return PREFIX + "§7Dein Insgesamten EXP: §6";
+        }else {
+            return PREFIX + "§7Your total EXP: §6";
+        }
+    }
+
+    public static String NEEDEDEXP(int i){
+        if(i == 0){
+            return PREFIX + "§7Benötigte EXP bis zum Levelaufstieg: §6";
+        }else {
+            return PREFIX + "§7Needed EXP for Levelup: §6";
+        }
+    }
+
 
     public static boolean ah = true;
 

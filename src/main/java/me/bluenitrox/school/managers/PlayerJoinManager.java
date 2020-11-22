@@ -26,11 +26,12 @@ public class PlayerJoinManager {
         SchoolMode.setPlayerExp(uuid, exp);
         SchoolMode.setPlayerMine(uuid, mine);
         SchoolMode.setPlayerBlocks(uuid, blocks);
+        SchoolMode.playerlevel.put(uuid,ExpManager.getLevelDatabase(uuid));
 
     }
     public static void configuratePlayer(UUID uuid) {
         if(!isUserExists(uuid)) {
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO spielerdaten (spieleruuid, money, dungeon, exp, mine, prestige, kills, deaths, cases, bloecke, mob, chests) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO spielerdaten (spieleruuid, money, dungeon, exp, mine, prestige, kills, deaths, cases, bloecke, mob, chests, level) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
                 ps.setString(1, uuid.toString());
                 ps.setFloat(2, 1000);
                 ps.setInt(3, 1);
@@ -43,6 +44,7 @@ public class PlayerJoinManager {
                 ps.setInt(10, 0);
                 ps.setInt(11, 0);
                 ps.setInt(12, 0);
+                ps.setInt(13, 1);
                 ps.executeUpdate();
             }catch (SQLException e) {
                 e.printStackTrace();

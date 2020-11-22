@@ -71,7 +71,7 @@ public class PlayerInteractEvent implements Listener {
                 p.setItemInHand(air);
             }
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-            p.sendMessage(MessageManager.SCHOOLXP(PlayerJoinManager.language));
+            p.sendMessage(MessageManager.SCHOOLXP(PlayerJoinManager.language) + anzahl);
         }
     }
 

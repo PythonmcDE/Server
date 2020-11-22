@@ -42,6 +42,7 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Float> playerExp = new HashMap<>();
     public static HashMap<UUID, Integer> playerBlocks = new HashMap<>();
     public static HashMap<UUID, Integer> playerMine = new HashMap<>();
+    public static HashMap<UUID, Integer> playerlevel = new HashMap<>();
     private static final Random r = new Random();
 
 
@@ -87,6 +88,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("sell").setExecutor(new Sell());
         getCommand("build").setExecutor(new Build());
         getCommand("ah").setExecutor(new Ah_CMD());
+        getCommand("exp").setExecutor(new Exp());
 
 
         //
@@ -117,6 +119,7 @@ public class SchoolMode extends JavaPlugin {
             public void run() {
                 Antidupe.ids = new ArrayList<>();
                 for(Player all: Bukkit.getOnlinePlayers()){
+                    playerlevel.get(all.getUniqueId());
                     Antidupe.checkAllInventorys(all.getInventory(), all);
                     Antidupe.ids.clear();
                     all.sendMessage("ARRAY CLEARED");
@@ -168,7 +171,7 @@ public class SchoolMode extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§4Erstelle §4Tabellen...");
         //Tabellen Erstellung
         try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `spielerdaten` ( `spieleruuid` CHAR(36) NOT NULL , `money` BIGINT(11) NOT NULL , `dungeon` INT(11) NOT NULL ,`exp` FLOAT NOT NULL , `mine` INT(11) NOT NULL , `prestige` INT(11) NOT NULL , `kills` INT(11) NOT NULL , `deaths` INT(11) NOT NULL , `cases` INT(11) NOT NULL , `bloecke` INT(11) NOT NULL , `mob` INT(11) NOT NULL ,`chests` INT(11) NOT NULL , PRIMARY KEY (`spieleruuid`))");
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `spielerdaten` ( `spieleruuid` CHAR(36) NOT NULL , `money` BIGINT(11) NOT NULL , `dungeon` INT(11) NOT NULL ,`exp` FLOAT NOT NULL , `mine` INT(11) NOT NULL , `prestige` INT(11) NOT NULL , `kills` INT(11) NOT NULL , `deaths` INT(11) NOT NULL , `cases` INT(11) NOT NULL , `bloecke` INT(11) NOT NULL , `mob` INT(11) NOT NULL ,`chests` INT(11) NOT NULL ,`level` INT(11) NOT NULL , PRIMARY KEY (`spieleruuid`))");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
