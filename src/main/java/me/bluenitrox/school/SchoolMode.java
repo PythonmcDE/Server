@@ -121,6 +121,7 @@ public class SchoolMode extends JavaPlugin {
                 for(Player all: Bukkit.getOnlinePlayers()){
                     playerlevel.get(all.getUniqueId());
                     Antidupe.checkAllInventorys(all.getInventory(), all);
+                    return;
                 }
                 Antidupe.ids.clear();
             }
