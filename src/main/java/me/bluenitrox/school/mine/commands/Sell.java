@@ -47,7 +47,7 @@ public class Sell implements CommandExecutor {
             }else {
                 p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1L, 1L);
                 p.sendMessage(MessageManager.PREFIX + "§7Du hast §a+" + ValuetoString.valueToString(total) + " §7bekommen" + " NOCH IN ENGLISH!!!");
-                MoneyManager.updateMoney(p.getUniqueId(), total, true, true);
+                MoneyManager.updateMoney(p.getUniqueId(), total, false, true);
             }
         }
         return false;

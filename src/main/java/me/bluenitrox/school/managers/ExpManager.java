@@ -35,7 +35,7 @@ public class ExpManager {
     public static float neededExp(UUID uuid){
         float xp = getExp(uuid);
         float needed = LevelManager.level.get(getLevel(uuid));
-        return xp - needed;
+        return needed - xp;
     }
 
     public static float getExpDatabase(UUID uuid) {
@@ -89,7 +89,9 @@ public class ExpManager {
             Bukkit.getPlayer(uuid).sendMessage("Levelup");
             Firework.Firework(Bukkit.getPlayer(uuid));
             ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+            return;
         }
+        ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
     }
 
     public static void updateLevelDatabase(UUID uuid, float amount, boolean remove) {

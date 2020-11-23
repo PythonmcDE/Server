@@ -3,6 +3,12 @@ package me.bluenitrox.school.managers;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mysql.MySQL;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,13 +35,14 @@ public class PlayerJoinManager {
         SchoolMode.playerlevel.put(uuid,ExpManager.getLevelDatabase(uuid));
 
     }
+
     public static void configuratePlayer(UUID uuid) {
         if(!isUserExists(uuid)) {
             try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO spielerdaten (spieleruuid, money, dungeon, exp, mine, prestige, kills, deaths, cases, bloecke, mob, chests, level) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
                 ps.setString(1, uuid.toString());
                 ps.setFloat(2, 1000);
                 ps.setInt(3, 1);
-                ps.setFloat(4, 1);
+                ps.setFloat(4, 1000);
                 ps.setInt(5, 1);
                 ps.setInt(6, 0);
                 ps.setInt(7, 0);
@@ -62,5 +69,18 @@ public class PlayerJoinManager {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static void updateBelowName(Player p){
+        org.bukkit.scoreboard.ScoreboardManager manager = (org.bukkit.scoreboard.ScoreboardManager) Bukkit.getScoreboardManager();
+        Scoreboard board = manager.getNewScoreboard();
+        Objective objective = board.registerNewObjective("showkill", "player_kills");
+        objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+        objective.setDisplayName(" §6§lLevel");
+        for(Player online : Bukkit.getOnlinePlayers()){
+            online.setScoreboard(board);
+            final Score score = objective.getScore(online);
+            score.setScore(ExpManager.getLevel(online.getUniqueId()));
+        }
     }
 }

@@ -1,6 +1,8 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.commands.Exp;
+import org.apache.logging.log4j.core.pattern.LevelPatternConverter;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -16,6 +18,8 @@ import net.minecraft.server.v1_8_R3.ScoreboardScore;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 
+import java.util.UUID;
+
 public class ScoreboardManager {
 
     public static void setBoard(Player p) {
@@ -27,16 +31,16 @@ public class ScoreboardManager {
         PacketPlayOutScoreboardDisplayObjective display = new PacketPlayOutScoreboardDisplayObjective(1, obj);
 
         ScoreboardScore a1 = new ScoreboardScore(scoreboard, obj, " ");
-        ScoreboardScore a2 = new ScoreboardScore(scoreboard, obj, "§8● §7Aktuelles Level");
+        ScoreboardScore a2 = new ScoreboardScore(scoreboard, obj, "§8● §7Level");
         ScoreboardScore a11 = new ScoreboardScore(scoreboard, obj, "   §6" + ExpManager.getLevel(p.getUniqueId()));
         ScoreboardScore a4 = new ScoreboardScore(scoreboard, obj, "           ");
         ScoreboardScore a5 = new ScoreboardScore(scoreboard, obj, "§8● §7Nächstes Level");
-        ScoreboardScore a12 = new ScoreboardScore(scoreboard, obj, "   §a▊▊▊▊§7▊▊");
+        ScoreboardScore a12 = new ScoreboardScore(scoreboard, obj, umrechnungToString(p.getUniqueId()));
         ScoreboardScore a6 = new ScoreboardScore(scoreboard, obj, "  ");
         ScoreboardScore a30 = new ScoreboardScore(scoreboard, obj, "§8● §7Money");
         ScoreboardScore a40 = new ScoreboardScore(scoreboard, obj, "   §6" + SchoolMode.getPlayerMoney(p.getUniqueId()));
         ScoreboardScore a41 = new ScoreboardScore(scoreboard, obj, "    ");
-        ScoreboardScore a7 = new ScoreboardScore(scoreboard, obj, "§7§m--------------");
+        ScoreboardScore a7 = new ScoreboardScore(scoreboard, obj, "§8§m-------------");
         ScoreboardScore a8 = new ScoreboardScore(scoreboard, obj, "§8» §7IP: §c§lDemonMC.eu");
         //ScoreboardScore a3 = new ScoreboardScore(scoreboard, obj, "§9      ");
         a1.setScore(12);
@@ -83,6 +87,30 @@ public class ScoreboardManager {
         sendPacket(pa16, p);
         sendPacket(pa17, p);
 
+    }
+
+    private static String umrechnungToString(UUID uuid){
+        Player p = Bukkit.getPlayer(uuid);
+        float playerexpbefor = LevelManager.level.get(ExpManager.getLevel(uuid)-1);
+        float sechstel = (LevelManager.level.get(ExpManager.getLevel(uuid)) - playerexpbefor) / 6;
+        float current = ExpManager.getExp(uuid);
+        float differenz = current - playerexpbefor;
+
+        p.sendMessage(differenz + " >= " + sechstel);
+
+        if(differenz >= sechstel*5){
+            return "   §a▊▊▊▊▊§7▊";
+        }else if(differenz >= sechstel*4){
+            return "   §a▊▊▊▊§7▊▊";
+        }else if(differenz >= sechstel*3){
+            return "   §a▊▊▊§7▊▊▊";
+        }else if(differenz >= sechstel*2){
+            return "   §a▊▊§7▊▊▊▊";
+        }else if(differenz >= sechstel*1){
+            return "   §a▊§7▊▊▊▊▊";
+        }else {
+            return "   §7▊▊▊▊▊▊";
+        }
     }
 
     private static void sendPacket(Packet packet, Player p) {

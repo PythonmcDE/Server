@@ -14,6 +14,7 @@ public class Exp implements CommandExecutor {
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player)cs;
         if(args.length == 0){
+            ExpManager.updateXP(p.getUniqueId(), 100, false);
             p.sendMessage(MessageManager.CURRENTLEVEL(PlayerJoinManager.language) + ExpManager.getLevel(p.getUniqueId()));
             p.sendMessage(MessageManager.TOTALEXP(PlayerJoinManager.language) + ExpManager.getExp(p.getUniqueId()));
             p.sendMessage(MessageManager.NEEDEDEXP(PlayerJoinManager.language) + ExpManager.neededExp(p.getUniqueId()));
