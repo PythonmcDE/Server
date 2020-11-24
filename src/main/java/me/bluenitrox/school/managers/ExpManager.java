@@ -84,12 +84,13 @@ public class ExpManager {
             float newAmount = getExp(uuid) + amount;
             SchoolMode.setPlayerExp(uuid, newAmount);
         }
-        if(checkLevelUp(getExp(uuid),LevelManager.level.get(SchoolMode.playerlevel.get(uuid)))){
-            SchoolMode.playerlevel.put(uuid, SchoolMode.playerlevel.get(uuid) + 1);
-            Bukkit.getPlayer(uuid).sendMessage("Levelup");
-            Firework.Firework(Bukkit.getPlayer(uuid));
-            ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
-            return;
+        for(int i = 0; i != 50; i++) {
+            if (checkLevelUp(getExp(uuid), LevelManager.level.get(SchoolMode.playerlevel.get(uuid)))) {
+                SchoolMode.playerlevel.put(uuid, SchoolMode.playerlevel.get(uuid) + 1);
+                Bukkit.getPlayer(uuid).sendMessage("Levelup");
+                Firework.Firework(Bukkit.getPlayer(uuid));
+                ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+            }
         }
         ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
     }

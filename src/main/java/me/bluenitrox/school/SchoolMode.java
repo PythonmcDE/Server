@@ -1,6 +1,7 @@
 package me.bluenitrox.school;
 
 import me.bluenitrox.school.ah.AhListener;
+import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.ah.Ah_CMD;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
@@ -55,6 +56,7 @@ public class SchoolMode extends JavaPlugin {
         startMySQL();
         getCurrentDupeID();
         startAntiDupe();
+        startAhUpdate();
         LevelManager.registerLevel();
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
     }
@@ -67,6 +69,7 @@ public class SchoolMode extends JavaPlugin {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ahDisable();
         MySQL.disconnect();
     }
 
@@ -89,6 +92,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("build").setExecutor(new Build());
         getCommand("ah").setExecutor(new Ah_CMD());
         getCommand("exp").setExecutor(new Exp());
+        getCommand("spawn").setExecutor(new Spawn());
 
 
         //
@@ -148,6 +152,25 @@ public class SchoolMode extends JavaPlugin {
         }
     }
 
+    private void startAhUpdate(){
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                Bukkit.getOnlinePlayers().forEach(all -> {
+                    if (all.getOpenInventory() != null) {
+                        if (all.getOpenInventory().getTitle().equals(Ah_CMD.GUI_NAME)) {
+                            String[] stringregex = all.getOpenInventory().getItem(4).getItemMeta().getLore().get(2).split(" ");
+                            int currPage = Integer.parseInt(stringregex[3]);
+
+                            AhManager.setAhContent(all.getOpenInventory().getTopInventory(), currPage, all);
+                            all.updateInventory();
+                        }
+                    }
+                });
+            }
+        }.runTaskTimerAsynchronously(this,20,20);
+    }
+
     private static boolean isDupeIDExists() {
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM datatable");
@@ -157,6 +180,32 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void ahDisable(){
+        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItems")){
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String spieleruuid = rs.getString(2);
+                String item = rs.getString(3);
+                try (PreparedStatement ps2 = MySQL.getConnection().prepareStatement("INSERT INTO AhItemsAbgelaufen (spieleruuid, item) VALUES (?, ?)")) {
+                    ps2.setString(1, spieleruuid);
+                    ps2.setString(2, item);
+                    ps2.execute();
+                    try(PreparedStatement ps3 = MySQL.getConnection().prepareStatement("DELETE FROM AhItems WHERE spieleruuid = ?")){
+                        ps3.setString(1, spieleruuid);
+                        ps3.execute();
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
+
+                } catch (SQLException e) {
+
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     private void startMySQL() {
@@ -199,7 +248,14 @@ public class SchoolMode extends JavaPlugin {
         }
 
         try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS AhItems ( `id` INT(11) NOT NULL AUTO_INCREMENT , `spieleruuid` CHAR(36) NOT NULL , `item` TEXT NOT NULL , `preis` INT(11) NOT NULL , PRIMARY KEY (`id`))");
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS AhItems ( `id` INT(11) NOT NULL AUTO_INCREMENT , `spieleruuid` CHAR(36) NOT NULL , `item` TEXT NOT NULL , `preis` INT(11) NOT NULL , `einstelldatum` TIMESTAMP(6) NOT NULL , `ablaufdatum` TIMESTAMP(6) NOT NULL , PRIMARY KEY (`id`))");
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        try{
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `AhItemsAbgelaufen` ( `id` INT(11) NOT NULL AUTO_INCREMENT, `spieleruuid` CHAR(36) NOT NULL , `item` TEXT NOT NULL,  PRIMARY KEY (`id`))");
             ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();

@@ -12,7 +12,7 @@ public class ItemTimeManager {
 
     private int taskid;
 
-    public static HashMap<Integer, Integer> time = new HashMap<>();
+    public HashMap<Integer, Integer> time = new HashMap<>();
 
     public void startTicking(int id){
         new BukkitRunnable(){
@@ -38,16 +38,15 @@ public class ItemTimeManager {
         try {
             int sek = getTime(id);
             int min = 0;
-            while(sek > 60){
+            while(sek > 59){
                 min ++;
-                sek-=60;
+                sek-=59;
             }
             if(sek < 10){
                 return min + ":0" + sek;
             }
             return min + ":" + sek;
         }catch (Exception e){
-            Bukkit.broadcastMessage(e.getMessage());
             return "0";
         }
     }

@@ -21,7 +21,7 @@ public class AhListener implements Listener {
     public static String GUI_NAME = "§6§lAuktionen";
     public static String GUI_NAME1 = "§6§lAuktion §7kaufen";
 
-    public void onKlick2(InventoryClickEvent e) {
+    public static void onClickAuctionhouse(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         if (e.getClickedInventory().getName().equals(GUI_NAME1) && e.getCurrentItem() != null) {
 

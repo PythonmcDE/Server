@@ -34,6 +34,7 @@ commands:
   testzwei:
   getcases:
   exp:
+  spawn:
   ah:
     aliases:
       - auktionshaus

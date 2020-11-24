@@ -1,5 +1,6 @@
 package me.bluenitrox.school.listener;
 
+import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.features.CaseAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,6 +16,7 @@ public class InventoryClickEvent implements Listener {
             return;
         }
         caseClick(e);
+        AhListener.onClickAuctionhouse(e);
     }
 
     private void caseClick(org.bukkit.event.inventory.InventoryClickEvent e){
