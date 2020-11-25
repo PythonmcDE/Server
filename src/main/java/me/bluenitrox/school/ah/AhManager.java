@@ -59,12 +59,12 @@ public class AhManager {
                     if (imn.getLore() != null) {
                         lore.addAll(imnn);
                     }
-                    lore.add("§b=====================");
+                    lore.add("§8§m------------------");
                     lore.add("§6» §7Verkäufer: §a" + Bukkit.getOfflinePlayer(UUID.fromString(rs.getString(2))).getName());
                     lore.add("§6» §7Preis: " + enCode(rs.getInt(4)));
                     lore.add("§6» §7Verbleibende Zeit: " + itm.getTimeFromItem(rs.getInt(1)));
-                    lore.add("§6» §7Auktionsid: " + rs.getInt(1));
-                    lore.add("§b=====================");
+                    lore.add("§6» §7ItemID: " + rs.getInt(1));
+                    lore.add("§8§m------------------");
                     imn.setLore(lore);
                     item.setItemMeta(imn);
 
@@ -209,9 +209,9 @@ public class AhManager {
                 if (imn.getLore() != null){
                     lore.addAll(imnn);
                 }
-                lore.add("§b=====================");
-                lore.add("§6» §7Auktionsid: " + rs.getInt(1));
-                lore.add("§b=====================");
+                lore.add("§8§m------------------");
+                lore.add("§6» §7ItemID: " + rs.getInt(1));
+                lore.add("§8§m------------------");
                 imn.setLore(lore);
                 item.setItemMeta(imn);
 
@@ -248,11 +248,11 @@ public class AhManager {
                 if (imn.getLore() != null){
                     lore.addAll(imnn);
                 }
-                lore.add("§b=====================");
+                lore.add("§8§m------------------");
                 lore.add("§6» §7Verkäufer: §a" + Bukkit.getOfflinePlayer(UUID.fromString(rs.getString(2))).getName());
                 lore.add("§6» §7Preis: " + enCode(rs.getInt(4)));
-                lore.add("§6» §7Auktionsid: " + rs.getInt(1));
-                lore.add("§b=====================");
+                lore.add("§6» §7ItemID: " + rs.getInt(1));
+                lore.add("§8§m------------------");
                 imn.setLore(lore);
                 item.setItemMeta(imn);
 

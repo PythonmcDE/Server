@@ -3,6 +3,9 @@ package me.bluenitrox.school;
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.ah.Ah_CMD;
+import me.bluenitrox.school.boost.BoostInv;
+import me.bluenitrox.school.boost.BoosterAPI;
+import me.bluenitrox.school.boost.BoosterManager;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.listener.*;
@@ -45,6 +48,14 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Integer> playerMine = new HashMap<>();
     public static HashMap<UUID, Integer> playerlevel = new HashMap<>();
     private static final Random r = new Random();
+    private BoosterManager boostermanager;
+    public BoosterManager getBoostermanager() {
+        return boostermanager;
+    }
+    public void setBoostermanager(BoosterManager boostermanager) {
+        this.boostermanager = boostermanager;
+    }
+
 
 
     @Override
@@ -57,6 +68,7 @@ public class SchoolMode extends JavaPlugin {
         getCurrentDupeID();
         startAntiDupe();
         startAhUpdate();
+        setBoostermanager(new BoosterManager());
         LevelManager.registerLevel();
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
     }
@@ -93,6 +105,8 @@ public class SchoolMode extends JavaPlugin {
         getCommand("ah").setExecutor(new Ah_CMD());
         getCommand("exp").setExecutor(new Exp());
         getCommand("spawn").setExecutor(new Spawn());
+        getCommand("booster").setExecutor(new BoosterAPI());
+        getCommand("boosterinv").setExecutor(new BoostInv());
 
 
         //

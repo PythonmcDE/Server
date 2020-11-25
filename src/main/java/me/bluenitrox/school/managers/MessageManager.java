@@ -9,27 +9,27 @@ import java.util.HashMap;
 
 public class MessageManager {
 
-    public static String PREFIX = "§c§lDemonMC §8» ";
-    public static String ERROR = PREFIX + "§7Es ist ein §cFehler §7aufgetreten! Bitte Versuche es erneut";
-    public static String NOPLAYER = PREFIX + "§7Dazu musst du ein §cSpieler §7sein";
-    public static String KONTOSTANDOFOTHER = PREFIX + "§7Der Kontostand des Spielers §e";
-    public static String UPDATE_KONTOSTAND_OTHER = PREFIX + "§7Der Kontostand wurde §aaktualisiert§7.";
-    public static String SETOWNHEALTH = PREFIX + "§7Du hast dich §ageheilt§7.";
-    public static String PLAYERHEAL = PREFIX + "§7Du hast den Spieler §ageheilt§7.";
-    public static String SETOWNGAMEMODE = PREFIX + "§7Du hast dich in den §5Gamemode §7gesetzt!";
-    public static String SETOWNFEED = PREFIX + "§7Du hast deinen Hunger §agestillt§7.";
-    public static String SETOWNFLYTRUE = PREFIX + "§7Du bist nun im §aFlugmodus§7 und kannst §afliegen§7.";
-    public static String SETOWNFLYFALSE = PREFIX + "§7Du bist nun nichtmehr im §cFlugmodus§7 und kannst nichtmehr §cfliegen§7.";
-    public static String SETFLYOTHERTRUE = PREFIX + "§7Du hast den Spieler in den §aFlugmodus §7gesetzt.";
-    public static String SETFLYOTHERFALSE = PREFIX + "§7Du hast den Spieler aus dem §cFlugmodus §7gesetzt.";
-    public static String PLAYERSETGAMEMODE = PREFIX + "§7Du hast den Spieler in den §5Gamemode §7gesetzt!";
-    public static String PLAYERFEED = PREFIX + "§7Der Hunger des Spielers wurde gestillt.";
-    public static String SUCCESS_MINE_CHANGE = PREFIX + "§7Die Mine von dem Spieler wurde §cerfolgreich §7geupdatet";
-    public static String SUCCESS_MINE_CHANGE_OTHER = PREFIX + "§7Deine Mine wurde geupdatet";
-    public static String ERROR_MINE_CHANGE = PREFIX + "§7Die Mine von dem Spieler konnte §cnicht §7geupdatet werden";
-    public static String QUIT_BUILD = PREFIX + "§7Du bist nun §cnicht mehr §7im §6Buildmodus";
-    public static String JOIN_BUILD = PREFIX + "§7Du bist §anun §7im §6Buildmodus";
-    public static String MINE_HELP_DESCRIPTION = PREFIX + "§7Anleitung zum §aeinrichten §7einer neuen Mine: \n 1. " +
+    public static final String PREFIX = "§c§lDemonMC §8» ";
+    public static final String ERROR = PREFIX + "§7Es ist ein §cFehler §7aufgetreten! Bitte Versuche es erneut";
+    public static final String NOPLAYER = PREFIX + "§7Dazu musst du ein §cSpieler §7sein";
+    public static final String KONTOSTANDOFOTHER = PREFIX + "§7Der Kontostand des Spielers §e";
+    public static final String UPDATE_KONTOSTAND_OTHER = PREFIX + "§7Der Kontostand wurde §aaktualisiert§7.";
+    public static final String SETOWNHEALTH = PREFIX + "§7Du hast dich §ageheilt§7.";
+    public static final String PLAYERHEAL = PREFIX + "§7Du hast den Spieler §ageheilt§7.";
+    public static final String SETOWNGAMEMODE = PREFIX + "§7Du hast dich in den §5Gamemode §7gesetzt!";
+    public static final String SETOWNFEED = PREFIX + "§7Du hast deinen Hunger §agestillt§7.";
+    public static final String SETOWNFLYTRUE = PREFIX + "§7Du bist nun im §aFlugmodus§7 und kannst §afliegen§7.";
+    public static final String SETOWNFLYFALSE = PREFIX + "§7Du bist nun nichtmehr im §cFlugmodus§7 und kannst nichtmehr §cfliegen§7.";
+    public static final String SETFLYOTHERTRUE = PREFIX + "§7Du hast den Spieler in den §aFlugmodus §7gesetzt.";
+    public static final String SETFLYOTHERFALSE = PREFIX + "§7Du hast den Spieler aus dem §cFlugmodus §7gesetzt.";
+    public static final String PLAYERSETGAMEMODE = PREFIX + "§7Du hast den Spieler in den §5Gamemode §7gesetzt!";
+    public static final String PLAYERFEED = PREFIX + "§7Der Hunger des Spielers wurde gestillt.";
+    public static final String SUCCESS_MINE_CHANGE = PREFIX + "§7Die Mine von dem Spieler wurde §cerfolgreich §7geupdatet";
+    public static final String SUCCESS_MINE_CHANGE_OTHER = PREFIX + "§7Deine Mine wurde geupdatet";
+    public static final String ERROR_MINE_CHANGE = PREFIX + "§7Die Mine von dem Spieler konnte §cnicht §7geupdatet werden";
+    public static final String QUIT_BUILD = PREFIX + "§7Du bist nun §cnicht mehr §7im §6Buildmodus";
+    public static final String JOIN_BUILD = PREFIX + "§7Du bist §anun §7im §6Buildmodus";
+    public static final String MINE_HELP_DESCRIPTION = PREFIX + "§7Anleitung zum §aeinrichten §7einer neuen Mine: \n 1. " +
             "Die Beiden Eckpunkte der neuen Mine setzten mit folgendem Namen: eckpoint + (1 oder 2) + mine + (Nummer der neuen Mine). " +
             "Die Klammern musst du mit deinen Werten füllen. Am Ende sollte es ein Name sein, der diesem hier ähnelt §6eckpoint1mine1 §7 \n 2. " +
             "Jetzt benutz du den Command: §6/mine create <Name> <Eckpunkt 1> <Eckpunkt 2> <Blocksforreset>. §7Im Namen gibst du der neuen Mine " +
@@ -37,6 +37,7 @@ public class MessageManager {
             "Eckpunkt 1 und 2 trägst du deine eben erstellten Eckpunkte §6in Richtiger Reihenfolge§7 ein. Also der Eckpunkt 1 im Command ist dein " +
             "Erstellter Eckpunkt der mit dem Name §6eckpoint1.. §7anfangen sollte. Zum Schluss gibst du noch eine Anzahl ein, nach wie vielen abgebauten " +
             "Blöcke dich die Mine auffüllen soll. \n 3. Command absenden!";
+    public static final String BOOSTERARGS = PREFIX + "§7Bitte benutze: §b/booster add/remove <Spieler> <Boostername> <Anzahl>";
 
     public static String PLAYERWASSETGAMEMODE(int i){
         if(i == 0){
@@ -160,7 +161,6 @@ public class MessageManager {
 
 
     public static boolean ah = true;
-
     public static int MONEY_BOOSTER_BOOST = 2;
     public static int MAX_MINE = getMaxMine();
 

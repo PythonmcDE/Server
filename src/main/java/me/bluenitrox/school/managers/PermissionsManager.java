@@ -25,5 +25,6 @@ public class PermissionsManager {
     public static final String AHITEMSDREI = "System.ah.moreitems.3";
     public static final String AHITEMSVIER = "System.ah.moreitems.4";
     public static final String AHOFF = "System.ah.offline";
+    public static final String ADDBOOSTER = "System.booster.add";
 
 }
