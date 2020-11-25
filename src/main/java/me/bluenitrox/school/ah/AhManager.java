@@ -3,6 +3,7 @@ package me.bluenitrox.school.ah;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
+import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -23,10 +24,17 @@ import java.util.*;
 
 public class AhManager {
     public static int ahtaskid;
+    public static ArrayList<Player> openedAH = new ArrayList<>();
 
     public static void openAh(Inventory inv, int page, Player p){
-        setAhContent(inv, page, p);
-        p.openInventory(inv);
+        if(!openedAH.contains(p)) {
+            setAhContent(inv, page, p);
+            p.openInventory(inv);
+            openedAH.add(p);
+        }else {
+            p.sendMessage(MessageManager.PREFIX + "§7Du musst etwas warten bis du das Auktionshaus wieder öffnen kannst!");
+            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+        }
     }
 
     public static void setAhContent(Inventory inv, int page, Player p){
@@ -179,59 +187,64 @@ public class AhManager {
     }
 
     public static void openabgelaufeneundgekaufteAuktionen(Player p, int page, Inventory inv) {
+        if (!openedAH.contains(p)) {
+            openedAH.add(p);
+            ItemStack is = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 0).setDisplayname(" ").build();
+            ItemStack chest = new ItemBuilder(Material.CHEST).setDisplayname("§7Abgelaufene §6Auktionen§7/§6Gekaufte §7Auktionen").setLore("§b» §7Klicke um deine §6Abgelaufenen/Gekauften Auktionen §7zu bekommen!").build();
+            ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§6§lAuktionshaus").setLore("§b» §7Hier kannst du Items §akaufen ", "§b» §7oder auch selber §cverkaufen§7!", "§b» §7Deine Seite:§a " + page).build();
 
-        ItemStack is = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 0).setDisplayname(" ").build();
-        ItemStack chest = new ItemBuilder(Material.CHEST).setDisplayname("§7Abgelaufene §6Auktionen§7/§6Gekaufte §7Auktionen").setLore("§b» §7Klicke um deine §6Abgelaufenen/Gekauften Auktionen §7zu bekommen!").build();
-        ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§6§lAuktionshaus").setLore("§b» §7Hier kannst du Items §akaufen ","§b» §7oder auch selber §cverkaufen§7!","§b» §7Deine Seite:§a " + page).build();
+            for (int i = 0; i != 9; i++) {
+                inv.setItem(i, is);
+            }
+            for (int i = 36; i != 45; i++) {
+                inv.setItem(i, is);
+            }
+            inv.setItem(40, chest);
+            inv.setItem(4, sign);
 
-        for (int i = 0; i != 9; i++) {
-            inv.setItem(i, is);
-        }
-        for (int i = 36; i != 45; i++) {
-            inv.setItem(i, is);
-        }
-        inv.setItem(40, chest);
-        inv.setItem(4, sign);
+            int offset = (page - 1) * 27;
+            int i = 9;
+            int maxpage = getMaxPageofPlayer(p);
+            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItemsAbgelaufen WHERE spieleruuid = ? LIMIT 27 OFFSET ?")) {
+                ps.setString(1, p.getUniqueId().toString());
+                ps.setInt(2, offset);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    ItemStack item = decodeItem(rs.getString(3));
 
-        int offset = (page - 1) * 27;
-        int i = 9;
-        int maxpage = getMaxPageofPlayer(p);
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItemsAbgelaufen WHERE spieleruuid = ? LIMIT 27 OFFSET ?")) {
-            ps.setString(1, p.getUniqueId().toString());
-            ps.setInt(2, offset);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                ItemStack item = decodeItem(rs.getString(3));
+                    ItemMeta imn = item.getItemMeta();
+                    List<String> imnn = imn.getLore();
+                    ArrayList<String> lore = new ArrayList<>();
+                    if (imn.getLore() != null) {
+                        lore.addAll(imnn);
+                    }
+                    lore.add("§8§m------------------");
+                    lore.add("§6» §7ItemID: " + rs.getInt(1));
+                    lore.add("§8§m------------------");
+                    imn.setLore(lore);
+                    item.setItemMeta(imn);
 
-                ItemMeta imn = item.getItemMeta();
-                List<String> imnn = imn.getLore();
-                ArrayList<String> lore = new ArrayList<>();
-                if (imn.getLore() != null){
-                    lore.addAll(imnn);
+                    inv.setItem(i, item);
+
+                    i++;
                 }
-                lore.add("§8§m------------------");
-                lore.add("§6» §7ItemID: " + rs.getInt(1));
-                lore.add("§8§m------------------");
-                imn.setLore(lore);
-                item.setItemMeta(imn);
+                if (maxpage != 0) {
+                    if (!(page >= maxpage))
+                        inv.setItem(44, new ItemBuilder(Material.PAPER).setDisplayname("§7Nächste Seite").setLore("§b» §7Klicke um auf die Nächste Seite zu kommen!").build());
 
-                inv.setItem(i, item);
+                    if (!(page <= 1))
+                        inv.setItem(36, new ItemBuilder(Material.PAPER).setDisplayname("§7Vorherige Seite").setLore("§b» §7Klicke um auf die Vorherige Seite zu kommen!").build());
 
-                i++;
-            }
-            if(maxpage != 0) {
-                if (!(page >= maxpage))
-                    inv.setItem(44, new ItemBuilder(Material.PAPER).setDisplayname("§7Nächste Seite").setLore("§b» §7Klicke um auf die Nächste Seite zu kommen!").build());
+                }
 
-                if (!(page <= 1))
-                    inv.setItem(36, new ItemBuilder(Material.PAPER).setDisplayname("§7Vorherige Seite").setLore("§b» §7Klicke um auf die Vorherige Seite zu kommen!").build());
+                p.openInventory(inv);
+            } catch (SQLException e) {
+                e.printStackTrace();
 
             }
-
-            p.openInventory(inv);
-        } catch (SQLException e) {
-            e.printStackTrace();
-
+        } else {
+            p.sendMessage(MessageManager.PREFIX + "§7Du musst etwas warten bis du das Auktionshaus wieder öffnen kannst!");
+            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
         }
     }
 
@@ -274,7 +287,7 @@ public class AhManager {
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 if(!(MoneyManager.getMoney(buyer.getUniqueId()) >= rs.getInt(4))) {
-                    buyer.sendMessage("§cDazu hast du nicht genug Geld!" + "ENGLISH!!!");
+                    buyer.sendMessage(MessageManager.NOTMONEY(PlayerJoinManager.language));
                     buyer.closeInventory();
                     buyer.playSound(buyer.getLocation(), Sound.VILLAGER_NO, 1L , 1L);
                     return;

@@ -90,15 +90,14 @@ public class ScoreboardManager {
     }
 
     private static String umrechnungToString(UUID uuid){
-        Player p = Bukkit.getPlayer(uuid);
         float playerexpbefor = LevelManager.level.get(ExpManager.getLevel(uuid)-1);
-        float sechstel = (LevelManager.level.get(ExpManager.getLevel(uuid)) - playerexpbefor) / 6;
+        float sechstel = (LevelManager.level.get(ExpManager.getLevel(uuid)) - playerexpbefor) / 7;
         float current = ExpManager.getExp(uuid);
         float differenz = current - playerexpbefor;
 
-        p.sendMessage(differenz + " >= " + sechstel);
-
-        if(differenz >= sechstel*5){
+        if(differenz >= sechstel*6){
+            return "   §a▊▊▊▊▊▊";
+        }else if(differenz >= sechstel*5){
             return "   §a▊▊▊▊▊§7▊";
         }else if(differenz >= sechstel*4){
             return "   §a▊▊▊▊§7▊▊";

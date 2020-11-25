@@ -1,6 +1,7 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.boost.Moneybooster;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
 
@@ -18,14 +19,18 @@ public class MoneyManager {
                 ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
             }
         } else {
-            /*//TODO CHECK OB DOUBLE MONEY AN IST WENN JA VERDOPPELN
+            if(!beachtungVonDoubleGemBooster) {
+                float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
+                SchoolMode.setPlayerMoney(uuid, newAmount);
+                ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+            }else {
+                Moneybooster money = new Moneybooster();
+                if(SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
                     float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
-                    newAmount = newAmount * MessageManager.MONEY_BOOSTER_BOOST;
-                    SchoolMode.setPlayerMoney(uuid, newAmount);
-                    ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));*/
-            float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
-            SchoolMode.setPlayerMoney(uuid, newAmount);
-            ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+                    SchoolMode.setPlayerMoney(uuid, newAmount * MessageManager.MONEY_BOOSTER_BOOST);
+                    ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+                }
+            }
         }
     }
 
@@ -55,7 +60,6 @@ public class MoneyManager {
         if (remove) {
             newAmount = currMoney - amount;
         } else {
-            //TODO ADD DOUBLE GEM BOOSTER
             newAmount = (currMoney + amount);
         }
 

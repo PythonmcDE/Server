@@ -1,6 +1,8 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.boost.Moneybooster;
+import me.bluenitrox.school.boost.Xpbooster;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.Firework;
 import me.bluenitrox.school.utils.ValuetoString;
@@ -81,8 +83,14 @@ public class ExpManager {
                 SchoolMode.setPlayerExp(uuid, newAmount);
             }
         } else {
-            float newAmount = getExp(uuid) + amount;
-            SchoolMode.setPlayerExp(uuid, newAmount);
+            Xpbooster xp = new Xpbooster();
+            if(SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(xp.getName())))) {
+                float newAmount = getExp(uuid) + amount;
+                SchoolMode.setPlayerExp(uuid, newAmount*2);
+            }else {
+                float newAmount = getExp(uuid) + amount;
+                SchoolMode.setPlayerExp(uuid, newAmount);
+            }
         }
         for(int i = 0; i != 50; i++) {
             if (checkLevelUp(getExp(uuid), LevelManager.level.get(SchoolMode.playerlevel.get(uuid)))) {

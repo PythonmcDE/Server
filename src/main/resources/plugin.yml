@@ -34,6 +34,10 @@ commands:
   testzwei:
   getcases:
   exp:
+  booster:
+    aliases:
+      - boost
+  boosterinv:
   spawn:
   ah:
     aliases:

@@ -3,7 +3,6 @@ package me.bluenitrox.school.boost;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.MessageManager;
 import org.bukkit.Bukkit;
-import sun.plugin2.message.Message;
 
 public class Xpbooster extends Boost{
 

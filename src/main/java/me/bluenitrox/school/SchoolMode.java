@@ -62,12 +62,16 @@ public class SchoolMode extends JavaPlugin {
     public void onEnable() {
         instance = this;
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
-        Bukkit.getConsoleSender().sendMessage("§4Plugin §4aktivieren... §4(0/4)");
+        Bukkit.getConsoleSender().sendMessage("§4Plugin §4aktivieren... §4(0/7)");
         register(Bukkit.getPluginManager());
         startMySQL();
         getCurrentDupeID();
+        Bukkit.getConsoleSender().sendMessage("§4AntiDupe §4aktivieren... §4(5/7)");
         startAntiDupe();
+        Bukkit.getConsoleSender().sendMessage("§4AhUpdate §4aktivieren... §4(6/7)");
         startAhUpdate();
+        Bukkit.getConsoleSender().sendMessage("§4AhAnticrash §4aktivieren... §4(7/7)");
+        startAhAnticrash();
         setBoostermanager(new BoosterManager());
         LevelManager.registerLevel();
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
@@ -110,7 +114,7 @@ public class SchoolMode extends JavaPlugin {
 
 
         //
-        Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/4)");
+        Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/7)");
         Bukkit.getConsoleSender().sendMessage("§4Lade §4Events...");
         //Event register
 
@@ -127,7 +131,16 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new AhListener(), this);
 
         //
-        Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/4)");
+        Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");
+    }
+
+    private void startAhAnticrash(){
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+               AhManager.openedAH.clear();
+            }
+        }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
     }
 
     private void startAntiDupe(){
@@ -148,7 +161,7 @@ public class SchoolMode extends JavaPlugin {
 
     private void getCurrentDupeID(){
         if(isDupeIDExists()) {
-            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM datatable")) {
+            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe")) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     Antidupe.nextItemID = rs.getInt("dupeid") + 1;
@@ -157,7 +170,7 @@ public class SchoolMode extends JavaPlugin {
                 e.printStackTrace();
             }
         }else {
-            try (PreparedStatement ps1 = MySQL.getConnection().prepareStatement("INSERT INTO datatable (dupeid) VALUES (?)")) {
+            try (PreparedStatement ps1 = MySQL.getConnection().prepareStatement("INSERT INTO antidupe (dupeid) VALUES (?)")) {
                 ps1.setInt(1,1);
                 ps1.executeUpdate();
             } catch (SQLException e){
@@ -187,7 +200,7 @@ public class SchoolMode extends JavaPlugin {
 
     private static boolean isDupeIDExists() {
         try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM datatable");
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe");
             ResultSet rs = ps.executeQuery();
             return rs.next();
         } catch (SQLException e) {
@@ -248,7 +261,14 @@ public class SchoolMode extends JavaPlugin {
         }
 
         try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `datatable` ( `dupeid` INT(11) NOT NULL ,`UUID` VARCHAR(36) NOT NULL, Inv Text , PRIMARY KEY (`dupeid`))");
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `datatable` (`UUID` VARCHAR(36) NOT NULL, Inv Text , PRIMARY KEY (`UUID`))");
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `antidupe` ( `dupeid` INT(11) NOT NULL, PRIMARY KEY (`dupeid`))");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -275,12 +295,23 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
 
-        Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/4)");
+        Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/7)");
     }
 
     public static SchoolMode getInstance() {
         return instance;
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
     /*

@@ -159,6 +159,14 @@ public class MessageManager {
         }
     }
 
+    public static String NOTMONEY(int i){
+        if(i == 0){
+            return PREFIX + "§7Dazu hast du §cnicht §7genug Geld.";
+        }else {
+            return PREFIX + "§7You have §cnot §7enough Money.";
+        }
+    }
+
 
     public static boolean ah = true;
     public static int MONEY_BOOSTER_BOOST = 2;
