@@ -34,10 +34,14 @@ commands:
   testzwei:
   getcases:
   exp:
+    aliases:
+      - level
+      - xp
+      - erfahrung
+      - levelup
   booster:
     aliases:
       - boost
-  boosterinv:
   spawn:
   ah:
     aliases:

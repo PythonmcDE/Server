@@ -110,7 +110,6 @@ public class SchoolMode extends JavaPlugin {
         getCommand("exp").setExecutor(new Exp());
         getCommand("spawn").setExecutor(new Spawn());
         getCommand("booster").setExecutor(new BoosterAPI());
-        getCommand("boosterinv").setExecutor(new BoostInv());
 
 
         //
@@ -129,6 +128,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new BreakBlockEvent(), this);
         pm.registerEvents(new PlayerCommandPreprocessEvent(), this);
         pm.registerEvents(new AhListener(), this);
+        pm.registerEvents(new PlayerExpChangeEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 public class MoneyManager {
+
     public static void updateMoney(UUID uuid, float amount, boolean remove, boolean beachtungVonDoubleGemBooster) {
         if (remove) {
             if (SchoolMode.getPlayerMoney(uuid) >= amount) {
@@ -23,13 +24,19 @@ public class MoneyManager {
                 float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
                 SchoolMode.setPlayerMoney(uuid, newAmount);
                 ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+                return;
             }else {
                 Moneybooster money = new Moneybooster();
                 if(SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
                     float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
                     SchoolMode.setPlayerMoney(uuid, newAmount * MessageManager.MONEY_BOOSTER_BOOST);
                     ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+                    return;
                 }
+                float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
+                SchoolMode.setPlayerMoney(uuid, newAmount);
+                ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+                return;
             }
         }
     }
