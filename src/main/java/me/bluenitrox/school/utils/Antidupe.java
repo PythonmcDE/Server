@@ -88,7 +88,7 @@ public class Antidupe {
             }
         }
         Inventory invzwei = p.getInventory();
-        for(int i = 0; i < inv.getSize() + 36 -1; i++) {
+        for(int i = 0; i < invzwei.getSize() -1; i++) {
             if (invzwei.getItem(i) != null) {
                 if (invzwei.getItem(i).getItemMeta() != null) {
                     NBTTags nbt = new NBTTags(invzwei.getItem(i));

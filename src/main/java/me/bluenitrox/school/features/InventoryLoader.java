@@ -1,8 +1,10 @@
 package me.bluenitrox.school.features;
 
+
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.mysql.MySQL;
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -11,8 +13,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
+
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -79,7 +81,7 @@ public class InventoryLoader {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-                p.getInventory().setContents(list);
+                //p.getInventory().setContents(list);
             }
         }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20*3);
     }
@@ -106,7 +108,9 @@ public class InventoryLoader {
 
             // Save every element in the list
             for (int i = 0; i < inventory.getSize(); i++) {
-                dataOutput.writeObject(inventory.getItem(i));
+                if(inventory.getItem(i) != null) {
+                    dataOutput.writeObject(inventory.getItem(i));
+                }
             }
 
             // Serialize that array

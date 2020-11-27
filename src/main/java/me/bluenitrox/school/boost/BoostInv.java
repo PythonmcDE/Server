@@ -79,21 +79,23 @@ public class BoostInv {
     }
 
     public static void inventoryClick(InventoryClickEvent e, Player p){
-        e.setCancelled(true);
-        ItemStack chest1 = new ItemBuilder(Material.CHEST).setDisplayname("§6§lChest-Booster").setLore("§b» §7Klicke um einen Chest Booster zu aktivieren!", "§b» §7Deine Chest Booster: §a" + BoosterAPI.getChestBooster(p.getUniqueId())).build();
-        ItemStack chest2 = new ItemBuilder(Material.CHEST).setDisplayname("§6§lXP-Booster").setLore("§b» §7Klicke um einen XP Booster zu aktivieren!", "§b» §7Deine XP Booster: §a" + BoosterAPI.getXpBooster(p.getUniqueId())).build();
-        ItemStack chest3 = new ItemBuilder(Material.CHEST).setDisplayname("§6§lMoney-Booster").setLore("§b» §7Klicke um einen Money Booster zu aktivieren!", "§b» §7Deine Money Booster: §a" + BoosterAPI.getMoneyBooster(p.getUniqueId())).build();
+        if(e.getClickedInventory().getName().equalsIgnoreCase(GUI_NAME)) {
+            e.setCancelled(true);
+            ItemStack chest1 = new ItemBuilder(Material.CHEST).setDisplayname("§6§lChest-Booster").setLore("§b» §7Klicke um einen Chest Booster zu aktivieren!", "§b» §7Deine Chest Booster: §a" + BoosterAPI.getChestBooster(p.getUniqueId())).build();
+            ItemStack chest2 = new ItemBuilder(Material.CHEST).setDisplayname("§6§lXP-Booster").setLore("§b» §7Klicke um einen XP Booster zu aktivieren!", "§b» §7Deine XP Booster: §a" + BoosterAPI.getXpBooster(p.getUniqueId())).build();
+            ItemStack chest3 = new ItemBuilder(Material.CHEST).setDisplayname("§6§lMoney-Booster").setLore("§b» §7Klicke um einen Money Booster zu aktivieren!", "§b» §7Deine Money Booster: §a" + BoosterAPI.getMoneyBooster(p.getUniqueId())).build();
 
-        if(e.getCurrentItem().getType() == Material.CHEST){
-            if(e.getCurrentItem().getItemMeta().getDisplayName().equals(chest1.getItemMeta().getDisplayName())){
-                p.performCommand("boost chest");
-                p.closeInventory();
-            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(chest2.getItemMeta().getDisplayName())){
-                p.performCommand("boost xp");
-                p.closeInventory();
-            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equals(chest3.getItemMeta().getDisplayName())){
-                p.performCommand("boost money");
-                p.closeInventory();
+            if (e.getCurrentItem().getType() == Material.CHEST) {
+                if (e.getCurrentItem().getItemMeta().getDisplayName().equals(chest1.getItemMeta().getDisplayName())) {
+                    p.performCommand("boost chest");
+                    p.closeInventory();
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(chest2.getItemMeta().getDisplayName())) {
+                    p.performCommand("boost xp");
+                    p.closeInventory();
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(chest3.getItemMeta().getDisplayName())) {
+                    p.performCommand("boost money");
+                    p.closeInventory();
+                }
             }
         }
     }

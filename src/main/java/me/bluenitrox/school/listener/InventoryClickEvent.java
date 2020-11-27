@@ -12,9 +12,11 @@ public class InventoryClickEvent implements Listener {
     @EventHandler
     public void onClick(final org.bukkit.event.inventory.InventoryClickEvent e){
         Player p = (Player)e.getWhoClicked();
-        if(CaseAPI.opencase.contains(p)){
-            e.setCancelled(true);
-            return;
+        if(CaseAPI.opencase != null) {
+            if (CaseAPI.opencase.contains(p)) {
+                e.setCancelled(true);
+                return;
+            }
         }
         caseClick(e);
         AhListener.onClickAuctionhouse(e);

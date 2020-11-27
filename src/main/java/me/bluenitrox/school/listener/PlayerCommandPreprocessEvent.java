@@ -30,9 +30,9 @@ public class PlayerCommandPreprocessEvent implements Listener {
             return;
         }
 
+        normal = new ArrayList<>();
         registerNormalCommand();
 
-        normal = new ArrayList<>();
         if(!p.hasPermission(PermissionsManager.COMMANDBLOCK)) {
             if (normal.contains(e.getMessage())) {
                 e.setCancelled(true);

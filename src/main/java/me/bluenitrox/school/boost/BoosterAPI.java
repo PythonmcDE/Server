@@ -186,7 +186,7 @@ public class BoosterAPI implements CommandExecutor {
 
 
     public static Integer getXpBooster(UUID uuid) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int xp = cfg.getInt(uuid + ".xpbooster");
@@ -195,7 +195,7 @@ public class BoosterAPI implements CommandExecutor {
     }
 
     public static Integer getMoneyBooster(UUID uuid) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int money = cfg.getInt(uuid + ".moneybooster");
@@ -204,7 +204,7 @@ public class BoosterAPI implements CommandExecutor {
     }
 
     public static Integer getChestBooster(UUID uuid) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int money = cfg.getInt(uuid + ".chestbooster");
@@ -213,7 +213,7 @@ public class BoosterAPI implements CommandExecutor {
     }
 
     public static void addXpBooster(UUID uuid, int amount) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int xp = cfg.getInt(uuid + ".xpbooster");
@@ -229,7 +229,7 @@ public class BoosterAPI implements CommandExecutor {
     }
 
     public static void addMoneyBooster(UUID uuid, int amount) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int money = cfg.getInt(uuid + ".moneybooster");
@@ -245,7 +245,7 @@ public class BoosterAPI implements CommandExecutor {
     }
 
     public static void addChestBooster(UUID uuid, int amount) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int money = cfg.getInt(uuid + ".chestbooster");
@@ -261,7 +261,7 @@ public class BoosterAPI implements CommandExecutor {
     }
 
     public void removeXpBooster(UUID uuid, int amount) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int xp = cfg.getInt(uuid + ".xpbooster");
@@ -276,7 +276,7 @@ public class BoosterAPI implements CommandExecutor {
     }
 
     public void removeMoneyBooster(UUID uuid, int amount) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int money = cfg.getInt(uuid + ".moneybooster");
@@ -291,7 +291,7 @@ public class BoosterAPI implements CommandExecutor {
     }
 
     public void removeChestBooster(UUID uuid, int amount) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int money = cfg.getInt(uuid + ".chestbooster");
@@ -306,7 +306,7 @@ public class BoosterAPI implements CommandExecutor {
     }
 
     public boolean hasEnoughXpBooster(UUID uuid, int amount) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int xp = cfg.getInt(uuid + ".xpbooster");
@@ -318,7 +318,7 @@ public class BoosterAPI implements CommandExecutor {
     }
 
     public boolean hasEnoughMoneyBooster(UUID uuid, int amount) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int money = cfg.getInt(uuid + ".moneybooster");
@@ -330,7 +330,7 @@ public class BoosterAPI implements CommandExecutor {
     }
 
     public boolean hasEnoughChestBooster(UUID uuid, int amount) {
-        File file = new File("plugins//PythonSchool", "booster.yml");
+        File file = new File("plugins//DemonMC", "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int money = cfg.getInt(uuid + ".chestbooster");
