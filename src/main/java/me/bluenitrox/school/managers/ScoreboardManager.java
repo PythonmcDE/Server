@@ -95,6 +95,8 @@ public class ScoreboardManager {
         float current = ExpManager.getExp(uuid);
         float differenz = current - playerexpbefor;
 
+        Bukkit.getPlayer(uuid).sendMessage(differenz + ">=" + sechstel*6);
+
         if(differenz >= sechstel*6){
             return "   §a▊▊▊▊▊▊";
         }else if(differenz >= sechstel*5){

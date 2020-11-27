@@ -47,6 +47,14 @@ public class MessageManager {
         }
     }
 
+    public static String CONNECTTOANOTHERSERVER(int i){
+        if(i == 0){
+            return PREFIX + "§7Du wurdest auf einen anderen §a§lServer §7gesendet!";
+        }else {
+            return PREFIX + "§7You were sent to another §a§lServer§7!";
+        }
+    }
+
     public static String WASSETFLYFALSE(int i){
         if(i == 0){
             return PREFIX + "§7Ein §4Admin §7hat dich aus dem §cFlugmodus §7gesetzt.";

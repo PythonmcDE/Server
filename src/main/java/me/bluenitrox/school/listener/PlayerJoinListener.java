@@ -1,6 +1,6 @@
 package me.bluenitrox.school.listener;
 
-import me.bluenitrox.school.features.InventoryLoader;
+import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
@@ -19,7 +19,7 @@ public class PlayerJoinListener implements Listener {
         PlayerJoinManager.cachPlayerData(p.getUniqueId());
 
         p.getInventory().clear();
-        InventoryLoader.loadInv(p);
+        TTA_Methods.sendActionBar(p, "§8» §7Inventar Sync §aabgeschlossen§7!", 20*3);
 
         PlayerJoinManager.updateBelowName(p);
 

@@ -71,7 +71,7 @@ public class InventoryLoader {
     }
 
     public static void loadInv(Player p){
-        TTA_Methods.sendTitle(p,"§7Inventar",20,20,20,"§b» §alädt§7...",20,20,20);
+        TTA_Methods.sendActionBar(p, "§8» §7Inventar Sync §aabgeschlossen§7!", 20*3);
         new BukkitRunnable(){
             @Override
             public void run() {

@@ -8,8 +8,8 @@ public class LevelManager {
 
     public static void registerLevel(){
         level.put(0,0F);
-        level.put(1,0F);
-        level.put(2,1000F);
+        level.put(1,1000F);
+        level.put(2,2000F);
         level.put(3,2200F);
         level.put(4,3700F);
         level.put(5,5200F);

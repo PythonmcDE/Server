@@ -42,7 +42,7 @@ public class PlayerJoinManager {
                 ps.setString(1, uuid.toString());
                 ps.setFloat(2, 1000);
                 ps.setInt(3, 1);
-                ps.setFloat(4, 1000);
+                ps.setFloat(4, 0);
                 ps.setInt(5, 1);
                 ps.setInt(6, 0);
                 ps.setInt(7, 0);

@@ -15,8 +15,8 @@ public class MySQL_File {
         cfg.addDefault("host", "localhost");
         cfg.addDefault("port", "3306");
         cfg.addDefault("database", "School");
-        cfg.addDefault("username", "school");
-        cfg.addDefault("password", "Madita0606");
+        cfg.addDefault("username", "vulcanmc");
+        cfg.addDefault("password", "newrandy2020");
 
 
         try {
@@ -27,7 +27,7 @@ public class MySQL_File {
     }
 
     private File getFile() {
-        return new File("plugins//VolcanMC", "mysql.yml");
+        return new File("plugins//DemonMC", "mysql.yml");
     }
 
     private FileConfiguration getFileConfiguration() {

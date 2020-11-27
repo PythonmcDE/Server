@@ -132,6 +132,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PlayerAchievementAwardedEvent(), this);
         pm.registerEvents(new EntityCreatePortalEvent(), this);
         pm.registerEvents(new WeatherChangeEvent(), this);
+        pm.registerEvents(new AsyncPlayerChatEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");
@@ -263,12 +264,12 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
 
-        try {
+        /*try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `datatable` (`UUID` VARCHAR(36) NOT NULL, Inv Text , PRIMARY KEY (`UUID`))");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
 
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `antidupe` ( `dupeid` INT(11) NOT NULL, PRIMARY KEY (`dupeid`))");
