@@ -81,7 +81,7 @@ public class SchoolMode extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE datatable SET dupeid = ?")) {
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE antidupe SET dupeid = ?")) {
             ps.setInt(1,Antidupe.nextItemID);
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -135,6 +135,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new EntityCreatePortalEvent(), this);
         pm.registerEvents(new WeatherChangeEvent(), this);
         pm.registerEvents(new AsyncPlayerChatEvent(), this);
+        pm.registerEvents(new PlayerDeathEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");
@@ -267,12 +268,12 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
 
-        /*try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `datatable` (`UUID` VARCHAR(36) NOT NULL, Inv Text , PRIMARY KEY (`UUID`))");
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `schatzmeister` (`ID` INT(11) NOT NULL, Items Text , PRIMARY KEY (`ID`))");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
 
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `antidupe` ( `dupeid` INT(11) NOT NULL, PRIMARY KEY (`dupeid`))");
