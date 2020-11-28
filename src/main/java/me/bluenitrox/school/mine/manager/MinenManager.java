@@ -2,10 +2,7 @@ package me.bluenitrox.school.mine.manager;
 
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.managers.LocationManager;
-import me.bluenitrox.school.managers.MessageManager;
-import me.bluenitrox.school.managers.PlayerBreakBlockManager;
-import me.bluenitrox.school.managers.ScoreboardManager;
+import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ValuetoString;
@@ -111,10 +108,12 @@ public class MinenManager {
         }*/
 
         int currMine = SchoolMode.getPlayerMine(p.getUniqueId());
+        Bukkit.broadcastMessage(currMine + "");
         ArrayList<String> allowedMines = new ArrayList<>();
 
         for(int i = currMine; i >= 1; i--){
             allowedMines.add(i + "");
+            Bukkit.broadcastMessage(i + "");
         }
 
         String mine = getMineByLocation(block);
@@ -134,11 +133,13 @@ public class MinenManager {
         if(mine != null) {
             if (isAllowedtoMine(p, block)) {
                 PlayerBreakBlockManager.updateBlocks(p.getUniqueId(), false);
+                int amount = 1;
+                ExpManager.updateXP(p.getUniqueId(), amount, false);
                 BreakBlockEvent.minen.put(mine, BreakBlockEvent.minen.getOrDefault(mine, 0) + 1);
                 double abgebauteBloeckeInProzent = 0.0051 * BreakBlockEvent.minen.getOrDefault(mine, 0);
                 abgebauteBloeckeInProzent = ValuetoString.round(abgebauteBloeckeInProzent, 2);
 
-                TTA_Methods.sendActionBar(p, "§6" + abgebauteBloeckeInProzent + "% §7der Mine ist abgebaut" + " NOCH IN ENGLISH!!!");
+                TTA_Methods.sendActionBar(p, "§8» §6" + abgebauteBloeckeInProzent + "% §7der Mine ist abgebaut");
                 if(BreakBlockEvent.minen.get(mine) >= MessageManager.blocksforreset.get("mine" + mine)) {
                     refillMine(mine);
                     BreakBlockEvent.minen.put(mine, 0);
@@ -146,7 +147,7 @@ public class MinenManager {
                 }
                 return true;
             }else {
-                p.sendMessage(MessageManager.PREFIX + "§7In dieser §6Mine §7kannst du §cnoch nicht §7abbauen" + " NOCH IN ENGLISH!!!");
+                p.sendMessage(MessageManager.PREFIX + "§7In dieser §6Mine §7kannst du §cnoch nicht §7abbauen");
             }
         }
         return false;
@@ -182,8 +183,8 @@ public class MinenManager {
                 String temp = rs.getString("eckpoint1");
                 String temp2 = rs.getString("eckpoint2");
 
-                loc1 = new LocationManager(temp + mine).getLocation();
-                loc2 = new LocationManager(temp2 + mine).getLocation();
+                loc1 = new LocationManager(temp).getLocation();
+                loc2 = new LocationManager(temp2).getLocation();
                 templist.add(loc1);
                 templist.add(loc2);
                 return templist;

@@ -10,11 +10,13 @@ import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.LevelManager;
+import me.bluenitrox.school.managers.ScoreboardManager;
 import me.bluenitrox.school.mine.commands.Sell;
 import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
 import me.bluenitrox.school.utils.Antidupe;
+import me.bluenitrox.school.utils.UUIDFetcher;
 import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
@@ -147,20 +149,21 @@ public class SchoolMode extends JavaPlugin {
         }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
     }
 
-    private void startAntiDupe(){
+    private void startAntiDupe() {
         new BukkitRunnable() {
 
             @Override
             public void run() {
                 Antidupe.ids = new ArrayList<>();
-                for(Player all: Bukkit.getOnlinePlayers()){
+                for (Player all : Bukkit.getOnlinePlayers()) {
                     playerlevel.get(all.getUniqueId());
+                    ScoreboardManager.setBoard(Bukkit.getPlayer(all.getUniqueId()));
                     Antidupe.checkAllInventorys(all.getInventory(), all);
                     return;
                 }
                 Antidupe.ids.clear();
             }
-        }.runTaskTimerAsynchronously(this,20*3, 20*3);
+        }.runTaskTimerAsynchronously(this, 20 * 3, 20 * 3);
     }
 
     private void getCurrentDupeID(){

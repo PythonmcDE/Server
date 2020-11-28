@@ -38,6 +38,9 @@ public class MessageManager {
             "Erstellter Eckpunkt der mit dem Name §6eckpoint1.. §7anfangen sollte. Zum Schluss gibst du noch eine Anzahl ein, nach wie vielen abgebauten " +
             "Blöcke dich die Mine auffüllen soll. \n 3. Command absenden!";
     public static final String BOOSTERARGS = PREFIX + "§7Bitte benutze: §b/booster add/remove <Spieler> <Boostername> <Anzahl>";
+    public static final String TPTOMINE = PREFIX + "§7Du wurdest zu der Mine teleportiert.";
+    public static final String MINEBUYED = PREFIX + "§7Du hast dir die Mine §aerfolgreich §7gekauft.";
+    public static final String OTHERMINES = PREFIX + "§7Du musst dir §6alle Minen §7davor noch kaufen.";
 
     public static String PLAYERWASSETGAMEMODE(int i){
         if(i == 0){
@@ -195,21 +198,31 @@ public class MessageManager {
         return mine;
     }
 
-    public static int MINE_1_PREIS = 1200000;
-    public static int MINE_2_PREIS = 1200000;
-    public static int MINE_3_PREIS = 1200000;
-    public static int MINE_4_PREIS = 1200000;
-    public static int MINE_5_PREIS = 1200000;
-    public static int MINE_6_PREIS = 1200000;
-    public static int MINE_7_PREIS = 1200000;
-    public static int MINE_8_PREIS = 1200000;
-    public static int MINE_9_PREIS = 1200000;
-    public static int MINE_10_PREIS = 1200000;
-    public static int MINE_11_PREIS = 1200000;
-    public static int MINE_12_PREIS = 1200000;
-    public static int MINE_13_PREIS = 1200000;
-    public static int MINE_14_PREIS = 1200000;
-    public static int MINE_15_PREIS = 1200000;
+    public static int MINE_1_PREIS = 0;
+    public static int MINE_2_PREIS = 20000;
+    public static int MINE_3_PREIS = 55000;
+    public static int MINE_4_PREIS = 85000;
+    public static int MINE_5_PREIS = 127000;
+    public static int MINE_6_PREIS = 187000;
+    public static int MINE_7_PREIS = 257000;
+    public static int MINE_8_PREIS = 357000;
+    public static int MINE_9_PREIS = 487000;
+    public static int MINE_10_PREIS = 658000;
+    public static int MINE_11_PREIS = 828000;
+    public static int MINE_12_PREIS = 1080000;
+    public static int MINE_13_PREIS = 1880000;
+    public static int MINE_14_PREIS = 3580000;
+    public static int MINE_15_PREIS = 5280000;
+    public static int MINE_16_PREIS = 8080000;
+    public static int MINE_17_PREIS = 12900000;
+    public static int MINE_18_PREIS = 16900000;
+    public static int MINE_19_PREIS = 22900000;
+    public static int MINE_20_PREIS = 35900000;
+    public static int MINE_21_PREIS = 55900000;
+    public static int MINE_22_PREIS = 80900000;
+    public static int MINE_23_PREIS = 129000000;
+    public static int MINE_24_PREIS = 189000000;
+    public static int MINE_25_PREIS = 289000000;
 
     public static final HashMap<String, Integer> blocksforreset = fillMap();
 

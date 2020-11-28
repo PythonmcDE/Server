@@ -2,6 +2,7 @@ package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.boost.BoostInv;
+import me.bluenitrox.school.commands.Mine;
 import me.bluenitrox.school.features.CaseAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +22,7 @@ public class InventoryClickEvent implements Listener {
         caseClick(e);
         AhListener.onClickAuctionhouse(e);
         BoostInv.inventoryClick(e, p);
+        Mine.onMinenClick(e);
     }
 
     private void caseClick(org.bukkit.event.inventory.InventoryClickEvent e){

@@ -23,7 +23,7 @@ public class AhListener implements Listener {
 
     public static void onClickAuctionhouse(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
-        if (e.getClickedInventory().getName().equals(GUI_NAME1) && e.getCurrentItem() != null) {
+        if (e.getClickedInventory().getName().equalsIgnoreCase(GUI_NAME1) && e.getCurrentItem() != null) {
 
             e.setCancelled(true);
             if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§a§lKaufen")) {
@@ -104,7 +104,7 @@ public class AhListener implements Listener {
                     ex.printStackTrace();
                 }
             }
-        }else if (e.getClickedInventory().getName().equals(Ah_CMD.GUI_NAME) && e.getCurrentItem() != null) {
+        }else if (e.getClickedInventory().getName().equalsIgnoreCase(Ah_CMD.GUI_NAME) && e.getCurrentItem() != null) {
 
             e.setCancelled(true);
             if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7Abgelaufene §6Auktionen§7/§6Gekaufte §7Auktionen")) {

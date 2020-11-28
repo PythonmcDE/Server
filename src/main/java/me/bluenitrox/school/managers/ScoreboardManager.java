@@ -1,7 +1,9 @@
 package me.bluenitrox.school.managers;
 
+import com.avaje.ebeaninternal.server.persist.BindValues;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.commands.Exp;
+import me.bluenitrox.school.utils.ValuetoString;
 import org.apache.logging.log4j.core.pattern.LevelPatternConverter;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -38,7 +40,7 @@ public class ScoreboardManager {
         ScoreboardScore a12 = new ScoreboardScore(scoreboard, obj, umrechnungToString(p.getUniqueId()));
         ScoreboardScore a6 = new ScoreboardScore(scoreboard, obj, "  ");
         ScoreboardScore a30 = new ScoreboardScore(scoreboard, obj, "§8● §7Money");
-        ScoreboardScore a40 = new ScoreboardScore(scoreboard, obj, "   §6" + SchoolMode.getPlayerMoney(p.getUniqueId()));
+        ScoreboardScore a40 = new ScoreboardScore(scoreboard, obj, "   §6" + ValuetoString.valueToString(SchoolMode.getPlayerMoney(p.getUniqueId())));
         ScoreboardScore a41 = new ScoreboardScore(scoreboard, obj, "    ");
         ScoreboardScore a7 = new ScoreboardScore(scoreboard, obj, "§8§m-------------");
         ScoreboardScore a8 = new ScoreboardScore(scoreboard, obj, "§8» §7IP: §c§lDemonMC.eu");
@@ -94,8 +96,6 @@ public class ScoreboardManager {
         float sechstel = (LevelManager.level.get(ExpManager.getLevel(uuid)) - playerexpbefor) / 7;
         float current = ExpManager.getExp(uuid);
         float differenz = current - playerexpbefor;
-
-        Bukkit.getPlayer(uuid).sendMessage(differenz + ">=" + sechstel*6);
 
         if(differenz >= sechstel*6){
             return "   §a▊▊▊▊▊▊";

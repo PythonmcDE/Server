@@ -67,7 +67,6 @@ public class NBTTags {
             NBTTagCompound comp = nmsItem.getTag();
             return comp.get(key);
         } catch (Exception e) {
-            System.out.println(e.toString());
             e.printStackTrace();
             return null;
         }

@@ -25,11 +25,11 @@ public class Antidupe {
         for(int i = 0; i <= 35; i++) {
             if(inv.getItem(i) != null){
                 if (inv.getItem(i).getItemMeta() != null) {
-                    NBTTags nbt = new NBTTags(inv.getItem(i));
-                    if (nbt.getNBTTag("antidupe") != null) {
+                    if(NBTTags.hasTag("antidupe", inv.getItem(i))) {
+                        NBTTags nbt = new NBTTags(inv.getItem(i));
                         String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
                         int id = Integer.parseInt(test[1]);
-                        if(ids != null) {
+                        if (ids != null) {
                             if (ids.contains(id)) {
                                 inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
@@ -48,11 +48,11 @@ public class Antidupe {
         for(int i = 0; i < 36; i++) {
             if(inv.getItem(i) != null){
                 if (inv.getItem(i).getItemMeta() != null) {
-                    NBTTags nbt = new NBTTags(inv.getItem(i));
-                    if (nbt.getNBTTag("antidupe") != null) {
+                    if(NBTTags.hasTag("antidupe", inv.getItem(i))) {
+                        NBTTags nbt = new NBTTags(inv.getItem(i));
                         String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
                         int id = Integer.parseInt(test[1]);
-                        if(ids != null) {
+                        if (ids != null) {
                             if (ids.contains(id)) {
                                 inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
@@ -71,11 +71,11 @@ public class Antidupe {
         for(int i = 0; i <= inv.getSize() - 1; i++){
             if(inv.getItem(i) != null){
                 if (inv.getItem(i).getItemMeta() != null) {
-                    NBTTags nbt = new NBTTags(inv.getItem(i));
-                    if (nbt.getNBTTag("antidupe") != null) {
+                    if(NBTTags.hasTag("antidupe", inv.getItem(i))) {
+                        NBTTags nbt = new NBTTags(inv.getItem(i));
                         String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
                         int id = Integer.parseInt(test[1]);
-                        if(ids != null) {
+                        if (ids != null) {
                             if (ids.contains(id)) {
                                 inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
@@ -91,8 +91,8 @@ public class Antidupe {
         for(int i = 0; i < invzwei.getSize() -1; i++) {
             if (invzwei.getItem(i) != null) {
                 if (invzwei.getItem(i).getItemMeta() != null) {
-                    NBTTags nbt = new NBTTags(invzwei.getItem(i));
-                    if (nbt.getNBTTag("antidupe") != null) {
+                    if (NBTTags.hasTag("antidupe", inv.getItem(i))) {
+                        NBTTags nbt = new NBTTags(invzwei.getItem(i));
                         String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
                         int id = Integer.parseInt(test[1]);
                         if (ids.contains(id)) {
@@ -102,7 +102,6 @@ public class Antidupe {
                         }
                         ids.add(id);
                     }
-
                 }
             }
         }

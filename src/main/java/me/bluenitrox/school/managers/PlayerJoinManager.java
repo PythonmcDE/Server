@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class PlayerJoinManager {
 
-    public static int language = 1;
+    public static int language = 0;
 
 
     public static void cachPlayerData(UUID uuid) {

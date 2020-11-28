@@ -100,7 +100,6 @@ public class ExpManager {
                 ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
             }
         }
-        ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
     }
 
     public static void updateLevelDatabase(UUID uuid, float amount, boolean remove) {
