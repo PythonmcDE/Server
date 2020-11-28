@@ -1,7 +1,5 @@
 package me.bluenitrox.school.enchants;
 
-import me.bluenitrox.school.features.InventoryLoader;
-import me.bluenitrox.school.managers.EnchantManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
@@ -9,11 +7,9 @@ import me.bluenitrox.school.utils.NBTTags;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
@@ -25,7 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Random;
-import java.util.UUID;
 
 public class Schatzmeister {
 
@@ -49,7 +44,7 @@ public class Schatzmeister {
         }
     }
 
-    public static void openInventory(Player p){
+    public static void openInventory(Player p, PlayerInteractEvent e){
         if(p.getItemInHand().getType() == Material.CHEST){
             if(p.getItemInHand().getItemMeta().getDisplayName().startsWith("§cInventar von §b")){
                 NBTTags nbt = new NBTTags(p.getItemInHand());
@@ -57,11 +52,19 @@ public class Schatzmeister {
                 String[] idarrayend = idarray[0].split("\"");
                 Inventory inv = Schatzmeister.stringToInventory(Schatzmeister.getItems(Integer.parseInt(idarrayend[1])));
 
-                p.openInventory(inv);
+                Inventory invend = Bukkit.createInventory(null, 9*3, "§cInventar");
+
+                for(int i = 0; i < 27; i++){
+                    invend.setItem(i, inv.getItem(i));
+                }
+
+                p.openInventory(invend);
                 p.setItemInHand(new ItemBuilder(Material.AIR).build());
                 deleteItems(Integer.parseInt(idarrayend[1]));
+                return;
             }
         }
+        e.setCancelled(true);
     }
 
     private static int putInDatabase(Inventory inv){

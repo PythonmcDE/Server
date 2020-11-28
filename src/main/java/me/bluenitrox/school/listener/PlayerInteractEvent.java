@@ -1,5 +1,6 @@
 package me.bluenitrox.school.listener;
 
+import me.bluenitrox.school.enchants.Schatzmeister;
 import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
@@ -25,6 +26,7 @@ public class PlayerInteractEvent implements Listener {
                     if(p.getItemInHand().getItemMeta().getDisplayName() != null) {
                         interactCase(p, e);
                         interactSchoolXP(p, e);
+                        Schatzmeister.openInventory(p, e);
                     }
                 }
             }
