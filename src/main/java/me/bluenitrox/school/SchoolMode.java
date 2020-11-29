@@ -136,6 +136,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new WeatherChangeEvent(), this);
         pm.registerEvents(new AsyncPlayerChatEvent(), this);
         pm.registerEvents(new PlayerDeathEvent(), this);
+        pm.registerEvents(new PlayerRespawnEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");

@@ -21,7 +21,6 @@ public class PlayerDeathEvent implements Listener {
             Schatzmeister.giveInventorySchatzmeister(k, p.getInventory(), p, e);
             Kopfgeld.giveHead(k,p);
         }
-        p.teleport(new LocationManager("spawn").getLocation());
     }
 
 }

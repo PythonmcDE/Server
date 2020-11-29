@@ -1,10 +1,8 @@
 package me.bluenitrox.school.enchants.sword;
 
-import me.bluenitrox.school.enchants.Enchant;
 import me.bluenitrox.school.enchants.EnchantAPI;
 import me.bluenitrox.school.managers.EnchantManager;
 import me.bluenitrox.school.utils.KopfUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
