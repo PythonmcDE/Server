@@ -20,7 +20,14 @@ public class PlayerQuitListener implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         e.setQuitMessage(null);
+        updateDatabase(p);
+        removeAhItems(e.getPlayer());
+        if(SchoolMode.Pets.containsKey(p.getName())){
+            SchoolMode.Pets.get(p.getName()).remove();
+        }
+    }
 
+    private void updateDatabase(Player p){
         if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId()) && SchoolMode.playerlevel.containsKey(p.getUniqueId())) {
             try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ?, level = ? WHERE spieleruuid = ?")) {
                 ps.setFloat(1, SchoolMode.getPlayerMoney(p.getUniqueId()));
@@ -40,7 +47,6 @@ public class PlayerQuitListener implements Listener {
                 ex.printStackTrace();
             }
         }
-        removeAhItems(e.getPlayer());
     }
 
     private void removeAhItems(Player e){

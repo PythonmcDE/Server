@@ -20,6 +20,7 @@ import me.bluenitrox.school.utils.UUIDFetcher;
 import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
@@ -49,6 +50,7 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Integer> playerBlocks = new HashMap<>();
     public static HashMap<UUID, Integer> playerMine = new HashMap<>();
     public static HashMap<UUID, Integer> playerlevel = new HashMap<>();
+    public static HashMap<String,Entity> Pets = new HashMap<String, Entity>();
     private static final Random r = new Random();
     private BoosterManager boostermanager;
     public BoosterManager getBoostermanager() {
@@ -88,10 +90,11 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
         ahDisable();
+        disablePets();
         MySQL.disconnect();
     }
 
-    public void register(PluginManager pm){
+    private void register(PluginManager pm){
         Bukkit.getConsoleSender().sendMessage("§4Lade §4Commands...");
         //Command register
 
@@ -137,11 +140,12 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new AsyncPlayerChatEvent(), this);
         pm.registerEvents(new PlayerDeathEvent(), this);
         pm.registerEvents(new PlayerRespawnEvent(), this);
+        pm.registerEvents(new PlayerMoveEvent(), this);
+        pm.registerEvents(new EntityDamageByEntityEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");
     }
-
     private void startAhAnticrash(){
         new BukkitRunnable(){
             @Override
@@ -150,100 +154,6 @@ public class SchoolMode extends JavaPlugin {
             }
         }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
     }
-
-    private void startAntiDupe() {
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                Antidupe.ids = new ArrayList<>();
-                for (Player all : Bukkit.getOnlinePlayers()) {
-                    playerlevel.get(all.getUniqueId());
-                    ScoreboardManager.setBoard(Bukkit.getPlayer(all.getUniqueId()));
-                    Antidupe.checkAllInventorys(all.getInventory(), all);
-                    return;
-                }
-                Antidupe.ids.clear();
-            }
-        }.runTaskTimerAsynchronously(this, 20 * 3, 20 * 3);
-    }
-
-    private void getCurrentDupeID(){
-        if(isDupeIDExists()) {
-            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe")) {
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    Antidupe.nextItemID = rs.getInt("dupeid") + 1;
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }else {
-            try (PreparedStatement ps1 = MySQL.getConnection().prepareStatement("INSERT INTO antidupe (dupeid) VALUES (?)")) {
-                ps1.setInt(1,1);
-                ps1.executeUpdate();
-            } catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void startAhUpdate(){
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                Bukkit.getOnlinePlayers().forEach(all -> {
-                    if (all.getOpenInventory() != null) {
-                        if (all.getOpenInventory().getTitle().equals(Ah_CMD.GUI_NAME)) {
-                            String[] stringregex = all.getOpenInventory().getItem(4).getItemMeta().getLore().get(2).split(" ");
-                            int currPage = Integer.parseInt(stringregex[3]);
-
-                            AhManager.setAhContent(all.getOpenInventory().getTopInventory(), currPage, all);
-                            all.updateInventory();
-                        }
-                    }
-                });
-            }
-        }.runTaskTimerAsynchronously(this,20,20);
-    }
-
-    private static boolean isDupeIDExists() {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe");
-            ResultSet rs = ps.executeQuery();
-            return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public void ahDisable(){
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItems")){
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String spieleruuid = rs.getString(2);
-                String item = rs.getString(3);
-                try (PreparedStatement ps2 = MySQL.getConnection().prepareStatement("INSERT INTO AhItemsAbgelaufen (spieleruuid, item) VALUES (?, ?)")) {
-                    ps2.setString(1, spieleruuid);
-                    ps2.setString(2, item);
-                    ps2.execute();
-                    try(PreparedStatement ps3 = MySQL.getConnection().prepareStatement("DELETE FROM AhItems WHERE spieleruuid = ?")){
-                        ps3.setString(1, spieleruuid);
-                        ps3.execute();
-                    }catch (SQLException e){
-                        e.printStackTrace();
-                    }
-
-                } catch (SQLException e) {
-
-                }
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
     private void startMySQL() {
         Bukkit.getConsoleSender().sendMessage("§4Verbinde zu §4MySQL...");
         //MySQL Verbindung
@@ -306,88 +216,148 @@ public class SchoolMode extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/7)");
     }
+    private void startAntiDupe() {
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                Antidupe.ids = new ArrayList<>();
+                for (Player all : Bukkit.getOnlinePlayers()) {
+                    playerlevel.get(all.getUniqueId());
+                    ScoreboardManager.setBoard(Bukkit.getPlayer(all.getUniqueId()));
+                    Antidupe.checkAllInventorys(all.getInventory(), all);
+                    return;
+                }
+                Antidupe.ids.clear();
+            }
+        }.runTaskTimerAsynchronously(this, 20 * 3, 20 * 3);
+    }
+    private void startAhUpdate(){
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                Bukkit.getOnlinePlayers().forEach(all -> {
+                    if (all.getOpenInventory() != null) {
+                        if (all.getOpenInventory().getTitle().equals(Ah_CMD.GUI_NAME)) {
+                            String[] stringregex = all.getOpenInventory().getItem(4).getItemMeta().getLore().get(2).split(" ");
+                            int currPage = Integer.parseInt(stringregex[3]);
+
+                            AhManager.setAhContent(all.getOpenInventory().getTopInventory(), currPage, all);
+                            all.updateInventory();
+                        }
+                    }
+                });
+            }
+        }.runTaskTimerAsynchronously(this,20,20);
+    }
+    private void getCurrentDupeID(){
+        if(isDupeIDExists()) {
+            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe")) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Antidupe.nextItemID = rs.getInt("dupeid") + 1;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else {
+            try (PreparedStatement ps1 = MySQL.getConnection().prepareStatement("INSERT INTO antidupe (dupeid) VALUES (?)")) {
+                ps1.setInt(1,1);
+                ps1.executeUpdate();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void disablePets(){
+        for(String name : Pets.keySet()){
+            Pets.get(name).remove();
+        }
+    }
+    private void ahDisable(){
+        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItems")){
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String spieleruuid = rs.getString(2);
+                String item = rs.getString(3);
+                try (PreparedStatement ps2 = MySQL.getConnection().prepareStatement("INSERT INTO AhItemsAbgelaufen (spieleruuid, item) VALUES (?, ?)")) {
+                    ps2.setString(1, spieleruuid);
+                    ps2.setString(2, item);
+                    ps2.execute();
+                    try(PreparedStatement ps3 = MySQL.getConnection().prepareStatement("DELETE FROM AhItems WHERE spieleruuid = ?")){
+                        ps3.setString(1, spieleruuid);
+                        ps3.execute();
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
+
+                } catch (SQLException e) {
+
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private static boolean isDupeIDExists() {
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe");
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public static SchoolMode getInstance() {
         return instance;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-
-    Money System
-
-     */
     public static int getPlayerBlocks(UUID uuid) {
         return playerBlocks.get(uuid);
     }
-
     public static int getPlayerMine(UUID uuid) {
         return playerMine.get(uuid);
     }
-
     public static void setPlayerMine(UUID uuid, int amount) {
         playerMine.put(uuid, amount);
     }
-
     public static float getPlayerExp(UUID uuid) {
         return playerExp.get(uuid);
     }
-
     public static String getPlayerExpString(UUID uuid) {
         float exp = playerExp.get(uuid);
         return ValuetoString.valueToString(exp);
     }
-
     public static void setPlayerExp(UUID uuid, float amount) {
         playerExp.put(uuid, amount);
     }
-
-
     public static float getPlayerMoney(UUID uuid) {
         return playerMoney.get(uuid);
     }
-
     public static String getPlayerMoneyString(UUID uuid) {
         float money = playerMoney.get(uuid);
         return ValuetoString.valueToString(money);
     }
-
     public static void setPlayerBlocks(UUID uuid, int amount) {
         playerBlocks.put(uuid, amount);
     }
-
     public static void setPlayerMoney(UUID uuid, float amount) {
         playerMoney.put(uuid, amount);
     }
-
     public static int getRandomInt(int bound){
         Random r = SchoolMode.r;
 
         return r.nextInt(bound) + 1;
     }
-
     public static int getLevel(ItemStack item, Enchantment ench){
         if(item.containsEnchantment(ench)){
             return item.getEnchantmentLevel(ench);
         }
         return 0;
     }
-
-    /*
-
-    Money System
-
-     */
 
 }
