@@ -25,6 +25,7 @@ public class BoosterAPI implements CommandExecutor {
     public static HashMap<String, Integer> boost = new HashMap<>();
     public static boolean xp1;
     public static boolean money1;
+    public static boolean angel1;
 
 
     @Override
@@ -33,8 +34,9 @@ public class BoosterAPI implements CommandExecutor {
         if(args.length == 0) {
             p.sendMessage(MessageManager.PREFIX + "§7Hier sind deine Booster:");
             p.sendMessage(MessageManager.PREFIX + "§d§lXp-Booster: §7" + getXpBooster(p.getUniqueId()));
-            p.sendMessage(MessageManager.PREFIX + "§d§lMoney-Booster: §7" + getMoneyBooster(p.getUniqueId()));
+            p.sendMessage(MessageManager.PREFIX + "§d§lGem-Booster: §7" + getMoneyBooster(p.getUniqueId()));
             p.sendMessage(MessageManager.PREFIX + "§d§lChest-Booster: §7" + getChestBooster(p.getUniqueId()));
+            p.sendMessage(MessageManager.PREFIX + "§d§lAngel-Booster: §7" + getAngelBooster(p.getUniqueId()));
         }else if(args.length == 1) {
 
             if(args[0].equalsIgnoreCase("help")) {
@@ -82,7 +84,7 @@ public class BoosterAPI implements CommandExecutor {
                         Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + money.getName() + "§7 für " + money.getLenth() + " §7Minuten gezündet");
 
                         for(Player all : Bukkit.getOnlinePlayers()) {
-                            TTA_Methods.sendTitle(all,"§6Money-Booster",20,20,20 ,"§7von " + p.getDisplayName(),20,20,20);
+                            TTA_Methods.sendTitle(all,"§6Gem-Booster",20,20,20 ,"§7von " + p.getDisplayName(),20,20,20);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
@@ -101,7 +103,36 @@ public class BoosterAPI implements CommandExecutor {
                         p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + money.getName() + " §7da bereits einer aktiv ist!");
                     }
                 }else {
-                    p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Money-Booster.");
+                    p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Gem-Booster.");
+                }
+            }else if(args[0].equalsIgnoreCase("angel")) {
+                Angelbooster money = new Angelbooster();
+                if(hasEnoughAngelBooster(p.getUniqueId(), 1)) {
+                    if(!SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
+
+                        Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + money.getName() + "§7 für " + money.getLenth() + " §7Minuten gezündet");
+
+                        for(Player all : Bukkit.getOnlinePlayers()) {
+                            TTA_Methods.sendTitle(all,"§6Angel-Booster",20,20,20 ,"§7von " + p.getDisplayName(),20,20,20);
+                            all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
+                            all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
+                            all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
+                        }
+
+                        SchoolMode.getInstance().getBoostermanager().startBoost(new Moneybooster());
+
+                        Firework.Firework(p);
+
+                        boost.put("angel", 3600);
+                        angel1 = true;
+
+                        removeAngelBooster(p.getUniqueId(), 1);
+                        return true;
+                    }else {
+                        p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + money.getName() + " §7da bereits einer aktiv ist!");
+                    }
+                }else {
+                    p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Angel-Booster.");
                 }
             }else if(args[0].equalsIgnoreCase("chest")) {
                 if(hasEnoughChestBooster(p.getUniqueId(), 1)) {
@@ -136,6 +167,12 @@ public class BoosterAPI implements CommandExecutor {
                 }else {
                     p.sendMessage(MessageManager.PREFIX + "§bMoney-Booster: §4aus");
                 }
+                Angelbooster angel = new Angelbooster();
+                if(SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(angel.getName())))) {
+                    p.sendMessage(MessageManager.PREFIX + "§bAngel-Booster: §aan");
+                }else {
+                    p.sendMessage(MessageManager.PREFIX + "§bAngel-Booster: §4aus");
+                }
             }else {
                 p.sendMessage(MessageManager.PREFIX + "§cFalsche Eingabe des Commands. Bitte benutze §6/booster help §c");
             }
@@ -154,6 +191,9 @@ public class BoosterAPI implements CommandExecutor {
                     }else if (name.equalsIgnoreCase("chest")) {
                         addChestBooster(target.getUniqueId(), amount);
                         p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bChest-Booster §7bekommen");
+                    }else if (name.equalsIgnoreCase("angel")) {
+                        addAngelBooster(target.getUniqueId(), amount);
+                        p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bAngel-Booster §7bekommen");
                     } else {
                         p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
                     }
@@ -170,6 +210,9 @@ public class BoosterAPI implements CommandExecutor {
                     } else if (name.equalsIgnoreCase("chest")) {
                         removeChestBooster(target.getUniqueId(), amount);
                         p.sendMessage(MessageManager.PREFIX + "§7Du hast §e" + target.getPlayer().getName() + "§a " + amount + "x §bChest-Booster §7removt");
+                    }else if (name.equalsIgnoreCase("angel")) {
+                        removeAngelBooster(target.getUniqueId(), amount);
+                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §e" + target.getPlayer().getName() + "§a " + amount + "x §bAngel-Booster §7removt");
                     }
                 }
 
@@ -213,6 +256,15 @@ public class BoosterAPI implements CommandExecutor {
 
     }
 
+    public static Integer getAngelBooster(UUID uuid) {
+        File file = new File(VERZEICHNISS, "booster.yml");
+        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+
+        int money = cfg.getInt(uuid + ".angelbooster");
+        return money;
+
+    }
+
     public static void addXpBooster(UUID uuid, int amount) {
         File file = new File(VERZEICHNISS, "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
@@ -252,6 +304,22 @@ public class BoosterAPI implements CommandExecutor {
         int money = cfg.getInt(uuid + ".chestbooster");
         money = money + amount;
         cfg.set(uuid + ".chestbooster", money);
+        try {
+            cfg.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public static void addAngelBooster(UUID uuid, int amount) {
+        File file = new File(VERZEICHNISS, "booster.yml");
+        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+
+        int money = cfg.getInt(uuid + ".angelbooster");
+        money = money + amount;
+        cfg.set(uuid + ".angelbooster", money);
         try {
             cfg.save(file);
         } catch (IOException e) {
@@ -306,6 +374,21 @@ public class BoosterAPI implements CommandExecutor {
 
     }
 
+    public void removeAngelBooster(UUID uuid, int amount) {
+        File file = new File(VERZEICHNISS, "booster.yml");
+        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+
+        int money = cfg.getInt(uuid + ".angelbooster");
+        money = money - amount;
+        cfg.set(uuid + ".angelbooster", money);
+        try {
+            cfg.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public boolean hasEnoughXpBooster(UUID uuid, int amount) {
         File file = new File(VERZEICHNISS, "booster.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
@@ -335,6 +418,18 @@ public class BoosterAPI implements CommandExecutor {
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
         int money = cfg.getInt(uuid + ".chestbooster");
+        if (money >= amount) {
+            return true;
+        } else
+            return false;
+
+    }
+
+    public boolean hasEnoughAngelBooster(UUID uuid, int amount) {
+        File file = new File(VERZEICHNISS, "booster.yml");
+        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+
+        int money = cfg.getInt(uuid + ".angelbooster");
         if (money >= amount) {
             return true;
         } else
