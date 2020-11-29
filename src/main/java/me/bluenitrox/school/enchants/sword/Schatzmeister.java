@@ -1,5 +1,6 @@
-package me.bluenitrox.school.enchants;
+package me.bluenitrox.school.enchants.sword;
 
+import me.bluenitrox.school.managers.EnchantManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
@@ -7,6 +8,7 @@ import me.bluenitrox.school.utils.NBTTags;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -61,6 +63,7 @@ public class Schatzmeister {
                 p.openInventory(invend);
                 p.setItemInHand(new ItemBuilder(Material.AIR).build());
                 deleteItems(Integer.parseInt(idarrayend[1]));
+                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                 return;
             }
         }
@@ -152,7 +155,7 @@ public class Schatzmeister {
     public static void deleteItems(int id) {
         if(isIDExists(id)) {
             try {
-                PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE Items FROM schatzmeister WHERE ID = ?");
+                PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE FROM schatzmeister WHERE ID = ?");
                 ps.setInt(1, id);
                 ps.executeUpdate();
             } catch (Exception e) {

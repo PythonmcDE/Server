@@ -108,12 +108,10 @@ public class MinenManager {
         }*/
 
         int currMine = SchoolMode.getPlayerMine(p.getUniqueId());
-        Bukkit.broadcastMessage(currMine + "");
         ArrayList<String> allowedMines = new ArrayList<>();
 
         for(int i = currMine; i >= 1; i--){
             allowedMines.add(i + "");
-            Bukkit.broadcastMessage(i + "");
         }
 
         String mine = getMineByLocation(block);

@@ -1,14 +1,12 @@
 package me.bluenitrox.school.listener;
 
-import me.bluenitrox.school.enchants.Schatzmeister;
+import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
-import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

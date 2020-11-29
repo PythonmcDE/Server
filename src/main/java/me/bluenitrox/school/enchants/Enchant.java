@@ -14,8 +14,6 @@ public enum Enchant {
     JÄGER,
     ENTDECKER,
 
-    KONFETTI,
-    GLÜCKSPILZ,
     TANK,
     HEILZAUBER,
     MAGIESCHILD,
