@@ -95,7 +95,7 @@ public class ExpManager {
         for(int i = 0; i != 50; i++) {
             if (checkLevelUp(getExp(uuid), LevelManager.level.get(SchoolMode.playerlevel.get(uuid)))) {
                 SchoolMode.playerlevel.put(uuid, SchoolMode.playerlevel.get(uuid) + 1);
-                Bukkit.getPlayer(uuid).sendMessage("Levelup");
+                Bukkit.getPlayer(uuid).sendMessage(MessageManager.PREFIX + "§7Du bist im §cLevel §7aufgestiegen!");
                 Firework.Firework(Bukkit.getPlayer(uuid));
                 ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
             }

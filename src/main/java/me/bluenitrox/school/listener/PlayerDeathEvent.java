@@ -16,11 +16,11 @@ public class PlayerDeathEvent implements Listener {
         Player p = (Player)e.getEntity();
         Player k = (Player)e.getEntity().getKiller();
         e.setDeathMessage(null);
-        p.spigot().respawn();
         if(k != null) {
             Schatzmeister.giveInventorySchatzmeister(k, p.getInventory(), p, e);
             Kopfgeld.giveHead(k,p);
         }
+        p.spigot().respawn();
     }
 
 }

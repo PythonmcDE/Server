@@ -27,5 +27,6 @@ public class PermissionsManager {
     public static final String AHOFF = "System.ah.offline";
     public static final String ADDBOOSTER = "System.booster.add";
     public static final String COMMANDBLOCK = "System.send.all";
+    public static final String CHAT = "System.chat";
 
 }

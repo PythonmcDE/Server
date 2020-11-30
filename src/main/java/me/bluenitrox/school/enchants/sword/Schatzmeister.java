@@ -3,6 +3,7 @@ package me.bluenitrox.school.enchants.sword;
 import me.bluenitrox.school.managers.EnchantManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.Antidupe;
+import me.bluenitrox.school.utils.ArmorUtil;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.NBTTags;
 import org.apache.commons.io.output.ByteArrayOutputStream;
@@ -40,6 +41,7 @@ public class Schatzmeister {
                         e.setDroppedExp(0);
                         e.setKeepInventory(true);
                         inventoryowner.getInventory().clear();
+                        ArmorUtil.setArmorNull(p);
                     }
                 }
             }
