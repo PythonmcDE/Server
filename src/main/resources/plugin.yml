@@ -34,6 +34,17 @@ commands:
   testzwei:
   getcases:
   kit:
+  stop:
+    aliases:
+      - restart
+      - neustart
+  pet:
+    aliases:
+      - pets
+      - haustier
+      - haustiere
+      - tier
+      - tiere
   exp:
     aliases:
       - level

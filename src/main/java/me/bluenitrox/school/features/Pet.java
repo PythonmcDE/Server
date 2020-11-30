@@ -1,6 +1,7 @@
 package me.bluenitrox.school.features;
 
 import me.bluenitrox.school.SchoolMode;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftCreature;
 import org.bukkit.entity.Creature;
@@ -9,12 +10,26 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.inventory.Inventory;
 
 import java.util.Random;
 
 public class Pet {
 
+    public String guiname = "§6§lHaustiere";
+
     public Pet(){
+    }
+    public void openPetInventory(Player p){
+        Inventory inv = Bukkit.createInventory(null, 9*4, guiname);
+
+        setPetContent(inv, p);
+
+        p.openInventory(inv);
+    }
+
+    public void setPetContent(Inventory inv, Player p){
+
     }
 
     public void movePetEvent(Player player){

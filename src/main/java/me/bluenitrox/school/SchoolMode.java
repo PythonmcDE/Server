@@ -114,6 +114,8 @@ public class SchoolMode extends JavaPlugin {
         getCommand("spawn").setExecutor(new Spawn());
         getCommand("booster").setExecutor(new BoosterAPI());
         getCommand("kit").setExecutor(new Kit());
+        getCommand("pet").setExecutor(new PetCommand());
+        getCommand("stop").setExecutor(new StopCommand());
 
 
         //
