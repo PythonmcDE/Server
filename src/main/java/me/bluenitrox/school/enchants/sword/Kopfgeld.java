@@ -13,7 +13,7 @@ public class Kopfgeld extends EnchantAPI {
             if(killer.getItemInHand().getItemMeta() != null){
                 if(killer.getItemInHand().getItemMeta().getLore() != null){
                     if(hasEnchant(killer, EnchantManager.Kopfgeld)){
-                        if(makeOrNot(stringToNumber(killer.getItemInHand(), EnchantManager.Kopfgeld))){
+                        if(makeOrNot100(stringToNumber(killer.getItemInHand(), EnchantManager.Kopfgeld))){
                            killer.playSound(killer.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                            killer.getInventory().addItem(KopfUtil.createSkull(owner.getName(), "§c" + owner.getName()+ "'s Kopf"));
                         }
