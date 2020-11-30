@@ -97,15 +97,6 @@ public class KitAPI {
 
         inv.setItem(50, new ItemBuilder(Material.PAPER).setDisplayname("§8» §6§lKit Menu").setLore("§6▶ §7Hole dir §6deine Kits §7ab!", "", "§7Kits können durch", "§8● §6das Erwerben des gewünschten Kits §7 oder", "§8● §6wiederholtes Abholen der vorherigen Kits", "§7freigeschaltet werden!").build());
 
-        /*TODO
-            inv.setItem(Slot, Item);
-            for(int i = 0; i != 10; i++){
-                inv.setItem(i,glas);
-            }
-            für jedes item
-            Kit Menu bitte genau so machen wie auf euer Screenshot
-            ACHTE AUF RECHTSCHREIBUNG UND RICHTIGE BENENNUNG!!
-         */
     }
 
 }

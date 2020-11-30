@@ -42,11 +42,11 @@ public class Sell implements CommandExecutor {
                 }
             }
             if(total == 0) {
-                p.sendMessage(MessageManager.PREFIX + "§7Du hast §ckeine §7verkaufbaren Items im Inventar" + " NOCH IN ENGLISH!!!");
+                p.sendMessage(MessageManager.PREFIX + "§7Du hast §ckeine §7verkaufbaren Items im Inventar");
                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             }else {
                 p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1L, 1L);
-                p.sendMessage(MessageManager.PREFIX + "§7Du hast §a+" + ValuetoString.valueToString(total) + " §7bekommen" + " NOCH IN ENGLISH!!!");
+                p.sendMessage(MessageManager.PREFIX + "§7Du hast §a+" + ValuetoString.valueToString(total) + " §7bekommen");
                 MoneyManager.updateMoney(p.getUniqueId(), total, false, true);
             }
         }

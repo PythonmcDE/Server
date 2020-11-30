@@ -20,7 +20,7 @@ public class Angelbooster extends Boost {
     public void onEnd() {
         Bukkit.getOnlinePlayers().forEach(players ->{
             players.sendMessage(MessageManager.PREFIX + "§cDer" + getName() + " §cist nun vorbei");
-            BoosterAPI.money1 = false;
+            BoosterAPI.angel1 = false;
         });
         SchoolMode.getInstance().getBoostermanager().getAktivboost().remove(this);
     }

@@ -91,7 +91,7 @@ public class Antidupe {
         for(int i = 0; i < invzwei.getSize() -1; i++) {
             if (invzwei.getItem(i) != null) {
                 if (invzwei.getItem(i).getItemMeta() != null) {
-                    if (NBTTags.hasTag("antidupe", inv.getItem(i))) {
+                    if (NBTTags.hasTag("antidupe", invzwei.getItem(i))) {
                         NBTTags nbt = new NBTTags(invzwei.getItem(i));
                         String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
                         int id = Integer.parseInt(test[1]);

@@ -8,6 +8,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.Random;
 
@@ -15,6 +16,7 @@ public class Pet {
 
     public Pet(){
     }
+
     public void movePetEvent(Player player){
         if(SchoolMode.Pets.containsKey(player.getName())){
             new Pet().followPlayer((Creature)SchoolMode.Pets.get(player.getName()), player, 1.6);
@@ -33,9 +35,23 @@ public class Pet {
         }
     }
 
+    public void damagepet(EntityDamageEvent e){
+        if(SchoolMode.Pets.containsValue(e.getEntity())){
+            e.setCancelled(true);
+        }
+    }
+
     public void createPet(Player player, EntityType type){
-        Entity entity = (Entity)player.getWorld().spawnEntity(player.getLocation(), type);
-        entity.setCustomName(player.getName());
+        if(SchoolMode.Pets.containsKey(player.getName())) {
+            for(Entity all: player.getWorld().getEntities()){
+                if(all.getName().equalsIgnoreCase("§c" + player.getName() + "'s Haustier")){
+                    all.remove();
+                }
+            }
+            SchoolMode.Pets.get(player.getName()).remove();
+        }
+        Entity entity = (Entity) player.getWorld().spawnEntity(player.getLocation(), type);
+        entity.setCustomName("§c" + player.getName() + "'s Haustier");
         entity.setCustomNameVisible(true);
         SchoolMode.Pets.put(player.getName(), entity);
     }
@@ -66,7 +82,7 @@ public class Pet {
         }
 
 
-        if(location.distanceSquared(creature.getLocation()) > 100){
+        if(location.distanceSquared(creature.getLocation()) > 200){
             if(!player.isOnGround()){
                 return;
             }

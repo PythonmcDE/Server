@@ -174,27 +174,14 @@ public class MinenManager {
         Location loc2;
         List<Location> templist = new ArrayList<>();
 
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM minen WHERE name = ?")){
-            ps.setString(1, mine);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()){
-                String temp = rs.getString("eckpoint1");
-                String temp2 = rs.getString("eckpoint2");
-
-                loc1 = new LocationManager(temp).getLocation();
-                loc2 = new LocationManager(temp2).getLocation();
-                templist.add(loc1);
-                templist.add(loc2);
-                return templist;
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
+        String temp = "eckpoint1" + mine;
+        String temp2 = "eckpoint2" + mine;
+        loc1 = new LocationManager(temp).getLocation();
+        loc2 = new LocationManager(temp2).getLocation();
+        templist.add(loc1);
+        templist.add(loc2);
         return templist;
     }
-
-
 
     public List<Location> getAllLocationsInside(Location loc1, Location loc2){
         int yTop = 0;

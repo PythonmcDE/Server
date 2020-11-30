@@ -119,7 +119,7 @@ public class BoosterAPI implements CommandExecutor {
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                         }
 
-                        SchoolMode.getInstance().getBoostermanager().startBoost(new Moneybooster());
+                        SchoolMode.getInstance().getBoostermanager().startBoost(new Angelbooster());
 
                         Firework.Firework(p);
 

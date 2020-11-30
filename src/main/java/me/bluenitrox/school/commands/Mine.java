@@ -166,7 +166,6 @@ public class Mine implements CommandExecutor {
                 } else {
                     String[] name = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
                     e.getWhoClicked().teleport(new LocationManager("mine" + name[2]).getLocation());
-                    Bukkit.broadcastMessage("mine" + name[2]);
                     e.getWhoClicked().sendMessage(MessageManager.TPTOMINE);
                 }
             }

@@ -31,7 +31,7 @@ public class Schatzmeister {
             if (p.getItemInHand().getItemMeta() != null) {
                 if(p.getItemInHand().getItemMeta().getLore() != null) {
                     if (p.getItemInHand().getItemMeta().getLore().contains(EnchantManager.schatzmeister)) {
-                        ItemStack chest = new ItemBuilder(Material.CHEST).setDisplayname("§cInventar von §b" + inventoryowner.getDisplayName()).setLore("§8§l» §7Rechtsklicke die Kiste um die Items", "§8§l» §7deines §cGegners §7zu bekommen!").build();
+                        ItemStack chest = new ItemBuilder(Material.CHEST).setDisplayname("§8§l» §cInventar von §b" + inventoryowner.getDisplayName()).setLore("§6§l▶ §7Rechtsklicke die Kiste um die Items", "§6§l▶ §7deines §cGegners §7zu bekommen!").build();
 
                         NBTTags nbt = new NBTTags(chest);
                         nbt.setNBTTag("itemsiddata", putInDatabase(inv) +" ID");

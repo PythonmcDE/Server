@@ -3,6 +3,7 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.features.Pet;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 public class EntityDamageByEntityEvent implements Listener {
 

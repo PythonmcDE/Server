@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class LocationManager {
 
@@ -16,6 +17,8 @@ public class LocationManager {
     public LocationManager(String name) {
         this.name = name;
     }
+
+    public static HashMap<String, Location> locations = new HashMap<>();
 
     public boolean isLocationExists(){
         try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM locations WHERE name = ?")){
@@ -70,7 +73,20 @@ public class LocationManager {
         }
     }
 
+    public void setLocsHashmap(String name){
+        locations.put(name,getLocationDatabase());
+    }
+
     public Location getLocation(){
+        if(locations.containsKey(name)) {
+            return locations.get(name);
+        }else {
+            locations.put(name, getLocationDatabase());
+            return locations.get(name);
+        }
+    }
+
+    public Location getLocationDatabase(){
         if(isLocationExists()){
             try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM locations WHERE name = ?")) {
                 ps.setString(1, this.name);

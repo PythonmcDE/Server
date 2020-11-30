@@ -19,6 +19,7 @@ import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.UUIDFetcher;
 import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -36,13 +37,6 @@ import java.util.Random;
 import java.util.UUID;
 
 public class SchoolMode extends JavaPlugin {
-
-    /*
-
-    ANTIDUPE
-    beim Item aufsammeln / aus kiste nehmen / joinen / kiste öffnen / ofen etc. durchsyncen
-
-     */
 
     public static SchoolMode instance;
     public static HashMap<UUID, Float> playerMoney = new HashMap<>();
@@ -78,6 +72,7 @@ public class SchoolMode extends JavaPlugin {
         startAhAnticrash();
         setBoostermanager(new BoosterManager());
         LevelManager.registerLevel();
+        setGameRules();
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
     }
 
@@ -142,6 +137,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PlayerRespawnEvent(), this);
         pm.registerEvents(new PlayerMoveEvent(), this);
         pm.registerEvents(new EntityDamageByEntityEvent(), this);
+        pm.registerEvents(new EntityDamageEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");
@@ -267,6 +263,11 @@ public class SchoolMode extends JavaPlugin {
             } catch (SQLException e){
                 e.printStackTrace();
             }
+        }
+    }
+    private void setGameRules(){
+        for(World world : Bukkit.getWorlds()){
+            world.setGameRuleValue("doTileDrops", "false");
         }
     }
 
