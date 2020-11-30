@@ -1,7 +1,5 @@
 package me.bluenitrox.school.enchants;
 
-import me.bluenitrox.school.managers.EnchantManager;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

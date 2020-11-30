@@ -5,12 +5,14 @@ import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerInteractEvent implements Listener {
@@ -28,6 +30,9 @@ public class PlayerInteractEvent implements Listener {
                     }
                 }
             }
+        }else if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
+            interactEnderchest(p, e);
+            interactCraftingtable(p, e);
         }
     }
 
@@ -75,4 +80,16 @@ public class PlayerInteractEvent implements Listener {
         }
     }
 
+    private void interactEnderchest(Player p, org.bukkit.event.player.PlayerInteractEvent e){
+        if(e.getClickedBlock().getType() == Material.ENDER_CHEST){
+            e.setCancelled(true);
+            p.sendMessage(MessageManager.ENDERCHEST);
+        }
+    }
+
+    private void interactCraftingtable(Player p, org.bukkit.event.player.PlayerInteractEvent e){
+        if(e.getClickedBlock().getType() == Material.WORKBENCH){
+            e.setCancelled(true);
+        }
+    }
 }

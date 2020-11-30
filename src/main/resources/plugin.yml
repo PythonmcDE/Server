@@ -33,6 +33,7 @@ commands:
   test:
   testzwei:
   getcases:
+  kit:
   exp:
     aliases:
       - level

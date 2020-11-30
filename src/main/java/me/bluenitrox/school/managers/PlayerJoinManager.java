@@ -24,6 +24,9 @@ public class PlayerJoinManager {
         if(!isUserExists(uuid)) {
             configuratePlayer(uuid);
         }
+        if(!isKitUserExists(uuid)){
+            configurateKitPlayer(uuid);
+        }
         float money = MoneyManager.getMoneyDatabase(uuid);
         float exp = ExpManager.getExpDatabase(uuid);
         int mine = MinenManager.getMineDatabase(uuid);
@@ -59,9 +62,44 @@ public class PlayerJoinManager {
         }
     }
 
+    public static void configurateKitPlayer(UUID uuid) {
+        if(!isKitUserExists(uuid)) {
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO KitSystem (UUID, Holz, Stein, Eisen, Warzone, Diamant, Bergarbeiter, Goldfinger, Juwelier, Banker, Ninja, Sensei, Meister) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+                ps.setString(1, uuid.toString());
+                ps.setInt(2, 0);
+                ps.setInt(3, 35);
+                ps.setInt(4, 50);
+                ps.setInt(5, 50);
+                ps.setInt(6, 50);
+                ps.setInt(7, 50);
+                ps.setInt(8, 35);
+                ps.setInt(9, 50);
+                ps.setInt(10, 50);
+                ps.setInt(11, 50);
+                ps.setInt(12, 35);
+                ps.setInt(13, 50);
+                ps.executeUpdate();
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private static boolean isUserExists(UUID uuid) {
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT spieleruuid FROM spielerdaten WHERE spieleruuid = ?");
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private static boolean isKitUserExists(UUID uuid) {
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT UUID FROM KitSystem WHERE UUID = ?");
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();

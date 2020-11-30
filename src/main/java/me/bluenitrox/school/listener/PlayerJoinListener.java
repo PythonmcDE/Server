@@ -1,6 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import de.Herbystar.TTA.TTA_Methods;
+import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
@@ -17,6 +18,7 @@ public class PlayerJoinListener implements Listener {
     public void onJoin(final PlayerJoinEvent e) {
         Player p = e.getPlayer();
         PlayerJoinManager.cachPlayerData(p.getUniqueId());
+        SchoolMode.playerwason.add(p.getUniqueId());
 
         p.getInventory().clear();
         TTA_Methods.sendActionBar(p, "§8» §7Inventar Sync §aabgeschlossen§7!", 20*3);

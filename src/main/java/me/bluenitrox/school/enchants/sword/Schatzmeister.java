@@ -31,7 +31,7 @@ public class Schatzmeister {
             if (p.getItemInHand().getItemMeta() != null) {
                 if(p.getItemInHand().getItemMeta().getLore() != null) {
                     if (p.getItemInHand().getItemMeta().getLore().contains(EnchantManager.schatzmeister)) {
-                        ItemStack chest = new ItemBuilder(Material.CHEST).setDisplayname("§8§l» §cInventar von §b" + inventoryowner.getDisplayName()).setLore("§6§l▶ §7Rechtsklicke die Kiste um die Items", "§6§l▶ §7deines §cGegners §7zu bekommen!").build();
+                        ItemStack chest = new ItemBuilder(Material.CHEST).setDisplayname("§8» §cInventar von §b" + inventoryowner.getDisplayName()).setLore("§6§l▶ §7Rechtsklicke die Kiste um die Items", "§6§l▶ §7deines §cGegners §7zu bekommen!").build();
 
                         NBTTags nbt = new NBTTags(chest);
                         nbt.setNBTTag("itemsiddata", putInDatabase(inv) +" ID");
@@ -48,7 +48,7 @@ public class Schatzmeister {
 
     public static void openInventory(Player p, PlayerInteractEvent e){
         if(p.getItemInHand().getType() == Material.CHEST){
-            if(p.getItemInHand().getItemMeta().getDisplayName().startsWith("§cInventar von §b")){
+            if(p.getItemInHand().getItemMeta().getDisplayName().startsWith("§8» §cInventar von §b")){
                 NBTTags nbt = new NBTTags(p.getItemInHand());
                 String[] idarray = nbt.getNBTTag("itemsiddata").toString().split(" ");
                 String[] idarrayend = idarray[0].split("\"");

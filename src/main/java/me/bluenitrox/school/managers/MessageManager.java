@@ -41,6 +41,9 @@ public class MessageManager {
     public static final String TPTOMINE = PREFIX + "§7Du wurdest zu der Mine teleportiert.";
     public static final String MINEBUYED = PREFIX + "§7Du hast dir die Mine §aerfolgreich §7gekauft.";
     public static final String OTHERMINES = PREFIX + "§7Du musst dir §6alle Minen §7davor noch kaufen.";
+    public static final String ENDERCHEST = PREFIX + "§7Du kannst auf diesem Server §ckeine §7Enderkisten öffnen!";
+    public static final String KITNOTREADY = PREFIX + "§7Du kannst das Kit §cnicht §7abholen da der Cooldown noch nicht abgelaufen ist!";
+    public static final String DONTHAVEKIT = PREFIX + "§7Du hast dieses Kit noch §cnicht freigeschalten§7.";
 
     public static String PLAYERWASSETGAMEMODE(int i){
         if(i == 0){

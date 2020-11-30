@@ -8,6 +8,7 @@ import me.bluenitrox.school.boost.BoosterAPI;
 import me.bluenitrox.school.boost.BoosterManager;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
+import me.bluenitrox.school.features.KitAPI;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.LevelManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
@@ -44,6 +45,7 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Integer> playerBlocks = new HashMap<>();
     public static HashMap<UUID, Integer> playerMine = new HashMap<>();
     public static HashMap<UUID, Integer> playerlevel = new HashMap<>();
+    public static ArrayList<UUID> playerwason = new ArrayList<>();
     public static HashMap<String,Entity> Pets = new HashMap<String, Entity>();
     private static final Random r = new Random();
     private BoosterManager boostermanager;
@@ -73,6 +75,7 @@ public class SchoolMode extends JavaPlugin {
         setBoostermanager(new BoosterManager());
         LevelManager.registerLevel();
         setGameRules();
+        startKitSystem();
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
     }
 
@@ -110,6 +113,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("exp").setExecutor(new Exp());
         getCommand("spawn").setExecutor(new Spawn());
         getCommand("booster").setExecutor(new BoosterAPI());
+        getCommand("kit").setExecutor(new Kit());
 
 
         //
@@ -138,6 +142,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PlayerMoveEvent(), this);
         pm.registerEvents(new EntityDamageByEntityEvent(), this);
         pm.registerEvents(new EntityDamageEvent(), this);
+        pm.registerEvents(new PlayerDropItemEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");
@@ -210,6 +215,13 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
 
+        try{
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `KitSystem` ( `UUID` CHAR(36) NOT NULL , `Holz` INT(11) NOT NULL , `Stein` INT(11) NOT NULL , `Eisen` INT(11) NOT NULL , `Warzone` INT(11) NOT NULL , `Diamant` INT(11) NOT NULL , `Bergarbeiter` INT(11) NOT NULL , `Goldfinger` INT(11) NOT NULL , `Juwelier` INT NOT NULL , `Banker` INT NOT NULL , `Ninja` INT NOT NULL , `Sensei` INT NOT NULL , `Meister` INT NOT NULL )");
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
         Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/7)");
     }
     private void startAntiDupe() {
@@ -270,6 +282,100 @@ public class SchoolMode extends JavaPlugin {
             world.setGameRuleValue("doTileDrops", "false");
         }
     }
+    private void startKitSystem(){
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for(UUID uuid : playerwason){
+                    if(KitAPI.holz.containsKey(uuid)){
+                        if(KitAPI.holz.get(uuid) > 1){
+                            KitAPI.holz.put(uuid,KitAPI.holz.get(uuid)-1);
+                        }else {
+                            KitAPI.holz.remove(uuid);
+                        }
+                    }
+                    if(KitAPI.stein.containsKey(uuid)){
+                        if(KitAPI.stein.get(uuid) > 1){
+                            KitAPI.stein.put(uuid,KitAPI.stein.get(uuid)-1);
+                        }else {
+                            KitAPI.stein.remove(uuid);
+                        }
+                    }
+                    if(KitAPI.eisen.containsKey(uuid)){
+                        if(KitAPI.eisen.get(uuid) > 1){
+                            KitAPI.eisen.put(uuid,KitAPI.eisen.get(uuid)-1);
+                        }else {
+                            KitAPI.eisen.remove(uuid);
+                        }
+                    }
+                    if(KitAPI.warzone.containsKey(uuid)){
+                        if(KitAPI.warzone.get(uuid) > 1){
+                            KitAPI.warzone.put(uuid,KitAPI.warzone.get(uuid)-1);
+                        }else {
+                            KitAPI.warzone.remove(uuid);
+                        }
+                    }
+                    if(KitAPI.diamant.containsKey(uuid)){
+                        if(KitAPI.diamant.get(uuid) > 1){
+                            KitAPI.diamant.put(uuid,KitAPI.diamant.get(uuid)-1);
+                        }else {
+                            KitAPI.diamant.remove(uuid);
+                        }
+                    }
+                    if(KitAPI.bergarbeiter.containsKey(uuid)){
+                        if(KitAPI.bergarbeiter.get(uuid) > 1){
+                            KitAPI.bergarbeiter.put(uuid,KitAPI.bergarbeiter.get(uuid)-1);
+                        }else {
+                            KitAPI.bergarbeiter.remove(uuid);
+                        }
+                    }
+                    if(KitAPI.goldfinger.containsKey(uuid)){
+                        if(KitAPI.goldfinger.get(uuid) > 1){
+                            KitAPI.goldfinger.put(uuid,KitAPI.goldfinger.get(uuid)-1);
+                        }else {
+                            KitAPI.goldfinger.remove(uuid);
+                        }
+                    }
+                    if(KitAPI.juwelier.containsKey(uuid)){
+                        if(KitAPI.juwelier.get(uuid) > 1){
+                            KitAPI.juwelier.put(uuid,KitAPI.juwelier.get(uuid)-1);
+                        }else {
+                            KitAPI.juwelier.remove(uuid);
+                        }
+                    }
+                    if(KitAPI.banker.containsKey(uuid)){
+                        if(KitAPI.banker.get(uuid) > 1){
+                            KitAPI.banker.put(uuid,KitAPI.banker.get(uuid)-1);
+                        }else {
+                            KitAPI.banker.remove(uuid);
+                        }
+                    }
+                    if(KitAPI.ninja.containsKey(uuid)){
+                        if(KitAPI.ninja.get(uuid) > 1){
+                            KitAPI.ninja.put(uuid,KitAPI.ninja.get(uuid)-1);
+                        }else {
+                            KitAPI.ninja.remove(uuid);
+                        }
+                    }
+                    if(KitAPI.sensei.containsKey(uuid)){
+                        if(KitAPI.sensei.get(uuid) > 1){
+                            KitAPI.sensei.put(uuid,KitAPI.sensei.get(uuid)-1);
+                        }else {
+                            KitAPI.sensei.remove(uuid);
+                        }
+                    }
+                    if(KitAPI.meister.containsKey(uuid)){
+                        if(KitAPI.meister.get(uuid) > 1){
+                            KitAPI.meister.put(uuid,KitAPI.meister.get(uuid)-1);
+                        }else {
+                            KitAPI.meister.remove(uuid);
+                        }
+                    }
+                }
+            }
+        }.runTaskTimerAsynchronously(this, 20, 20);
+
+    }
 
     private void disablePets(){
         for(String name : Pets.keySet()){
@@ -301,7 +407,6 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
     }
-
     private static boolean isDupeIDExists() {
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe");
