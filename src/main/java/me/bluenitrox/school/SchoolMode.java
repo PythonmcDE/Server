@@ -280,6 +280,7 @@ public class SchoolMode extends JavaPlugin {
         }
     }
     private void setGameRules(){
+        Bukkit.setWhitelist(false);
         for(World world : Bukkit.getWorlds()){
             world.setGameRuleValue("doTileDrops", "false");
         }

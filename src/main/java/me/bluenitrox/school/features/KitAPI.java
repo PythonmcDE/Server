@@ -346,7 +346,7 @@ public class KitAPI {
                             updateGoldfinger(uuid, 1, true);
                         }
                         items.addBergarbeiterItems(p);
-                        bergarbeiter.put(uuid,60*60*2L);
+                        bergarbeiter.put(uuid,60*60*1L);
                         return;
                     }
                 }else if(MoneyManager.getMoney(uuid) >= 1000000) {
@@ -377,7 +377,7 @@ public class KitAPI {
                         if(getJuwelier(uuid) > 0) {
                             updateJuwelier(uuid, 1, true);
                         }
-                        goldfinger.put(uuid, 60*60*5L);
+                        goldfinger.put(uuid, 60*60*2L);
                         return;
                     }
                 }else {
@@ -400,7 +400,7 @@ public class KitAPI {
                         if(getBanker(uuid) > 0) {
                             updateBanker(uuid, 1, true);
                         }
-                        juwelier.put(uuid, 60*60*10L);
+                        juwelier.put(uuid, 60*60*3L);
                         return;
                     }
                 }else {
@@ -420,7 +420,7 @@ public class KitAPI {
                         p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                         p.closeInventory();
                         items.addBänkerItems(p);
-                        banker.put(uuid,60*60*15L);
+                        banker.put(uuid,60*60*6L);
 
                         return;
                     }
@@ -444,7 +444,7 @@ public class KitAPI {
                             updateNinja(uuid, 1, true);
                         }
                         items.addNinjaItems(p);
-                        ninja.put(uuid,60*60*3L);
+                        ninja.put(uuid,60*60*1L);
                         return;
                     }
                 }else if(MoneyManager.getMoney(uuid) >= 5000000) {
@@ -475,7 +475,7 @@ public class KitAPI {
                             updateSensei(uuid, 1, true);
                         }
                         items.addSenseiItems(p);
-                        sensei.put(uuid,60*60*6L);
+                        sensei.put(uuid,60*60*3L);
                         return;
                     }
                 }else {
@@ -498,7 +498,7 @@ public class KitAPI {
                             updateMeister(uuid, 1, true);
                         }
                         items.addMeisterItems(p);
-                        meister.put(uuid, 60*60*12L);
+                        meister.put(uuid, 60*60*6L);
                         return;
                     }
                 }else {
