@@ -8,7 +8,7 @@ public class Moneybooster extends Boost {
 
     public Moneybooster() {
         setName("§bMoney-Booster");
-        setLenth(60);
+        setLenth(45);
     }
 
     @Override

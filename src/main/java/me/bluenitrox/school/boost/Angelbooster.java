@@ -8,7 +8,7 @@ public class Angelbooster extends Boost {
 
     public Angelbooster() {
         setName("§bAngel-Booster");
-        setLenth(60);
+        setLenth(45);
     }
 
     @Override

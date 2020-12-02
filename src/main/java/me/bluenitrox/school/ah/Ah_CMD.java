@@ -18,24 +18,19 @@ public class Ah_CMD implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player)cs;
-        if(!(cs instanceof Player)){
+        if(cs == null){
             cs.sendMessage(MessageManager.NOPLAYER);
-            return true;
-        }
-
-        if(p.getWorld().getName().equals("zjonaah")){
-            p.sendMessage("§7Du kannst hier das §cAh §7nicht benutzen!"+ "ENGLISH");
             return true;
         }
 
         if(args.length == 0){
             if(MessageManager.ah) {
-                Inventory invah = Bukkit.createInventory(null, 9 * 5, GUI_NAME);
+                Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);
 
                 AhManager.openAh(invah, 1, p);
 
             }else {
-                p.sendMessage("§7Das Ah ist §cdeaktivert!"+ "ENGLISH");
+                p.sendMessage("§7Das Ah ist §cdeaktivert!");
             }
         }else if(args.length == 2) {
             if(MessageManager.ah) {
@@ -57,33 +52,33 @@ public class Ah_CMD implements CommandExecutor {
                     }
 
                     if (AhManager.getAhItems(p) >= allowedItems) {
-                        p.sendMessage("§7Du hast bereits die maximale Anzahl an Items ins Ah gestellt [§a" + allowedItems + "§7 ]!"+ "ENGLISH");
+                        p.sendMessage("§7Du hast bereits die maximale Anzahl an Items ins Ah gestellt [§a" + allowedItems + "§7 ]!");
                         return true;
                     }
 
 
                     int preis = Integer.parseInt(args[1]);
                     if (p.getItemInHand().getType() == Material.AIR) {
-                        p.sendMessage("§cBitte halte ein Item in der Hand!"+ "ENGLISH");
+                        p.sendMessage("§cBitte halte ein Item in der Hand!");
                         return true;
                     }
                     if(preis <= 0){
-                        p.sendMessage("§cDer Preis ist so nicht möglich"+ "ENGLISH");
+                        p.sendMessage("§cDer Preis ist so nicht möglich");
                         return true;
                     }
                     if(preis > 1000000000){
                         preis = 1000000000;
                     }
                     if(!CheckAmount.check(args[1])){
-                        p.sendMessage("§cDer Preis ist so nicht möglich"+ "ENGLISH");
+                        p.sendMessage("§cDer Preis ist so nicht möglich");
                         return true;
                     }
-                    Inventory invah = Bukkit.createInventory(null, 9 * 5, GUI_NAME);
+                    Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);
 
                     AhManager.sellItem(p.getItemInHand(), p, preis, invah);
 
                 } else {
-                    p.sendMessage(MessageManager.PREFIX + "§7Das Ah ist §cdeaktivert!" + "ENGLISH");
+                    p.sendMessage(MessageManager.PREFIX + "§7Das Ah ist §cdeaktivert!");
                 }
             } else {
                 p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));

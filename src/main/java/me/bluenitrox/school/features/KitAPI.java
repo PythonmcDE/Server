@@ -59,7 +59,7 @@ public class KitAPI {
         ItemStack fs6 = new ItemBuilder(Material.DIAMOND).setDisplayname("§6§lJuwelier").setLore("§8» §7Du besitzt dieses Kit, klicke", "§8» §7hier, um es §a§labzuholen§7.").addEnchant(Enchantment.ARROW_INFINITE, 10, false).build();
         ItemStack fs7 = new ItemBuilder(Material.EMERALD).setDisplayname("§6§lBänker").setLore("§8» §7Du besitzt dieses Kit, klicke", "§8» §7hier, um es §a§labzuholen§7.").addEnchant(Enchantment.ARROW_INFINITE, 10, false).build();
         ItemStack fs8 = new ItemBuilder(Material.MELON).setDisplayname("§6§lNinja").setLore("§8» §7Du besitzt dieses Kit, klicke", "§8» §7hier, um es §a§labzuholen§7.").addEnchant(Enchantment.ARROW_INFINITE, 10, false).build();
-        ItemStack fs9 = new ItemBuilder(Material.SULPHUR).setDisplayname("§6§lSensei").setLore("§8» §7Du besitzt dieses Kit, klicke", "§8» §7hier, um es §a§labzuholen§7.").addEnchant(Enchantment.ARROW_INFINITE, 10, false).build();
+        ItemStack fs9 = new ItemBuilder(Material.SUGAR_CANE).setDisplayname("§6§lSensei").setLore("§8» §7Du besitzt dieses Kit, klicke", "§8» §7hier, um es §a§labzuholen§7.").addEnchant(Enchantment.ARROW_INFINITE, 10, false).build();
         ItemStack fs10 = new ItemBuilder(Material.GOLD_CHESTPLATE).setDisplayname("§6§lMeister").setLore("§8» §7Du besitzt dieses Kit, klicke", "§8» §7hier, um es §a§labzuholen§7.").addEnchant(Enchantment.ARROW_INFINITE, 10, false).build();
 
         //Items mit Cooldown
@@ -74,7 +74,7 @@ public class KitAPI {
         ItemStack cd7 = new ItemBuilder(Material.DIAMOND).setDisplayname("§c§o§lJuwelier").setLore("§8» §7Du kannst dieses Kit gerade §cnicht abholen§7!", "§8» §7Wartezeit insgesamt: §6§l10 Stunden§7.").build();
         ItemStack cd8 = new ItemBuilder(Material.EMERALD).setDisplayname("§c§o§lBänker").setLore("§8» §7Du kannst dieses Kit gerade §cnicht abholen§7!", "§8» §7Wartezeit insgesamt: §6§l15 Stunden§7.").build();
         ItemStack cd9 = new ItemBuilder(Material.MELON).setDisplayname("§c§o§lNinja").setLore("§8» §7Du kannst dieses Kit gerade §cnicht abholen§7!", "§8» §7Wartezeit insgesamt: §6§l3 Stunden§7.").build();
-        ItemStack cd10 = new ItemBuilder(Material.SULPHUR).setDisplayname("§c§o§lSensei").setLore("§8» §7Du kannst dieses Kit gerade §cnicht abholen§7!", "§8» §7Wartezeit insgesamt: §6§l6 Stunden§7.").build();
+        ItemStack cd10 = new ItemBuilder(Material.SUGAR_CANE).setDisplayname("§c§o§lSensei").setLore("§8» §7Du kannst dieses Kit gerade §cnicht abholen§7!", "§8» §7Wartezeit insgesamt: §6§l6 Stunden§7.").build();
         ItemStack cd11 = new ItemBuilder(Material.GOLD_CHESTPLATE).setDisplayname("§c§o§lMeister").setLore("§8» §7Du kannst dieses Kit gerade §cnicht abholen§7!", "§8» §7Wartezeit insgesamt: §6§l12 Stunden§7.").build();
 
         //ITEM MIT "KIT ABHOLEN"
@@ -88,7 +88,7 @@ public class KitAPI {
         ItemStack ka7 = new ItemBuilder(Material.DIAMOND).setDisplayname("§c§o§lJuwelier").setLore("§8» §7Noch §cnicht freigeschaltet§7!", "§8» §7Hole das §6vorherige Kit §7noch §6§l" + getJuwelier(uuid) +" mal §7ab!").build();
         ItemStack ka8 = new ItemBuilder(Material.EMERALD).setDisplayname("§c§o§lBänker").setLore("§8» §7Noch §cnicht freigeschaltet§7!", "§8» §7Hole das §6vorherige Kit §7noch §6§l" + getBanker(uuid) +" mal §7ab!").build();
         ItemStack ka9 = new ItemBuilder(Material.MELON).setDisplayname("§c§o§lNinja").setLore("§8» §7Noch §cnicht freigeschaltet§7!", "§8» §7Kaufpreis: §65 Mio Gems").build();
-        ItemStack ka10 = new ItemBuilder(Material.SULPHUR).setDisplayname("§c§o§lSensei").setLore("§8» §7Noch §cnicht freigeschaltet§7!", "§8» §7Hole das §6vorherige Kit §7noch §6§l" + getSensei(uuid) + " mal §7ab!").build();
+        ItemStack ka10 = new ItemBuilder(Material.SUGAR_CANE).setDisplayname("§c§o§lSensei").setLore("§8» §7Noch §cnicht freigeschaltet§7!", "§8» §7Hole das §6vorherige Kit §7noch §6§l" + getSensei(uuid) + " mal §7ab!").build();
         ItemStack ka11 = new ItemBuilder(Material.GOLD_CHESTPLATE).setDisplayname("§c§o§lMeister").setLore("§8» §7Noch §cnicht freigeschaltet§7!", "§8» §7Hole das §6vorherige Kit §7noch §6§l" + getMeister(uuid) +" mal §7ab!").build();
 
         for(int i = 0; i<=8; i++){
@@ -461,7 +461,7 @@ public class KitAPI {
                     p.sendMessage(MessageManager.DONTHAVEKIT);
                     return;
                 }
-            }else if(e.getCurrentItem().getType() == Material.SULPHUR){
+            }else if(e.getCurrentItem().getType() == Material.SUGAR_CANE){
                 if(getSensei(uuid) == 0) {
                     if (sensei.containsKey(uuid)) {
                         p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);

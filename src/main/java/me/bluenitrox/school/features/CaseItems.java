@@ -26,47 +26,51 @@ public class CaseItems {
 
     void registerLegendär(){
         ItemStack is = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§6Mutantenhelm").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true)
-                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lFlink III", "§a§lHeilzauber III").build();
+                .addEnchant(Enchantment.DURABILITY, 7, true).setLore("§a§lFlink III", "§a§lHeilzauber III").build();
         ItemStack is1 = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Mutantenharnish").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true)
-                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lFlink III", "§a§lHeilzauber III").build();
+                .addEnchant(Enchantment.DURABILITY, 7, true).setLore("§a§lFlink III", "§a§lHeilzauber III").build();
         ItemStack is2 = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§6Mutantenbeinschutz").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true)
-                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lFlink III", "§a§lHeilzauber III").build();
+                .addEnchant(Enchantment.DURABILITY, 7, true).setLore("§a§lFlink III", "§a§lHeilzauber III").build();
         ItemStack is3 = new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§6Mutantenstiefel").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true)
-                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lFlink III", "§a§lHeilzauber III").build();
+                .addEnchant(Enchantment.DURABILITY, 7, true).setLore("§a§lFlink III", "§a§lHeilzauber III").build();
 
-        ItemStack is4 = new ItemBuilder(Material.IRON_HELMET).setDisplayname("§6Solarplattenhelm").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 9, true)
-                .addEnchant(Enchantment.DURABILITY, 8, true).setLore("§a§lTank III", "§a§lStacheln III").build();
-        ItemStack is5 = new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayname("§6Solarplattenbrustplatte").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 9, true)
-                .addEnchant(Enchantment.DURABILITY, 8, true).setLore("§a§lTank III", "§a§lStacheln III").build();
-        ItemStack is6 = new ItemBuilder(Material.IRON_LEGGINGS).setDisplayname("§6Solarplattenhose").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 9, true)
-                .addEnchant(Enchantment.DURABILITY, 8, true).setLore("§a§lTank III", "§a§lStacheln III").build();
-        ItemStack is7 = new ItemBuilder(Material.IRON_BOOTS).setDisplayname("§6Solarplattenschuhe").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 9, true)
-                .addEnchant(Enchantment.DURABILITY, 8, true).setLore("§a§lTank III", "§a§lStacheln III").build();
+        ItemStack is4 = new ItemBuilder(Material.IRON_HELMET).setDisplayname("§6Solarplattenhelm").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true)
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank III", "§a§lStacheln III").build();
+        ItemStack is5 = new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayname("§6Solarplattenbrustplatte").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true)
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank III", "§a§lStacheln III").build();
+        ItemStack is6 = new ItemBuilder(Material.IRON_LEGGINGS).setDisplayname("§6Solarplattenhose").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true)
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank III", "§a§lStacheln III").build();
+        ItemStack is7 = new ItemBuilder(Material.IRON_BOOTS).setDisplayname("§6Solarplattenschuhe").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true)
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank III", "§a§lStacheln III").build();
 
-        ItemStack is8 = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("§6Toxingläve").addEnchant(Enchantment.DAMAGE_ALL, 6, true)
-                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§c§lGiftzahn III", "§c§lAssassine III").build();
+        ItemStack is8 = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("§6Antikes Schwert").addEnchant(Enchantment.DAMAGE_ALL, 6, true)
+                .addEnchant(Enchantment.DURABILITY, 6, true).setLore("§c§lAnti-Venom III", "§c§lAssassine III").build();
         ItemStack is9 = new ItemBuilder(Material.IRON_SWORD).setDisplayname("§6Schwert des Imperators").addEnchant(Enchantment.DAMAGE_ALL, 6, true)
-                .addEnchant(Enchantment.FIRE_ASPECT, 1, false).setLore("§c§lKopfgeld III", "§c§lHungersnot III").build();
+                .addEnchant(Enchantment.FIRE_ASPECT, 1, false).setLore("§c§lKopfgeld III", "§c§lEnergieentzug III").build();
 
-        ItemStack is10 = new ItemBuilder(Material.BOW).setDisplayname("§6Bogen des Gruftlords").addEnchant(Enchantment.ARROW_DAMAGE, 7, true)
-                .addEnchant(Enchantment.DURABILITY, 5, true).addEnchant(Enchantment.ARROW_INFINITE, 1, false).setLore("§9§lElektrisiert III", "§9§lFeuerwerk III").build();
+        ItemStack is10 = new ItemBuilder(Material.BOW).setDisplayname("§6Satans Bogen").addEnchant(Enchantment.ARROW_DAMAGE, 7, true)
+                .addEnchant(Enchantment.DURABILITY, 10, true).addEnchant(Enchantment.ARROW_INFINITE, 1, false).setLore("§9§lElektrisiert III", "§9§lFeuerwerk III").build();
         ItemStack is11 = new ItemBuilder(Material.BOW).setDisplayname("§6Piraten Kanone").addEnchant(Enchantment.ARROW_DAMAGE, 6, true)
-                .addEnchant(Enchantment.DURABILITY, 5, true).addEnchant(Enchantment.ARROW_KNOCKBACK, 1, false).setLore("§9§lDynamite III", "§9§lStrahlen III").build();
+                .addEnchant(Enchantment.DURABILITY, 6, true).addEnchant(Enchantment.ARROW_KNOCKBACK, 1, false).setLore("§9§lDynamite III", "§9§lStrahlen III").build();
 
         ItemStack is12 = new ItemBuilder(Material.DIAMOND_PICKAXE).setDisplayname("§6Erzengel Spitzhacke").addEnchant(Enchantment.DIG_SPEED, 8, true)
                 .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§6§lRausch III", "§6§lDuplizierung III").build();
         ItemStack is13 = new ItemBuilder(Material.DIAMOND_PICKAXE).setDisplayname("§6Schatzgräber Spitzhacke").addEnchant(Enchantment.DIG_SPEED, 8, true)
                 .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§6§lLaser III", "§6§lAusgrabung III").build();
 
+        ItemStack is15 = new ItemBuilder(Material.FISHING_ROD).setDisplayname("§6Dreizack").addEnchant(Enchantment.DURABILITY, 10, true)
+                .addEnchant(Enchantment.LURE, 3, false).setLore("§6§lFischerglück III", "§6§lGoldhaken III").build();
+
 
         ItemStack is14 = new ItemStack(Material.LEATHER_CHESTPLATE);
         ItemMeta ffm2 = is14.getItemMeta();
         ffm2.setDisplayName("§6Schulrucksack");
-        ffm2.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true);
+        ffm2.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true);
         ffm2.addEnchant(Enchantment.DURABILITY, 10, true);
+        ffm2.spigot().setUnbreakable(true);
         LeatherArmorMeta meta100 = (LeatherArmorMeta)is14.getItemMeta();
         meta100.setColor(Color.RED);
-        ffm2.setLore(Arrays.asList("§a§lBackpack VIII"));
+        ffm2.setLore(Arrays.asList("§f§lBackpack"));
         is14.setItemMeta(ffm2);
 
         ItemStack is18 = new ItemBuilder(Material.EMERALD_BLOCK).setDisplayname("§7Smaragdblöcke").setAmount(64).build();
@@ -90,6 +94,7 @@ public class CaseItems {
         legendär.add(is12);
         legendär.add(is13);
         legendär.add(is14);
+        legendär.add(is15);
         legendär.add(is18);
         legendär.add(is19);
         legendär.add(is20);
@@ -101,13 +106,13 @@ public class CaseItems {
         //Gewöhnliche Items
 
         ItemStack rd = new ItemBuilder(Material.IRON_HELMET).setDisplayname("§8Helm des Halekin").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false)
-                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lKonfetti I").build();
+                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lWiderstand I").build();
         ItemStack rd1 = new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayname("§8Brustplatte des Halekin").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false)
-                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lKonfetti I").build();
+                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lWiderstand I").build();
         ItemStack rd2 = new ItemBuilder(Material.IRON_LEGGINGS).setDisplayname("§8Hose des Halekin").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false)
-                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lKonfetti I").build();
+                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lWiderstand I").build();
         ItemStack rd3 = new ItemBuilder(Material.IRON_BOOTS).setDisplayname("§8Schuhe des Halekin").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false)
-                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lKonfetti I").build();
+                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lWiderstand I").build();
 
         ItemStack rd4 = new ItemBuilder(Material.IRON_SWORD).setDisplayname("§8Taschenmesser").addEnchant(Enchantment.DAMAGE_ALL, 3, false)
                 .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§c§lKopfgeld I").build();
@@ -139,7 +144,7 @@ public class CaseItems {
                 .addEnchant(Enchantment.DURABILITY, 6, true).setLore("§a§lStacheln II").build();
 
         ItemStack rd16 = new ItemBuilder(Material.IRON_SWORD).setDisplayname("§9Giftiger Skorpion Dolch").addEnchant(Enchantment.DAMAGE_ALL, 4, false)
-                .addEnchant(Enchantment.DURABILITY, 6, true).setLore("§c§lGiftzahn II").build();
+                .addEnchant(Enchantment.DURABILITY, 6, true).setLore("§c§lKobra II").build();
 
         ItemStack rd17 = new ItemBuilder(Material.BOW).setDisplayname("§9Metzler Armbrust").addEnchant(Enchantment.ARROW_DAMAGE, 5, false)
                 .addEnchant(Enchantment.DURABILITY, 6, true).setLore("§9§lDynamite II").build();
@@ -161,13 +166,13 @@ public class CaseItems {
         // Epische Items
 
         ItemStack rd25 = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§5Barbarenhelm").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false)
-                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lDompteur II", "§a§lGlückspilz II").build();
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lWiederstand II", "§a§lÜberladung II").build();
         ItemStack rd26 = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§5Barbarenbrustplatte").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false)
-                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lDompteur II", "§a§lGlückspilz II").build();
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lWiederstand II", "§a§lÜberladung II").build();
         ItemStack rd27 = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§5Barbarenhose").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false)
-                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lDompteur II", "§a§lGlückspilz II").build();
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lWiederstand II", "§a§lÜberladung II").build();
         ItemStack rd28 = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§5Barbarenschuhe").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false)
-                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lDompteur II", "§a§lGlückspilz II").build();
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§a§lWiederstand II", "§a§lÜberladung II").build();
 
 
         ItemStack rd333 = new ItemBuilder(Material.EXP_BOTTLE).setDisplayname("§6§lSchool XP").setLore("§8» §7Beinhaltet:§6§l 500 XP").setAmount(6).build();
@@ -233,7 +238,7 @@ public class CaseItems {
                 .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lStacheln I").build();
 
         ItemStack gw9 = new ItemBuilder(Material.IRON_SWORD).setDisplayname("§8Vollstrecker").addEnchant(Enchantment.DAMAGE_ALL, 3, false)
-                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§c§lErbittert I").build();
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§c§lAssassine I").build();
         ItemStack gw10 = new ItemBuilder(Material.STONE_SWORD).setDisplayname("§8Hirschfänger").addEnchant(Enchantment.DAMAGE_ALL, 4, false)
                 .addEnchant(Enchantment.DURABILITY, 3, false).addEnchant(Enchantment.LOOT_BONUS_MOBS, 2, false).build();
 
@@ -259,6 +264,9 @@ public class CaseItems {
 
         ItemStack gw21 = new ItemBuilder(Material.EXP_BOTTLE).setDisplayname("§6§lSchool XP").setLore("§8» §7Beinhaltet:§6§l 500 XP").setAmount(3).build();
 
+        ItemStack gw22 = new ItemBuilder(Material.FISHING_ROD).setDisplayname("§8Kescher").addEnchant(Enchantment.DURABILITY, 3, false)
+                .setLore("§6§lGroßer-Fang I", "§6§lGoldhaken I").build();
+
 
         gewöhnlich.add(gw1);
         gewöhnlich.add(gw2);
@@ -281,6 +289,7 @@ public class CaseItems {
         gewöhnlich.add(gw19);
         gewöhnlich.add(gw20);
         gewöhnlich.add(gw21);
+        gewöhnlich.add(gw22);
 
 
 
@@ -308,9 +317,9 @@ public class CaseItems {
                 .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§a§lTank II", "§a§lHeilzauber II").build();
 
         ItemStack rs8 = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("§9Scharfer Säbel").addEnchant(Enchantment.DAMAGE_ALL, 4, false)
-                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§c§lGiftzahn II", "§c§lErbittert II").build();
+                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§c§lKobra II", "§c§lAnti-Venom II").build();
         ItemStack rs9 = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("§9Messer der Ewigkeit").addEnchant(Enchantment.DAMAGE_ALL, 3, false)
-                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§c§lHungersnot II", "§c§lKopfgeld II").build();
+                .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§c§lWilderei II", "§c§lKopfgeld II").build();
 
         ItemStack rs10 = new ItemBuilder(Material.BOW).setDisplayname("§9Falkenbogen").addEnchant(Enchantment.ARROW_DAMAGE, 4, false)
                 .addEnchant(Enchantment.DURABILITY, 5, true).setLore("§9§lFesseln II", "§9§lElektrisiert II").build();
@@ -338,6 +347,9 @@ public class CaseItems {
 
         ItemStack rs21 = new ItemBuilder(Material.EXP_BOTTLE).setDisplayname("§6§lSchool XP").setLore("§8» §7Beinhaltet:§6§l 500 XP").setAmount(6).build();
 
+        ItemStack rs22 = new ItemBuilder(Material.FISHING_ROD).setDisplayname("§9Raubfischangler").addEnchant(Enchantment.DURABILITY, 5, true)
+                .addEnchant(Enchantment.LURE, 1, false).setLore("§6§lGoldhaken II", "§6§lFischerglück II").build();
+
 
         selten.add(rs);
         selten.add(rs1);
@@ -361,32 +373,33 @@ public class CaseItems {
         selten.add(rs19);
         selten.add(rs20);
         selten.add(rs21);
+        selten.add(rs22);
     }
 
     void registerEpisch(){
 
         ItemStack re = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§5Wikinger Helm").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank II", "§a§lKonfetti II").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank II", "§a§lHeilzauber II").build();
         ItemStack re1 = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§5Wikinger Brustplatte").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank II", "§a§lKonfetti II").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank II", "§a§lHeilzauber II").build();
         ItemStack re2 = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§5Wikinger Hose").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank II", "§a§lKonfetti II").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank II", "§a§lHeilzauber II").build();
         ItemStack re3 = new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§5Wikinger Schuhe").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank II", "§a§lKonfetti II").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank II", "§a§lHeilzauber II").build();
 
         ItemStack re4 = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§5Helm des Abgrundes").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückspilz II", "§a§lBackpack II").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lEis II", "§a§lÜberladungII").build();
         ItemStack re5 = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§5Harnish des Abgrundes").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückspilz II", "§a§lBackpack II").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lEis II", "§a§lÜberladung II").build();
         ItemStack re6 = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§5Beinschienen des Abgrundes").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückspilz II", "§a§lBackpack II").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lEis II", "§a§lÜberladung II").build();
         ItemStack re7 = new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§5Schuhe des Abgrundes").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückspilz II", "§a§lBackpack II").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGEis II", "§a§lÜberladung II").build();
 
         ItemStack re8 = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("§5Schwert des Kammerjägers").addEnchant(Enchantment.DAMAGE_ALL, 5, false)
                 .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§c§lJäger II", "§c§lEntdecker II").build();
         ItemStack re9 = new ItemBuilder(Material.IRON_SWORD).setDisplayname("§5Albtraumbiss").addEnchant(Enchantment.DAMAGE_ALL, 6, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).addEnchant(Enchantment.LOOT_BONUS_MOBS, 1, false).setLore("§c§lGiftzahn II").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).addEnchant(Enchantment.LOOT_BONUS_MOBS, 1, false).setLore("§c§lKobra II").build();
 
         ItemStack re10 = new ItemBuilder(Material.BOW).setDisplayname("§5Dschinnbogen").addEnchant(Enchantment.ARROW_DAMAGE, 6, true)
                 .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§9§lFesseln II", "§9§lDynamite II").build();
@@ -399,7 +412,7 @@ public class CaseItems {
                 .addEnchant(Enchantment.DURABILITY, 10, false).setLore("§6§lZorn II", "§6§lRausch II").build();
 
         ItemStack re14 = new ItemBuilder(Material.STICK).setDisplayname("§5Zauberstab").addEnchant(Enchantment.DAMAGE_ALL, 5, false)
-                .addEnchant(Enchantment.KNOCKBACK, 2, false).setLore("§c§lAssassine II", "§c§lGiftzahn II").build();
+                .addEnchant(Enchantment.KNOCKBACK, 2, false).setLore("§c§lAssassine II", "§c§lKobra II").build();
         ItemStack re15 = new ItemBuilder(Material.IRON_AXE).setDisplayname("§5Berserkeraxt").addEnchant(Enchantment.DIG_SPEED, 4, false)
                 .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§6§lGärtner II", "§6§lBaumpflege II").build();
 
@@ -410,6 +423,11 @@ public class CaseItems {
         ItemStack re19 = new ItemBuilder(Material.MOB_SPAWNER).setDisplayname("§5Blazespawner").build();
 
         ItemStack re20 = new ItemBuilder(Material.EXP_BOTTLE).setDisplayname("§6§lSchool XP").setLore("§8» §7Beinhaltet:§6§l 500 XP").setAmount(12).build();
+
+        ItemStack re21 = new ItemBuilder(Material.FISHING_ROD).setDisplayname("§5Angel mit verstärkter Rute").addEnchant(Enchantment.DURABILITY, 5, true)
+                .addEnchant(Enchantment.LURE, 2, false).setLore("§6§lGroßer-Fang II", "§6§lFischerglück II").build();
+
+
 
 
 
@@ -434,19 +452,20 @@ public class CaseItems {
         episch.add(re18);
         episch.add(re19);
         episch.add(re20);
+        episch.add(re21);
     }
 
 
     void registerMysthische(){
 
         ItemStack rm = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§6Helm des Schattendieners").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückspilz IV", "§a§lKonfetti IV").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lObsidian-Schild IV", "§a§lÜberladung IV").build();
         ItemStack rm2 = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Brustplatte des Schattendieners").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückspilz IV", "§a§lKonfetti IV").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lObsidian-Schild IV", "§a§lÜberladung IV").build();
         ItemStack rm3 = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§6Hose des Schattendieners").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückspilz IV", "§a§lKonfetti IV").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lObsidian-Schild IV", "§a§lÜberladung IV").build();
         ItemStack rm4 = new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§6Schuhe des Schattendieners").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückspilz IV", "§a§lKonfetti IV").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lObsidian-Schild IV", "§a§lÜberladung IV").build();
 
         ItemStack rm5 = new ItemStack(Material.LEATHER_HELMET);
         ItemMeta im = rm5.getItemMeta();
@@ -494,19 +513,19 @@ public class CaseItems {
 
 
         ItemStack rm9 = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("§6Finsternes Katana").addEnchant(Enchantment.DAMAGE_ALL, 6, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§c§lVampir IV", "§c§lErbittert IV").build();
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§c§lVampir IV", "§c§lAssassine IV").build();
         ItemStack rm10 = new ItemBuilder(Material.IRON_SWORD).setDisplayname("§6Dolch einer außerirdischen Spezies").addEnchant(Enchantment.DAMAGE_ALL, 7, true)
                 .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§c§lVampir IV", "§c§lEntdecker IV").build();
 
-        ItemStack rm11 = new ItemBuilder(Material.BOW).setDisplayname("§6Bogen des Grabunhold").addEnchant(Enchantment.ARROW_DAMAGE, 8, true)
+        ItemStack rm11 = new ItemBuilder(Material.BOW).setDisplayname("§6Bogen des Untergangs").addEnchant(Enchantment.ARROW_DAMAGE, 8, true)
                 .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§9§lFesseln IV", "§9§lStrahlen IV").build();
         ItemStack rm12 = new ItemBuilder(Material.BOW).setDisplayname("§6Bogen des weisen Kriegers").addEnchant(Enchantment.ARROW_DAMAGE, 7, true)
                 .addEnchant(Enchantment.DURABILITY, 10, true).addEnchant(Enchantment.ARROW_INFINITE, 1, false).setLore("§9§lElektrisiert IV", "§9§lFeuerwerk IV").build();
 
-        ItemStack rm13 = new ItemBuilder(Material.DIAMOND_PICKAXE).setDisplayname("§6Spitzhacke des erzürnten Miners").addEnchant(Enchantment.DIG_SPEED, 9, true)
-                .addEnchant(Enchantment.DURABILITY, 2, false).setLore("§6§lErfahrung IV", "§6§lAusgrabung IV").build();
+        ItemStack rm13 = new ItemBuilder(Material.DIAMOND_PICKAXE).setDisplayname("§6Spitzhacke des erzürnten Miners").addEnchant(Enchantment.DIG_SPEED, 8, true)
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§6§lErfahrung IV", "§6§lAusgrabung IV", "§6§lLaser VI").build();
         ItemStack rm14 = new ItemBuilder(Material.IRON_PICKAXE).setDisplayname("§6Höhlenforscher Spitzhacke").addEnchant(Enchantment.DIG_SPEED, 10, true)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§6§lDuplizierung IV", "§6§lAusgrabung IV").build();
+                .addEnchant(Enchantment.DURABILITY, 8, true).setLore("§6§lDuplizierung IV", "§6§lAusgrabung IV").build();
         ItemStack rm15 = new ItemBuilder(Material.DIAMOND_AXE).setDisplayname("§6Mondstein Axt").addEnchant(Enchantment.DIG_SPEED, 7, true)
                 .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§6§lWindböe IV", "§6§lHolzfäller IV").build();
         ItemStack rm16 = new ItemBuilder(Material.GOLD_AXE).setDisplayname("§6Köpfer der tropischen Anakonda").addEnchant(Enchantment.DAMAGE_ALL, 8, true)
@@ -515,6 +534,9 @@ public class CaseItems {
 
         ItemStack rm17 = new ItemBuilder(Material.EXP_BOTTLE).setDisplayname("§6§lSchool XP").setLore("§8» §7Beinhaltet:§6§l 50000 XP").build();
         ItemStack rm18 = new ItemBuilder(Material.MOB_SPAWNER).setDisplayname("§6Pigmanspawner").build();
+
+        ItemStack rm19 = new ItemBuilder(Material.FISHING_ROD).setDisplayname("§6Schatzangler").addEnchant(Enchantment.DURABILITY, 10, true)
+                .addEnchant(Enchantment.LURE, 4, true).setLore("§6§lFischerglück IV", "§6§lGroßer-Fang IV").build();
 
 
         mysthische.add(rm);
@@ -535,6 +557,7 @@ public class CaseItems {
         mysthische.add(rm16);
         mysthische.add(rm17);
         mysthische.add(rm18);
+        mysthische.add(rm19);
 
 
     }

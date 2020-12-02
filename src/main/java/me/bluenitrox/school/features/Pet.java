@@ -20,6 +20,7 @@ public class Pet {
 
     public Pet(){
     }
+
     public void openPetInventory(Player p){
         Inventory inv = Bukkit.createInventory(null, 9*4, guiname);
 

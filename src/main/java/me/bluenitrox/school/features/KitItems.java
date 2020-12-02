@@ -26,10 +26,10 @@ public class KitItems {
         p.getInventory().addItem(new ItemBuilder(Material.WOOD_AXE).setDisplayname("§7Holzaxt").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.WOOD_SPADE).setDisplayname("§7Holzschaufel").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.APPLE).setDisplayname("§7Apfel").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.LEATHER_HELMET).setDisplayname("§7Lederhelm").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.LEATHER_CHESTPLATE).setDisplayname("§7Lederbrustplatte").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.LEATHER_HELMET).setDisplayname("§7Lederkappe").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.LEATHER_CHESTPLATE).setDisplayname("§7Lederjacke").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.LEATHER_LEGGINGS).setDisplayname("§7Lederhose").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.LEATHER_BOOTS).setDisplayname("§7Lederschuhe").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.LEATHER_BOOTS).setDisplayname("§7Lederstiefel").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
     }
     void addSteinItems(Player p) {
 
@@ -39,9 +39,9 @@ public class KitItems {
         p.getInventory().addItem(new ItemBuilder(Material.STONE_SPADE).setDisplayname("§7Steinschaufel").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.BREAD).setDisplayname("§7Brot").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.GOLD_HELMET).setDisplayname("§7Goldhelm").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.GOLD_CHESTPLATE).setDisplayname("§7Goldbrustplatte").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.GOLD_LEGGINGS).setDisplayname("§7Goldhose").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.GOLD_BOOTS).setDisplayname("§7Goldschuhe").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.GOLD_CHESTPLATE).setDisplayname("§7Goldharnisch").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.GOLD_LEGGINGS).setDisplayname("§7Goldbeinschutz").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.GOLD_BOOTS).setDisplayname("§7Goldstiefel").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
     }
     void addEisenItems(Player p) {
 
@@ -51,14 +51,14 @@ public class KitItems {
         p.getInventory().addItem(new ItemBuilder(Material.IRON_SPADE).setDisplayname("§7Eisenschaufel").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.COOKED_BEEF).setDisplayname("§7Steak").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.IRON_HELMET).setDisplayname("§7Eisenhelm").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayname("§7Eisenbrustplatte").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.IRON_LEGGINGS).setDisplayname("§7Eisenhose").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.IRON_BOOTS).setDisplayname("§7Eisenschuhe").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayname("§7Eisenbrustpanzer").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.IRON_LEGGINGS).setDisplayname("§7Eisenbeinschutz").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.IRON_BOOTS).setDisplayname("§7Eisenstiefel").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
     }
     void addWarzoneItems(Player p) {
 
         p.getInventory().addItem(new ItemBuilder(Material.BOW).setDisplayname("§7Bogen").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.ARROW).setDisplayname("§7Pfeile").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").setAmount(12).build());
+        p.getInventory().addItem(new ItemBuilder(Material.ARROW).setDisplayname("§7Pfeil").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").setAmount(12).build());
         p.getInventory().addItem(new ItemBuilder(Material.POTION, (short) 8194).setDisplayname("§7Trank der Schnelligkeit").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.POTION, (short) 8201).setDisplayname("§7Trank der Stärke").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.POTION, (short) 8227).setDisplayname("§7Trank der Feuerresistenz").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
@@ -74,9 +74,9 @@ public class KitItems {
         p.getInventory().addItem(new ItemBuilder(Material.DIAMOND_SPADE).setDisplayname("§7Diamantschaufel").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.GOLDEN_CARROT).setDisplayname("§7Goldene Karotten").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").setAmount(12).build());
         p.getInventory().addItem(new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§7Diamanthelm").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§7Diamantbrustplatte").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§7Diamanthose").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
-        p.getInventory().addItem(new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§7Diamantschuhe").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§7Diamantbrustpanzer").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§7Diamantbeinschutz").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§7Diamantstiefel").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
     }
     void addBergarbeiterItems(Player p) {
 
@@ -114,7 +114,7 @@ public class KitItems {
 
         p.getInventory().addItem(new ItemBuilder(Material.MELON).setDisplayname("§7Melone").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").setAmount(12).build());
         p.getInventory().addItem(new ItemBuilder(Material.GOLD_PICKAXE).setDisplayname("§2Bambus Häcksler").addEnchant(Enchantment.DIG_SPEED, 4, false)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§6§lDuplizierung II","§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.EXP_BOTTLE).setDisplayname("§6§lSchool XP")
                 .setLore("§8» §7Beinhaltet:§6§l 1200 XP","§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.MELON_BLOCK).setDisplayname("§7Melonenblock").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").setAmount(8).build());
@@ -122,8 +122,8 @@ public class KitItems {
     void addSenseiItems(Player p) {
 
         p.getInventory().addItem(new ItemBuilder(Material.MELON).setDisplayname("§7Melone").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").setAmount(12).build());
-        p.getInventory().addItem(new ItemBuilder(Material.GOLD_PICKAXE).setDisplayname("§2Bambus-Kapfstab eines Ninjas").addEnchant(Enchantment.DAMAGE_ALL, 6, true)
-                .addEnchant(Enchantment.KNOCKBACK, 1, false).setLore("§c§lKopfgeld II","§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+        p.getInventory().addItem(new ItemBuilder(Material.SUGAR_CANE).setDisplayname("§2Bambus-Kapfstab eines Ninjas").addEnchant(Enchantment.DAMAGE_ALL, 4, false)
+                .addEnchant(Enchantment.KNOCKBACK, 1, false).setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.EXP_BOTTLE).setDisplayname("§6§lSchool XP")
                 .setLore("§8» §7Beinhaltet:§6§l 1200 XP","§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").setAmount(3).build());
         p.getInventory().addItem(new ItemBuilder(Material.MELON_BLOCK).setDisplayname("§7Melonenblock").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").setAmount(20).build());
@@ -132,13 +132,13 @@ public class KitItems {
 
         p.getInventory().addItem(new ItemBuilder(Material.MELON).setDisplayname("§7Melone").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").setAmount(12).build());
         p.getInventory().addItem(new ItemBuilder(Material.GOLD_HELMET).setDisplayname("§2Helm eines Ninjas").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückpilz II","§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.GOLD_CHESTPLATE).setDisplayname("§2Robe eines Ninjas").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückpilz II","§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.GOLD_LEGGINGS).setDisplayname("§2Hose eines Ninjas").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückpilz II","§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
         p.getInventory().addItem(new ItemBuilder(Material.GOLD_BOOTS).setDisplayname("§2Schuhe eines Ninjas").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false)
-                .addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lGlückpilz II","§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
+                .addEnchant(Enchantment.DURABILITY, 3, false).setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").build());
 
         p.getInventory().addItem(new ItemBuilder(Material.MELON_BLOCK).setDisplayname("§7Melonenblock").setLore("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!").setAmount(35).build());
         p.getInventory().addItem(new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§5Zufällige §5§lVerzauberung")

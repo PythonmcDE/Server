@@ -2,6 +2,7 @@ package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.enchants.sword.*;
 import me.bluenitrox.school.features.Pet;
+import me.bluenitrox.school.utils.ArmorUtil;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,6 +28,19 @@ public class EntityDamageByEntityEvent implements Listener {
                         AntiVenom.antiVenomAuslösen(damager);
                     }
                 }
+            }
+            ArmorUtil util = new ArmorUtil();
+            if(util.hasHelmetWithEnchant(entity)){
+
+            }
+            if(util.hasChestplateWithEnchant(entity)){
+
+            }
+            if(util.hasLegginsWithEnchant(entity)){
+
+            }
+            if(util.hasBootsWithEnchant(entity)){
+
             }
         }else if(e.getDamager() instanceof Player){
             Player damager = (Player) e.getDamager();

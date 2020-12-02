@@ -34,7 +34,7 @@ public class AhListener implements Listener {
                 p.closeInventory();
             }
             if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§c§lAbbrechen")) {
-                Inventory invah = Bukkit.createInventory(null, 9 * 5, Ah_CMD.GUI_NAME);
+                Inventory invah = Bukkit.createInventory(null, 9 * 6, Ah_CMD.GUI_NAME);
                 AhManager.openAh(invah, 1, p);
 
             }
@@ -53,7 +53,7 @@ public class AhListener implements Listener {
                     int currPage = Integer.parseInt(stringregex[3]);
                     int newPage = currPage + 1;
 
-                    Inventory invah = Bukkit.createInventory(null, 9 * 5, GUI_NAME);
+                    Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);
 
                     p.closeInventory();
                     AhManager.openabgelaufeneundgekaufteAuktionen(p, newPage, invah);
@@ -64,7 +64,7 @@ public class AhListener implements Listener {
                     int currPage = Integer.parseInt(stringregex[3]);
                     int newPage = currPage - 1;
 
-                    Inventory invah = Bukkit.createInventory(null, 9 * 5, GUI_NAME);
+                    Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);
 
                     p.closeInventory();
                     AhManager.openabgelaufeneundgekaufteAuktionen(p, newPage, invah);
@@ -84,10 +84,10 @@ public class AhListener implements Listener {
                         try (PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE FROM AhItemsAbgelaufen WHERE id = ?")) {
                             ps.setInt(1, id);
                             ps.execute();
-                            Inventory invah = Bukkit.createInventory(null, 9 * 5, GUI_NAME);
+                            Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);
                             AhManager.openabgelaufeneundgekaufteAuktionen(p, 1, invah);
 
-                            p.sendMessage("§7Du hast dein Item ins Inventar bekommen!" +  "NOCH IN ENGLISH");
+                            p.sendMessage("§7Du hast dein Item ins Inventar bekommen!");
                             if (item.getType() != Material.DRAGON_EGG) {
                                 p.getInventory().addItem(item);
                                 p.closeInventory();
@@ -108,7 +108,7 @@ public class AhListener implements Listener {
 
             e.setCancelled(true);
             if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7Abgelaufene §6Auktionen§7/§6Gekaufte §7Auktionen")) {
-                Inventory invah = Bukkit.createInventory(null, 9 * 5, GUI_NAME);
+                Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);
                 AhManager.openabgelaufeneundgekaufteAuktionen(p, 1, invah);
             }
 
@@ -120,7 +120,7 @@ public class AhListener implements Listener {
                     int currPage = Integer.parseInt(stringregex[3]);
                     int newPage = currPage + 1;
 
-                    Inventory invah = Bukkit.createInventory(null, 9 * 5, Ah_CMD.GUI_NAME);
+                    Inventory invah = Bukkit.createInventory(null, 9 * 6, Ah_CMD.GUI_NAME);
 
                     p.closeInventory();
                     AhManager.openAh(invah, newPage, p);
@@ -131,7 +131,7 @@ public class AhListener implements Listener {
                     int currPage = Integer.parseInt(stringregex[3]);
                     int newPage = currPage - 1;
 
-                    Inventory invah = Bukkit.createInventory(null, 9 * 5, Ah_CMD.GUI_NAME);
+                    Inventory invah = Bukkit.createInventory(null, 9 * 6, Ah_CMD.GUI_NAME);
 
                     p.closeInventory();
                     AhManager.openAh(invah, newPage, p);
