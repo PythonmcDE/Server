@@ -1,5 +1,6 @@
 package me.bluenitrox.school.listener;
 
+import me.bluenitrox.school.enchants.armor.*;
 import me.bluenitrox.school.enchants.sword.*;
 import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.utils.ArmorUtil;
@@ -7,6 +8,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 
 public class EntityDamageByEntityEvent implements Listener {
 
@@ -30,17 +32,47 @@ public class EntityDamageByEntityEvent implements Listener {
                 }
             }
             ArmorUtil util = new ArmorUtil();
-            if(util.hasHelmetWithEnchant(entity)){
 
+            ItemStack helm = entity.getInventory().getHelmet();
+            ItemStack chestplate = entity.getInventory().getChestplate();
+            ItemStack leggins = entity.getInventory().getLeggings();
+            ItemStack boots = entity.getInventory().getBoots();
+
+            if(util.hasHelmetWithEnchant(entity)){
+                Heilzauber.heilzauberAuslösen(entity,helm);
+                Magieschild.magieschildAuslösen(entity,helm);
+                Widerstand.widerstandAuslösen(entity,helm);
+                Stacheln.stachelnAuslösen(entity,damager,helm);
+                Überladung.überladungAuslösen(entity,helm);
+                Eis.eisAuslösen(entity,damager,helm);
+                ObsidianSchild.obischildAuslösen(entity,helm);
             }
             if(util.hasChestplateWithEnchant(entity)){
-
+                Heilzauber.heilzauberAuslösen(entity,chestplate);
+                Magieschild.magieschildAuslösen(entity,chestplate);
+                Widerstand.widerstandAuslösen(entity,chestplate);
+                Stacheln.stachelnAuslösen(entity,damager,chestplate);
+                Überladung.überladungAuslösen(entity,chestplate);
+                Eis.eisAuslösen(entity,damager,chestplate);
+                ObsidianSchild.obischildAuslösen(entity,chestplate);
             }
             if(util.hasLegginsWithEnchant(entity)){
-
+                Heilzauber.heilzauberAuslösen(entity,leggins);
+                Magieschild.magieschildAuslösen(entity,leggins);
+                Widerstand.widerstandAuslösen(entity,leggins);
+                Stacheln.stachelnAuslösen(entity,damager,leggins);
+                Überladung.überladungAuslösen(entity,leggins);
+                Eis.eisAuslösen(entity,damager,leggins);
+                ObsidianSchild.obischildAuslösen(entity,leggins);
             }
             if(util.hasBootsWithEnchant(entity)){
-
+                Heilzauber.heilzauberAuslösen(entity,boots);
+                Magieschild.magieschildAuslösen(entity,boots);
+                Widerstand.widerstandAuslösen(entity,boots);
+                Stacheln.stachelnAuslösen(entity,damager,boots);
+                Überladung.überladungAuslösen(entity,boots);
+                Eis.eisAuslösen(entity,damager,boots);
+                ObsidianSchild.obischildAuslösen(entity,boots);
             }
         }else if(e.getDamager() instanceof Player){
             Player damager = (Player) e.getDamager();

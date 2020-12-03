@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffectType;
 public class Energieentzug extends EnchantAPI {
 
     public static void energieentzugAuslösen(Player damager, Player player) {
-        if (hasEnchant(damager, EnchantManager.Energieentzug)) {
+        if (hasEnchant(damager.getItemInHand(), EnchantManager.Energieentzug)) {
             if (makeOrNot80(stringToNumber(damager.getItemInHand(), EnchantManager.Energieentzug))) {
                 damager.playSound(damager.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20 * 3, 0));

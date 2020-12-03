@@ -55,6 +55,10 @@ commands:
     aliases:
       - boost
   spawn:
+  invsee:
+  clear:
+  tk:
+  vanish:
   ah:
     aliases:
       - auktionshaus

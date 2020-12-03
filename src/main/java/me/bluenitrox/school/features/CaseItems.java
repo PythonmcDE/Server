@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 public class CaseItems {
 
-    public static ArrayList<ItemStack> daily = new ArrayList<>();
+    public static ArrayList<ItemStack> daily = new ArrayList<>();;
     public static ArrayList<ItemStack> gewöhnlich = new ArrayList<>();
     public static ArrayList<ItemStack> selten = new ArrayList<>();
     public static ArrayList<ItemStack> episch = new ArrayList<>();
@@ -563,6 +563,38 @@ public class CaseItems {
     }
 
     void registerTier(){
+
+        ItemStack ti1 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Futterration").setLore("§8» §7Enthält: §f200 Haustier XP").build();
+        ItemStack tig1 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Futterration").setLore("§8» §7Enthält: §f200 Haustier XP").build();
+        ItemStack tig2 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Futterration").setLore("§8» §7Enthält: §f200 Haustier XP").build();
+        ItemStack tig3 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Futterration").setLore("§8» §7Enthält: §f200 Haustier XP").build();
+        ItemStack tig4 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Futterration").setLore("§8» §7Enthält: §f200 Haustier XP").build();
+
+        ItemStack ti2 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält: §f300 Haustier XP").build();
+        ItemStack tig5 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält: §f300 Haustier XP").build();
+        ItemStack tig6 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält: §f300 Haustier XP").build();
+        ItemStack tig7 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält: §f300 Haustier XP").build();
+
+        ItemStack ti3 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kraftfutter Packung").setLore("§8» §7Enthält: §f400 Haustier XP").build();
+        ItemStack tig8 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kraftfutter Packung").setLore("§8» §7Enthält: §f400 Haustier XP").build();
+        ItemStack tig9 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kraftfutter Packung").setLore("§8» §7Enthält: §f400 Haustier XP").build();
+
+        ItemStack ti4 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Protein Packung").setLore("§8» §7Enthält: §f500 Haustier XP").build();
+        ItemStack ti11 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Protein Packung").setLore("§8» §7Enthält: §f500 Haustier XP").build();
+
+        ItemStack ti5 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Riesige Futterpackung").setLore("§8» §7Enthält: §f600 Haustier XP").build();
+
+        ItemStack tis1 = new ItemBuilder(Material.MONSTER_EGG, (short) 90).setDisplayname("§6Reittier : Max").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
+        ItemStack tis2 = new ItemBuilder(Material.MONSTER_EGG, (short) 100).setDisplayname("§6Reittier : Sunny").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
+        ItemStack tis3 = new ItemBuilder(Material.MONSTER_EGG, (short) 55).setDisplayname("§6Reittier : Charlie").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
+
+        ItemStack tie1 = new ItemBuilder(Material.MONSTER_EGG, (short) 67).setDisplayname("§6Haustier : Benjamin").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
+        ItemStack tie2 = new ItemBuilder(Material.MONSTER_EGG, (short) 65).setDisplayname("§6Haustier : Merlin").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
+        ItemStack tie3 = new ItemBuilder(Material.MONSTER_EGG, (short) 62).setDisplayname("§6Haustier : Eddy").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
+        ItemStack tie4 = new ItemBuilder(Material.MONSTER_EGG, (short) 98).setDisplayname("§6Haustier : Anton").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
+        ItemStack tie5 = new ItemBuilder(Material.MONSTER_EGG, (short) 93).setDisplayname("§6Haustier : Helgar").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
+        ItemStack tie6 = new ItemBuilder(Material.MONSTER_EGG, (short) 95).setDisplayname("§6Haustier : Farid").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
+        ItemStack tie7 = new ItemBuilder(Material.MONSTER_EGG, (short) 101).setDisplayname("§6Haustier : Peter").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
 
     }
 

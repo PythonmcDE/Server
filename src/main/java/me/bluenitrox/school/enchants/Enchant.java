@@ -20,6 +20,8 @@ public enum Enchant {
     STACHELN,
     OBSIDIANSCHILD,
     EIS,
+    Widerstand,
+    Überladung,
 
     BLACKOUT,
     ZORN,

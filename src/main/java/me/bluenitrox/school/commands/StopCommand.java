@@ -23,7 +23,6 @@ public class StopCommand implements CommandExecutor {
             return true;
         }
         if(args.length == 0){
-            alreadystarted = true;
             restartServer();
         }else if(args.length == 1){
             if(args[0].equalsIgnoreCase("skip")){
@@ -47,20 +46,25 @@ public class StopCommand implements CommandExecutor {
     }
 
     public static void restartServer(){
+        alreadystarted = true;
+        for(Player all: Bukkit.getOnlinePlayers()) {
+            Bukkit.broadcastMessage(MessageManager.PREFIX + "§7Der Server Startet in §63 Minuten §7neu!");
+            TTA_Methods.sendTitle(all, "§6§lServerneustart", 20, 20, 20, "§8» §7in 3 Minuten", 20, 20, 20);
+        }
         new BukkitRunnable(){
             @Override
             public void run() {
                 for(Player all: Bukkit.getOnlinePlayers()) {
-                    Bukkit.broadcastMessage(MessageManager.PREFIX + "§7Der Server Startet in §63 Minuten §7neu!");
-                    TTA_Methods.sendTitle(all, "§6§lServerneustart", 20, 20, 20, "§8» §7in 3 Minuten", 20, 20, 20);
+                    Bukkit.broadcastMessage(MessageManager.PREFIX + "§7Der Server Startet in §62 Minuten §7neu!");
+                    TTA_Methods.sendTitle(all, "§6§lServerneustart", 20, 20, 20, "§8» §7in 2 Minuten", 20, 20, 20);
                 }
                 this.cancel();
                 new BukkitRunnable(){
                     @Override
                     public void run() {
                         for(Player all: Bukkit.getOnlinePlayers()) {
-                            Bukkit.broadcastMessage(MessageManager.PREFIX + "§7Der Server Startet in §62 Minuten §7neu!");
-                            TTA_Methods.sendTitle(all, "§6§lServerneustart", 20, 20, 20, "§8» §7in 2 Minuten", 20, 20, 20);
+                            Bukkit.broadcastMessage(MessageManager.PREFIX + "§7Der Server Startet in §61 Minute §7neu!");
+                            TTA_Methods.sendTitle(all, "§6§lServerneustart", 20, 20, 20, "§8» §7in 1 Minute", 20, 20, 20);
                         }
                         this.cancel();
                         new BukkitRunnable(){

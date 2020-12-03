@@ -28,14 +28,14 @@ public class EnchantManager {
      *
      */
 
-    public static final String Konfetti = "§a§lKonfetti ";
-    public static final String Glückspilz = "§a§lGlückspilz ";
     public static final String Tank = "§a§lTank ";
     public static final String Heilzauber = "§a§lHeilzauber ";
     public static final String Magieschild = "§a§lMagieschild ";
     public static final String Stacheln = "§a§lStacheln ";
     public static final String ObsidianSchild = "§a§lObsidian-Schild ";
     public static final String Eis = "§a§lEis ";
+    public static final String Widerstand = "§a§lWiderstand ";
+    public static final String Überladung = "§a§lÜberladung ";
 
     /*
      *

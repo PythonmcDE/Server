@@ -7,7 +7,9 @@ import me.bluenitrox.school.managers.PlayerJoinManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.help.HelpTopic;
 import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
@@ -16,9 +18,19 @@ public class PlayerCommandPreprocessEvent implements Listener {
 
     public static ArrayList<String> normal;
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onCommandSend(final org.bukkit.event.player.PlayerCommandPreprocessEvent e){
         Player p = (Player)e.getPlayer();
+
+        if(!(e.isCancelled())) {
+            String msg = e.getMessage().split(" ")[0];
+            HelpTopic topic = Bukkit.getServer().getHelpMap().getHelpTopic(msg);
+            if(topic == null) {
+                p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
+                e.setCancelled(true);
+            }
+        }
+
 
         if(e.getMessage().equalsIgnoreCase("/booster") || e.getMessage().equalsIgnoreCase("/boost")){
             Inventory inv = Bukkit.createInventory(null, 9*6, BoostInv.GUI_NAME);
@@ -53,6 +65,10 @@ public class PlayerCommandPreprocessEvent implements Listener {
         normal.add("/abount");
         normal.add("/version");
         normal.add("/ver");
+        normal.add("/pl");
+        normal.add("/plugins");
+        normal.add("/plugin");
+        normal.add("/anticrash");
     }
 
 }

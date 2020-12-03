@@ -17,6 +17,7 @@ import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
 import me.bluenitrox.school.utils.Antidupe;
+import me.bluenitrox.school.utils.TimeManager;
 import me.bluenitrox.school.utils.UUIDFetcher;
 import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
@@ -116,6 +117,10 @@ public class SchoolMode extends JavaPlugin {
         getCommand("kit").setExecutor(new Kit());
         getCommand("pet").setExecutor(new PetCommand());
         getCommand("stop").setExecutor(new StopCommand());
+        getCommand("invsee").setExecutor(new Invsee());
+        getCommand("clear").setExecutor(new Clear());
+        getCommand("tk").setExecutor(new TK());
+        getCommand("vanish").setExecutor(new Vanish());
 
 
         //
@@ -231,6 +236,11 @@ public class SchoolMode extends JavaPlugin {
 
             @Override
             public void run() {
+                if(StopCommand.alreadystarted == false) {
+                    if (TimeManager.restartServer()) {
+                        StopCommand.restartServer();
+                    }
+                }
                 Antidupe.ids = new ArrayList<>();
                 for (Player all : Bukkit.getOnlinePlayers()) {
                     playerlevel.get(all.getUniqueId());

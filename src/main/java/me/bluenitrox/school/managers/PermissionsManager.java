@@ -28,5 +28,10 @@ public class PermissionsManager {
     public static final String ADDBOOSTER = "System.booster.add";
     public static final String COMMANDBLOCK = "System.send.all";
     public static final String CHAT = "System.chat";
+    public static final String INVSEE = "System.invsee";
+    public static final String CLEAR = "System.clear";
+    public static final String TKCMD = "System.TK";
+    public static final String VANISHBYPASS = "System.vanishbypass";
+    public static final String VANISH = "System.vanish";
 
 }

@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffectType;
 public class AntiVenom extends EnchantAPI {
 
     public static void antiVenomAuslösen(Player damager) {
-        if (hasEnchant(damager, EnchantManager.AntiVenom)) {
+        if (hasEnchant(damager.getItemInHand(), EnchantManager.AntiVenom)) {
             if (makeOrNot50(stringToNumber(damager.getItemInHand(), EnchantManager.AntiVenom))) {
                 damager.playSound(damager.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                 removeEffects(damager);

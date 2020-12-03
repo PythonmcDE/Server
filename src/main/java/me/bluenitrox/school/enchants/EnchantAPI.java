@@ -1,5 +1,6 @@
 package me.bluenitrox.school.enchants;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -69,10 +70,10 @@ public class EnchantAPI {
         }
     }
 
-    protected static boolean hasEnchant(Player p,String enchant){
+    protected static boolean hasEnchant(ItemStack item,String enchant){
         int hasenchant = 0;
         for(int i = 0; i <= 10; i++) {
-            if (p.getItemInHand().getItemMeta().getLore().contains(enchant + numberToString(i))) {
+            if (item.getItemMeta().getLore().contains(enchant + numberToString(i))) {
                 hasenchant = 1;
             }
         }
@@ -219,6 +220,73 @@ public class EnchantAPI {
 
     protected static boolean makeOrNot100(int i){
         int r = new Random().nextInt(10);
+
+        switch (r){
+            case 1:
+                if(i == 1){
+                    return true;
+                }
+            case 2:
+                for(int wert = 1;  wert <= 2; wert++) {
+                    if (i == wert) {
+                        return true;
+                    }
+                }
+            case 3:
+                for(int wert = 1;  wert <= 3; wert++) {
+                    if (i == wert) {
+                        return true;
+                    }
+                }
+            case 4:
+                for(int wert = 1;  wert <= 4; wert++) {
+                    if (i == wert) {
+                        return true;
+                    }
+                }
+            case 5:
+                for(int wert = 1;  wert <= 5; wert++) {
+                    if (i == wert) {
+                        return true;
+                    }
+                }
+            case 6:
+                for(int wert = 1;  wert <= 6; wert++) {
+                    if (i == wert) {
+                        return true;
+                    }
+                }
+            case 7:
+                for(int wert = 1;  wert <= 7; wert++) {
+                    if (i == wert) {
+                        return true;
+                    }
+                }
+            case 8:
+                for(int wert = 1;  wert <= 8; wert++) {
+                    if (i == wert) {
+                        return true;
+                    }
+                }
+            case 9:
+                for(int wert = 1;  wert <= 9; wert++) {
+                    if (i == wert) {
+                        return true;
+                    }
+                }
+            case 10:
+                for(int wert = 1;  wert <= 10; wert++) {
+                    if (i == wert) {
+                        return true;
+                    }
+                }
+            default:
+                return false;
+        }
+    }
+
+    protected static boolean makeOrNot20(int i){
+        int r = new Random().nextInt(50);
 
         switch (r){
             case 1:

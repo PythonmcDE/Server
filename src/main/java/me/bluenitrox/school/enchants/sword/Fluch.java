@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 public class Fluch extends EnchantAPI {
 
     public static void fluchAuslösen(Player damager, Player player) {
-        if (hasEnchant(damager, EnchantManager.Fluch)) {
+        if (hasEnchant(damager.getItemInHand(), EnchantManager.Fluch)) {
             if (makeOrNot80(stringToNumber(damager.getItemInHand(), EnchantManager.Fluch))) {
                 damager.playSound(damager.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 * 3, 0));
