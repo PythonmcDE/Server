@@ -123,6 +123,8 @@ public class SchoolMode extends JavaPlugin {
         getCommand("tk").setExecutor(new TK());
         getCommand("vanish").setExecutor(new Vanish());
         getCommand("händler").setExecutor(new HändlerAPI());
+        getCommand("tp").setExecutor(new Tp());
+        getCommand("tphere").setExecutor(new Tphere());
 
 
         //
@@ -152,6 +154,8 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new EntityDamageByEntityEvent(), this);
         pm.registerEvents(new EntityDamageEvent(), this);
         pm.registerEvents(new PlayerDropItemEvent(), this);
+        pm.registerEvents(new ProjectileLaunchEvent(), this);
+        pm.registerEvents(new CreatureSpawnEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");

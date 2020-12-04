@@ -23,29 +23,34 @@ public class Schmied {
             cs.sendMessage(MessageManager.NOPLAYER);
             return;
         }
-        Inventory inv = Bukkit.createInventory(null, 9*3, GUI_NAME);
+        Inventory inv = Bukkit.createInventory(null, 9*6, GUI_NAME);
 
 
-        ItemStack slime = new ItemBuilder(Material.SLIME_BALL).setDisplayname("§a§lReparieren").setLore("§b» §aJetzt §7Reparieren für 15.000$").build();
-        inv.setItem(16, slime);
-        ItemStack glass = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 15).setDisplayname(" ").build();
+        ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
+        ItemStack glasblack = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 15).setDisplayname(" ").build();
+        ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lItems reparieren").setLore("§6§l▶ §7Dein Item ist §cbeschädigt§7?", "§6§l▶ §7Kein Problem, §frepariere §7es hier beim §9§lSchmied","§6§l▶ §7für einen geringen Gem-Betrag.").build();
+        ItemStack barrier = new ItemBuilder(Material.BARRIER).setDisplayname("§8» §cNicht möglich!").setLore("§6§l▶ §7Entweder liegt kein Item auf dem freien Slot,","§6§l▶ §7oder dieses Item kann repariert werden").build();
+        ItemStack dye = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8» §aKlicke hier, zum Reparieren!").setLore("§6§l▶ §7Kosten: §615 Tsd Gems").build();
 
-
-        for (int i = 0; i != 9; i++) {
-            inv.setItem(i, glass);
+        for(int i = 0; i<= 8; i++){
+            inv.setItem(i, glas);
         }
-        for (int i = 19; i != 27; i++) {
-            inv.setItem(i, glass);
+        for(int i = 9; i<=21; i++){
+            inv.setItem(i, glasblack);
+        }
+        for(int i = 23; i<= 35; i++){
+            inv.setItem(i, glasblack);
+        }
+        for(int i = 36; i<= 44; i++){
+            inv.setItem(i, glas);
+        }
+        for(int i = 45; i<= 53; i++){
+            inv.setItem(i, glasblack);
         }
 
-        inv.setItem(9, glass);
-        inv.setItem(10, glass);
-        inv.setItem(11, glass);
-        inv.setItem(12, glass);
-        inv.setItem(14, glass);
-        inv.setItem(15, glass);
-        inv.setItem(17, glass);
-        inv.setItem(18, glass);
+        inv.setItem(49,sign);
+        inv.setItem(25,barrier);
+        inv.setItem(53,dye);
 
         p.openInventory(inv);
 
@@ -59,24 +64,24 @@ public class Schmied {
             if(e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE){
                 e.setCancelled(true);
             }
-            if(e.getCurrentItem().getType() == Material.SLIME_BALL){
+            if(e.getCurrentItem().getType() == Material.INK_SACK){
                 e.setCancelled(true);
                 if(MoneyManager.getMoney(p.getUniqueId()) >= 15000) {
-                    if(e.getClickedInventory().getItem(13).getItemMeta().getDisplayName() != null) {
+                    if(e.getClickedInventory().getItem(22).getItemMeta().getDisplayName() != null) {
 
                     }
 
-                    if (e.getClickedInventory().getItem(13) != null) {
-                        if (e.getClickedInventory().getItem(13).getDurability() != 0) {
+                    if (e.getClickedInventory().getItem(22) != null) {
+                        if (e.getClickedInventory().getItem(22).getDurability() != 0) {
 
                             MoneyManager.updateMoney(p.getUniqueId(), 15000, true, false);
-                            e.getClickedInventory().getItem(13).setDurability((short) 0);
+                            e.getClickedInventory().getItem(22).setDurability((short) 0);
 
 
-                            p.getInventory().addItem(e.getClickedInventory().getItem(13));
+                            p.getInventory().addItem(e.getClickedInventory().getItem(22));
 
                             ItemStack air = new ItemStack(Material.AIR);
-                            e.getClickedInventory().setItem(13, air);
+                            e.getClickedInventory().setItem(22, air);
 
                             p.closeInventory();
                             p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L , 1L);

@@ -1,16 +1,16 @@
 package me.bluenitrox.school.features;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftCreature;
-import org.bukkit.entity.Creature;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
 
@@ -30,7 +30,17 @@ public class Pet {
     }
 
     public void setPetContent(Inventory inv, Player p){
+        ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
+        ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lTiere").setLore("§6§l▶ §7Werte deine Tiere hier auf, um ihre", "§6§l▶ §6Fähigkeiten §7zu §averbessern§7.", " ", "§cInfo:", "§8● §6Tiere §7bekommt man aus §c§lTiercases§7,", "§8● §7diese findest du in der Warzone.").build();
 
+        for(int i = 0; i<= 8; i++){
+            inv.setItem(i,glas);
+        }
+        inv.setItem(4,sign);
+
+        for(int i = 36; i<=44; i++){
+            inv.setItem(i,glas);
+        }
     }
 
     public void movePetEvent(Player player){
