@@ -9,6 +9,7 @@ import me.bluenitrox.school.boost.BoosterManager;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.features.KitAPI;
+import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.LevelManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
@@ -121,6 +122,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("clear").setExecutor(new Clear());
         getCommand("tk").setExecutor(new TK());
         getCommand("vanish").setExecutor(new Vanish());
+        getCommand("händler").setExecutor(new HändlerAPI());
 
 
         //
@@ -236,7 +238,7 @@ public class SchoolMode extends JavaPlugin {
 
             @Override
             public void run() {
-                if(StopCommand.alreadystarted == false) {
+                if(!StopCommand.alreadystarted) {
                     if (TimeManager.restartServer()) {
                         StopCommand.restartServer();
                     }

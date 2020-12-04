@@ -33,6 +33,7 @@ commands:
   test:
   testzwei:
   getcases:
+  händler:
   kit:
   stop:
     aliases:

@@ -5,6 +5,7 @@ import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.commands.Mine;
 import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.features.KitAPI;
+import me.bluenitrox.school.haendler.commands.Schmied;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,6 +26,7 @@ public class InventoryClickEvent implements Listener {
         BoostInv.inventoryClick(e, p);
         Mine.onMinenClick(e);
         KitAPI.kitApiClickEvent(e);
+        Schmied.onClickSchmied(e);
     }
 
     private void caseClick(org.bukkit.event.inventory.InventoryClickEvent e){
