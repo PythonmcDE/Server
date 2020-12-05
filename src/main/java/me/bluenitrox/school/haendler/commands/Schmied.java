@@ -2,6 +2,7 @@ package me.bluenitrox.school.haendler.commands;
 
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
+import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -60,8 +61,7 @@ public class Schmied {
     public static void onClickSchmied(InventoryClickEvent e){
         Player p = (Player) e.getWhoClicked();
         if(e.getClickedInventory().getName().equals(GUI_NAME) && e.getCurrentItem() != null){
-            p.updateInventory();
-            if(e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE || e.getCurrentItem().getType() == Material.BARRIER){
+            if(e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE || e.getCurrentItem().getType() == Material.BARRIER || e.getCurrentItem().getType() == Material.SIGN){
                 e.setCancelled(true);
             }
             if(e.getCurrentItem().getType() == Material.INK_SACK){
@@ -81,8 +81,13 @@ public class Schmied {
 
                             p.closeInventory();
                             p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L , 1L);
+                            return;
                         }
                     }
+                }else {
+                    p.sendMessage(MessageManager.NOTMONEY(PlayerJoinManager.language));
+                    p.closeInventory();
+                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L,1L);
                 }
             }
         }
