@@ -9,6 +9,7 @@ import me.bluenitrox.school.boost.BoosterManager;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.features.KitAPI;
+import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.LevelManager;
@@ -156,6 +157,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PlayerDropItemEvent(), this);
         pm.registerEvents(new ProjectileLaunchEvent(), this);
         pm.registerEvents(new CreatureSpawnEvent(), this);
+        pm.registerEvents(new PlayerInteractEntityEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");
@@ -165,6 +167,7 @@ public class SchoolMode extends JavaPlugin {
             @Override
             public void run() {
                AhManager.openedAH.clear();
+                Pet.openCooldown.clear();
             }
         }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
     }
@@ -235,6 +238,13 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
 
+        try{
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `PetSystem` ( `UUID` CHAR(36) NOT NULL , `Benjamin` INT(11) NOT NULL , `Merlin` INT(11) NOT NULL , `Eddy` INT(11) NOT NULL , `Anton` INT(11) NOT NULL , `Helgar` INT(11) NOT NULL , `Farid` INT(11) NOT NULL , `Peter` INT(11) NOT NULL )");
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
         Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/7)");
     }
     private void startAntiDupe() {
@@ -300,6 +310,8 @@ public class SchoolMode extends JavaPlugin {
         for(World world : Bukkit.getWorlds()){
             world.setGameRuleValue("doTileDrops", "false");
         }
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "difficulty 1");
+
     }
     private void startKitSystem(){
         new BukkitRunnable() {

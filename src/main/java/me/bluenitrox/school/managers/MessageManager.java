@@ -44,6 +44,8 @@ public class MessageManager {
     public static final String ENDERCHEST = PREFIX + "§7Du kannst auf diesem Server §ckeine §7Enderkisten öffnen!";
     public static final String KITNOTREADY = PREFIX + "§7Du kannst das Kit §cnicht §7abholen, da der Cooldown noch nicht abgelaufen ist!";
     public static final String DONTHAVEKIT = PREFIX + "§7Du hast dieses Kit noch §cnicht freigeschalten§7.";
+    public static final String PETUSED = PREFIX + "§7Du hast gerade ein §aPet §7eingelöst.";
+    public static final String PETALREADYHAS = PREFIX + "§7Du hast dieses §cPet bereits§7.";
 
     public static String PLAYERWASSETGAMEMODE(int i){
         if(i == 0){

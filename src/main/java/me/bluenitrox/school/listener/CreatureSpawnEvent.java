@@ -8,12 +8,7 @@ public class CreatureSpawnEvent implements Listener {
 
     @EventHandler
     public void onCreatureSpawn(final org.bukkit.event.entity.CreatureSpawnEvent e){
-        if(e.getEntity().getType() == EntityType.ENDERMITE){
-            e.setCancelled(true);
-        }
-        if(e.getSpawnReason() != org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason.SPAWNER){
-            e.setCancelled(true);
-        }
+
     }
 
 }

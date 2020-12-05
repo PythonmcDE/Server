@@ -3,8 +3,10 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.commands.Mine;
+import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.features.KitAPI;
+import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.haendler.commands.Schmied;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,18 +17,23 @@ public class InventoryClickEvent implements Listener {
     @EventHandler
     public void onClick(final org.bukkit.event.inventory.InventoryClickEvent e){
         Player p = (Player)e.getWhoClicked();
-        if(CaseAPI.opencase != null) {
-            if (CaseAPI.opencase.contains(p)) {
+        WerkbankGUIRegister wgr = new WerkbankGUIRegister();
+        Pet pet = new Pet();
+
+        if(CaseAPI.caseöffnen != null) {
+            if (CaseAPI.caseöffnen.contains(p)) {
                 e.setCancelled(true);
                 return;
             }
         }
         caseClick(e);
-        AhListener.onClickAuctionhouse(e);
         BoostInv.inventoryClick(e, p);
         Mine.onMinenClick(e);
         KitAPI.kitApiClickEvent(e);
         Schmied.onClickSchmied(e);
+        wgr.onClick(e);
+        pet.petClickEventInventory(e);
+        AhListener.onClickAuctionhouse(e);
     }
 
     private void caseClick(org.bukkit.event.inventory.InventoryClickEvent e){

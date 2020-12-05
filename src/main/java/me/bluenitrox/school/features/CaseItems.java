@@ -564,29 +564,25 @@ public class CaseItems {
 
     void registerTier(){
 
-        ItemStack ti1 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Futterration").setLore("§8» §7Enthält: §f200 Haustier XP").build();
-        ItemStack tig1 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Futterration").setLore("§8» §7Enthält: §f200 Haustier XP").build();
-        ItemStack tig2 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Futterration").setLore("§8» §7Enthält: §f200 Haustier XP").build();
-        ItemStack tig3 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Futterration").setLore("§8» §7Enthält: §f200 Haustier XP").build();
-        ItemStack tig4 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Futterration").setLore("§8» §7Enthält: §f200 Haustier XP").build();
+        ItemStack ti1 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Packung").setLore("§8» §7Enthält:§f 200 Haustier XP").build();
+        ItemStack tig1 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Packung").setLore("§8» §7Enthält:§f 200 Haustier XP").build();
+        ItemStack tig2 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Packung").setLore("§8» §7Enthält:§f 200 Haustier XP").build();
+        ItemStack tig3 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Packung").setLore("§8» §7Enthält:§f 200 Haustier XP").build();
+        ItemStack tig4 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kleine Packung").setLore("§8» §7Enthält:§f 200 Haustier XP").build();
 
-        ItemStack ti2 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält: §f300 Haustier XP").build();
-        ItemStack tig5 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält: §f300 Haustier XP").build();
-        ItemStack tig6 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält: §f300 Haustier XP").build();
-        ItemStack tig7 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält: §f300 Haustier XP").build();
+        ItemStack ti2 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält:§f 300 Haustier XP").build();
+        ItemStack tig5 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält:§f 300 Haustier XP").build();
+        ItemStack tig6 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält:§f 300 Haustier XP").build();
+        ItemStack tig7 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Nährstoff Packung").setLore("§8» §7Enthält:§f 300 Haustier XP").build();
 
-        ItemStack ti3 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kraftfutter Packung").setLore("§8» §7Enthält: §f400 Haustier XP").build();
-        ItemStack tig8 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kraftfutter Packung").setLore("§8» §7Enthält: §f400 Haustier XP").build();
-        ItemStack tig9 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kraftfutter Packung").setLore("§8» §7Enthält: §f400 Haustier XP").build();
+        ItemStack ti3 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kraftfutter Packung").setLore("§8» §7Enthält:§f 400 Haustier XP").build();
+        ItemStack tig8 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kraftfutter Packung").setLore("§8» §7Enthält:§f 400 Haustier XP").build();
+        ItemStack tig9 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Kraftfutter Packung").setLore("§8» §7Enthält:§f 400 Haustier XP").build();
 
-        ItemStack ti4 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Protein Packung").setLore("§8» §7Enthält: §f500 Haustier XP").build();
-        ItemStack ti11 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Protein Packung").setLore("§8» §7Enthält: §f500 Haustier XP").build();
+        ItemStack ti4 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Protein Packung").setLore("§8» §7Enthält:§f 500 Haustier XP").build();
+        ItemStack ti11 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Protein Packung").setLore("§8» §7Enthält:§f 500 Haustier XP").build();
 
-        ItemStack ti5 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Riesige Futterpackung").setLore("§8» §7Enthält: §f600 Haustier XP").build();
-
-        ItemStack tis1 = new ItemBuilder(Material.MONSTER_EGG, (short) 90).setDisplayname("§6Reittier : Max").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
-        ItemStack tis2 = new ItemBuilder(Material.MONSTER_EGG, (short) 100).setDisplayname("§6Reittier : Sunny").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
-        ItemStack tis3 = new ItemBuilder(Material.MONSTER_EGG, (short) 55).setDisplayname("§6Reittier : Charlie").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
+        ItemStack ti5 = new ItemBuilder(Material.RABBIT_STEW).setDisplayname("§6Riesige Packung").setLore("§8» §7Enthält:§f 600 Haustier XP").build();
 
         ItemStack tie1 = new ItemBuilder(Material.MONSTER_EGG, (short) 67).setDisplayname("§6Haustier : Benjamin").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
         ItemStack tie2 = new ItemBuilder(Material.MONSTER_EGG, (short) 65).setDisplayname("§6Haustier : Merlin").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
@@ -596,6 +592,32 @@ public class CaseItems {
         ItemStack tie6 = new ItemBuilder(Material.MONSTER_EGG, (short) 95).setDisplayname("§6Haustier : Farid").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
         ItemStack tie7 = new ItemBuilder(Material.MONSTER_EGG, (short) 101).setDisplayname("§6Haustier : Peter").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
 
+
+        for(int i = 0; i<= 1; i++) {
+            tier.add(ti1);
+            tier.add(tig1);
+            tier.add(tig2);
+            tier.add(tig3);
+            tier.add(tig4);
+            tier.add(ti2);
+            tier.add(tig5);
+            tier.add(tig6);
+            tier.add(tig7);
+            tier.add(ti3);
+            tier.add(tig8);
+            tier.add(tig9);
+            tier.add(ti11);
+            tier.add(ti4);
+            tier.add(ti5);
+        }
+
+        tier.add(tie1);
+        tier.add(tie2);
+        tier.add(tie3);
+        tier.add(tie4);
+        tier.add(tie5);
+        tier.add(tie6);
+        tier.add(tie7);
     }
 
 }

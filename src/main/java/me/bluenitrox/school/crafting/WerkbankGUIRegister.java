@@ -5,12 +5,16 @@ import me.bluenitrox.school.utils.KopfUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class WerkbankGUIRegister {
 
+    public String guinamerecepies = "§6§lCrafting-Rezepte";
     public String guiname = "§6§lWerkbank";
     public ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
     public ItemStack glasblack = new ItemBuilder(Material.STAINED_GLASS_PANE, (short)15).setDisplayname(" ").build();
@@ -18,6 +22,40 @@ public class WerkbankGUIRegister {
     public ItemStack craftingTable = new ItemBuilder(Material.WORKBENCH).setDisplayname("§8» §7Normale Werkbank").setLore("§aKlicke hier, um die normale Werkbank zu öffnen.").build();
     public ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» " + guiname).setLore("§6§l▶ §7Du befindest dich gerade im §6Werkbank-Menü§7.", "§6§l▶ Hier kannst du §espezielle Rezepte §7craften", "§6§l▶ §7oder auf die §fnormale Werkbank §7wechseln").build();
     public ItemStack spezial = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §6§lSpezielle Werkbank").setLore("§6§l▶ §7Klicke hier, um eine §6Werkbank §7für", "§6§l▶ §6spezielle Crafting-Rezepte §7zu §aöffnen§7.").build();
+
+    public void onClick(final InventoryClickEvent e){
+        Player p =(Player)e.getWhoClicked();
+        if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null) {
+            if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Normale Werkbank")) {
+                Inventory inv = Bukkit.createInventory(null, InventoryType.CRAFTING, guiname);
+                p.openInventory(inv);
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lSpezielle Werkbank") || e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Crafting-Rezepte")) {
+                p.openInventory(rezeptMenu());
+            }
+        }else if(e.getClickedInventory().getName().equalsIgnoreCase(guinamerecepies) && e.getCurrentItem() != null){
+            if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune I")){
+                p.openInventory(runeEins());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune II")){
+                p.openInventory(runeZwei());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune III")){
+                p.openInventory(runeDrei());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune IV")){
+                p.openInventory(runeVier());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune V")){
+                p.openInventory(runeFünf());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune VI")){
+                p.openInventory(runeSechs());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune VII")){
+                p.openInventory(runeSieben());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune VIII")){
+                p.openInventory(runeAcht());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune IX")){
+                p.openInventory(runeNeun());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune X")){
+                p.openInventory(runeZehn());
+            }
+        }
+    }
 
     public Inventory mainMenu(){
         Inventory inv = Bukkit.createInventory(null, 9*5, guiname);
@@ -39,7 +77,7 @@ public class WerkbankGUIRegister {
     }
 
     public Inventory rezeptMenu(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
+        Inventory inv = Bukkit.createInventory(null, 9*6, guinamerecepies);
 
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lCrafting-Rezepte").setLore("§6§l▶ §7Hier werden dir alle §6§lbesonderen Rezepte", "§6§l▶ §aangezeigt §7und wie du sie §fcraften kannst§7.").build();
         ItemStack paper = new ItemBuilder(Material.PAPER).setDisplayname("§8» §7Seite §61&8/&61").build();

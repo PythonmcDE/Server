@@ -59,18 +59,14 @@ public class Schmied {
 
     public static void onClickSchmied(InventoryClickEvent e){
         Player p = (Player) e.getWhoClicked();
-        if(e.getClickedInventory().getName().equals(Schmied.GUI_NAME) && e.getCurrentItem() != null){
+        if(e.getClickedInventory().getName().equals(GUI_NAME) && e.getCurrentItem() != null){
             p.updateInventory();
-            if(e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE){
+            if(e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE || e.getCurrentItem().getType() == Material.BARRIER){
                 e.setCancelled(true);
             }
             if(e.getCurrentItem().getType() == Material.INK_SACK){
                 e.setCancelled(true);
                 if(MoneyManager.getMoney(p.getUniqueId()) >= 15000) {
-                    if(e.getClickedInventory().getItem(22).getItemMeta().getDisplayName() != null) {
-
-                    }
-
                     if (e.getClickedInventory().getItem(22) != null) {
                         if (e.getClickedInventory().getItem(22).getDurability() != 0) {
 

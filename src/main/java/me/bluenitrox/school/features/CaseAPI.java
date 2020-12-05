@@ -30,33 +30,34 @@ public class CaseAPI {
     private int rounds = 0;
     public static HashMap<Player, ArrayList<ItemStack>> caseitemshash = new HashMap<>();
     public static ArrayList<ItemStack> casepot;
-    public static ArrayList<Player> opencase = new ArrayList<>();
+
+    public static ArrayList<Player> caseöffnen = new ArrayList<>();
 
     public void openCase(Player p, int cases) {
-        opencase.add(p);
+        caseöffnen.add(p);
         clearAllArrays();
-        getCasePot(cases,p);
+        getCasePot(cases, p);
 
         Inventory inv = Bukkit.getServer().createInventory(null, 9 * 3, toCase(cases));
 
         ItemStack hopper = new ItemBuilder(Material.HOPPER).setDisplayname("§e§lDein Gewinn").setLore("§b» §7Wenn die Case zum Stillstand kommt, bekommst", "§b» §7du das Item auf diesem Slot.").addEnchant(Enchantment.ARROW_DAMAGE, 10, false).build();
 
-        for(int i = 9; i<= 17;i++){
-            inv.setItem(i,caseitemshash.get(p).get(i));
-            inv.setItem(i-9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))
+        for (int i = 9; i <= 17; i++) {
+            inv.setItem(i, caseitemshash.get(p).get(i));
+            inv.setItem(i - 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))
                     .setDisplayname(rareFromShort(rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))).build());
-            inv.setItem(i+9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))
+            inv.setItem(i + 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))
                     .setDisplayname(rareFromShort(rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))).build());
         }
 
         inv.setItem(4, hopper);
         p.openInventory(inv);
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             @Override
             public void run() {
                 startAnimation(p, inv, cases);
             }
-        }.runTaskLaterAsynchronously(SchoolMode.getInstance(),5);
+        }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 5);
     }
 
     private void startAnimation(Player p, Inventory inv, int cases) {
@@ -92,7 +93,7 @@ public class CaseAPI {
                     Firework.Firework(p);
 
                     p.openInventory(wininv);
-                    opencase.remove(p);
+                    caseöffnen.remove(p);
                     caseitemshash.remove(p);
                     rounds = 0;
                     return;

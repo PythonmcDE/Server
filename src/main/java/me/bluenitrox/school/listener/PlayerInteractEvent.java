@@ -1,7 +1,9 @@
 package me.bluenitrox.school.listener;
 
+import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.features.CaseAPI;
+import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
@@ -20,6 +22,8 @@ public class PlayerInteractEvent implements Listener {
     @EventHandler
     public void onInteract(final org.bukkit.event.player.PlayerInteractEvent e){
         Player p = (Player)e.getPlayer();
+        Pet pet = new Pet();
+
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (p.getItemInHand() != null) {
                 if (p.getItemInHand().getItemMeta() != null) {
@@ -27,6 +31,7 @@ public class PlayerInteractEvent implements Listener {
                         interactCase(p, e);
                         interactSchoolXP(p, e);
                         Schatzmeister.openInventory(p, e);
+                        pet.petEinlösen(p,e);
                     }
                 }
             }
@@ -45,8 +50,10 @@ public class PlayerInteractEvent implements Listener {
                 || p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(CaseAPI.mysthische)
                 || p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(CaseAPI.tier))){
             e.setCancelled(true);
-            if(CaseAPI.opencase.contains(p)){
-                return;
+            if(CaseAPI.caseöffnen != null) {
+                if (CaseAPI.caseöffnen.contains(p)) {
+                    return;
+                }
             }
             CaseAPI caseapi = new CaseAPI();
             if(p.getItemInHand().getAmount() > 1) {
@@ -90,6 +97,8 @@ public class PlayerInteractEvent implements Listener {
     private void interactCraftingtable(Player p, org.bukkit.event.player.PlayerInteractEvent e){
         if(e.getClickedBlock().getType() == Material.WORKBENCH){
             e.setCancelled(true);
+            WerkbankGUIRegister wgr = new WerkbankGUIRegister();
+            p.openInventory(wgr.mainMenu());
         }
     }
 }
