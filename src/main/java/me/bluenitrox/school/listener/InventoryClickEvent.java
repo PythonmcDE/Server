@@ -7,6 +7,7 @@ import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.features.KitAPI;
 import me.bluenitrox.school.features.Pet;
+import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.haendler.commands.Schmied;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +20,7 @@ public class InventoryClickEvent implements Listener {
         Player p = (Player)e.getWhoClicked();
         WerkbankGUIRegister wgr = new WerkbankGUIRegister();
         Pet pet = new Pet();
+        HändlerAPI api = new HändlerAPI();
 
         if(CaseAPI.caseöffnen != null) {
             if (CaseAPI.caseöffnen.contains(p)) {
@@ -33,6 +35,7 @@ public class InventoryClickEvent implements Listener {
         Schmied.onClickSchmied(e);
         wgr.onClick(e);
         pet.petClickEventInventory(e);
+        api.onClickHändler(e);
         AhListener.onClickAuctionhouse(e);
     }
 

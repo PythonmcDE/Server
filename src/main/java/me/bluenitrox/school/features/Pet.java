@@ -44,11 +44,16 @@ public class Pet {
 
     public void petClickEventInventory(final InventoryClickEvent e){
         if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
+            Player p = (Player) e.getWhoClicked();
             e.setCancelled(true);
             if(e.getCurrentItem().getType() == Material.MONSTER_EGG){
                 PetAPI api = new PetAPI();
                 createPet((Player) e.getWhoClicked(), api.itemToEntity(e.getCurrentItem()));
                 e.getWhoClicked().closeInventory();
+            }else if(e.getCurrentItem().getType() == Material.BARRIER){
+                if(SchoolMode.Pets.containsKey(p.getName())){
+                    SchoolMode.Pets.get(p.getName()).remove();
+                }
             }
         }
     }
@@ -142,20 +147,13 @@ public class Pet {
 
     public void setPetContent(Inventory inv, Player p){
         UUID uuid = p.getUniqueId();
+        PetAPI api = new PetAPI();
 
         ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
         ItemStack glasblack = new ItemBuilder(Material.STAINED_GLASS_PANE,(short)15).setDisplayname(" ").build();
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lTiere").setLore("§6§l▶ §7Werte deine Tiere hier auf, um ihre", "§6§l▶ §6Fähigkeiten §7zu §averbessern§7.", " ", "§cInfo:", "§8● §6Tiere §7bekommt man aus §c§lTiercases§7,", "§8● §7diese findest du in der Warzone.").build();
         ItemStack barrier = new ItemBuilder(Material.BARRIER).setDisplayname("§8» §7Aktuelles Tier despawnen").build();
         ItemStack barrier2 = new ItemBuilder(Material.BARRIER).setDisplayname("§8» §cDu besitzt dieses Haustier noch nicht.").build();
-
-        ItemStack tie1 = new ItemBuilder(Material.MONSTER_EGG, (short) 67).setDisplayname("§6Haustier : Benjamin").setLore("§8» §7Klicke, um dieses Tier §aeinzulösen§7.").build();
-        ItemStack tie2 = new ItemBuilder(Material.MONSTER_EGG, (short) 65).setDisplayname("§6Haustier : Merlin").setLore("§8» §7Klicke, um dieses Tier §aeinzulösen§7.").build();
-        ItemStack tie3 = new ItemBuilder(Material.MONSTER_EGG, (short) 62).setDisplayname("§6Haustier : Eddy").setLore("§8» §7Klicke, um dieses Tier §aeinzulösen§7.").build();
-        ItemStack tie4 = new ItemBuilder(Material.MONSTER_EGG, (short) 98).setDisplayname("§6Haustier : Anton").setLore("§8» §7Klicke, um dieses Tier §aeinzulösen§7.").build();
-        ItemStack tie5 = new ItemBuilder(Material.MONSTER_EGG, (short) 93).setDisplayname("§6Haustier : Helgar").setLore("§8» §7Klicke, um dieses Tier §aeinzulösen§7.").build();
-        ItemStack tie6 = new ItemBuilder(Material.MONSTER_EGG, (short) 95).setDisplayname("§6Haustier : Farid").setLore("§8» §7Klicke, um dieses Tier §aeinzulösen§7.").build();
-        ItemStack tie7 = new ItemBuilder(Material.MONSTER_EGG, (short) 101).setDisplayname("§6Haustier : Peter").setLore("§8» §7Klicke, um dieses Tier §aeinzulösen§7.").build();
 
 
         for(int i = 0; i<= 8; i++){
@@ -171,53 +169,54 @@ public class Pet {
         }
         inv.setItem(49,barrier);
 
-        PetAPI api = new PetAPI();
-
         if(api.getBenjamin(uuid) > 0){
+            ItemStack tie1 = new ItemBuilder(Material.MONSTER_EGG, (short) 67).setDisplayname("§6Haustier : Benjamin").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.BENJAMIN),"§8● §7Akuelles XP:§6 " + api.getBenjamin(p.getUniqueId()),"§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
             inv.setItem(9,tie1);
         }else {
             inv.setItem(9,barrier2);
         }
 
         if(api.getMerlin(uuid) > 0){
+            ItemStack tie2 = new ItemBuilder(Material.MONSTER_EGG, (short) 65).setDisplayname("§6Haustier : Merlin").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.MERLIN),"§8● §7Akuelles XP:§6 " + api.getMerlin(p.getUniqueId()),"§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
             inv.setItem(10,tie2);
         }else {
             inv.setItem(10,barrier2);
         }
 
         if(api.getEddy(uuid) > 0){
+            ItemStack tie3 = new ItemBuilder(Material.MONSTER_EGG, (short) 62).setDisplayname("§6Haustier : Eddy").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.EDDY),"§8● §7Akuelles XP:§6 " + api.getEddy(p.getUniqueId()),"§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
             inv.setItem(11,tie3);
         }else {
             inv.setItem(11,barrier2);
         }
 
         if(api.getAnton(uuid) > 0){
+            ItemStack tie4 = new ItemBuilder(Material.MONSTER_EGG, (short) 98).setDisplayname("§6Haustier : Anton").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.ANTON),"§8● §7Akuelles XP:§6 " + api.getAnton(p.getUniqueId()),"§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
             inv.setItem(12,tie4);
         }else {
             inv.setItem(12,barrier2);
         }
 
         if(api.getHelgar(uuid) > 0){
+            ItemStack tie5 = new ItemBuilder(Material.MONSTER_EGG, (short) 93).setDisplayname("§6Haustier : Helgar").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.HELGAR),"§8● §7Akuelles XP:§6 " + api.getHelgar(p.getUniqueId()),"§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
             inv.setItem(13,tie5);
         }else {
             inv.setItem(13,barrier2);
         }
 
         if(api.getFarid(uuid) > 0){
+            ItemStack tie6 = new ItemBuilder(Material.MONSTER_EGG, (short) 95).setDisplayname("§6Haustier : Farid").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.FARID),"§8● §7Akuelles XP:§6 " + api.getFarid(p.getUniqueId()),"§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
             inv.setItem(14,tie6);
         }else {
             inv.setItem(14,barrier2);
         }
 
         if(api.getPeter(uuid) > 0){
+            ItemStack tie7 = new ItemBuilder(Material.MONSTER_EGG, (short) 101).setDisplayname("§6Haustier : Peter").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.PETER),"§8● §7Akuelles XP:§6 " + api.getPeter(p.getUniqueId()),"§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
             inv.setItem(15,tie7);
         }else {
             inv.setItem(15,barrier2);
         }
-
-
-
-
     }
 
     public void movePetEvent(Player player){

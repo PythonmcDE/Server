@@ -6,6 +6,7 @@ import me.bluenitrox.school.ah.Ah_CMD;
 import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.boost.BoosterAPI;
 import me.bluenitrox.school.boost.BoosterManager;
+import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.features.KitAPI;
@@ -23,6 +24,7 @@ import me.bluenitrox.school.utils.TimeManager;
 import me.bluenitrox.school.utils.UUIDFetcher;
 import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -161,6 +163,8 @@ public class SchoolMode extends JavaPlugin {
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");
+
+        CraftAPI.registerEnchants();
     }
     private void startAhAnticrash(){
         new BukkitRunnable(){
@@ -309,8 +313,8 @@ public class SchoolMode extends JavaPlugin {
         Bukkit.setWhitelist(false);
         for(World world : Bukkit.getWorlds()){
             world.setGameRuleValue("doTileDrops", "false");
+            world.setDifficulty(Difficulty.EASY);
         }
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "difficulty 1");
 
     }
     private void startKitSystem(){

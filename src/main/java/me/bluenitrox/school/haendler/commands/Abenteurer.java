@@ -11,7 +11,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class Abenteurer {
-    public static String GUI_NAME = "§1§lAbenteurer";
+    public static String GUI_NAME = "§e§lHändler §8: §7§lAbenteurer";
 
     public static void onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player)cs;
@@ -27,15 +27,15 @@ public class Abenteurer {
         ItemStack netherrack = new ItemBuilder(Material.NETHERRACK).setDisplayname("§7Netherstein").setLore("§8» §7Kaufen:§6 100 Gems").build();
         ItemStack netherziegel = new ItemBuilder(Material.NETHER_BRICK).setDisplayname("§7Netherziegel").setLore("§8» §7Kaufen:§6 100 Gems").build();
         ItemStack seelensand = new ItemBuilder(Material.SOUL_SAND).setDisplayname("§7Seelensand").setLore("§8» §7Kaufen:§6 1000 Gems").build();
-        ItemStack glowdust = new ItemBuilder(Material.SOUL_SAND).setDisplayname("§7Glowstonestaub").setLore("§8» §7Kaufen:§6 100 Gems").build();
-        ItemStack netherwart = new ItemBuilder(Material.NETHER_WARTS).setDisplayname("§7Seelensand").setLore("§8» §7Kaufen:§6 1000 Gems", "§8» §7Verkaufen:§6 200 Gems").build();
+        ItemStack glowdust = new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayname("§7Glowstonestaub").setLore("§8» §7Kaufen:§6 100 Gems").build();
+        ItemStack netherwart = new ItemBuilder(Material.NETHER_STALK).setDisplayname("§7Netherwarze").setLore("§8» §7Kaufen:§6 1000 Gems", "§8» §7Verkaufen:§6 200 Gems").build();
         ItemStack quarz = new ItemBuilder(Material.QUARTZ).setDisplayname("§7Netherquarz").setLore("§8» §7Kaufen:§6 1100 Gems", "§8» §7Verkaufen:§6 220 Gems").build();
         ItemStack lava = new ItemBuilder(Material.LAVA_BUCKET).setDisplayname("§7Lava Eimer").setLore("§8» §7Kaufen:§6 1000 Gems").build();
 
         for(int i = 0; i<= 8; i++){
             inv.setItem(i, glas);
         }
-        for(int i = 36; i<=45;i++){
+        for(int i = 36; i<=44;i++){
             inv.setItem(i,glas);
         }
 

@@ -5,6 +5,7 @@ import me.bluenitrox.school.features.PetAPI;
 import me.bluenitrox.school.utils.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -48,7 +49,7 @@ public class PlayerInteractEntityEvent implements Listener {
                                             ItemStack air = new ItemStack(Material.AIR);
                                             p.setItemInHand(air);
                                         }
-
+                                        p.playSound(p.getLocation(), Sound.EAT, 1L , 1L);
                                         api.updatePet(e.getPlayer().getUniqueId(), petxp, false, haustier);
                                     }
                                 }

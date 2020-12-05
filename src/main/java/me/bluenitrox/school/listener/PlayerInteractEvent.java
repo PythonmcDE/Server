@@ -1,6 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
+import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.features.Pet;
@@ -38,6 +39,7 @@ public class PlayerInteractEvent implements Listener {
         }else if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
             interactEnderchest(p, e);
             interactCraftingtable(p, e);
+            interactAnvil(p, e);
         }
     }
 
@@ -99,6 +101,14 @@ public class PlayerInteractEvent implements Listener {
             e.setCancelled(true);
             WerkbankGUIRegister wgr = new WerkbankGUIRegister();
             p.openInventory(wgr.mainMenu());
+        }
+    }
+
+    private void interactAnvil(Player p, org.bukkit.event.player.PlayerInteractEvent e){
+        if(e.getClickedBlock().getType() == Material.ANVIL){
+            e.setCancelled(true);
+            CraftAPI api = new CraftAPI();
+            p.openInventory(api.openCraftInv(p));
         }
     }
 }

@@ -593,7 +593,7 @@ public class CaseItems {
         ItemStack tie7 = new ItemBuilder(Material.MONSTER_EGG, (short) 101).setDisplayname("§6Haustier : Peter").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
 
 
-        for(int i = 0; i<= 1; i++) {
+        for(int i = 0; i<= 3; i++) {
             tier.add(ti1);
             tier.add(tig1);
             tier.add(tig2);
