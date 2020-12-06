@@ -29,7 +29,7 @@ public class Bergmann {
         ItemStack kohle = new ItemBuilder(Material.COAL).setDisplayname("§7Kohle").setLore("§8» §7Kaufen:§6 400 Gems", "§8» §7Verkaufen:§6 80 Gems").build();
         ItemStack holzkohle = new ItemBuilder(Material.COAL, (short)1).setDisplayname("§7Holzkohle").setLore("§8» §7Kaufen:§6 400 Gems", "§8» §7Verkaufen:§6 80 Gems").build();
         ItemStack eisenbarren = new ItemBuilder(Material.IRON_INGOT).setDisplayname("§7Eisenbarren").setLore("§8» §7Kaufen:§6 800 Gems", "§8» §7Verkaufen:§6 160 Gems").build();
-        ItemStack lapislazuli = new ItemBuilder(Material.INK_SACK).setDisplayname("§7Lapislazuli").setLore("§8» §7Kaufen:§6 1400 Gems", "§8» §7Verkaufen:§6 280 Gems").build();
+        ItemStack lapislazuli = new ItemBuilder(Material.INK_SACK,(short)4).setDisplayname("§7Lapislazuli").setLore("§8» §7Kaufen:§6 1400 Gems", "§8» §7Verkaufen:§6 280 Gems").build();
         ItemStack goldbarren = new ItemBuilder(Material.GOLD_INGOT).setDisplayname("§7Goldbarren").setLore("§8» §7Kaufen:§6 2500 Gems", "§8» §7Verkaufen:§6 500 Gems").build();
         ItemStack diamant = new ItemBuilder(Material.DIAMOND).setDisplayname("§7Diamant").setLore("§8» §7Kaufen:§6 4000 Gems", "§8» §7Verkaufen:§6 800 Gems").build();
         ItemStack smaragd = new ItemBuilder(Material.EMERALD).setDisplayname("§7Smaragd").setLore("§8» §7Kaufen:§6 6000 Gems", "§8» §7Verkaufen:§6 1200 Gems").build();

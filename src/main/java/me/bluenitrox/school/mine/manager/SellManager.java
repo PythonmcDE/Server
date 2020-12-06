@@ -6,8 +6,21 @@ import java.util.Arrays;
 
 public class SellManager {
     public enum Preise {
-        STONE("STONE", 10),
-        IRON_ORE("IRON_ORE", 100);
+        STONE("STONE", 20),
+        COAL("COAL",80),
+        IRON_INGOT("IRON_INGOT", 160),
+        GOLD_INGOT("GOLD_INGOT",500),
+        REDSTONE("REDSTONE",350),
+        DIAMOND("DIAMOND",800),
+        EMERALD("EMERALD",1200),
+        GRAVEL("GRAVEL", 20),
+        COAL_BLOCK("COAL_BLOCK",720),
+        GOLD_BLOCK("GOLD_BLOCK",4500),
+        IRON_BLOCK("IRON_BLOCK",1440),
+        REDSTONE_BLOCK("REDSTONE_BLOCK",3150),
+        LAPIS_BLOCK("LAPIS_BLOCK",2520),
+        DIAMOND_BLOCK("DIAMOND_BLOCK",7200),
+        EMERALD_BLOCK("EMERALD_BLOCK",10800);
 
 
         String type;
@@ -26,11 +39,7 @@ public class SellManager {
     public static float getPriceByMaterial(String material, Player p) {
         material = material.toUpperCase();
 
-        //if(BOOSTER AKTIV -> ) {
-        // float preis =  Preise.getByName(material).price * MessageManager.MONEY_BOOSTER_BOOST;
-        //}else {
         float preis = Preise.getByName(material).price;
-        //}
 
         return preis;
     }

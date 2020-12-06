@@ -29,7 +29,7 @@ public class PlayerQuitListener implements Listener {
 
     private void updateDatabase(Player p){
         if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId()) && SchoolMode.playerlevel.containsKey(p.getUniqueId()) && SchoolMode.playercase.containsKey(p.getUniqueId())) {
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ?, level = ?, chest = ? WHERE spieleruuid = ?")) {
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ?, level = ?, chests = ? WHERE spieleruuid = ?")) {
                 ps.setFloat(1, SchoolMode.getPlayerMoney(p.getUniqueId()));
                 ps.setFloat(2, SchoolMode.getPlayerExp(p.getUniqueId()));
                 ps.setInt(3, SchoolMode.getPlayerMine(p.getUniqueId()));
