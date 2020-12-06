@@ -36,7 +36,8 @@ public class PlayerInteractEvent implements Listener {
                     }
                 }
             }
-        }else if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
+        }
+        if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
             interactEnderchest(p, e);
             interactCraftingtable(p, e);
             interactAnvil(p, e);

@@ -2,6 +2,7 @@ package me.bluenitrox.school.haendler;
 
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.enchants.armor.Magieschild;
+import me.bluenitrox.school.features.DailyReward;
 import me.bluenitrox.school.haendler.commands.*;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
@@ -25,7 +26,7 @@ public class HändlerAPI implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player)cs;
-        WerkbankGUIRegister wgr = new WerkbankGUIRegister();
+        DailyReward dr = new DailyReward();
 
         if(args.length == 1){
             if(args[0].equalsIgnoreCase("schmied")){
@@ -52,6 +53,8 @@ public class HändlerAPI implements CommandExecutor {
                 Techniker.onCommand(cs,cmd,s,args);
             }else if(args[0].equalsIgnoreCase("Jäger")){
                 Jäger.onCommand(cs,cmd,s,args);
+            }else if(args[0].equalsIgnoreCase("dailyreward")){
+                dr.onCommand(cs,cmd,s,args);
             }
         }
 

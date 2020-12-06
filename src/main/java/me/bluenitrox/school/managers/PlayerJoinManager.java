@@ -32,6 +32,9 @@ public class PlayerJoinManager {
         if(!isPetUserExists(uuid)){
             configuratePetPlayer(uuid);
         }
+        if(!isRewardUserExists(uuid)){
+            configurateRewardPlayer(uuid);
+        }
         float money = MoneyManager.getMoneyDatabase(uuid);
         float exp = ExpManager.getExpDatabase(uuid);
         int mine = MinenManager.getMineDatabase(uuid);
@@ -109,6 +112,20 @@ public class PlayerJoinManager {
         }
     }
 
+    public static void configurateRewardPlayer(UUID uuid) {
+        if(!isRewardUserExists(uuid)) {
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO DailyReward (UUID, Belohnung, Erfahrung, Cases) VALUES (?, ?, ?, ?)")) {
+                ps.setString(1, uuid.toString());
+                ps.setInt(2, 0);
+                ps.setInt(3, 0);
+                ps.setInt(4, 0);
+                ps.executeUpdate();
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private static boolean isUserExists(UUID uuid) {
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT spieleruuid FROM spielerdaten WHERE spieleruuid = ?");
@@ -136,6 +153,18 @@ public class PlayerJoinManager {
     private static boolean isPetUserExists(UUID uuid) {
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT UUID FROM PetSystem WHERE UUID = ?");
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private static boolean isRewardUserExists(UUID uuid) {
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT UUID FROM DailyReward WHERE UUID = ?");
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();

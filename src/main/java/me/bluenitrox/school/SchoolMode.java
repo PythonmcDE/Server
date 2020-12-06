@@ -254,6 +254,13 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
 
+        try{
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `DailyReward` ( `UUID` CHAR(36) NOT NULL , `Belohnung` INT(11) NOT NULL , `Erfahrung` INT(11) NOT NULL , `Cases` INT(11) NOT NULL )");
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
         Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/8)");
     }
     private void startAntiDupe() {

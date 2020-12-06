@@ -5,6 +5,7 @@ import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.commands.Mine;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.features.CaseAPI;
+import me.bluenitrox.school.features.DailyReward;
 import me.bluenitrox.school.features.KitAPI;
 import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.haendler.HändlerAPI;
@@ -21,6 +22,7 @@ public class InventoryClickEvent implements Listener {
         WerkbankGUIRegister wgr = new WerkbankGUIRegister();
         Pet pet = new Pet();
         HändlerAPI api = new HändlerAPI();
+        DailyReward dr = new DailyReward();
 
         if(CaseAPI.caseöffnen != null) {
             if (CaseAPI.caseöffnen.contains(p)) {
@@ -36,6 +38,7 @@ public class InventoryClickEvent implements Listener {
         wgr.onClick(e);
         pet.petClickEventInventory(e);
         api.onClickHändler(e);
+        dr.dailyRewardClick(e);
         AhListener.onClickAuctionhouse(e);
     }
 
