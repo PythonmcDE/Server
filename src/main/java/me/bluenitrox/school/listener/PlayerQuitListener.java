@@ -28,14 +28,15 @@ public class PlayerQuitListener implements Listener {
     }
 
     private void updateDatabase(Player p){
-        if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId()) && SchoolMode.playerlevel.containsKey(p.getUniqueId())) {
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ?, level = ? WHERE spieleruuid = ?")) {
+        if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId()) && SchoolMode.playerlevel.containsKey(p.getUniqueId()) && SchoolMode.playercase.containsKey(p.getUniqueId())) {
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ?, level = ?, chest = ? WHERE spieleruuid = ?")) {
                 ps.setFloat(1, SchoolMode.getPlayerMoney(p.getUniqueId()));
                 ps.setFloat(2, SchoolMode.getPlayerExp(p.getUniqueId()));
                 ps.setInt(3, SchoolMode.getPlayerMine(p.getUniqueId()));
                 ps.setInt(4, SchoolMode.getPlayerBlocks(p.getUniqueId()));
                 ps.setInt(5, SchoolMode.playerlevel.get(p.getUniqueId()));
-                ps.setString(6, p.getUniqueId().toString());
+                ps.setInt(6, SchoolMode.getPlayerCases(p.getUniqueId()));
+                ps.setString(7, p.getUniqueId().toString());
                 ps.executeUpdate();
 
                 SchoolMode.playerBlocks.remove(p.getUniqueId());
@@ -43,6 +44,7 @@ public class PlayerQuitListener implements Listener {
                 SchoolMode.playerMine.remove(p.getUniqueId());
                 SchoolMode.playerlevel.remove(p.getUniqueId());
                 SchoolMode.playerMoney.remove(p.getUniqueId());
+                SchoolMode.playercase.remove(p.getUniqueId());
             }catch (SQLException ex) {
                 ex.printStackTrace();
             }

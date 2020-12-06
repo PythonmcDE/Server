@@ -1,6 +1,7 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.features.StatsAPI;
 import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ public class PlayerJoinManager {
 
 
     public static void cachPlayerData(UUID uuid) {
+        StatsAPI api = new StatsAPI();
         if(!isUserExists(uuid)) {
             configuratePlayer(uuid);
         }
@@ -39,6 +41,7 @@ public class PlayerJoinManager {
         SchoolMode.setPlayerMine(uuid, mine);
         SchoolMode.setPlayerBlocks(uuid, blocks);
         SchoolMode.playerlevel.put(uuid,ExpManager.getLevelDatabase(uuid));
+        SchoolMode.setPlayerCase(uuid,api.getCasesDatabase(uuid));
 
     }
 

@@ -17,6 +17,7 @@ import me.bluenitrox.school.managers.LevelManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
 import me.bluenitrox.school.mine.commands.Sell;
 import me.bluenitrox.school.listener.BreakBlockEvent;
+import me.bluenitrox.school.mine.manager.Minenreset;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
 import me.bluenitrox.school.utils.Antidupe;
@@ -50,6 +51,8 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Integer> playerBlocks = new HashMap<>();
     public static HashMap<UUID, Integer> playerMine = new HashMap<>();
     public static HashMap<UUID, Integer> playerlevel = new HashMap<>();
+    public static HashMap<UUID, Integer> playercase = new HashMap<>();
+    public static HashMap<UUID, Integer> playerchest = new HashMap<>();
     public static ArrayList<UUID> playerwason = new ArrayList<>();
     public static HashMap<String,Entity> Pets = new HashMap<String, Entity>();
     private static final Random r = new Random();
@@ -67,20 +70,22 @@ public class SchoolMode extends JavaPlugin {
     public void onEnable() {
         instance = this;
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
-        Bukkit.getConsoleSender().sendMessage("§4Plugin §4aktivieren... §4(0/7)");
+        Bukkit.getConsoleSender().sendMessage("§4Plugin §4aktivieren... §4(0/8)");
         register(Bukkit.getPluginManager());
         startMySQL();
         getCurrentDupeID();
-        Bukkit.getConsoleSender().sendMessage("§4AntiDupe §4aktivieren... §4(5/7)");
+        Bukkit.getConsoleSender().sendMessage("§4AntiDupe §4aktivieren... §4(5/8)");
         startAntiDupe();
-        Bukkit.getConsoleSender().sendMessage("§4AhUpdate §4aktivieren... §4(6/7)");
+        Bukkit.getConsoleSender().sendMessage("§4AhUpdate §4aktivieren... §4(6/8)");
         startAhUpdate();
-        Bukkit.getConsoleSender().sendMessage("§4AhAnticrash §4aktivieren... §4(7/7)");
+        Bukkit.getConsoleSender().sendMessage("§4AhAnticrash §4aktivieren... §4(7/8)");
         startAhAnticrash();
         setBoostermanager(new BoosterManager());
         LevelManager.registerLevel();
         setGameRules();
         startKitSystem();
+        Bukkit.getConsoleSender().sendMessage("§4Befülle alle Minen... §4(8/8)");
+        Minenreset.fillMineServerStart();
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
     }
 
@@ -131,7 +136,7 @@ public class SchoolMode extends JavaPlugin {
 
 
         //
-        Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/7)");
+        Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/8)");
         Bukkit.getConsoleSender().sendMessage("§4Lade §4Events...");
         //Event register
 
@@ -162,7 +167,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PlayerInteractEntityEvent(), this);
 
         //
-        Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/7)");
+        Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/8)");
 
         CraftAPI.registerEnchants();
     }
@@ -249,7 +254,7 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
 
-        Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/7)");
+        Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/8)");
     }
     private void startAntiDupe() {
         new BukkitRunnable() {
@@ -460,14 +465,23 @@ public class SchoolMode extends JavaPlugin {
     public static int getPlayerBlocks(UUID uuid) {
         return playerBlocks.get(uuid);
     }
+    public static int getPlayerCases(UUID uuid) {
+        return playercase.get(uuid);
+    }
     public static int getPlayerMine(UUID uuid) {
         return playerMine.get(uuid);
     }
     public static void setPlayerMine(UUID uuid, int amount) {
         playerMine.put(uuid, amount);
     }
+    public static void setPlayerChest(UUID uuid, int amount) {
+        playerchest.put(uuid, amount);
+    }
     public static float getPlayerExp(UUID uuid) {
         return playerExp.get(uuid);
+    }
+    public static float getPlayerChest(UUID uuid) {
+        return playerchest.get(uuid);
     }
     public static String getPlayerExpString(UUID uuid) {
         float exp = playerExp.get(uuid);
@@ -475,6 +489,9 @@ public class SchoolMode extends JavaPlugin {
     }
     public static void setPlayerExp(UUID uuid, float amount) {
         playerExp.put(uuid, amount);
+    }
+    public static void setPlayerCase(UUID uuid, int amount) {
+        playercase.put(uuid, amount);
     }
     public static float getPlayerMoney(UUID uuid) {
         return playerMoney.get(uuid);

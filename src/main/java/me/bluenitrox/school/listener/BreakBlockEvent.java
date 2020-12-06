@@ -38,6 +38,7 @@ public class BreakBlockEvent implements Listener {
 
         if((PlayerBreakBlockManager.breakBlock(p, e.getBlock().getLocation(), dropBonus))) {
             addItemToInv(p,e.getBlock());
+            PlayerBreakBlockManager.updateBlocks(p.getUniqueId(),false);
         }else {
             e.setCancelled(true);
             e.setExpToDrop(0);

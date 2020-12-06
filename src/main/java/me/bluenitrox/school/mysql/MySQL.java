@@ -18,7 +18,7 @@ public class MySQL {
         if(!isConnected()) {
             try {
                 con = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useUnicode=yes", username, password);
-                Bukkit.getConsoleSender().sendMessage("§4Verbunden §4mit §4MySQL! (3/7)");
+                Bukkit.getConsoleSender().sendMessage("§4Verbunden §4mit §4MySQL! (3/8)");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

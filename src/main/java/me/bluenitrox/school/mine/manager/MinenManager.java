@@ -139,7 +139,8 @@ public class MinenManager {
 
                 TTA_Methods.sendActionBar(p, "§8» §6" + abgebauteBloeckeInProzent + "% §7der Mine ist abgebaut");
                 if(BreakBlockEvent.minen.get(mine) >= MessageManager.blocksforreset.get("mine" + mine)) {
-                    refillMine(mine);
+                    Minenreset mr = new Minenreset();
+                    mr.fillMine("mine" + mine);
                     BreakBlockEvent.minen.put(mine, 0);
                     return true;
                 }
