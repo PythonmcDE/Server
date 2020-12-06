@@ -45,7 +45,7 @@ public class Jäger {
         for(int i = 0; i<= 8; i++){
             inv.setItem(i, glas);
         }
-        for(int i = 36; i<=45;i++){
+        for(int i = 36; i<=44;i++){
             inv.setItem(i,glas);
         }
 

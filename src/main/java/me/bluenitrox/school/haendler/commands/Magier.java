@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 
 public class Magier {
-    public static String GUI_NAME = "§1§lMagier";
+    public static String GUI_NAME = "§e§lHändler §8: §7§lMagier";
 
     public static void onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player)cs;
@@ -44,7 +44,7 @@ public class Magier {
         for(int i = 0; i<= 8; i++){
             inv.setItem(i, glas);
         }
-        for(int i = 36; i<=45;i++){
+        for(int i = 36; i<=44;i++){
             inv.setItem(i,glas);
         }
 

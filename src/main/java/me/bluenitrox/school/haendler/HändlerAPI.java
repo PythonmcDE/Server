@@ -1,6 +1,7 @@
 package me.bluenitrox.school.haendler;
 
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
+import me.bluenitrox.school.enchants.armor.Magieschild;
 import me.bluenitrox.school.haendler.commands.*;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
@@ -46,7 +47,7 @@ public class HändlerAPI implements CommandExecutor {
             }else if(args[0].equalsIgnoreCase("künstlerin")){
                 Künstlerin.onCommand(cs,cmd,s,args);
             }else if(args[0].equalsIgnoreCase("Magier")){
-                Abenteurer.onCommand(cs,cmd,s,args);
+                Magier.onCommand(cs,cmd,s,args);
             }else if(args[0].equalsIgnoreCase("techniker")){
                 Techniker.onCommand(cs,cmd,s,args);
             }else if(args[0].equalsIgnoreCase("Jäger")){
