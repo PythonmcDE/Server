@@ -12,13 +12,8 @@ public class PlayerRespawnEvent implements Listener {
     @EventHandler
     public void onRespawn(final org.bukkit.event.player.PlayerRespawnEvent e){
         Player p = (Player)e.getPlayer();
-        new BukkitRunnable(){
-            @Override
-            public void run() {
-                p.teleport(new LocationManager("spawn").getLocation());
+        p.teleport(new LocationManager("spawn").getLocation());
 
-            }
-        }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 15);
     }
 
 }
