@@ -49,6 +49,17 @@ public class PlayerQuitListener implements Listener {
                 ex.printStackTrace();
             }
         }
+        if(SchoolMode.playergemlimit.containsKey(p.getUniqueId())){
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE DailyReward SET GemLimit = ? WHERE UUID = ?")) {
+                ps.setInt(1, SchoolMode.getGemLimit(p.getUniqueId()));
+                ps.setString(2, p.getUniqueId().toString());
+                ps.executeUpdate();
+
+                SchoolMode.playergemlimit.remove(p.getUniqueId());
+            }catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     private void removeAhItems(Player e){

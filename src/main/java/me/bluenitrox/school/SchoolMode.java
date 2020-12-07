@@ -53,6 +53,7 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Integer> playerlevel = new HashMap<>();
     public static HashMap<UUID, Integer> playercase = new HashMap<>();
     public static HashMap<UUID, Integer> playerchest = new HashMap<>();
+    public static HashMap<UUID, Integer> playergemlimit = new HashMap<>();
     public static ArrayList<UUID> playerwason = new ArrayList<>();
     public static HashMap<String,Entity> Pets = new HashMap<String, Entity>();
     private static final Random r = new Random();
@@ -255,7 +256,7 @@ public class SchoolMode extends JavaPlugin {
         }
 
         try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `DailyReward` ( `UUID` CHAR(36) NOT NULL , `Belohnung` INT(11) NOT NULL , `Erfahrung` INT(11) NOT NULL , `Cases` INT(11) NOT NULL )");
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `DailyReward` ( `UUID` CHAR(36) NOT NULL , `Belohnung` INT(11) NOT NULL , `Erfahrung` INT(11) NOT NULL , `Cases` INT(11) NOT NULL  , `GemLimit` INT(11) NOT NULL )");
             ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
@@ -478,11 +479,17 @@ public class SchoolMode extends JavaPlugin {
     public static int getPlayerMine(UUID uuid) {
         return playerMine.get(uuid);
     }
+    public static int getGemLimit(UUID uuid) {
+        return playergemlimit.get(uuid);
+    }
     public static void setPlayerMine(UUID uuid, int amount) {
         playerMine.put(uuid, amount);
     }
     public static void setPlayerChest(UUID uuid, int amount) {
         playerchest.put(uuid, amount);
+    }
+    public static void setGemLimit(UUID uuid, int amount) {
+        playergemlimit.put(uuid, amount);
     }
     public static float getPlayerExp(UUID uuid) {
         return playerExp.get(uuid);

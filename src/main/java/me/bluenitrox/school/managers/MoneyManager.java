@@ -45,6 +45,10 @@ public class MoneyManager {
         return SchoolMode.getPlayerMoney(uuid);
     }
 
+    public static float getGemlimit(UUID uuid){
+        return SchoolMode.getGemLimit(uuid);
+    }
+
     public static float getMoneyDatabase(UUID uuid) {
         float money = 0;
 
@@ -53,6 +57,22 @@ public class MoneyManager {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 money = rs.getFloat("money");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return money;
+    }
+
+    public static float getGemLimitdata(UUID uuid) {
+        float money = 0;
+
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT GemLimit FROM DailyReward WHERE UUID = ?")) {
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                money = rs.getFloat("GemLimit");
             }
         } catch (SQLException e) {
             e.printStackTrace();

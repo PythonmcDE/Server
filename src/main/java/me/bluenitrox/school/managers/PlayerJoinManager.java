@@ -45,6 +45,7 @@ public class PlayerJoinManager {
         SchoolMode.setPlayerBlocks(uuid, blocks);
         SchoolMode.playerlevel.put(uuid,ExpManager.getLevelDatabase(uuid));
         SchoolMode.setPlayerCase(uuid,api.getCasesDatabase(uuid));
+        //SchoolMode.setGemLimit(uuid, (int) MoneyManager.getGemLimitdata(uuid));
 
     }
 
@@ -119,6 +120,7 @@ public class PlayerJoinManager {
                 ps.setInt(2, 0);
                 ps.setInt(3, 0);
                 ps.setInt(4, 0);
+                //ps.setInt(5, (int) (ExpManager.getExp(uuid)*7) + 500000);
                 ps.executeUpdate();
             }catch (SQLException e) {
                 e.printStackTrace();
