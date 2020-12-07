@@ -193,28 +193,29 @@ public class CraftAPI {
     }
 
     private float getPrice(String s){
+        int standard = 20000;
         if(s.equalsIgnoreCase("I")){
-            return 40000;
+            return standard;
         }else if(s.equalsIgnoreCase("II")){
-            return 40000*2;
+            return standard*2;
         }else if(s.equalsIgnoreCase("III")){
-            return 40000*3;
+            return standard*3;
         }else if(s.equalsIgnoreCase("IV")){
-            return 40000*4;
+            return standard*4;
         }else if(s.equalsIgnoreCase("V")){
-            return 40000*5;
+            return standard*5;
         }else if(s.equalsIgnoreCase("VI")){
-            return 40000*6;
+            return standard*6;
         }else if(s.equalsIgnoreCase("VII")){
-            return 40000*7;
+            return standard*7;
         }else if(s.equalsIgnoreCase("VIII")){
-            return 40000*8;
+            return standard*8;
         }else if(s.equalsIgnoreCase("IX")){
-            return 40000*9;
+            return standard*9;
         }else if(s.equalsIgnoreCase("X")){
-            return 40000*10;
+            return standard*10;
         }else {
-            return 100000;
+            return standard*10;
         }
     }
 
