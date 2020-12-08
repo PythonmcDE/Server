@@ -4,6 +4,7 @@ import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.listener.BreakBlockEvent;
+import me.bluenitrox.school.mine.reward.RewardAPI;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
@@ -130,6 +131,8 @@ public class MinenManager {
         String mine = getMineByLocation(block);
         if(mine != null) {
             if (isAllowedtoMine(p, block)) {
+                RewardAPI api = new RewardAPI();
+                api.checkToAddReward(p);
                 PlayerBreakBlockManager.updateBlocks(p.getUniqueId(), false);
                 int amount = 1;
                 ExpManager.updateXP(p.getUniqueId(), amount, false);
