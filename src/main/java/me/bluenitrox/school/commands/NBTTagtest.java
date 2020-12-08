@@ -14,9 +14,9 @@ public class NBTTagtest implements CommandExecutor{
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player)cs;
-        ItemStack tie1 = new ItemBuilder(Material.MONSTER_EGG, (short) 67).setDisplayname("§6Haustier : Benjamin").setLore("§8» §7Rechtsklicke, um dieses Tier §aeinzulösen§7.").build();
+        ItemStack is = new ItemBuilder(Material.BARRIER).setDisplayname("LELELLE").build("isInInv");
 
-        p.getInventory().addItem(tie1);
+        p.getInventory().addItem(is);
 
         return false;
     }

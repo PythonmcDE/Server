@@ -71,6 +71,12 @@ public class ItemBuilder {
         return setLore(Arrays.asList(lore));
     }
 
+    public ItemStack build(String nbt) {
+        this.itemStack.setItemMeta(this.itemMeta);
+        NBTTags nbttags = new NBTTags(this.itemStack);
+        nbttags.setNBTTag("invsafeid", nbt);
+        return this.itemStack;
+    }
 
     public ItemStack build() {
         this.itemStack.setItemMeta(this.itemMeta);
