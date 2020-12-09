@@ -27,6 +27,11 @@
             <id>releases</id>
             <url>https://repo.cloudnetservice.eu/repository/releases/</url>
         </repository>
+        <repository>
+            <id>IntellectualSites</id>
+            <url>https://mvn.intellectualsites.com/content/groups/public/</url>
+        </repository>
+
 
     </repositories>
 
@@ -94,6 +99,28 @@
             <type>javadoc</type>
             <scope>provided</scope>
         </dependency>
+
+        <!--
+         PlotSquared Core API
+        <dependency>
+            <groupId>com.plotsquared</groupId>
+            <artifactId>PlotSquared-Core</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        PlotSquared Bukkit API
+        <dependency>
+            <groupId>com.plotsquared</groupId>
+            <artifactId>PlotSquared-Bukkit</artifactId>
+            <version>LATEST</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>PlotSquared-Core</artifactId>
+                    <groupId>*</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        -->
 
     </dependencies>
 

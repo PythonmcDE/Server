@@ -733,9 +733,9 @@ public class WerkbankGUIRegister {
     public Inventory ErhaltEins(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt I").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt I", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
-        ItemStack zombiehaut = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombiehaut").setAmount(8).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(8).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt I").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt I", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack zombiehaut = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombiehaut").setAmount(8).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(8).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
         ItemStack gfish = KopfUtil.createSkull("Daarkii", "§6Geisterkopf");
         ItemMeta meta = gfish.getItemMeta();
@@ -755,7 +755,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltEins);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, gfish);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -790,6 +789,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, zombiehaut);
         inv.setItem(24+9+9, zombiehaut);
         inv.setItem(4, sign);
+        inv.setItem(31, gfish);
 
         return inv;
     }
@@ -797,11 +797,11 @@ public class WerkbankGUIRegister {
     public Inventory ErhaltZwei(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt II").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt II", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(8).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt II").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt II", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(8).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt I").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt I", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
+        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt I").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt I", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         for(int i = 0; i <= 8; i++){
             inv.setItem(i, glas);
@@ -816,7 +816,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltZwei);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, erhaltEins);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -851,6 +850,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, pfeilspitze);
         inv.setItem(24+9+9, pfeilspitze);
         inv.setItem(4, sign);
+        inv.setItem(31, erhaltEins);
 
         return inv;
     }
@@ -858,11 +858,11 @@ public class WerkbankGUIRegister {
     public Inventory ErhaltDrei(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltdrei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt III").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt III", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack erhaltdrei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt III").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt III", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt II").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt II", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
+        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt II").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt II", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         ItemStack gfish = KopfUtil.createSkull("Daarkii", "§6Geisterkopf");
         ItemMeta meta = gfish.getItemMeta();
@@ -883,7 +883,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltdrei);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, erhaltEins);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -918,6 +917,8 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, spider);
         inv.setItem(24+9+9, spider);
         inv.setItem(4, sign);
+        inv.setItem(31, erhaltEins);
+
 
         return inv;
     }
@@ -925,11 +926,11 @@ public class WerkbankGUIRegister {
     public Inventory ErhaltVier(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IV").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IV", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IV").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IV", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt III").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt III", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
+        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt III").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt III", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         ItemStack gfish = KopfUtil.createSkull("1BlueNitrox", "§aGammeliger Zombiekopf");
         ItemMeta meta = gfish.getItemMeta();
@@ -956,7 +957,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltZwei);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, erhaltEins);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -991,6 +991,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, gfish);
         inv.setItem(24+9+9, gfish);
         inv.setItem(4, sign);
+        inv.setItem(31, erhaltEins);
 
         return inv;
     }
@@ -998,12 +999,12 @@ public class WerkbankGUIRegister {
     public Inventory ErhaltFünf(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt V").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt V", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt V").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt V", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IV").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IV", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
+        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IV").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IV", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         ItemStack gfish2 = KopfUtil.createSkull("DerEchtePiet", "§aZerbrechlicher Skelettschädel");
         ItemMeta meta2 = gfish2.getItemMeta();
@@ -1024,7 +1025,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltZwei);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, erhaltEins);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1059,6 +1059,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, wolle);
         inv.setItem(24+9+9, wolle);
         inv.setItem(4, sign);
+        inv.setItem(31, erhaltEins);
 
         return inv;
     }
@@ -1066,12 +1067,12 @@ public class WerkbankGUIRegister {
     public Inventory ErhaltSechs(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VI").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VI", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VI").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VI", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt V").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt V", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
+        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt V").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt V", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         ItemStack gfish2 = KopfUtil.createSkull("_qlm", "§6Monsterkopf");
         ItemMeta meta2 = gfish2.getItemMeta();
@@ -1092,7 +1093,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltZwei);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, erhaltEins);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1127,6 +1127,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, wolle);
         inv.setItem(24+9+9, wolle);
         inv.setItem(4, sign);
+        inv.setItem(31, erhaltEins);
 
         return inv;
     }
@@ -1134,15 +1135,15 @@ public class WerkbankGUIRegister {
     public Inventory ErhaltSieben(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack nugget = new ItemBuilder(Material.GOLD_NUGGET).setDisplayname("§aGoldener Klumpen").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack nugget = new ItemBuilder(Material.GOLD_NUGGET).setDisplayname("§aGoldener Klumpen").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VI").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VI", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
+        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VI").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VI", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         ItemStack gfish2 = KopfUtil.createSkull("_qlm", "§6Monsterkopf");
         ItemMeta meta2 = gfish2.getItemMeta();
@@ -1163,7 +1164,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltZwei);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, erhaltEins);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1198,6 +1198,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, lohen);
         inv.setItem(24+9+9, lohen);
         inv.setItem(4, sign);
+        inv.setItem(31, erhaltEins);
 
         return inv;
     }
@@ -1205,13 +1206,13 @@ public class WerkbankGUIRegister {
     public Inventory ErhaltAcht(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VIII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VIII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VIII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VIII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack nugget = new ItemBuilder(Material.GOLD_NUGGET).setDisplayname("§aGoldener Klumpen").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack nugget = new ItemBuilder(Material.GOLD_NUGGET).setDisplayname("§aGoldener Klumpen").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
         ItemStack gfish = KopfUtil.createSkull("Cloud", "§aVerkohlter Skelettschädel");
         ItemMeta meta = gfish.getItemMeta();
@@ -1219,7 +1220,7 @@ public class WerkbankGUIRegister {
         gfish.setAmount(32);
         gfish.setItemMeta(meta);
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
+        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         ItemStack gfish2 = KopfUtil.createSkull("_qlm", "§6Monsterkopf");
         ItemMeta meta2 = gfish2.getItemMeta();
@@ -1240,7 +1241,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltZwei);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, erhaltEins);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1275,6 +1275,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, nugget);
         inv.setItem(24+9+9, nugget);
         inv.setItem(4, sign);
+        inv.setItem(31, erhaltEins);
 
         return inv;
     }
@@ -1283,12 +1284,12 @@ public class WerkbankGUIRegister {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
         ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IX").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IX", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack nugget = new ItemBuilder(Material.GOLD_NUGGET).setDisplayname("§aGoldener Klumpen").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack nugget = new ItemBuilder(Material.GOLD_NUGGET).setDisplayname("§aGoldener Klumpen").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
         ItemStack gfish2 = KopfUtil.createSkull("Cloud", "§aVerkohlter Skelettschädel");
         ItemMeta meta2 = gfish2.getItemMeta();
@@ -1296,7 +1297,7 @@ public class WerkbankGUIRegister {
         gfish2.setAmount(32);
         gfish2.setItemMeta(meta2);
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VIII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VIII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
+        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VIII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VIII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         ItemStack gfish = KopfUtil.createSkull("Knecht", "§6Mumienkopf");
         ItemMeta meta = gfish.getItemMeta();
@@ -1317,7 +1318,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltZwei);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, erhaltEins);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1352,6 +1352,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, gfish2);
         inv.setItem(24+9+9, gfish2);
         inv.setItem(4, sign);
+        inv.setItem(31, erhaltEins);
 
         return inv;
     }
@@ -1359,13 +1360,13 @@ public class WerkbankGUIRegister {
     public Inventory ErhaltZehn(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt X").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt X", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack erhaltZwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt X").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt X", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack augef = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack augef = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
         ItemStack gfish2 = KopfUtil.createSkull("Cloud", "§aVerkohlter Skelettschädel");
         ItemMeta meta2 = gfish2.getItemMeta();
@@ -1373,7 +1374,7 @@ public class WerkbankGUIRegister {
         gfish2.setAmount(32);
         gfish2.setItemMeta(meta2);
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IX").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IX", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
+        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IX").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IX", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         ItemStack gfish = KopfUtil.createSkull("Knecht", "§6Mumienkopf");
         ItemMeta meta = gfish.getItemMeta();
@@ -1394,7 +1395,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltZwei);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, erhaltEins);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1429,6 +1429,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, gfish2);
         inv.setItem(24+9+9, gfish2);
         inv.setItem(4, sign);
+        inv.setItem(31, erhaltEins);
 
         return inv;
     }
@@ -1436,13 +1437,13 @@ public class WerkbankGUIRegister {
     public Inventory HarnishdesFeuerspeiers(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltZwei = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Harnish des Feuerspeiers").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lEis V", "§a§lStacheln V").build();
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack erhaltZwei = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Harnish des Feuerspeiers").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lEis V", "§a§lStacheln V").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack augef = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack augef = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
         ItemStack gfish2 = KopfUtil.createSkull("Cloud", "§aVerkohlter Skelettschädel");
         ItemMeta meta2 = gfish2.getItemMeta();
@@ -1450,7 +1451,7 @@ public class WerkbankGUIRegister {
         gfish2.setAmount(32);
         gfish2.setItemMeta(meta2);
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IX").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IX", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
+        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IX").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IX", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         ItemStack gfish = KopfUtil.createSkull("Knecht", "§6Mumienkopf");
         ItemMeta meta = gfish.getItemMeta();
@@ -1458,8 +1459,8 @@ public class WerkbankGUIRegister {
         gfish.setAmount(3);
         gfish.setItemMeta(meta);
 
-        ItemStack ei = new ItemBuilder(Material.DRAGON_EGG).setDisplayname("§c§lEi des Feuerspeiers").setLore("§6§l▶ §7Dieses §6§lEi §7wurde von dem §6mächtigen", "§6§l▶ Feuerspeier §7fallen gelassen, es kann nur von", "§6§l▶ §7einem §6wahren §6§lKrieger §7getragen werden.").build();
-        ItemStack chest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).build();
+        ItemStack ei = new ItemBuilder(Material.DRAGON_EGG).setDisplayname("§c§lEi des Feuerspeiers").setLore("§6§l▶ §7Dieses §6§lEi §7wurde von dem §6mächtigen", "§6§l▶ Feuerspeier §7fallen gelassen, es kann nur von", "§6§l▶ §7einem §6wahren §6§lKrieger §7getragen werden.").build("isInInv");
+        ItemStack chest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§7Diamantbrustplatte").build("isInInv");
 
         for(int i = 0; i <= 8; i++){
             inv.setItem(i, glas);
@@ -1474,7 +1475,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltZwei);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, erhaltEins);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1513,6 +1513,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, gfish2);
         inv.setItem(24+9+9, gfish2);
         inv.setItem(4, sign);
+        inv.setItem(31, erhaltEins);
 
         return inv;
     }
@@ -1520,14 +1521,14 @@ public class WerkbankGUIRegister {
     public Inventory BrustplattedesGiganten(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltZwei = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Brustplatte eines Giganten").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lEis IV", "§a§lStacheln IV").build();
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack erhaltZwei = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Brustplatte eines Giganten").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lEis IV", "§a§lStacheln IV").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack wolle = new ItemBuilder(Material.FLINT).setDisplayname("§aWollenfetzen eines Hexenhuts").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack auge = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
-        ItemStack rabbit = new ItemBuilder(Material.RABBIT_HIDE).setDisplayname("§cHaut eines Giganten").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §7Dieses §6§lHautstück §7wurde einem §6§lGiganten", "§6§l▶ §7entnommen, es ist beinahe §6undurchdringlich §7und", "§6§l▶ §6§lschützt §7daher nicht nur vor der §7§lKälte§7.").build();
+        ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(24).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack auge = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack rabbit = new ItemBuilder(Material.RABBIT_HIDE).setDisplayname("§cHaut eines Giganten").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §7Dieses §6§lHautstück §7wurde einem §6§lGiganten", "§6§l▶ §7entnommen, es ist beinahe §6undurchdringlich §7und", "§6§l▶ §6§lschützt §7daher nicht nur vor der §7§lKälte§7.").build("isInInv");
 
         ItemStack gfish2 = KopfUtil.createSkull("Cloud", "§aVerkohlter Skelettschädel");
         ItemMeta meta2 = gfish2.getItemMeta();
@@ -1547,16 +1548,14 @@ public class WerkbankGUIRegister {
         gfish8.setAmount(6);
         gfish8.setItemMeta(meta8);
 
-        ItemStack erhaltEins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IX").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IX", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build();
-
         ItemStack gfish3 = KopfUtil.createSkull("Knecht", "§6Mumienkopf");
         ItemMeta meta3 = gfish3.getItemMeta();
         meta3.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7."));
         gfish3.setAmount(3);
         gfish3.setItemMeta(meta3);
 
-        ItemStack ei = new ItemBuilder(Material.DRAGON_EGG).setDisplayname("§c§lEi des Feuerspeiers").setLore("§6§l▶ §7Dieses §6§lEi §7wurde von dem §6mächtigen", "§6§l▶ Feuerspeier §7fallen gelassen, es kann nur von", "§6§l▶ §7einem §6wahren §6§lKrieger §7getragen werden.").build();
-        ItemStack chest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).build();
+        ItemStack ei = new ItemBuilder(Material.DRAGON_EGG).setDisplayname("§c§lEi des Feuerspeiers").setLore("§6§l▶ §7Dieses §6§lEi §7wurde von dem §6mächtigen", "§6§l▶ Feuerspeier §7fallen gelassen, es kann nur von", "§6§l▶ §7einem §6wahren §6§lKrieger §7getragen werden.").build("isInInv");
+        ItemStack chest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§7Diamantbrustplatte").build("isInInv");
 
         for(int i = 0; i <= 8; i++){
             inv.setItem(i, glas);
@@ -1571,7 +1570,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, erhaltZwei);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, erhaltEins);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1606,6 +1604,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, gfish);
         inv.setItem(24+9+9, gfish);
         inv.setItem(4, sign);
+        inv.setItem(31, chest);
 
         return inv;
     }
@@ -1613,11 +1612,11 @@ public class WerkbankGUIRegister {
     public Inventory BrustplattedesTarantula(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack erhaltZwei = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Haariger Körper der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lEis III", "§a§lStacheln III").build();
-        ItemStack ei = new ItemBuilder(Material.DRAGON_EGG).setDisplayname("§c§lEi des Feuerspeiers").setLore("§6§l▶ §7Dieses §6§lEi §7wurde von dem §6mächtigen", "§6§l▶ Feuerspeier §7fallen gelassen, es kann nur von", "§6§l▶ §7einem §6wahren §6§lKrieger §7getragen werden.").build();
-        ItemStack chest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).build();
+        ItemStack erhaltZwei = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Haariger Körper der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lEis III", "§a§lStacheln III").build("isInInv");
+        ItemStack ei = new ItemBuilder(Material.DRAGON_EGG).setDisplayname("§c§lEi des Feuerspeiers").setLore("§6§l▶ §7Dieses §6§lEi §7wurde von dem §6mächtigen", "§6§l▶ Feuerspeier §7fallen gelassen, es kann nur von", "§6§l▶ §7einem §6wahren §6§lKrieger §7getragen werden.").build("isInInv");
+        ItemStack chest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§7Diamantbrustplatte").build("isInInv");
 
-        ItemStack zombiehaut = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombiehaut").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack zombiehaut = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombiehaut").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
         ItemStack gfish3 = KopfUtil.createSkull("Knecht", "§6Mumienkopf");
         ItemMeta meta3 = gfish3.getItemMeta();
@@ -1625,7 +1624,7 @@ public class WerkbankGUIRegister {
         gfish3.setAmount(3);
         gfish3.setItemMeta(meta3);
 
-        ItemStack auge = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build();
+        ItemStack auge = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
         for(int i = 0; i <= 8; i++){
             inv.setItem(i, glas);
@@ -1681,10 +1680,10 @@ public class WerkbankGUIRegister {
     public Inventory VerzauberterApfelRot() {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack rblock = new ItemBuilder(Material.REDSTONE_BLOCK).setAmount(16).build();
-        ItemStack staubr = new ItemBuilder(Material.REDSTONE).addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieser §6Staub kann verwendet werden, um", "§6§l▶ §7einen §6mächtigen Apfel §7herzustellen.").build();
-        ItemStack apfel = new ItemBuilder(Material.APPLE).build();
-        ItemStack apfelench = new ItemBuilder(Material.APPLE).setDisplayname("§c§lRedstoneapfel").setLore("§8» §6Regeneration II §8- §78 Sekunden", "§8» §6Schnelligkeit II §8- §71 Minute").build();
+        ItemStack rblock = new ItemBuilder(Material.REDSTONE_BLOCK).setDisplayname("§7Redstoneblock").setAmount(16).build("isInInv");
+        ItemStack staubr = new ItemBuilder(Material.REDSTONE).setDisplayname("§cRedstone Staub").addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieser §6Staub kann verwendet werden, um", "§6§l▶ §7einen §6mächtigen Apfel §7herzustellen.").build("isInInv");
+        ItemStack apfel = new ItemBuilder(Material.APPLE).setDisplayname("§7Apfel").build("isInInv");
+        ItemStack apfelench = new ItemBuilder(Material.APPLE).setDisplayname("§c§lRedstoneapfel").setLore("§8» §6Regeneration II §8- §78 Sekunden", "§8» §6Schnelligkeit II §8- §71 Minute").build("isInInv");
 
         for(int i = 0; i <= 8; i++){
             inv.setItem(i, glas);
@@ -1699,7 +1698,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, apfelench);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, apfel);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1733,6 +1731,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24, rblock);
         inv.setItem(24+9, rblock);
         inv.setItem(24+9+9, rblock);
+        inv.setItem(4, sign);
         inv.setItem(4, sign);
 
         return inv;
@@ -1741,10 +1740,10 @@ public class WerkbankGUIRegister {
     public Inventory VerzauberterApfelRotR() {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack rblock = new ItemBuilder(Material.REDSTONE_BLOCK).setAmount(64).build();
-        ItemStack staubr = new ItemBuilder(Material.NETHER_BRICK).addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieser §6Barren §7erscheint §5überaus selten§7.", "§6§l▶ §7Verwende ihn, um den §6mächtigsten Apfel", "§6§l▶ §7von allen herzustellen!").build();
-        ItemStack apfelneu = new ItemBuilder(Material.APPLE).addEnchant(Enchantment.ARROW_DAMAGE, 10, false).setDisplayname("§c§lVerzauberter Redstoneapfel").setLore("§8» §6Regeneration IV §8- §720 Sekunden", "§8» §6Schnelligkeit II §8- §73 Minuten").build();
-        ItemStack apfelench = new ItemBuilder(Material.APPLE).setDisplayname("§c§lRedstoneapfel").setLore("§8» §6Regeneration II §8- §78 Sekunden", "§8» §6Schnelligkeit II §8- §71 Minute").build();
+        ItemStack rblock = new ItemBuilder(Material.REDSTONE_BLOCK).setDisplayname("§7Redstoneblock").setAmount(64).build("isInInv");
+        ItemStack staubr = new ItemBuilder(Material.NETHER_BRICK_ITEM).setDisplayname("§4Gepresster Redstonebarren").addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieser §6Barren §7erscheint §5überaus selten§7.", "§6§l▶ §7Verwende ihn, um den §6mächtigsten Apfel", "§6§l▶ §7von allen herzustellen!").build("isInInv");
+        ItemStack apfelneu = new ItemBuilder(Material.APPLE).addEnchant(Enchantment.ARROW_DAMAGE, 10, false).setDisplayname("§c§lVerzauberter Redstoneapfel").setLore("§8» §6Regeneration IV §8- §720 Sekunden", "§8» §6Schnelligkeit II §8- §73 Minuten").build("isInInv");
+        ItemStack apfelench = new ItemBuilder(Material.APPLE).setDisplayname("§c§lRedstoneapfel").setLore("§8» §6Regeneration II §8- §78 Sekunden", "§8» §6Schnelligkeit II §8- §71 Minute").build("isInInv");
 
         for(int i = 0; i <= 8; i++){
             inv.setItem(i, glas);
@@ -1759,7 +1758,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, apfelench);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, apfelneu);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1794,6 +1792,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, rblock);
         inv.setItem(24+9+9, rblock);
         inv.setItem(4, sign);
+        inv.setItem(31, apfelneu);
 
         return inv;
     }
@@ -1801,10 +1800,10 @@ public class WerkbankGUIRegister {
     public Inventory VerzauberterGrün() {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack rblock = new ItemBuilder(Material.EMERALD_BLOCK).setAmount(16).build();
-        ItemStack staubr = new ItemBuilder(Material.GLOWSTONE_DUST).addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieser §6Staub kann verwendet werden, um", "§6§l▶ §7einen §6mächtigen Apfel §7herzustellen.").build();
-        ItemStack apfel = new ItemBuilder(Material.APPLE).build();
-        ItemStack apfelench = new ItemBuilder(Material.GOLDEN_APPLE).setDisplayname("§a§lSmaragdapfel").setLore("§8» §6Regeneration III §8- §74 Sekunden", "§8» §6Absorption II §8- §71 Minute").build();
+        ItemStack rblock = new ItemBuilder(Material.EMERALD_BLOCK).setDisplayname("§7Emeraldblock").setAmount(16).build("isInInv");
+        ItemStack staubr = new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayname("§aSmaragd Staub").addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieser §6Staub kann verwendet werden, um", "§6§l▶ §7einen §6mächtigen Apfel §7herzustellen.").build("isInInv");
+        ItemStack apfel = new ItemBuilder(Material.APPLE).setDisplayname("§7Apfel").build("isInInv");
+        ItemStack apfelench = new ItemBuilder(Material.GOLDEN_APPLE).setDisplayname("§a§lSmaragdapfel").setLore("§8» §6Regeneration III §8- §74 Sekunden", "§8» §6Absorption II §8- §71 Minute").build("isInInv");
 
         for(int i = 0; i <= 8; i++){
             inv.setItem(i, glas);
@@ -1819,7 +1818,6 @@ public class WerkbankGUIRegister {
         inv.setItem(26, apfelench);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, apfel);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1854,6 +1852,7 @@ public class WerkbankGUIRegister {
         inv.setItem(24+9, rblock);
         inv.setItem(24+9+9, rblock);
         inv.setItem(4, sign);
+        inv.setItem(31, apfel);
 
         return inv;
     }
@@ -1861,9 +1860,9 @@ public class WerkbankGUIRegister {
     public Inventory FlugTrank() {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
-        ItemStack glassss = new ItemBuilder(Material.GLASS_BOTTLE).build();
-        ItemStack zucker = new ItemBuilder(Material.SUGAR).addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieses Pulver §6verleiht dir Flügel§7!", "§6§l▶ §7Verwende es um für §62 Minuten §7 zu §6§lfliegen§7,", "§6§l▶ §7oder stelle einen mächtigen §9§lFlugtrank §7her.").build();
-        ItemStack pot = new ItemBuilder(Material.POTION, (short) 2).setDisplayname("§9§lFlugtrank").setLore("§6§l▶ §6Dieser Trank §7erlaubt es dir", "§6§l▶ §7für §645 Minuten §6§lfliegen §7zu können.").build();
+        ItemStack glassss = new ItemBuilder(Material.GLASS_BOTTLE).setDisplayname("§7Glasflasche").build("isInInv");
+        ItemStack zucker = new ItemBuilder(Material.SUGAR).setDisplayname("§7Flugpulver").addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieses Pulver §6verleiht dir Flügel§7!", "§6§l▶ §7Verwende es um für §62 Minuten §7 zu §6§lfliegen§7,", "§6§l▶ §7oder stelle einen mächtigen §9§lFlugtrank §7her.").build("isInInv");
+        ItemStack pot = new ItemBuilder(Material.POTION, (short) 2).setDisplayname("§9§lFlugtrank").setLore("§6§l▶ §6Dieser Trank §7erlaubt es dir", "§6§l▶ §7für §645 Minuten §6§lfliegen §7zu können.").build("isInInv");
 
         for(int i = 0; i <= 8; i++){
             inv.setItem(i, glas);
@@ -1877,7 +1876,6 @@ public class WerkbankGUIRegister {
         inv.setItem(25, glas);
         inv.setItem(27, glasblack);
         inv.setItem(28, glas);
-        inv.setItem(31, pot);
         inv.setItem(34, glas);
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
@@ -1909,6 +1907,7 @@ public class WerkbankGUIRegister {
             inv.setItem(i, zucker);
         }
         inv.setItem(4, sign);
+        inv.setItem(31, pot);
 
         return inv;
     }
