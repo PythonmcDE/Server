@@ -18,20 +18,21 @@ import java.util.Arrays;
 public class WerkbankGUIRegister {
 
     public String guinamerecepies = "§6§lCrafting-Rezepte";
-    public String guiname = "§6§lWerkbank";
+    public String guinamewerkbank = "§6§lWerkbank";
+    public String guiname = "§6§lCraften";
     public ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
     public ItemStack glasblack = new ItemBuilder(Material.STAINED_GLASS_PANE, (short)15).setDisplayname(" ").build();
     public ItemStack paper = new ItemBuilder(Material.PAPER).setDisplayname("§8» §7Crafting-Rezepte").setLore("§aKlicke hier, um alle Crafting-Rezepte anzuzeigen.").build();
     public ItemStack craftingTable = new ItemBuilder(Material.WORKBENCH).setDisplayname("§8» §7Normale Werkbank").setLore("§aKlicke hier, um die normale Werkbank zu öffnen.").build();
-    public ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» " + guiname).setLore("§6§l▶ §7Du befindest dich gerade im §6Werkbank-Menü§7.", "§6§l▶ Hier kannst du §espezielle Rezepte §7craften", "§6§l▶ §7oder auf die §fnormale Werkbank §7wechseln").build();
+    public ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» " + guinamewerkbank).setLore("§6§l▶ §7Du befindest dich gerade im §6Werkbank-Menü§7.", "§6§l▶ Hier kannst du §espezielle Rezepte §7craften", "§6§l▶ §7oder auf die §fnormale Werkbank §7wechseln").build();
     public ItemStack spezial = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §6§lSpezielle Werkbank").setLore("§6§l▶ §7Klicke hier, um eine §6Werkbank §7für", "§6§l▶ §6spezielle Crafting-Rezepte §7zu §aöffnen§7.").build();
 
     public void onClick(final InventoryClickEvent e){
         Player p =(Player)e.getWhoClicked();
-        if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null) {
+        if(e.getClickedInventory().getName().equalsIgnoreCase(guinamewerkbank) && e.getCurrentItem() != null) {
             e.setCancelled(true);
             if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Normale Werkbank")) {
-                Inventory inv = Bukkit.createInventory(null, InventoryType.CRAFTING, guiname);
+                Inventory inv = Bukkit.createInventory(null, InventoryType.WORKBENCH, guinamewerkbank);
                 p.openInventory(inv);
             } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lSpezielle Werkbank") || e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Crafting-Rezepte")) {
                 p.openInventory(rezeptMenuSeite1());
@@ -100,12 +101,23 @@ public class WerkbankGUIRegister {
                 p.openInventory(HarnishdesFeuerspeiers());
             }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Brustplatte eines Giganten")){
                 p.openInventory(BrustplattedesGiganten());
+            }else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Normale Werkbank")) {
+                Inventory inv = Bukkit.createInventory(null, InventoryType.WORKBENCH, guinamewerkbank);
+                p.openInventory(inv);
+            }
+        }else if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
+            e.setCancelled(true);
+            if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Normale Werkbank")) {
+                Inventory inv = Bukkit.createInventory(null, InventoryType.WORKBENCH, guinamewerkbank);
+                p.openInventory(inv);
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Crafting-Rezepte")){
+                p.openInventory(rezeptMenuSeite1());
             }
         }
     }
 
     public Inventory mainMenu(){
-        Inventory inv = Bukkit.createInventory(null, 9*5, guiname);
+        Inventory inv = Bukkit.createInventory(null, 9*5, guinamewerkbank);
 
         for(int i = 0; i<=8; i++){
             inv.setItem(i, glas);
