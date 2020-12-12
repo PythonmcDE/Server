@@ -3,7 +3,9 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.commands.Mine;
+import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
+import me.bluenitrox.school.enchants.Enchant;
 import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.features.DailyReward;
 import me.bluenitrox.school.features.KitAPI;
@@ -39,6 +41,7 @@ public class InventoryClickEvent implements Listener {
         pet.petClickEventInventory(e);
         api.onClickHändler(e);
         dr.dailyRewardClick(e);
+        Enchanter.inventoryClicK(e);
         AhListener.onClickAuctionhouse(e);
     }
 

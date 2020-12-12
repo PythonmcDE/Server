@@ -13,7 +13,7 @@ import java.util.Random;
 public class RewardAPI {
 
     public void checkToAddReward(Player p){
-        int chance = 20;
+        int chance = 20000;
         int randomnumber = new Random().nextInt(chance);
 
         int chancehundert = 100000;

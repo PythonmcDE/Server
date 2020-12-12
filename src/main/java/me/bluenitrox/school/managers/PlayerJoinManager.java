@@ -115,12 +115,12 @@ public class PlayerJoinManager {
 
     public static void configurateRewardPlayer(UUID uuid) {
         if(!isRewardUserExists(uuid)) {
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO DailyReward (UUID, Belohnung, Erfahrung, Cases) VALUES (?, ?, ?, ?)")) {
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO DailyReward (UUID, Belohnung, Erfahrung, Cases, GemLimit) VALUES (?, ?, ?, ?, ?)")) {
                 ps.setString(1, uuid.toString());
                 ps.setInt(2, 0);
                 ps.setInt(3, 0);
                 ps.setInt(4, 0);
-                //ps.setInt(5, (int) (ExpManager.getExp(uuid)*7) + 500000);
+                ps.setInt(5, 500000);
                 ps.executeUpdate();
             }catch (SQLException e) {
                 e.printStackTrace();

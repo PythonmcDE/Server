@@ -1,5 +1,6 @@
 package me.bluenitrox.school.listener;
 
+import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
@@ -41,6 +42,7 @@ public class PlayerInteractEvent implements Listener {
             interactEnderchest(p, e);
             interactCraftingtable(p, e);
             interactAnvil(p, e);
+            interactEnchantmentTable(p, e);
         }
     }
 
@@ -110,6 +112,13 @@ public class PlayerInteractEvent implements Listener {
             e.setCancelled(true);
             CraftAPI api = new CraftAPI();
             p.openInventory(api.openCraftInv(p));
+        }
+    }
+
+    private void interactEnchantmentTable(Player p, org.bukkit.event.player.PlayerInteractEvent e){
+        if(e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE){
+            e.setCancelled(true);
+            Enchanter.openZaubertisch(p);
         }
     }
 }

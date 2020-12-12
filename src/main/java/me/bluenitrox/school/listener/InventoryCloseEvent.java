@@ -1,6 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import de.Herbystar.TTA.TTA_Methods;
+import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.features.CaseAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +20,7 @@ public class InventoryCloseEvent implements Listener {
                 }
             }
         }
+        Enchanter.onInventoryClose(e);
     }
 
 }
