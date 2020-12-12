@@ -1,5 +1,6 @@
 package me.bluenitrox.school.crafting;
 
+import me.bluenitrox.school.managers.EnchantManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.KopfUtil;
 import org.bukkit.Bukkit;
@@ -28,13 +29,15 @@ public class WerkbankGUIRegister {
     public void onClick(final InventoryClickEvent e){
         Player p =(Player)e.getWhoClicked();
         if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null) {
+            e.setCancelled(true);
             if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Normale Werkbank")) {
                 Inventory inv = Bukkit.createInventory(null, InventoryType.CRAFTING, guiname);
                 p.openInventory(inv);
             } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lSpezielle Werkbank") || e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Crafting-Rezepte")) {
-                p.openInventory(rezeptMenu());
+                p.openInventory(rezeptMenuSeite1());
             }
         }else if(e.getClickedInventory().getName().equalsIgnoreCase(guinamerecepies) && e.getCurrentItem() != null){
+            e.setCancelled(true);
             if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune I")){
                 p.openInventory(runeEins());
             }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune II")){
@@ -55,6 +58,48 @@ public class WerkbankGUIRegister {
                 p.openInventory(runeNeun());
             }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune X")){
                 p.openInventory(runeZehn());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Nächste Seite")){
+                if(e.getClickedInventory().getItem(9).getType() != Material.DIAMOND_BOOTS){
+                    p.openInventory(rezeptMenuSeite2());
+                }
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Vorherige Seite")){
+                if(e.getClickedInventory().getItem(9).getType() == Material.DIAMOND_BOOTS){
+                    p.openInventory(rezeptMenuSeite1());
+                }
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt I")){
+                p.openInventory(ErhaltEins());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt II")){
+                p.openInventory(ErhaltZwei());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt III")){
+                p.openInventory(ErhaltDrei());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt IV")){
+                p.openInventory(ErhaltVier());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt V")){
+                p.openInventory(ErhaltFünf());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt VI")){
+                p.openInventory(ErhaltSechs());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt VII")){
+                p.openInventory(ErhaltSieben());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt VIII")){
+                p.openInventory(ErhaltAcht());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt IX")){
+                p.openInventory(ErhaltNeun());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt X")){
+                p.openInventory(ErhaltZehn());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haariger Körper der Tarantula")){
+                p.openInventory(BrustplattedesTarantula());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aSmaragdapfel")){
+                p.openInventory(VerzauberterGrün());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cRedstoneapfel")){
+                p.openInventory(VerzauberterApfelRot());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§9Flugtrank")){
+                p.openInventory(FlugTrank());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§4Verzauberter Redstoneapfel")){
+                p.openInventory(VerzauberterApfelRotR());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Harnisch des Feuerspeiers")){
+                p.openInventory(HarnishdesFeuerspeiers());
+            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Brustplatte eines Giganten")){
+                p.openInventory(BrustplattedesGiganten());
             }
         }
     }
@@ -68,7 +113,7 @@ public class WerkbankGUIRegister {
         for(int i = 9; i<=35; i++){
             inv.setItem(i, glasblack);
         }
-        for(int i = 36; i<=45;i++){
+        for(int i = 36; i<=44;i++){
             inv.setItem(i,glas);
         }
 
@@ -78,21 +123,125 @@ public class WerkbankGUIRegister {
         return inv;
     }
 
-    public Inventory rezeptMenu(){
+    public Inventory rezeptMenuSeite1(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guinamerecepies);
 
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lCrafting-Rezepte").setLore("§6§l▶ §7Hier werden dir alle §6§lbesonderen Rezepte", "§6§l▶ §aangezeigt §7und wie du sie §fcraften kannst§7.").build();
-        ItemStack paper = new ItemBuilder(Material.PAPER).setDisplayname("§8» §7Seite §61&8/&61").build();
+        ItemStack paper = new ItemBuilder(Material.PAPER).setDisplayname("§8» §7Seite §61&8/&62").build();
+        ItemStack runeeins = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune I").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune I", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+        ItemStack runezwei = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune II").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune II", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+        ItemStack runedrei = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune III").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune III", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+        ItemStack runevier = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune IV").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune IV", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+        ItemStack runefünf = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune V").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune V", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+        ItemStack runesechs = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune VI").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune VI", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+        ItemStack runesieben = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune VII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune VII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+        ItemStack runeacht = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune VIII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune VIII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+        ItemStack runeneun = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune IX").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune IX", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+        ItemStack runezehn = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune X").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune X", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+
+        ItemStack erhalteins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt I").setLore("§f§lErhalt I", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack erhaltzwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt II").setLore("§f§lErhalt II", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack erhaltdrei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt III").setLore("§f§lErhalt III", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack erhaltvier = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IV").setLore("§f§lErhalt IV", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack erhaltfünf = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt V").setLore("§f§lErhalt V", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack erhaltsechs = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VI").setLore("§f§lErhalt VI", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack erhaltsieben = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VII").setLore("§f§lErhalt VII", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack erhaltacht = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VIII").setLore("§f§lErhalt VIII", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack erhaltneun = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IX").setLore("§f§lErhalt IX", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack erhaltzehn = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt X").setLore("§f§lErhalt X", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+
+        ItemStack smaradtApple = new ItemBuilder(Material.GOLDEN_APPLE).setDisplayname("§aSmaragdapfel").setLore("§8» §6Regeneration III §8- §75 Sekunden", "§8» §6Absorption II §8- §72 Minuten").build("isInInv");
+        ItemStack redstoneApple = new ItemBuilder(Material.APPLE).setDisplayname("§cRedstoneapfel").setLore("§8» §6Regeneration II §8- §712 Sekunden", "§8» §6Schnelligkeit II §8- §72 Minuten").build("isInInv");
+        ItemStack flugtrank = new ItemBuilder(Material.POTION, (short) 2).setDisplayname("§9Flugtrank").setLore("§6§l▶ §6Dieser Trank §7erlaubt es dir", "§6§l▶ §7für §645 Minuten §6§lfliegen §7zu können.").build("isInInv");
+        ItemStack redstoneapple2 = new ItemBuilder(Material.APPLE).setDisplayname("§4Verzauberter Redstoneapfel").setLore("§8» §6Regeneration IV §8- §720 Sekunden", "§8» §6Schnelligkeit II §8- §73Minuten").build("isInInv");
+
+        ItemStack tarantulahelm = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§6Kopf der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Tank + "III", EnchantManager.Magieschild + "III").build("isInInv");
+        ItemStack tarantulachest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Haariger Körper der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Eis + "III", EnchantManager.Überladung + "III").build("isInInv");
+        ItemStack tarantulaleggins = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§6Spinnenbeine der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Stacheln + "III", EnchantManager.Widerstand + "III").build("isInInv");
+
 
         for(int i = 0; i <= 8; i++){
             inv.setItem(i,glas);
         }
-        for(int i = 36; i <= 45; i++){
+        for(int i = 36; i <= 44; i++){
             inv.setItem(i,glas);
         }
         for(int i = 45; i <= 52; i++){
             inv.setItem(i,glasblack);
         }
+        inv.setItem(9,runeeins);
+        inv.setItem(10,runezwei);
+        inv.setItem(11,runedrei);
+        inv.setItem(12,runevier);
+        inv.setItem(13,runefünf);
+        inv.setItem(14,runesechs);
+        inv.setItem(15,runesieben);
+        inv.setItem(16,runeacht);
+        inv.setItem(17,runeneun);
+        inv.setItem(18,runezehn);
+        inv.setItem(19,erhalteins);
+        inv.setItem(20,erhaltzwei);
+        inv.setItem(21,erhaltdrei);
+        inv.setItem(22,erhaltvier);
+        inv.setItem(23,erhaltfünf);
+        inv.setItem(24,erhaltsechs);
+        inv.setItem(25,erhaltsieben);
+        inv.setItem(26,erhaltacht);
+        inv.setItem(27,erhaltneun);
+        inv.setItem(28,erhaltzehn);
+        inv.setItem(29,smaradtApple);
+        inv.setItem(30,redstoneApple);
+        inv.setItem(31,flugtrank);
+        inv.setItem(32,redstoneapple2);
+        inv.setItem(33,tarantulahelm);
+        inv.setItem(34,tarantulachest);
+        inv.setItem(35,tarantulaleggins);
+
+        inv.setItem(4, sign);
+        inv.setItem(49, paper);
+        inv.setItem(48, KopfUtil.createSkull("lgndryFelix", "§8» §7Vorherige Seite"));
+        inv.setItem(50, KopfUtil.createSkull("DerWahreNitrox", "§8» §7Nächste Seite"));
+
+        return inv;
+    }
+
+    public Inventory rezeptMenuSeite2(){
+        Inventory inv = Bukkit.createInventory(null, 9*6, guinamerecepies);
+
+        ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lCrafting-Rezepte").setLore("§6§l▶ §7Hier werden dir alle §6§lbesonderen Rezepte", "§6§l▶ §aangezeigt §7und wie du sie §fcraften kannst§7.").build();
+        ItemStack paper = new ItemBuilder(Material.PAPER).setDisplayname("§8» §7Seite §62&8/&62").build();
+        //Seite 2
+
+        ItemStack tarantulaboots = new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§6Schuhe der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Tank + "III", EnchantManager.Magieschild + "III").build("isInInv");
+        ItemStack gigantenhelm = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§6Helm eines Giganten").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Widerstand + "IV", EnchantManager.Überladung + "IV").build("isInInv");
+        ItemStack gigantenchest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Brustplatte eines Giganten").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Eis + "IV", EnchantManager.Tank + "IV").build("isInInv");
+        ItemStack gigantenleggins = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§6Hose eines Giganten").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Stacheln + "IV", EnchantManager.ObsidianSchild + "IV").build("isInInv");
+        ItemStack gigantenboots = new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§6Schuhe eines Giganten").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Magieschild + "IV", EnchantManager.Heilzauber + "IV").build("isInInv");
+
+        ItemStack feuerspeierhelm = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§6Helm des Feuerspeiers").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.ObsidianSchild + "V", EnchantManager.Widerstand + "V").build("isInInv");
+        ItemStack feuerspeierchest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Harnisch des Feuerspeiers").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Eis + "V", EnchantManager.Stacheln + "V").build("isInInv");
+        ItemStack feuerspeierleggins = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§6Beinschutz des Feuerspeiers").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Überladung + "V", EnchantManager.Heilzauber + "V").build("isInInv");
+        ItemStack feuerspeierboots = new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§6Stiefel des Feuerspeiers").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Tank + "V", EnchantManager.Magieschild + "V").build("isInInv");
+
+        for(int i = 0; i <= 8; i++){
+            inv.setItem(i,glas);
+        }
+        for(int i = 36; i <= 44; i++){
+            inv.setItem(i,glas);
+        }
+        for(int i = 45; i <= 52; i++){
+            inv.setItem(i,glasblack);
+        }
+
+        inv.setItem(9, tarantulaboots);
+        inv.setItem(10, gigantenhelm);
+        inv.setItem(11, gigantenchest);
+        inv.setItem(12, gigantenleggins);
+        inv.setItem(13, gigantenboots);
+        inv.setItem(14, feuerspeierhelm);
+        inv.setItem(15, feuerspeierchest);
+        inv.setItem(16, feuerspeierleggins);
+        inv.setItem(17, feuerspeierboots);
 
         inv.setItem(4, sign);
         inv.setItem(49, paper);
@@ -162,7 +311,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory runeZwei(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -222,7 +370,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory runeDrei(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -282,7 +429,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory runeVier(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -343,7 +489,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory runeFünf(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -404,7 +549,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory runeSechs(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -465,7 +609,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory runeSieben(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -531,7 +674,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory runeAcht(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -597,7 +739,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory runeNeun(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -663,7 +804,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory runeZehn(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -793,7 +933,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory ErhaltZwei(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -854,7 +993,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory ErhaltDrei(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -922,7 +1060,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory ErhaltVier(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -995,7 +1132,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory ErhaltFünf(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -1063,7 +1199,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory ErhaltSechs(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -1131,7 +1266,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory ErhaltSieben(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -1202,7 +1336,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory ErhaltAcht(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -1279,7 +1412,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory ErhaltNeun(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -1356,7 +1488,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory ErhaltZehn(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -1736,7 +1867,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory VerzauberterApfelRotR() {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -1796,7 +1926,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory VerzauberterGrün() {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -1856,7 +1985,6 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-
     public Inventory FlugTrank() {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
