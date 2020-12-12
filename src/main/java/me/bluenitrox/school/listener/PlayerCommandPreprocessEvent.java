@@ -69,6 +69,7 @@ public class PlayerCommandPreprocessEvent implements Listener {
         normal.add("/plugins");
         normal.add("/plugin");
         normal.add("/anticrash");
+        normal.add("/händler");
     }
 
 }

@@ -185,49 +185,34 @@ public class MessageManager {
 
 
     public static boolean ah = true;
-    public static int MONEY_BOOSTER_BOOST = 2;
-    public static int MAX_MINE = getMaxMine();
+    public static final int MONEY_BOOSTER_BOOST = 2;
+    public static final int MAX_MINE = 25;
 
-    private static int getMaxMine() {
-        int mine = 0;
-
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT id FROM minen ORDER BY id DESC LIMIT 1")) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                mine = rs.getInt("id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return mine;
-    }
-
-    public static int MINE_1_PREIS = 0;
-    public static int MINE_2_PREIS = 20000;
-    public static int MINE_3_PREIS = 55000;
-    public static int MINE_4_PREIS = 85000;
-    public static int MINE_5_PREIS = 127000;
-    public static int MINE_6_PREIS = 187000;
-    public static int MINE_7_PREIS = 257000;
-    public static int MINE_8_PREIS = 357000;
-    public static int MINE_9_PREIS = 487000;
-    public static int MINE_10_PREIS = 658000;
-    public static int MINE_11_PREIS = 828000;
-    public static int MINE_12_PREIS = 1080000;
-    public static int MINE_13_PREIS = 1880000;
-    public static int MINE_14_PREIS = 3580000;
-    public static int MINE_15_PREIS = 5280000;
-    public static int MINE_16_PREIS = 8080000;
-    public static int MINE_17_PREIS = 12900000;
-    public static int MINE_18_PREIS = 16900000;
-    public static int MINE_19_PREIS = 22900000;
-    public static int MINE_20_PREIS = 35900000;
-    public static int MINE_21_PREIS = 55900000;
-    public static int MINE_22_PREIS = 80900000;
-    public static int MINE_23_PREIS = 129000000;
-    public static int MINE_24_PREIS = 189000000;
-    public static int MINE_25_PREIS = 289000000;
+    public static final int MINE_1_PREIS = 0;
+    public static final int MINE_2_PREIS = 20000;
+    public static final int MINE_3_PREIS = 55000;
+    public static final int MINE_4_PREIS = 85000;
+    public static final int MINE_5_PREIS = 127000;
+    public static final int MINE_6_PREIS = 187000;
+    public static final int MINE_7_PREIS = 257000;
+    public static final int MINE_8_PREIS = 357000;
+    public static final int MINE_9_PREIS = 487000;
+    public static final int MINE_10_PREIS = 658000;
+    public static final int MINE_11_PREIS = 828000;
+    public static final int MINE_12_PREIS = 1080000;
+    public static final int MINE_13_PREIS = 1880000;
+    public static final int MINE_14_PREIS = 3580000;
+    public static final int MINE_15_PREIS = 5280000;
+    public static final int MINE_16_PREIS = 8080000;
+    public static final int MINE_17_PREIS = 12900000;
+    public static final int MINE_18_PREIS = 16900000;
+    public static final int MINE_19_PREIS = 22900000;
+    public static final int MINE_20_PREIS = 35900000;
+    public static final int MINE_21_PREIS = 55900000;
+    public static final int MINE_22_PREIS = 80900000;
+    public static final int MINE_23_PREIS = 129000000;
+    public static final int MINE_24_PREIS = 189000000;
+    public static final int MINE_25_PREIS = 289000000;
 
     public static final HashMap<String, Integer> blocksforreset = fillMap();
 
