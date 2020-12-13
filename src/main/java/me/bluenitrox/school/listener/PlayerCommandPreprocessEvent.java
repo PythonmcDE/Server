@@ -1,9 +1,12 @@
 package me.bluenitrox.school.listener;
 
+import com.avaje.ebeaninternal.server.core.Message;
 import me.bluenitrox.school.boost.BoostInv;
+import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +24,19 @@ public class PlayerCommandPreprocessEvent implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onCommandSend(final org.bukkit.event.player.PlayerCommandPreprocessEvent e){
         Player p = (Player)e.getPlayer();
+
+
+        if(CombatAPI.fight.containsKey(p)){
+            normal = new ArrayList<>();
+            registerFightCommand();
+            if(!p.hasPermission(PermissionsManager.COMMANDBLOCK)){
+                if(normal.contains(e.getMessage())){
+                    e.setCancelled(true);
+                    p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
+                    return;
+                }
+            }
+        }
 
         if(!(e.isCancelled())) {
             String msg = e.getMessage().split(" ")[0];
@@ -70,6 +86,38 @@ public class PlayerCommandPreprocessEvent implements Listener {
         normal.add("/plugin");
         normal.add("/anticrash");
         normal.add("/händler");
+    }
+
+    private void registerFightCommand(){
+        normal.add("/acc");
+        normal.add("/me");
+        normal.add("/tell");
+        normal.add("/op");
+        normal.add("/?");
+        normal.add("/!");
+        normal.add("/help");
+        normal.add("/abount");
+        normal.add("/version");
+        normal.add("/ver");
+        normal.add("/pl");
+        normal.add("/plugins");
+        normal.add("/plugin");
+        normal.add("/anticrash");
+        normal.add("/händler");
+        normal.add("/plot");
+        normal.add("/p");
+        normal.add("/plotworld");
+        normal.add("/plotwelt");
+        normal.add("/pw");
+        normal.add("/kit");
+        normal.add("/spec");
+        normal.add("/fly");
+        normal.add("/fliegen");
+        normal.add("/ah");
+        normal.add("/auktionshaus");
+        normal.add("/auctionhouse");
+        normal.add("/auction");
+        normal.add("/auctions");
     }
 
 }

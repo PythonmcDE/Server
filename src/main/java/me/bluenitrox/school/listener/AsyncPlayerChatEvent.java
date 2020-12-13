@@ -3,9 +3,6 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.scheduler.GroupedThreadFactory;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,10 +21,10 @@ public class AsyncPlayerChatEvent implements Listener {
     @EventHandler
     public void onChat(final org.bukkit.event.player.AsyncPlayerChatEvent e){
         Player p = (Player)e.getPlayer();
-        if(ExpManager.getLevel(p.getUniqueId()) >= 2){
+        if(ExpManager.getLevel(p.getUniqueId()) >= 3){
         }else if(!p.hasPermission(PermissionsManager.CHAT)){
             e.setCancelled(true);
-            p.sendMessage(MessageManager.PREFIX + "§7Du kannst erst ab Level 2 schreiben!");
+            p.sendMessage(MessageManager.PREFIX + "§7Du kannst erst ab Level 3 schreiben!");
             return;
         }
 

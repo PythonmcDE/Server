@@ -1,10 +1,13 @@
 package me.bluenitrox.school.ah;
 
+import com.avaje.ebeaninternal.server.core.Message;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,6 +23,12 @@ public class Ah_CMD implements CommandExecutor {
         Player p = (Player)cs;
         if(cs == null){
             cs.sendMessage(MessageManager.NOPLAYER);
+            return true;
+        }
+        CombatAPI api = new CombatAPI();
+        if(api.getWarzoneByLocation(p.getLocation()) != null){
+            p.sendMessage(MessageManager.PREFIX + "§7Du kannst das §6Auktionshaus §7in der Warzone §cnicht §7benutzen!");
+            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             return true;
         }
 

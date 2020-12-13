@@ -2,20 +2,46 @@ package me.bluenitrox.school.warzone;
 
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
+import me.bluenitrox.school.managers.WorldManager;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CombatAPI {
 
     private int maxwarzone = 3;
 
-    public void onhitCombat(EntityDamageByEntityEvent e){
-        if(e.getDamager() instanceof Player && e.getEntity() instanceof Player){
+    public static HashMap<Player, Integer> fight = new HashMap<>();
+    public HashMap<Player, Integer> fightwarzone = new HashMap<>();
 
+    public void onhitCombat(EntityDamageByEntityEvent e) {
+        WorldManager wm = new WorldManager();
+        if (e.getEntity().getWorld().getName().equalsIgnoreCase(wm.warzone)) {
+            if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
+                if (getWarzoneByLocation(e.getEntity().getLocation()) != null) {
+                    Player p = (Player) e.getEntity();
+                    Player d = (Player) e.getDamager();
+                    if (!fightwarzone.containsKey(p)) {
+                        fightwarzone.put(p, Integer.parseInt(getWarzoneByLocation(p.getLocation())));
+                    }
+                    if (!fightwarzone.containsKey(d)) {
+                        fightwarzone.put(d, Integer.parseInt(getWarzoneByLocation(d.getLocation())));
+                    }
+                    fight.put(p, 30);
+                    fight.put(d, 30);
+                }
+            }
+        }
+    }
+
+    public static void onQuit(Player p){
+        if(fight.containsKey(p)){
+            p.damage(100);
         }
     }
 

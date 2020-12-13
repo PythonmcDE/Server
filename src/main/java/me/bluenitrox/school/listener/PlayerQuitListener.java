@@ -4,6 +4,7 @@ import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.features.InventoryLoader;
 import me.bluenitrox.school.mysql.MySQL;
+import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,6 +26,7 @@ public class PlayerQuitListener implements Listener {
         if(SchoolMode.Pets.containsKey(p.getName())){
             SchoolMode.Pets.get(p.getName()).remove();
         }
+        CombatAPI.onQuit(p);
     }
 
     private void updateDatabase(Player p){
