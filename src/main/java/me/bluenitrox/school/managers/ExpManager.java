@@ -3,6 +3,7 @@ package me.bluenitrox.school.managers;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.boost.Moneybooster;
 import me.bluenitrox.school.boost.Xpbooster;
+import me.bluenitrox.school.features.SkillAPI;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.Firework;
 import me.bluenitrox.school.utils.ValuetoString;
@@ -96,6 +97,8 @@ public class ExpManager {
             if (checkLevelUp(getExp(uuid), LevelManager.level.get(SchoolMode.playerlevel.get(uuid)))) {
                 SchoolMode.playerlevel.put(uuid, SchoolMode.playerlevel.get(uuid) + 1);
                 Bukkit.getPlayer(uuid).sendMessage(MessageManager.PREFIX + "§7Du bist im §cLevel §7aufgestiegen!");
+                SkillAPI api = new SkillAPI();
+                api.updateSkillpunkte(uuid, 1, false);
                 Firework.Firework(Bukkit.getPlayer(uuid));
                 ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
             }
