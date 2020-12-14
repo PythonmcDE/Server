@@ -20,23 +20,23 @@ public class SkillSystem {
         SkillAPI api = new SkillAPI();
 
         int swordprozent = 3*api.get(uuid,"angriff");
-        int swordprozent2 = 3*swordprozent+1;
+        int swordprozent2 = swordprozent+1;
         int armorprozent = 3*api.get(uuid,"verteidigung");
-        int armorprozent2 = 3*armorprozent+1;
+        int armorprozent2 = armorprozent+1;
         int energieprozent = 3*api.get(uuid,"extraenergie");
-        int energieprozent2 = 3*energieprozent+1;
+        int energieprozent2 = energieprozent+1;
         int scharfprozent = 3*api.get(uuid,"scharfschütze");
-        int scharfprozent2 = 3*scharfprozent+1;
+        int scharfprozent2 = scharfprozent+1;
         int miningprozent = 3*api.get(uuid,"mining");
-        int miningprozent2 = 3*miningprozent+1;
+        int miningprozent2 = miningprozent+1;
         int händlerprozent = 3*api.get(uuid,"handler");
-        int händlerprozent2 = 3*händlerprozent+1;
+        int händlerprozent2 = händlerprozent+1;
         int alcheprozent = 3*api.get(uuid,"alchemist");
-        int alcheprozent2 = 3*alcheprozent+1;
+        int alcheprozent2 = alcheprozent+1;
         int warzoneprozent = 3*api.get(uuid,"bonusloot");
-        int warzoneprozent2 = 3*warzoneprozent+1;
+        int warzoneprozent2 = warzoneprozent+1;
         int glückprozent = 3*api.get(uuid,"gluckspilz");
-        int glückprozent2 = 3*glückprozent+1;
+        int glückprozent2 = glückprozent+1;
 
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 

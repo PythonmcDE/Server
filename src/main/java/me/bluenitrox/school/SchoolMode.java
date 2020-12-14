@@ -168,6 +168,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new ProjectileLaunchEvent(), this);
         pm.registerEvents(new CreatureSpawnEvent(), this);
         pm.registerEvents(new PlayerInteractEntityEvent(), this);
+        pm.registerEvents(new PlayerChangedWorldEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/8)");

@@ -15,6 +15,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +28,7 @@ public class Pet {
 
     public String guiname = "§6§lHaustiere";
     public static ArrayList<Player> openCooldown = new ArrayList<>();
+    public static ArrayList<Player> petremoved = new ArrayList<>();
 
     public Pet(){
     }
@@ -50,11 +54,149 @@ public class Pet {
                 PetAPI api = new PetAPI();
                 createPet((Player) e.getWhoClicked(), api.itemToEntity(e.getCurrentItem()));
                 e.getWhoClicked().closeInventory();
+                startRunnable(p, entityToPetType(api.itemToEntity(e.getCurrentItem())));
             }else if(e.getCurrentItem().getType() == Material.BARRIER){
                 if(SchoolMode.Pets.containsKey(p.getName())){
                     SchoolMode.Pets.get(p.getName()).remove();
+                    petremoved.add(p);
                 }
             }
+        }
+    }
+
+    public void startRunnable(Player p, PetType pet){
+        PetAPI api = new PetAPI();
+        if(pet == PetType.FARID) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if(p == null){
+                        this.cancel();
+                    }
+                    if(petremoved.contains(p)){
+                        this.cancel();
+                    }
+                    if(makeOrNot80(expToLevel(api.getFarid(p.getUniqueId())))){
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1, 20*3));
+                    }
+                }
+            }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
+        }else if(pet == PetType.EDDY) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if(p == null){
+                        this.cancel();
+                    }
+                    if(petremoved.contains(p)){
+                        this.cancel();
+                    }
+                    if(makeOrNot80(expToLevel(api.getEddy(p.getUniqueId())))){
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1, 20*3));
+                    }
+                }
+            }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
+        }else if(pet == PetType.HELGAR) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if(p == null){
+                        this.cancel();
+                    }
+                    if(petremoved.contains(p)){
+                        this.cancel();
+                    }
+                    if(makeOrNot80(expToLevel(api.getHelgar(p.getUniqueId())))){
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 1, 20*3));
+                    }
+                }
+            }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
+        }else if(pet == PetType.MERLIN) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if(p == null){
+                        this.cancel();
+                    }
+                    if(petremoved.contains(p)){
+                        this.cancel();
+                    }
+                    if(makeOrNot80(expToLevel(api.getMerlin(p.getUniqueId())))){
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1, 20*3));
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 1, 20*3));
+                    }
+                }
+            }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
+        }
+    }
+
+    private boolean makeOrNot80(int i){
+        int r = new Random().nextInt(15);
+
+        switch (r){
+            case 1:
+                if(i == 10 || i == 9|| i == 8|| i == 7|| i == 6|| i == 5|| i == 4|| i == 3|| i == 2|| i == 1){
+                    return true;
+                }else {
+                    return false;
+                }
+            case 2:
+                if(i == 10 || i == 9|| i == 8|| i == 7|| i == 6|| i == 5|| i == 4|| i == 3|| i == 2){
+                    return true;
+                }else {
+                    return false;
+                }
+            case 3:
+                if(i == 10 || i == 9|| i == 8|| i == 7|| i == 6|| i == 5|| i == 4|| i == 3){
+                    return true;
+                }else {
+                    return false;
+                }
+            case 4:
+                if(i == 10 || i == 9|| i == 8|| i == 7|| i == 6|| i == 5|| i == 4){
+                    return true;
+                }else {
+                    return false;
+                }
+            case 5:
+                if(i == 10 || i == 9|| i == 8|| i == 7|| i == 6|| i == 5){
+                    return true;
+                }else {
+                    return false;
+                }
+            case 6:
+                if(i == 10 || i == 9|| i == 8|| i == 7|| i == 6){
+                    return true;
+                }else {
+                    return false;
+                }
+            case 7:
+                if(i == 10 || i == 9|| i == 8|| i == 7){
+                    return true;
+                }else {
+                    return false;
+                }
+            case 8:
+                if(i == 10 || i == 9|| i == 8){
+                    return true;
+                }else {
+                    return false;
+                }
+            case 9:
+                if(i == 10 || i == 9){
+                    return true;
+                }else {
+                    return false;
+                }
+            case 10:
+                if(i == 10){
+                    return true;
+                }else {
+                    return false;
+                }
+            default:
+                Bukkit.broadcastMessage("JETZT WIRD NICHT AUSGELÖST");
+                return false;
         }
     }
 
@@ -145,7 +287,7 @@ public class Pet {
         }
     }
 
-    public void setPetContent(Inventory inv, Player p){
+    private void setPetContent(Inventory inv, Player p){
         UUID uuid = p.getUniqueId();
         PetAPI api = new PetAPI();
 
