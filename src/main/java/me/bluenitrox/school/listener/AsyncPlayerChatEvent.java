@@ -62,4 +62,5 @@ public class AsyncPlayerChatEvent implements Listener {
         e.setFormat("§8[§7" + ExpManager.getLevel(e.getPlayer().getUniqueId()) + "§8] " + e.getPlayer().getDisplayName() + " §8» §7" + e.getMessage());
     }
 
+
 }

@@ -39,12 +39,14 @@ public class PlayerJoinManager {
         float exp = ExpManager.getExpDatabase(uuid);
         int mine = MinenManager.getMineDatabase(uuid);
         int blocks = PlayerBreakBlockManager.getBlocksDatabase(uuid);
+        int mobs = StatsAPI.getMobDatabase(uuid);
         SchoolMode.setPlayerMoney(uuid, money);
         SchoolMode.setPlayerExp(uuid, exp);
         SchoolMode.setPlayerMine(uuid, mine);
         SchoolMode.setPlayerBlocks(uuid, blocks);
         SchoolMode.playerlevel.put(uuid,ExpManager.getLevelDatabase(uuid));
         SchoolMode.setPlayerCase(uuid,api.getCasesDatabase(uuid));
+        SchoolMode.setPlayerMob(uuid,mobs);
         //SchoolMode.setGemLimit(uuid, (int) MoneyManager.getGemLimitdata(uuid));
 
     }

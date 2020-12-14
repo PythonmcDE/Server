@@ -50,6 +50,7 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Float> playerExp = new HashMap<>();
     public static HashMap<UUID, Integer> playerBlocks = new HashMap<>();
     public static HashMap<UUID, Integer> playerMine = new HashMap<>();
+    public static HashMap<UUID, Integer> playerMob = new HashMap<>();
     public static HashMap<UUID, Integer> playerlevel = new HashMap<>();
     public static HashMap<UUID, Integer> playercase = new HashMap<>();
     public static HashMap<UUID, Integer> playerchest = new HashMap<>();
@@ -479,11 +480,17 @@ public class SchoolMode extends JavaPlugin {
     public static int getPlayerMine(UUID uuid) {
         return playerMine.get(uuid);
     }
+    public static int getPlayerMob(UUID uuid) {
+        return playerMob.get(uuid);
+    }
     public static int getGemLimit(UUID uuid) {
         return playergemlimit.get(uuid);
     }
     public static void setPlayerMine(UUID uuid, int amount) {
         playerMine.put(uuid, amount);
+    }
+    public static void setPlayerMob(UUID uuid, int amount) {
+        playerMob.put(uuid, amount);
     }
     public static void setPlayerChest(UUID uuid, int amount) {
         playerchest.put(uuid, amount);

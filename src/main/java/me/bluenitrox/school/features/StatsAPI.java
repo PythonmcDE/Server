@@ -20,6 +20,9 @@ public class StatsAPI {
     public int getCase(UUID uuid){
         return (int) SchoolMode.getPlayerCases(uuid);
     }
+    public int getMob(UUID uuid){
+        return (int) SchoolMode.getPlayerMob(uuid);
+    }
 
     public void updateChest(UUID uuid, float amount, boolean remove) {
         if (remove) {
@@ -42,6 +45,18 @@ public class StatsAPI {
         } else {
             float newAmount = SchoolMode.getPlayerCases(uuid) + amount;
             SchoolMode.setPlayerCase(uuid, (int) newAmount);
+            return;
+        }
+    }
+    public void updateMob(UUID uuid, float amount, boolean remove) {
+        if (remove) {
+            if (SchoolMode.getPlayerMob(uuid) >= amount) {
+                float newAmount = SchoolMode.getPlayerMob(uuid) - amount;
+                SchoolMode.setPlayerMob(uuid, (int) newAmount);
+            }
+        } else {
+            float newAmount = SchoolMode.getPlayerMob(uuid) + amount;
+            SchoolMode.setPlayerMob(uuid, (int) newAmount);
             return;
         }
     }
@@ -91,7 +106,7 @@ public class StatsAPI {
 
         return xp;
     }
-    public int getMobDatabase(UUID uuid){
+    public static int getMobDatabase(UUID uuid){
         int xp = 0;
 
         try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT mob FROM spielerdaten WHERE spieleruuid = ?")) {
