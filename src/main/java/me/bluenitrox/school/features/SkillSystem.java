@@ -17,23 +17,34 @@ public class SkillSystem {
 
     public Inventory openSkillInv(Player p){
         UUID uuid = p.getUniqueId();
+        SkillAPI api = new SkillAPI();
+
+        int swordprozent = 3*api.get(uuid,"angriff");
+        int armorprozent = 3*api.get(uuid,"verteidigung");
+        int energieprozent = 3*api.get(uuid,"extraenergie");
+        int scharfprozent = 3*api.get(uuid,"scharfschütze");
+        int miningprozent = 3*api.get(uuid,"mining");
+        int händlerprozent = 3*api.get(uuid,"handler");
+        int alcheprozent = 3*api.get(uuid,"alchemist");
+        int warzoneprozent = 3*api.get(uuid,"bonusloot");
+        int glückprozent = 3*api.get(uuid,"gluckspilz");
 
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
         ItemStack glaswhite = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build("isInInv");
         ItemStack glasblack = new ItemBuilder(Material.STAINED_GLASS_PANE, (short)15).setDisplayname(" ").build("isInInv");
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lSkills").setLore("§6§l▶ §7Du erhälst durch das §6Aufteigen", "§6§l▶ §7im §6Level §aSkillpunkte", "§6§l▶ §7Hier kannst du mit ihnen §ebesondere", "§6§l▶ §eFähigkeiten §6freischalten §7und §6leveln§7!").build("isInInv");
-        ItemStack pearl = new ItemBuilder(Material.ENDER_PEARL).setDisplayname("§6§lSkillpunkte").setLore("§8» §7Dein Level:§6§l " + ExpManager.getLevel(uuid), "§8» §7Aktuelle Skillpunkte:§a§l ").build("isInInv");
+        ItemStack pearl = new ItemBuilder(Material.ENDER_PEARL).setDisplayname("§6§lSkillpunkte").setLore("§8» §7Dein Level:§6§l " + ExpManager.getLevel(uuid), "§8» §7Aktuelle Skillpunkte:§a§l " + api.getSkillpunkte(uuid)).build("isInInv");
 
-        ItemStack sword = new ItemBuilder(Material.IRON_SWORD).setDisplayname("§c§l§oAngriff").setLore("§7Erhöht deinen Nahkampfschaden.", " ", "§8» §7Aktuelles Level:§a ", "§8» §7Prozentsatz:§6" + "%", "§8» §7Benötigte Skillpunkte:§a", "  ", "§aKlicke, zum upgraden").build();
-        ItemStack armor = new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayname("§6§l§oVerteidigung").setLore("§7Reduziert den erlittenen Schaden..", " ", "§8» §7Aktuelles Level:§a ", "§8» §7Prozentsatz:§6" + "%", "§8» §7Benötigte Skillpunkte:§a", "  ", "§aKlicke, zum upgraden").build();
-        ItemStack energie = new ItemBuilder(Material.GOLDEN_APPLE).setDisplayname("§c§l§oEntraenergie").setLore("§7Ermöglicht es dir zusätzliche Herzen zu erlangen.", " ", "§8» §7Aktuelles Level:§a ", "§8» §7Prozentsatz:§6" + "%", "§8» §7Benötigte Skillpunkte:§a", "  ", "§aKlicke, zum upgraden").build();
-        ItemStack scharf = new ItemBuilder(Material.BOW).setDisplayname("§6§l§oScharfschütze").setLore("§7Erhöht deinen Schaden mit Pfeil und Bogen.", " ", "§8» §7Aktuelles Level:§a ", "§8» §7Prozentsatz:§6" + "%", "§8» §7Benötigte Skillpunkte:§a", "  ", "§aKlicke, zum upgraden").build();
-        ItemStack mining = new ItemBuilder(Material.IRON_PICKAXE).setDisplayname("§c§l§oMining").setLore("§7Verdoppelt möglicherweise deine abgebauten Erze.", " ", "§8» §7Aktuelles Level:§a ", "§8» §7Prozentsatz:§6" + "%", "§8» §7Benötigte Skillpunkte:§a", "  ", "§aKlicke, zum upgraden").build();
-        ItemStack händler = new ItemBuilder(Material.EMERALD).setDisplayname("§6§l§oHändler").setLore("§7Du verdienst beim Verkaufen mehr Gems.", " ", "§8» §7Aktuelles Level:§a ", "§8» §7Prozentsatz:§6" + "%", "§8» §7Benötigte Skillpunkte:§a", "  ", "§aKlicke, zum upgraden").build();
-        ItemStack alche = new ItemBuilder(Material.POTION).setDisplayname("§c§l§oAlchemist").setLore("§7Verlängert die Laufzeit eines getrunkenen Tranks.", " ", "§8» §7Aktuelles Level:§a ", "§8» §7Prozentsatz:§6" + "%", "§8» §7Benötigte Skillpunkte:§a", "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige I").build();
-        ItemStack warzone = new ItemBuilder(Material.CHEST).setDisplayname("§6§l§oBonusloot").setLore("§7Du bekommst beim öffnen einer Warzonekiste mehr Loot.", " ", "§8» §7Aktuelles Level:§a ", "§8» §7Prozentsatz:§6" + "%", "§8» §7Benötigte Skillpunkte:§a", "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige III").build();
-        ItemStack glück = new ItemBuilder(Material.ENDER_CHEST).setDisplayname("§c§l§oGlückspilz").setLore("§7Lässt beim öffnen einer Warzone-Kiste, eine weitere spawnen..", " ", "§8» §7Aktuelles Level:§a ", "§8» §7Prozentsatz:§6" + "%", "§8» §7Benötigte Skillpunkte:§a", "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige III").build();
+        ItemStack sword = new ItemBuilder(Material.IRON_SWORD).setDisplayname("§c§l§oAngriff").setLore("§7Erhöht deinen Nahkampfschaden.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"angriff"), "§8» §7Prozentsatz:§6 " + swordprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ api.get(uuid,"angriff")+1, "  ", "§aKlicke, zum upgraden").build();
+        ItemStack armor = new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayname("§6§l§oVerteidigung").setLore("§7Reduziert den erlittenen Schaden..", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"verteidigung"), "§8» §7Prozentsatz:§6 "+ armorprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ api.get(uuid,"verteidigung")+1, "  ", "§aKlicke, zum upgraden").build();
+        ItemStack energie = new ItemBuilder(Material.GOLDEN_APPLE).setDisplayname("§c§l§oEntraenergie").setLore("§7Ermöglicht es dir zusätzliche Herzen zu erlangen.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"extraenergie"), "§8» §7Prozentsatz:§6 "+ energieprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ api.get(uuid,"extraenergie")+1, "  ", "§aKlicke, zum upgraden").build();
+        ItemStack scharf = new ItemBuilder(Material.BOW).setDisplayname("§6§l§oScharfschütze").setLore("§7Erhöht deinen Schaden mit Pfeil und Bogen.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"scharfschütze"), "§8» §7Prozentsatz:§6 "+ scharfprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ api.get(uuid,"scharfschütze")+1, "  ", "§aKlicke, zum upgraden").build();
+        ItemStack mining = new ItemBuilder(Material.IRON_PICKAXE).setDisplayname("§c§l§oMining").setLore("§7Verdoppelt möglicherweise deine abgebauten Erze.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"mining"), "§8» §7Prozentsatz:§6 "+ miningprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ api.get(uuid,"mining")+1, "  ", "§aKlicke, zum upgraden").build();
+        ItemStack händler = new ItemBuilder(Material.EMERALD).setDisplayname("§6§l§oHändler").setLore("§7Du verdienst beim Verkaufen mehr Gems.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"handler"), "§8» §7Prozentsatz:§6 "+ händlerprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ api.get(uuid,"handler")+1, "  ", "§aKlicke, zum upgraden").build();
+        ItemStack alche = new ItemBuilder(Material.POTION).setDisplayname("§c§l§oAlchemist").setLore("§7Verlängert die Laufzeit eines getrunkenen Tranks.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"alchemist"), "§8» §7Prozentsatz:§6 "+ alcheprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ api.get(uuid,"alchemist")+1, "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige I").build();
+        ItemStack warzone = new ItemBuilder(Material.CHEST).setDisplayname("§6§l§oBonusloot").setLore("§7Du bekommst beim öffnen einer Warzonekiste mehr Loot.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"bonusloot"), "§8» §7Prozentsatz:§6 "+ warzoneprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ api.get(uuid,"bonusloot")+1, "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige III").build();
+        ItemStack glück = new ItemBuilder(Material.ENDER_CHEST).setDisplayname("§c§l§oGlückspilz").setLore("§7Lässt beim öffnen einer Warzone-Kiste, eine weitere spawnen..", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"gluckspilz"), "§8» §7Prozentsatz:§6 "+ glückprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ api.get(uuid,"gluckspilz")+1, "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige III").build();
 
         for(int i = 0; i<= 8; i++){
             inv.setItem(i, glaswhite);

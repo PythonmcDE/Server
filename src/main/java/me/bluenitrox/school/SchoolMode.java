@@ -135,6 +135,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("händler").setExecutor(new HändlerAPI());
         getCommand("tp").setExecutor(new Tp());
         getCommand("tphere").setExecutor(new Tphere());
+        getCommand("skill").setExecutor(new Skill());
 
 
         //
@@ -258,6 +259,13 @@ public class SchoolMode extends JavaPlugin {
 
         try{
             PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `DailyReward` ( `UUID` CHAR(36) NOT NULL , `Belohnung` INT(11) NOT NULL , `Erfahrung` INT(11) NOT NULL , `Cases` INT(11) NOT NULL  , `GemLimit` INT(11) NOT NULL )");
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        try{
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `skills` ( `UUID` CHAR(36) NOT NULL , `skillpunkte` INT(11) NOT NULL , `angriff` INT(11) NOT NULL , `verteidigung` INT(11) NOT NULL , `extraenergie` INT(11) NOT NULL  , `scharfschütze` INT(11) NOT NULL , `mining` INT(11) NOT NULL, `handler` INT(11) NOT NULL, `alchemist` INT(11) NOT NULL, `bonusloot` INT(11) NOT NULL, `gluckspilz` INT(11) NOT NULL)");
             ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();

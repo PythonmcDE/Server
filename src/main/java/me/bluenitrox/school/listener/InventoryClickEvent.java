@@ -6,10 +6,7 @@ import me.bluenitrox.school.commands.Mine;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.enchants.Enchant;
-import me.bluenitrox.school.features.CaseAPI;
-import me.bluenitrox.school.features.DailyReward;
-import me.bluenitrox.school.features.KitAPI;
-import me.bluenitrox.school.features.Pet;
+import me.bluenitrox.school.features.*;
 import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.haendler.commands.Schmied;
 import org.bukkit.entity.Player;
@@ -32,6 +29,7 @@ public class InventoryClickEvent implements Listener {
                 return;
             }
         }
+        SkillSystem.onClick(e);
         caseClick(e);
         BoostInv.inventoryClick(e, p);
         Mine.onMinenClick(e);
