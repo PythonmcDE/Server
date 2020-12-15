@@ -74,6 +74,7 @@ public class Pet {
                         this.cancel();
                     }
                     if(petremoved.contains(p)){
+                        petremoved.remove(p);
                         this.cancel();
                     }
                     if(makeOrNot80(expToLevel(api.getFarid(p.getUniqueId())))){
@@ -89,6 +90,7 @@ public class Pet {
                         this.cancel();
                     }
                     if(petremoved.contains(p)){
+                        petremoved.remove(p);
                         this.cancel();
                     }
                     if(makeOrNot80(expToLevel(api.getEddy(p.getUniqueId())))){
@@ -104,6 +106,7 @@ public class Pet {
                         this.cancel();
                     }
                     if(petremoved.contains(p)){
+                        petremoved.remove(p);
                         this.cancel();
                     }
                     if(makeOrNot80(expToLevel(api.getHelgar(p.getUniqueId())))){
@@ -119,6 +122,7 @@ public class Pet {
                         this.cancel();
                     }
                     if(petremoved.contains(p)){
+                        petremoved.remove(p);
                         this.cancel();
                     }
                     if(makeOrNot80(expToLevel(api.getMerlin(p.getUniqueId())))){
