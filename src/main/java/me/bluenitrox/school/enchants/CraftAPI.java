@@ -7,8 +7,8 @@ import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -22,6 +22,33 @@ public class CraftAPI {
     public static ArrayList<String> bow = new ArrayList<>();
     public static ArrayList<String> rod = new ArrayList<>();
 
+    public String guiname = "§8» §5Amboss";
+
+    int slot1 = 19;
+    int slot2 = 22;
+
+    public void onClick(final InventoryClickEvent e){
+        Player p = (Player) e.getWhoClicked();
+        if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
+             if(e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE || e.getCurrentItem().getType() == Material.SLIME_BALL || e.getCurrentItem().getType() == Material.BARRIER){
+                 e.setCancelled(true);
+             }
+             if(e.getClickedInventory().getItem(slot1) != null && e.getClickedInventory().getItem(slot2) != null){
+                 String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
+                 float price = getPrice(preis[1]);
+                 int level = getLevel(preis[1]);
+                 e.getClickedInventory().setItem(25,new ItemBuilder(Material.SLIME_BALL).setDisplayname("§8» §7Item Verzaubern").setLore("§8● §7Kosten:§6 " + level + " Vanilla Level","§8● §7Gem-Kosten:" + price + " Gems").build());
+             }
+             if(e.getCurrentItem().getType() == Material.SLIME_BALL){
+                 if(e.getClickedInventory().getItem(slot1).getType() == Material.ENCHANTED_BOOK && e.getClickedInventory().getItem(slot2).getType() == Material.ENCHANTED_BOOK){
+                     if(craftBooks(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
+                         craftBooksTogether(p, e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot1)), e.getClickedInventory());
+                     }
+                 }
+             }
+        }
+    }
+
     public static void registerEnchants(){
         armor.add(EnchantManager.Tank);
         armor.add(EnchantManager.Heilzauber);
@@ -29,7 +56,6 @@ public class CraftAPI {
         armor.add(EnchantManager.Stacheln);
         armor.add(EnchantManager.ObsidianSchild);
         armor.add(EnchantManager.Eis);
-        armor.add(EnchantManager.Tank);
         armor.add(EnchantManager.Widerstand);
         armor.add(EnchantManager.Überladung);
 
@@ -74,7 +100,7 @@ public class CraftAPI {
             inv.setItem(i,glas);
         }
         for(int i = 9; i<= 18; i++){
-            inv.setItem(i,glas);
+            inv.setItem(i,glasblack);
         }
         inv.setItem(20,glasblack);
         inv.setItem(21,glasblack);
@@ -95,14 +121,14 @@ public class CraftAPI {
 
     private void craftBooksTogether(Player p, ItemStack item, String enchant, Inventory clickedInv){
         String[] levelofbooksarray = item.getItemMeta().getLore().get(0).split(" ");
-        int levelofbooks = Integer.parseInt(levelofbooksarray[1]);
+        int levelofbooks = stringToInt(levelofbooksarray[1]);
 
         ItemStack books = new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§8» §6§lMagisches Buch").setLore(enchant + intToString(levelofbooks+1)).build();
 
 
         //TODO BEIDE SLOTS WO ITEMS LIEGEN IM ANVIL
-        clickedInv.setItem(13, new ItemBuilder(Material.AIR).build());
-        clickedInv.setItem(15, new ItemBuilder(Material.AIR).build());
+        clickedInv.setItem(slot1, new ItemBuilder(Material.AIR).build());
+        clickedInv.setItem(slot2, new ItemBuilder(Material.AIR).build());
 
         MoneyManager.updateMoney(p.getUniqueId(),getPrice(intToString(levelofbooks +1)),true,false);
         p.getInventory().addItem(Antidupe.addID(books));
@@ -217,6 +243,110 @@ public class CraftAPI {
         }else {
             return standard*10;
         }
+    }
+
+    private int getLevel(String s){
+        int standard = 10;
+        if(s.equalsIgnoreCase("I")){
+            return standard;
+        }else if(s.equalsIgnoreCase("II")){
+            return standard*2;
+        }else if(s.equalsIgnoreCase("III")){
+            return standard*3;
+        }else if(s.equalsIgnoreCase("IV")){
+            return standard*4;
+        }else if(s.equalsIgnoreCase("V")){
+            return standard*5;
+        }else if(s.equalsIgnoreCase("VI")){
+            return standard*6;
+        }else if(s.equalsIgnoreCase("VII")){
+            return standard*7;
+        }else if(s.equalsIgnoreCase("VIII")){
+            return standard*8;
+        }else if(s.equalsIgnoreCase("IX")){
+            return standard*9;
+        }else if(s.equalsIgnoreCase("X")){
+            return standard*10;
+        }else {
+            return standard*10;
+        }
+    }
+
+    private String getEnchantofItem(ItemStack i){
+        if(i.getItemMeta() != null){
+            if(i.getItemMeta().getLore() != null){
+                if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Tank)){
+                    return EnchantManager.Tank;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Heilzauber)){
+                    return EnchantManager.Heilzauber;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Magieschild)){
+                    return EnchantManager.Magieschild;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Widerstand)){
+                    return EnchantManager.Widerstand;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Stacheln)){
+                    return EnchantManager.Stacheln;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Überladung)){
+                    return EnchantManager.Überladung;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.ObsidianSchild)){
+                    return EnchantManager.ObsidianSchild;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Eis)){
+                    return EnchantManager.Eis;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Fluch)){
+                    return EnchantManager.Fluch;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Kopfgeld)){
+                    return EnchantManager.Kopfgeld;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Assassine)){
+                    return EnchantManager.Assassine;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Vampir)){
+                    return EnchantManager.Vampir;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Kobra)){
+                    return EnchantManager.Kobra;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Energieentzug)){
+                    return EnchantManager.Energieentzug;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.AntiVenom)){
+                    return EnchantManager.AntiVenom;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Wilderei)){
+                    return EnchantManager.Wilderei;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Jäger)){
+                    return EnchantManager.Jäger;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Entdecker)){
+                    return EnchantManager.Entdecker;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.schatzmeister)){
+                    return EnchantManager.schatzmeister;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Blackout)){
+                    return EnchantManager.Blackout;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Dynamite)){
+                    return EnchantManager.Dynamite;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Tod)){
+                    return EnchantManager.Tod;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Fesseln)){
+                    return EnchantManager.Fesseln;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Elektrisiert)){
+                    return EnchantManager.Elektrisiert;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Feuerwerk)){
+                    return EnchantManager.Feuerwerk;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Rausch)){
+                    return EnchantManager.Rausch;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Zorn)){
+                    return EnchantManager.Zorn;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Laser)){
+                    return EnchantManager.Laser;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Duplizierung)){
+                    return EnchantManager.Duplizierung;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Erfahrung)){
+                    return EnchantManager.Erfahrung;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Ausgrabung)){
+                    return EnchantManager.Ausgrabung;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Großerfang)){
+                    return EnchantManager.Großerfang;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Fischerglück)){
+                    return EnchantManager.Fischerglück;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Goldhaken)){
+                    return EnchantManager.Goldhaken;
+                }
+            }
+        }
+        return null;
     }
 
 }

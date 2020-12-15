@@ -63,6 +63,7 @@ commands:
   clear:
   tk:
   vanish:
+  books:
   ah:
     aliases:
       - auktionshaus

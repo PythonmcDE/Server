@@ -82,7 +82,7 @@ public class SkillSystem {
     }
 
     public static void onClick(final InventoryClickEvent e){
-        if(e.getClickedInventory().getName().equalsIgnoreCase(guiname)){
+        if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
             e.setCancelled(true);
         }
     }

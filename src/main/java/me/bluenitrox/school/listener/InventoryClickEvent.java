@@ -5,6 +5,7 @@ import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.commands.Mine;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
+import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.enchants.Enchant;
 import me.bluenitrox.school.features.*;
 import me.bluenitrox.school.haendler.HändlerAPI;
@@ -19,6 +20,7 @@ public class InventoryClickEvent implements Listener {
     public void onClick(final org.bukkit.event.inventory.InventoryClickEvent e){
         Player p = (Player)e.getWhoClicked();
         WerkbankGUIRegister wgr = new WerkbankGUIRegister();
+        CraftAPI craft = new CraftAPI();
         Pet pet = new Pet();
         HändlerAPI api = new HändlerAPI();
         DailyReward dr = new DailyReward();
@@ -29,6 +31,7 @@ public class InventoryClickEvent implements Listener {
                 return;
             }
         }
+        craft.onClick(e);
         SkillSystem.onClick(e);
         caseClick(e);
         BoostInv.inventoryClick(e, p);
