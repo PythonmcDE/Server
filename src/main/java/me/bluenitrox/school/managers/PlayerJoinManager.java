@@ -28,7 +28,6 @@ public class PlayerJoinManager {
             configurateKitPlayer(uuid);
             configuratePetPlayer(uuid);
             configurateSkillPlayer(uuid);
-            configurateRewardPlayer(uuid);
         }
         float money = MoneyManager.getMoneyDatabase(uuid);
         float exp = ExpManager.getExpDatabase(uuid);
@@ -36,14 +35,16 @@ public class PlayerJoinManager {
         int blocks = PlayerBreakBlockManager.getBlocksDatabase(uuid);
         int mobs = StatsAPI.getMobDatabase(uuid);
         SchoolMode.setPlayerMoney(uuid, money);
+        SchoolMode.playerlevel.put(uuid,ExpManager.getLevelDatabase(uuid));
         SchoolMode.setPlayerExp(uuid, exp);
         SchoolMode.setPlayerMine(uuid, mine);
         SchoolMode.setPlayerBlocks(uuid, blocks);
-        SchoolMode.playerlevel.put(uuid,ExpManager.getLevelDatabase(uuid));
         SchoolMode.setPlayerCase(uuid,api.getCasesDatabase(uuid));
         SchoolMode.setPlayerMob(uuid,mobs);
-        //SchoolMode.setGemLimit(uuid, (int) MoneyManager.getGemLimitdata(uuid));
-
+        if(!isRewardUserExists(uuid)){
+            configurateRewardPlayer(uuid);
+        }
+        SchoolMode.setGemLimit(uuid, (int) MoneyManager.getGemLimitdata(uuid));
     }
 
     public static void configuratePlayer(UUID uuid) {
@@ -117,7 +118,7 @@ public class PlayerJoinManager {
                 ps.setInt(2, 0);
                 ps.setInt(3, 0);
                 ps.setInt(4, 0);
-                ps.setInt(5, 500000);
+                ps.setInt(5, (int) ((ExpManager.getExp(uuid)*7)+500000));
                 ps.executeUpdate();
             }catch (SQLException e) {
                 e.printStackTrace();
@@ -193,6 +194,7 @@ public class PlayerJoinManager {
         }
         return false;
     }
+
     private static boolean isSkillUserExists(UUID uuid) {
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT UUID FROM skills WHERE UUID = ?");

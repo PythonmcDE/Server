@@ -77,11 +77,11 @@ public class SchoolMode extends JavaPlugin {
         startMySQL();
         getCurrentDupeID();
         Bukkit.getConsoleSender().sendMessage("§4AntiDupe §4aktivieren... §4(5/8)");
-        startAntiDupe();
+        //startAntiDupe();
         Bukkit.getConsoleSender().sendMessage("§4AhUpdate §4aktivieren... §4(6/8)");
-        startAhUpdate();
+        //startAhUpdate();
         Bukkit.getConsoleSender().sendMessage("§4AhAnticrash §4aktivieren... §4(7/8)");
-        startAhAnticrash();
+        //startAhAnticrash();
         setBoostermanager(new BoosterManager());
         LevelManager.registerLevel();
         setGameRules();
