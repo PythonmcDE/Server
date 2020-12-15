@@ -20,7 +20,7 @@ public class CombatAPI {
     public HashMap<Player, Integer> fightwarzone = new HashMap<>();
 
     public void onhitCombat(EntityDamageByEntityEvent e) {
-        WorldManager wm = new WorldManager();
+        /*WorldManager wm = new WorldManager();
         if (e.getEntity().getWorld().getName().equalsIgnoreCase(wm.warzone)) {
             if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
                 if (getWarzoneByLocation(e.getEntity().getLocation()) != null) {
@@ -36,7 +36,7 @@ public class CombatAPI {
                     fight.put(d, 30);
                 }
             }
-        }
+        }*/
     }
 
     public static void onQuit(Player p){

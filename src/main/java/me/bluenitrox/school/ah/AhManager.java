@@ -102,8 +102,6 @@ public class AhManager {
 
     }
 
-    //  [name: superitem, material: stone, durability: 1423, amount: 1, short: 64, enchants: [fireaspect, sharpness, knockback], lore: [zeile 1, zeile 2, zeile 3, zeile 4]]
-
     public static String enCode(Integer i){
         String[] price = i.toString().split("");
         if(i >= 1000000 && i < 10000000){
@@ -135,6 +133,12 @@ public class AhManager {
     }
 
     public static void sellItem(ItemStack is, Player p, int preis, Inventory inv){
+
+        if(MoneyManager.getGemlimit(p.getUniqueId()) < preis){
+            p.sendMessage(MessageManager.PREFIX + "§7Dein §aGemlimit §7ist heute schon verbraucht. Morgen kannst du wieder Gems verdienen.");
+            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+            return;
+        }
 
         Timestamp einstelldatum = new Timestamp(System.currentTimeMillis());
 
@@ -296,6 +300,10 @@ public class AhManager {
                     buyer.sendMessage("§cDu kannst deine eigenen Items nicht kaufen!");
                     buyer.closeInventory();
                     buyer.playSound(buyer.getLocation(), Sound.VILLAGER_NO, 1L , 1L);
+                    return;
+                }
+                if(MoneyManager.getGemlimit(UUID.fromString(rs.getString(2))) < rs.getInt(4)){
+                    buyer.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Item §cnicht §7kaufen, da das §aGemlimit §7des Verkäufers voll ist.");
                     return;
                 }
                 try(PreparedStatement ps2 = MySQL.getConnection().prepareStatement("INSERT INTO AhItemsAbgelaufen (spieleruuid, item) VALUES (?,?)")){

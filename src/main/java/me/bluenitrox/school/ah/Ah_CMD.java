@@ -25,12 +25,12 @@ public class Ah_CMD implements CommandExecutor {
             cs.sendMessage(MessageManager.NOPLAYER);
             return true;
         }
-        CombatAPI api = new CombatAPI();
+        /*CombatAPI api = new CombatAPI();
         if(api.getWarzoneByLocation(p.getLocation()) != null){
             p.sendMessage(MessageManager.PREFIX + "§7Du kannst das §6Auktionshaus §7in der Warzone §cnicht §7benutzen!");
             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             return true;
-        }
+        }*/
 
         if(args.length == 0){
             if(MessageManager.ah) {
@@ -39,7 +39,7 @@ public class Ah_CMD implements CommandExecutor {
                 AhManager.openAh(invah, 1, p);
 
             }else {
-                p.sendMessage("§7Das Ah ist §cdeaktivert!");
+                p.sendMessage(MessageManager.PREFIX + "§7Das Ah ist §cdeaktivert!");
             }
         }else if(args.length == 2) {
             if(MessageManager.ah) {
@@ -61,25 +61,25 @@ public class Ah_CMD implements CommandExecutor {
                     }
 
                     if (AhManager.getAhItems(p) >= allowedItems) {
-                        p.sendMessage("§7Du hast bereits die maximale Anzahl an Items ins Ah gestellt [§a" + allowedItems + "§7 ]!");
+                        p.sendMessage(MessageManager.PREFIX + "§7Du hast bereits die maximale Anzahl an Items ins Ah gestellt [§a" + allowedItems + "§7 ]!");
                         return true;
                     }
 
 
                     int preis = Integer.parseInt(args[1]);
                     if (p.getItemInHand().getType() == Material.AIR) {
-                        p.sendMessage("§cBitte halte ein Item in der Hand!");
+                        p.sendMessage(MessageManager.PREFIX + "§cBitte halte ein Item in der Hand!");
                         return true;
                     }
                     if(preis <= 0){
-                        p.sendMessage("§cDer Preis ist so nicht möglich");
+                        p.sendMessage(MessageManager.PREFIX + "§cDer Preis ist so nicht möglich");
                         return true;
                     }
                     if(preis > 1000000000){
                         preis = 1000000000;
                     }
                     if(!CheckAmount.check(args[1])){
-                        p.sendMessage("§cDer Preis ist so nicht möglich");
+                        p.sendMessage(MessageManager.PREFIX + "§cDer Preis ist so nicht möglich");
                         return true;
                     }
                     Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);
