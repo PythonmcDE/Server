@@ -7,11 +7,13 @@ import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.mine.manager.SellManager;
 import me.bluenitrox.school.utils.ValuetoString;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class Sell implements CommandExecutor {
 
@@ -29,25 +31,30 @@ public class Sell implements CommandExecutor {
         }
 
         if (args.length == 0) {
-            long total = 0;
+            int alles = 0;
             for (int i = 0; i <= p.getInventory().getSize(); i++) {
                 if (p.getInventory().getItem(i) != null) {
                     if (SellManager.Preise.getByName(p.getInventory().getItem(i).getType().toString()) != null) {
                         int amount = p.getInventory().getItem(i).getAmount();
                         float preis = SellManager.getPriceByMaterial(p.getInventory().getItem(i).getType().toString(), p);
-                        preis = preis * amount;
-                        total += preis;
-                        p.getInventory().removeItem(p.getInventory().getItem(i));
+                        preis = preis*amount;
+                        if(preis != 0) {
+                            if (MoneyManager.updateMoney(p.getUniqueId(), preis, false, true)) {
+                                ItemStack air = new ItemStack(Material.AIR);
+                                p.getInventory().setItem(i,air);
+                                alles = (int) (alles + preis);
+                                preis = 0;
+                            }
+                        }
                     }
                 }
             }
-            if(total == 0) {
+            if(alles == 0) {
                 p.sendMessage(MessageManager.PREFIX + "§7Du hast §ckeine §7verkaufbaren Items im Inventar");
                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             }else {
                 p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1L, 1L);
-                p.sendMessage(MessageManager.PREFIX + "§7Du hast §a+" + ValuetoString.valueToString(total) + " §7bekommen");
-                MoneyManager.updateMoney(p.getUniqueId(), total, false, true);
+                p.sendMessage(MessageManager.PREFIX + "§7Du hast §a+" + ValuetoString.valueToString(alles) + " §7bekommen");
             }
         }
         return false;
