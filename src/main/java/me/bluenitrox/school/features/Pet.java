@@ -368,7 +368,7 @@ public class Pet {
 
     public void movePetEvent(Player player){
         if(SchoolMode.Pets.containsKey(player.getName())){
-            new Pet().followPlayer((Creature)SchoolMode.Pets.get(player.getName()), player, 1.6);
+            new Pet().followPlayer((Creature)SchoolMode.Pets.get(player.getName()), player, 1.4);
         }
     }
 
