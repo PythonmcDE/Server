@@ -114,7 +114,7 @@ public class Pet {
                     }
                 }
             }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
-        }else if(pet == PetType.MERLIN) {
+        }else if(pet == PetType.PETER) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
@@ -125,7 +125,7 @@ public class Pet {
                         petremoved.remove(p);
                         this.cancel();
                     }
-                    if(makeOrNot80(expToLevel(api.getMerlin(p.getUniqueId())))){
+                    if(makeOrNot80(expToLevel(api.getPeter(p.getUniqueId())))){
                         p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1, 20*3));
                         p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 1, 20*3));
                     }
