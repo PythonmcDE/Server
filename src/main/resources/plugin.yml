@@ -62,6 +62,10 @@ commands:
   invsee:
   clear:
   tk:
+  plotworld:
+    aliases:
+      - pw
+      - plotwelt
   vanish:
   books:
   prestige:

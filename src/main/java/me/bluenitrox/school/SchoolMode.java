@@ -137,6 +137,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("books").setExecutor(new getBooks());
         getCommand("setlevel").setExecutor(new SetLevel());
         getCommand("prestige").setExecutor(new Prestige());
+        getCommand("plotworld").setExecutor(new Plotworld());
 
 
         //
