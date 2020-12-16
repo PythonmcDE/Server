@@ -200,7 +200,6 @@ public class Pet {
                     return false;
                 }
             default:
-                Bukkit.broadcastMessage("JETZT WIRD NICHT AUSGELÖST");
                 return false;
         }
     }

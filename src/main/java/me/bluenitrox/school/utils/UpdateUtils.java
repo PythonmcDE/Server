@@ -1,6 +1,8 @@
 package me.bluenitrox.school.utils;
 
+import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.enchants.CraftAPI;
+import me.bluenitrox.school.enchants.Enchant;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -8,7 +10,7 @@ public class UpdateUtils {
 
     public static void updateEnchanter(Player all){
         if(all.getOpenInventory().getItem(22).getType() == Material.BOOK){
-            all.getOpenInventory().setItem(25, new ItemBuilder(Material.SLIME_BALL).setDisplayname("§8» §aVerzaubere das Item").setLore("§6§l▶ §7Klicke hier um ein Random Buch zu verzaubern,", "§6§l▶ §7dies kostet dich §64 Level §7und §615 Tsd §7Gems.").build("isInInv"));
+            all.getOpenInventory().setItem(25, new ItemBuilder(Material.SLIME_BALL).setDisplayname("§8» §aVerzaubere das Item").setLore("§6§l▶ §7Klicke hier um ein Random Buch zu verzaubern,", "§6§l▶ §7dies kostet dich §6" + Enchanter.levelneeded +" Level §7und §615 Tsd §7Gems.").build("isInInv"));
         }else {
             all.getOpenInventory().setItem(25,new ItemBuilder(Material.BARRIER).setDisplayname("§8» §cUngültige Verzauberung").setLore("§8● §7Entweder liegt kein Item auf dem freien Slot,", "§8● §7oder dieses kann nicht verzaubert werden.").build("isInInv"));
         }

@@ -25,6 +25,8 @@ public class Enchanter {
     public static String GUI_NAME = "§8» §5Zaubertisch";
     private static ArrayList<Enchantment> enchantments;
 
+    public static final int levelneeded = 3;
+
     public static void openZaubertisch(Player p){
         Inventory inv = Bukkit.createInventory(null, 9*5, GUI_NAME);
 
@@ -66,12 +68,12 @@ public class Enchanter {
                     if(e.getCurrentItem().getItemMeta().getDisplayName() != null){
                         if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §aVerzaubere das Item")) {
                             if (e.getClickedInventory().getItem(22).getAmount() == 1) {
-                                if (p.getLevel() >= 4) {
+                                if (p.getLevel() >= levelneeded) {
                                     if (MoneyManager.getMoney(p.getUniqueId()) >= 15000) {
                                         enchantments = new ArrayList<>();
                                         registerArray();
                                         e.getClickedInventory().setItem(22, new ItemBuilder(Material.AIR).build());
-                                        p.setLevel(p.getLevel() - 4);
+                                        p.setLevel(p.getLevel() - levelneeded);
                                         MoneyManager.updateMoney(p.getUniqueId(), 15000, true, false);
                                         p.closeInventory();
                                         int r = new Random().nextInt(97);
