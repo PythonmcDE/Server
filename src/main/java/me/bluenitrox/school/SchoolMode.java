@@ -135,6 +135,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("tphere").setExecutor(new Tphere());
         getCommand("skill").setExecutor(new Skill());
         getCommand("books").setExecutor(new getBooks());
+        getCommand("setlevel").setExecutor(new SetLevel());
 
 
         //

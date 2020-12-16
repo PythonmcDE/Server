@@ -1,7 +1,9 @@
 package me.bluenitrox.school.commands;
 
 import me.bluenitrox.school.managers.EnchantManager;
+import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
+import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -108,6 +110,8 @@ public class getBooks implements CommandExecutor {
             inv.setItem(44,is);
 
             p.openInventory(inv);
+        }else {
+            p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
         }
         return false;
     }
