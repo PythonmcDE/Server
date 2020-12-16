@@ -57,7 +57,15 @@ public class CraftAPI {
                          int level = getLevel(preis[1]);
                          if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
                              craftBooksTogether(p, e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot1)), e.getClickedInventory());
+                         }else {
+                             p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug §6Geld §7oder §6Level§7.");
+                             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                             p.closeInventory();
                          }
+                     }else {
+                         p.sendMessage(MessageManager.PREFIX + "§7Das ist so nicht möglich. Schaue auf unserer Website §8(§fDemonMC.eu§8) §7wie du es richtig machst!");
+                         p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                         p.closeInventory();
                      }
                  }else if(shouldCraftOn(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))){
                      String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
@@ -65,7 +73,15 @@ public class CraftAPI {
                      int level = getLevel(preis[1]);
                      if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
                          craftbookon(p,e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot2)),stringToInt(preis[1]), e.getClickedInventory());
+                     }else {
+                         p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug §6Geld §7oder §6Level§7.");
+                         p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                         p.closeInventory();
                      }
+                 }else {
+                     p.sendMessage(MessageManager.PREFIX + "§7Das ist so nicht möglich. Schaue auf unserer Website §8(§fDemonMC.eu§8) §7wie du es richtig machst!");
+                     p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                     p.closeInventory();
                  }
              }
         }
@@ -148,7 +164,6 @@ public class CraftAPI {
         ItemStack books = new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§8» §6§lMagisches Buch").setLore(enchant + intToString(levelofbooks+1)).build();
 
 
-        //TODO BEIDE SLOTS WO ITEMS LIEGEN IM ANVIL
         clickedInv.setItem(slot1, new ItemBuilder(Material.AIR).build());
         clickedInv.setItem(slot2, new ItemBuilder(Material.AIR).build());
 
