@@ -51,7 +51,7 @@ public class MoneyManager {
             }
             if(!sendChatMSG.contains(Bukkit.getPlayer(uuid))) {
                 sendChatMSG.add(Bukkit.getPlayer(uuid));
-                Bukkit.getPlayer(uuid).sendMessage(MessageManager.PREFIX + "§7Du kannst heute §ckeine §7Gems mehr verdienen. Komm morgen wieder.");
+                Bukkit.getPlayer(uuid).sendMessage(MessageManager.PREFIX + "§7Du kannst heute §ckeine §7Gems mehr verdienen.");
                 Bukkit.getPlayer(uuid).playSound(Bukkit.getPlayer(uuid).getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                 new BukkitRunnable(){
                     @Override

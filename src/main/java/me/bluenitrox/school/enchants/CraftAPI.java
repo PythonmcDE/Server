@@ -61,7 +61,7 @@ public class CraftAPI {
                              p.closeInventory();
                          }
                      }else {
-                         p.sendMessage(MessageManager.PREFIX + "§7Das ist so nicht möglich. Schaue auf unserer Website §8(§fDemonMC.eu§8) §7wie du es richtig machst!");
+                         p.sendMessage(MessageManager.PREFIX + "§7Das ist so §cnicht §7möglich. Schaue auf unserer Website §8(§fDemonMC.eu§8) §7wie du es richtig machst!");
                          p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                          p.closeInventory();
                      }
