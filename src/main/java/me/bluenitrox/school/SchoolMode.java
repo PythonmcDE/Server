@@ -5,6 +5,7 @@ import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.ah.Ah_CMD;
 import me.bluenitrox.school.boost.BoosterAPI;
 import me.bluenitrox.school.boost.BoosterManager;
+import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
@@ -19,15 +20,15 @@ import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mine.manager.Minenreset;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
-import me.bluenitrox.school.utils.Antidupe;
-import me.bluenitrox.school.utils.TimeManager;
-import me.bluenitrox.school.utils.ValuetoString;
+import me.bluenitrox.school.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -309,6 +310,10 @@ public class SchoolMode extends JavaPlugin {
 
                             AhManager.setAhContent(all.getOpenInventory().getTopInventory(), currPage, all);
                             all.updateInventory();
+                        }else if (all.getOpenInventory().getTitle().equalsIgnoreCase(CraftAPI.guiname)) {
+                            UpdateUtils.updateCraft(all);
+                        }else if(all.getOpenInventory().getTitle().equalsIgnoreCase(Enchanter.GUI_NAME)){
+                            UpdateUtils.updateEnchanter(all);
                         }
                     }
                 });

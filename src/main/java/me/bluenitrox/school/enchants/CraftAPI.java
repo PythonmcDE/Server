@@ -1,6 +1,7 @@
 package me.bluenitrox.school.enchants;
 
 import de.Herbystar.TTA.TTA_Methods;
+import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.EnchantManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
@@ -12,29 +13,31 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
 public class CraftAPI {
 
-    public static ArrayList<String> armor = new ArrayList<>();
-    public static ArrayList<String> sword = new ArrayList<>();
-    public static ArrayList<String> pickaxe = new ArrayList<>();
-    public static ArrayList<String> bow = new ArrayList<>();
-    public static ArrayList<String> rod = new ArrayList<>();
+    private static ArrayList<String> armor = new ArrayList<>();
+    private static ArrayList<String> sword = new ArrayList<>();
+    private static ArrayList<String> pickaxe = new ArrayList<>();
+    private static ArrayList<String> bow = new ArrayList<>();
+    private static ArrayList<String> rod = new ArrayList<>();
 
     private static ArrayList<Player> dontgiveItem = new ArrayList<>();
 
-    private static final String guiname = "§8» §5Amboss";
+    public static final String guiname = "§8» §5Amboss";
 
 
-    private static final int slot1 = 19;
-    private static final int slot2 = 22;
+    public static final int slot1 = 19;
+    public static final int slot2 = 22;
 
     public void onClick(final InventoryClickEvent e){
         Player p = (Player) e.getWhoClicked();
@@ -43,12 +46,7 @@ public class CraftAPI {
              if(e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE || e.getCurrentItem().getType() == Material.SLIME_BALL || e.getCurrentItem().getType() == Material.BARRIER){
                  e.setCancelled(true);
              }
-             if(e.getClickedInventory().getItem(slot1) != null && e.getClickedInventory().getItem(slot2) != null){
-                 String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
-                 float price = getPrice(preis[1]);
-                 int level = getLevel(preis[1]);
-                 e.getClickedInventory().setItem(25,new ItemBuilder(Material.SLIME_BALL).setDisplayname("§8» §7Item Verzaubern").setLore("§8● §7Kosten:§6§l " + level + " Vanilla Level","§8● §7Gem-Kosten:§6§l " + price + " Gems").build());
-             }
+
              if(e.getCurrentItem().getType() == Material.SLIME_BALL){
                  if(e.getClickedInventory().getItem(slot1).getType() == Material.ENCHANTED_BOOK && e.getClickedInventory().getItem(slot2).getType() == Material.ENCHANTED_BOOK){
                      if(craftBooks(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
@@ -363,7 +361,7 @@ public class CraftAPI {
         }
     }
 
-    private float getPrice(String s){
+    public static float getPrice(String s){
         int standard = 20000;
         if(s.equalsIgnoreCase("I")){
             return standard;
@@ -390,7 +388,7 @@ public class CraftAPI {
         }
     }
 
-    private int getLevel(String s){
+    public static int getLevel(String s){
         int standard = 10;
         if(s.equalsIgnoreCase("I")){
             return standard;

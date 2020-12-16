@@ -45,8 +45,8 @@ public class InventoryClickEvent implements Listener {
         pet.petClickEventInventory(e);
         api.onClickHändler(e);
         dr.dailyRewardClick(e);
-        Enchanter.inventoryClicK(e);
         AhListener.onClickAuctionhouse(e);
+        Enchanter.inventoryClick(e);
         getBooks.onClick(e);
     }
 

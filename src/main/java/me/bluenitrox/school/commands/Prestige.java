@@ -57,21 +57,23 @@ public class Prestige implements CommandExecutor {
         }
         return false;
     }
-    public static void onClick(final InventoryClickEvent e){
-        if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
-            e.setCancelled(true);
-            if(e.getCurrentItem().getType() == Material.INK_SACK){
-                UUID uuid = e.getWhoClicked().getUniqueId();
-                Player p = (Player)e.getWhoClicked();
-                if(ExpManager.getLevel(uuid) >= 80){
-                    SchoolMode.playerlevel.remove(uuid);
-                    SchoolMode.playerlevel.put(uuid,1);
-                    TTA_Methods.sendTitle(p,"§6§lGlückwunsch",40,40,40,"§8» §bPrestige Upgrade",40,40,40);
-                    Firework.Firework(p);
-                    MoneyManager.updateMoney(uuid,5000000,false,true);
-                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §65 Mio Gems §7erhalten.");
-                    Bukkit.broadcastMessage(p.getDisplayName() + "§7 hat gerade ein §6§lPrestige Upgrade §7erhalten. §6§lHerzlichen Glückwunsch!!");
-                    ExpManager.updatePrestigeDatabase(uuid,1,false);
+    public static void onClick(final InventoryClickEvent e) {
+        if (e.getCurrentItem() != null) {
+            if (e.getClickedInventory().getName().equalsIgnoreCase(guiname)) {
+                e.setCancelled(true);
+                if (e.getCurrentItem().getType() == Material.INK_SACK) {
+                    UUID uuid = e.getWhoClicked().getUniqueId();
+                    Player p = (Player) e.getWhoClicked();
+                    if (ExpManager.getLevel(uuid) >= 80) {
+                        SchoolMode.playerlevel.remove(uuid);
+                        SchoolMode.playerlevel.put(uuid, 1);
+                        TTA_Methods.sendTitle(p, "§6§lGlückwunsch", 40, 40, 40, "§8» §bPrestige Upgrade", 40, 40, 40);
+                        Firework.Firework(p);
+                        MoneyManager.updateMoney(uuid, 5000000, false, true);
+                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §65 Mio Gems §7erhalten.");
+                        Bukkit.broadcastMessage(p.getDisplayName() + "§7 hat gerade ein §6§lPrestige Upgrade §7erhalten. §6§lHerzlichen Glückwunsch!!");
+                        ExpManager.updatePrestigeDatabase(uuid, 1, false);
+                    }
                 }
             }
         }
