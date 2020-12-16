@@ -3,6 +3,7 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.commands.Mine;
+import me.bluenitrox.school.commands.Prestige;
 import me.bluenitrox.school.commands.getBooks;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
@@ -32,6 +33,7 @@ public class InventoryClickEvent implements Listener {
                 return;
             }
         }
+        Prestige.onClick(e);
         craft.onClick(e);
         SkillSystem.onClick(e);
         caseClick(e);

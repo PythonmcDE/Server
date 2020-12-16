@@ -73,6 +73,22 @@ public class ExpManager {
         return xp;
     }
 
+    public static int getPrestigeDatabase(UUID uuid) {
+        int xp = 0;
+
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT prestige FROM spielerdaten WHERE spieleruuid = ?")) {
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                xp = rs.getInt("prestige");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return xp;
+    }
+
     public static float getExp(UUID uuid) {
         return SchoolMode.getPlayerExp(uuid);
     }
@@ -115,6 +131,24 @@ public class ExpManager {
         }
 
         try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET level = ? WHERE spieleruuid = ?")) {
+            ps.setFloat(1, newAmount);
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updatePrestigeDatabase(UUID uuid, float amount, boolean remove) {
+        float currMoney = getPrestigeDatabase(uuid);
+        float newAmount;
+        if (remove) {
+            newAmount = currMoney - amount;
+        } else {
+            newAmount = (currMoney + amount);
+        }
+
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET prestige = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
