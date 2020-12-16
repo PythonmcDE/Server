@@ -64,6 +64,7 @@ commands:
   tk:
   vanish:
   books:
+  prestige:
   setlevel:
   ah:
     aliases:

@@ -52,12 +52,14 @@ public class Prestige implements CommandExecutor {
             }else {
                 inv.setItem(49,barrier);
             }
+            p.openInventory(inv);
 
         }
         return false;
     }
     public static void onClick(final InventoryClickEvent e){
         if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
+            e.setCancelled(true);
             if(e.getCurrentItem().getType() == Material.INK_SACK){
                 UUID uuid = e.getWhoClicked().getUniqueId();
                 Player p = (Player)e.getWhoClicked();
@@ -69,7 +71,7 @@ public class Prestige implements CommandExecutor {
                     MoneyManager.updateMoney(uuid,5000000,false,true);
                     p.sendMessage(MessageManager.PREFIX + "§7Du hast §65 Mio Gems §7erhalten.");
                     Bukkit.broadcastMessage(p.getDisplayName() + "§7 hat gerade ein §6§lPrestige Upgrade §7erhalten. §6§lHerzlichen Glückwunsch!!");
-                    //TODO UPDATE PRESTIGE
+                    ExpManager.updatePrestigeDatabase(uuid,1,false);
                 }
             }
         }
