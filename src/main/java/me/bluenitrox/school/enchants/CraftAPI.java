@@ -1,18 +1,24 @@
 package me.bluenitrox.school.enchants;
 
+import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.managers.EnchantManager;
+import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
+import net.minecraft.server.v1_8_R3.ItemArmor;
+import net.minecraft.server.v1_8_R3.ItemMapEmpty;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class CraftAPI {
 
@@ -22,13 +28,17 @@ public class CraftAPI {
     public static ArrayList<String> bow = new ArrayList<>();
     public static ArrayList<String> rod = new ArrayList<>();
 
-    public String guiname = "§8» §5Amboss";
+    private static ArrayList<Player> dontgiveItem = new ArrayList<>();
 
-    int slot1 = 19;
-    int slot2 = 22;
+    private static final String guiname = "§8» §5Amboss";
+
+
+    private static final int slot1 = 19;
+    private static final int slot2 = 22;
 
     public void onClick(final InventoryClickEvent e){
         Player p = (Player) e.getWhoClicked();
+        UUID uuid = p.getUniqueId();
         if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
              if(e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE || e.getCurrentItem().getType() == Material.SLIME_BALL || e.getCurrentItem().getType() == Material.BARRIER){
                  e.setCancelled(true);
@@ -37,12 +47,24 @@ public class CraftAPI {
                  String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
                  float price = getPrice(preis[1]);
                  int level = getLevel(preis[1]);
-                 e.getClickedInventory().setItem(25,new ItemBuilder(Material.SLIME_BALL).setDisplayname("§8» §7Item Verzaubern").setLore("§8● §7Kosten:§6 " + level + " Vanilla Level","§8● §7Gem-Kosten:" + price + " Gems").build());
+                 e.getClickedInventory().setItem(25,new ItemBuilder(Material.SLIME_BALL).setDisplayname("§8» §7Item Verzaubern").setLore("§8● §7Kosten:§6§l " + level + " Vanilla Level","§8● §7Gem-Kosten:§6§l " + price + " Gems").build());
              }
              if(e.getCurrentItem().getType() == Material.SLIME_BALL){
                  if(e.getClickedInventory().getItem(slot1).getType() == Material.ENCHANTED_BOOK && e.getClickedInventory().getItem(slot2).getType() == Material.ENCHANTED_BOOK){
                      if(craftBooks(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
-                         craftBooksTogether(p, e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot1)), e.getClickedInventory());
+                         String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
+                         float price = getPrice(preis[1]);
+                         int level = getLevel(preis[1]);
+                         if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
+                             craftBooksTogether(p, e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot1)), e.getClickedInventory());
+                         }
+                     }
+                 }else if(shouldCraftOn(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))){
+                     String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
+                     float price = getPrice(preis[1]);
+                     int level = getLevel(preis[1]);
+                     if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
+                         craftbookon(p,e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot2)),stringToInt(preis[1]), e.getClickedInventory());
                      }
                  }
              }
@@ -131,6 +153,7 @@ public class CraftAPI {
         clickedInv.setItem(slot2, new ItemBuilder(Material.AIR).build());
 
         MoneyManager.updateMoney(p.getUniqueId(),getPrice(intToString(levelofbooks +1)),true,false);
+        p.setLevel(p.getLevel()-(levelofbooks*10));
         p.getInventory().addItem(Antidupe.addID(books));
         p.closeInventory();
         p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -189,6 +212,111 @@ public class CraftAPI {
         }
     }
 
+    private boolean shouldCraftOn(ItemStack is1, ItemStack is2){
+        if(is2.getType() == Material.ENCHANTED_BOOK) {
+            if(isItemForEnchant(is1)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void onClose(final InventoryCloseEvent e){
+        if(e.getInventory().getName().equalsIgnoreCase(guiname)){
+            if(!dontgiveItem.contains(e.getPlayer())){
+                Player p = (Player)e.getPlayer();
+                if(e.getInventory().getItem(slot1) != null) {
+                    p.getInventory().addItem(e.getInventory().getItem(slot1));
+                    e.getInventory().setItem(slot1, new ItemBuilder(Material.AIR).build());
+                    TTA_Methods.sendActionBar(p,"§7» §aDeine Items wurden in dein Inventar gelegt.",20*5);
+                }
+                if(e.getInventory().getItem(slot2) != null) {
+                    p.getInventory().addItem(e.getInventory().getItem(slot2));
+                    e.getInventory().setItem(slot2, new ItemBuilder(Material.AIR).build());
+                    TTA_Methods.sendActionBar(p,"§7» §aDeine Items wurden in dein Inventar gelegt.",20*5);
+                }
+            }
+        }
+    }
+
+    private void craftbookon(Player p, ItemStack item, String enchant, int enchantlevel,Inventory clickedInv){
+        if(hasItemEnchant(item,enchant)){
+            if(isEnchantForItem(item, enchant)) {
+                ItemMeta im = item.getItemMeta();
+                List<String> liste = im.getLore();
+                liste.remove(enchant + intToString(enchantlevel));
+                liste.add(enchant + intToString(enchantlevel + 1));
+                im.setLore(liste);
+                item.setItemMeta(im);
+                dontgiveItem.add(p);
+                p.getInventory().addItem(item);
+                clickedInv.setItem(slot1, new ItemBuilder(Material.AIR).build());
+                clickedInv.setItem(slot2, new ItemBuilder(Material.AIR).build());
+                p.closeInventory();
+                p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
+                MoneyManager.updateMoney(p.getUniqueId(),getPrice(intToString(enchantlevel +1)),true,false);
+                p.setLevel(p.getLevel()-(enchantlevel*10));
+            }else {
+                p.closeInventory();
+                p.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Enchant nicht auf dieses Item machen!");
+                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+            }
+        }else {
+            if(isEnchantForItem(item, enchant)) {
+                Bukkit.broadcastMessage("LEL");
+                ItemMeta im = item.getItemMeta();
+                List<String> liste = im.getLore();
+                if(liste != null) {
+                    liste.add(enchant + intToString(enchantlevel));
+                    im.setLore(liste);
+                }else {
+                    im.setLore(Arrays.asList(enchant + intToString(enchantlevel)));
+                }
+                item.setItemMeta(im);
+                dontgiveItem.add(p);
+                p.getInventory().addItem(item);
+                clickedInv.setItem(slot1, new ItemBuilder(Material.AIR).build());
+                clickedInv.setItem(slot2, new ItemBuilder(Material.AIR).build());
+                p.closeInventory();
+                p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
+                MoneyManager.updateMoney(p.getUniqueId(),getPrice(intToString(enchantlevel)),true,false);
+                p.setLevel(p.getLevel()-(enchantlevel*10));
+            }else {
+                p.closeInventory();
+                p.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Enchant nicht auf dieses Item machen!");
+                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+            }
+        }
+    }
+
+    private boolean isEnchantForItem(ItemStack item, String enchant){
+        if(enchant.startsWith("§6§l")){
+            if(item.getType() == Material.DIAMOND_PICKAXE ||item.getType() == Material.FISHING_ROD || item.getType() == Material.IRON_PICKAXE ){
+                return true;
+            }
+        }else if(enchant.startsWith("§a§l")){
+            if(item.getType() == Material.DIAMOND_HELMET ||item.getType() == Material.DIAMOND_CHESTPLATE ||item.getType() == Material.DIAMOND_LEGGINGS ||item.getType() == Material.DIAMOND_BOOTS ||item.getType() == Material.IRON_HELMET ||item.getType() == Material.IRON_CHESTPLATE ||item.getType() == Material.IRON_LEGGINGS ||item.getType() == Material.IRON_BOOTS || item.getType() == Material.CHAINMAIL_CHESTPLATE ||item.getType() == Material.CHAINMAIL_HELMET ||item.getType() == Material.CHAINMAIL_LEGGINGS ||item.getType() == Material.CHAINMAIL_BOOTS ||item.getType() == Material.LEATHER_CHESTPLATE){
+                return true;
+            }
+        }else if(enchant.startsWith("§9§l")){
+            if(item.getType() == Material.BOW){
+                return true;
+            }
+        }else if(enchant.startsWith("§c§l")){
+            if(item.getType() == Material.DIAMOND_SWORD ||item.getType() == Material.IRON_SWORD){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isItemForEnchant(ItemStack is){
+        if(is.getType() == Material.DIAMOND_HELMET || is.getType() == Material.DIAMOND_CHESTPLATE || is.getType() == Material.DIAMOND_LEGGINGS || is.getType() == Material.DIAMOND_BOOTS || is.getType() == Material.IRON_HELMET ||is.getType() == Material.IRON_CHESTPLATE ||is.getType() == Material.IRON_LEGGINGS ||is.getType() == Material.IRON_BOOTS ||is.getType() == Material.CHAINMAIL_BOOTS ||is.getType() == Material.CHAINMAIL_HELMET ||is.getType() == Material.CHAINMAIL_CHESTPLATE ||is.getType() == Material.CHAINMAIL_LEGGINGS ||is.getType() == Material.CHAINMAIL_HELMET ||is.getType() == Material.DIAMOND_SWORD ||is.getType() == Material.BOW ||is.getType() == Material.IRON_SWORD ||is.getType() == Material.DIAMOND_PICKAXE ||is.getType() == Material.FISHING_ROD ||is.getType() == Material.IRON_PICKAXE){
+            return true;
+        }
+        return false;
+    }
+
     private boolean craftBooks(ItemStack book1, ItemStack book2){
         String book1lore = book1.getItemMeta().getLore().get(0);
         String book2lore = book2.getItemMeta().getLore().get(0);
@@ -204,9 +332,11 @@ public class CraftAPI {
         int line = 200;
         if(item.getItemMeta() != null) {
             if (item.getItemMeta().getLore() != null) {
-                for (int i = 0; i <= 20; i++) {
-                    if(item.getItemMeta().getLore().get(i).startsWith(enchant)){
-                        line = i;
+                for (int i = 0; i <= item.getItemMeta().getLore().size()-1; i++) {
+                    if(item.getItemMeta().getLore().get(i)!= null) {
+                        if (item.getItemMeta().getLore().get(i).startsWith(enchant)) {
+                            line = i;
+                        }
                     }
                 }
             }
