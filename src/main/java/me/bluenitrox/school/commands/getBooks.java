@@ -2,6 +2,7 @@ package me.bluenitrox.school.commands;
 
 import me.bluenitrox.school.managers.EnchantManager;
 import me.bluenitrox.school.managers.PermissionsManager;
+import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -9,12 +10,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class getBooks implements CommandExecutor {
 
-    private String guiname = "§6§lBücher";
+    private static String guiname = "§6§lBücher";
 
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] strings) {
@@ -107,5 +109,14 @@ public class getBooks implements CommandExecutor {
             p.openInventory(inv);
         }
         return false;
+    }
+
+    public static void onClick(final InventoryClickEvent e){
+        if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
+            e.setCancelled(true);
+            if(e.getCurrentItem().getType() == Material.ENCHANTED_BOOK){
+                e.getWhoClicked().getInventory().addItem(Antidupe.addID(e.getCurrentItem()));
+            }
+        }
     }
 }

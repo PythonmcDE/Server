@@ -3,6 +3,7 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.commands.Mine;
+import me.bluenitrox.school.commands.getBooks;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.enchants.CraftAPI;
@@ -44,6 +45,7 @@ public class InventoryClickEvent implements Listener {
         dr.dailyRewardClick(e);
         Enchanter.inventoryClicK(e);
         AhListener.onClickAuctionhouse(e);
+        getBooks.onClick(e);
     }
 
     private void caseClick(org.bukkit.event.inventory.InventoryClickEvent e){
