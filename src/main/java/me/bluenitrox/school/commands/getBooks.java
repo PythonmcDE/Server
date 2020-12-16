@@ -6,6 +6,7 @@ import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -116,6 +117,8 @@ public class getBooks implements CommandExecutor {
             e.setCancelled(true);
             if(e.getCurrentItem().getType() == Material.ENCHANTED_BOOK){
                 e.getWhoClicked().getInventory().addItem(Antidupe.addID(e.getCurrentItem()));
+                Player p = (Player)e.getWhoClicked();
+                p.playSound(p.getLocation(), Sound.CHICKEN_EGG_POP, 1L, 1L);
             }
         }
     }
