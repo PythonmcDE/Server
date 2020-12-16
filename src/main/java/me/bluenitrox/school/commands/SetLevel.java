@@ -14,7 +14,9 @@ public class SetLevel implements CommandExecutor {
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player)cs;
         if(p.hasPermission(PermissionsManager.ALLPERMS)) {
-            p.setLevel(Integer.parseInt(args[1]));
+            if(args.length == 1) {
+                p.setLevel(Integer.parseInt(args[0]));
+            }
         }else {
             p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
         }
