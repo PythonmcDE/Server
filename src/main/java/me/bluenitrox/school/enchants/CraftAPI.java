@@ -169,7 +169,7 @@ public class CraftAPI {
         p.setLevel(p.getLevel()-(levelofbooks*10));
         p.getInventory().addItem(Antidupe.addID(books));
         p.closeInventory();
-        p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+        p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
 
     }
 
@@ -248,35 +248,42 @@ public class CraftAPI {
                     e.getInventory().setItem(slot2, new ItemBuilder(Material.AIR).build());
                     TTA_Methods.sendActionBar(p,"§7» §aDeine Items wurden in dein Inventar gelegt.",20*5);
                 }
+            }else {
+                dontgiveItem.remove(e.getPlayer());
             }
         }
     }
 
     private void craftbookon(Player p, ItemStack item, String enchant, int enchantlevel,Inventory clickedInv){
         if(hasItemEnchant(item,enchant)){
-            if(isEnchantForItem(item, enchant)) {
-                ItemMeta im = item.getItemMeta();
-                List<String> liste = im.getLore();
-                liste.remove(enchant + intToString(enchantlevel));
-                liste.add(enchant + intToString(enchantlevel + 1));
-                im.setLore(liste);
-                item.setItemMeta(im);
-                dontgiveItem.add(p);
-                p.getInventory().addItem(item);
-                clickedInv.setItem(slot1, new ItemBuilder(Material.AIR).build());
-                clickedInv.setItem(slot2, new ItemBuilder(Material.AIR).build());
-                p.closeInventory();
-                p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
-                MoneyManager.updateMoney(p.getUniqueId(),getPrice(intToString(enchantlevel +1)),true,false);
-                p.setLevel(p.getLevel()-(enchantlevel*10));
+            if(item.getItemMeta().getLore().contains(enchant + intToString(enchantlevel))) {
+                if (isEnchantForItem(item, enchant)) {
+                    ItemMeta im = item.getItemMeta();
+                    List<String> liste = im.getLore();
+                    liste.remove(enchant + intToString(enchantlevel));
+                    liste.add(enchant + intToString(enchantlevel + 1));
+                    im.setLore(liste);
+                    item.setItemMeta(im);
+                    dontgiveItem.add(p);
+                    p.getInventory().addItem(item);
+                    clickedInv.setItem(slot1, new ItemBuilder(Material.AIR).build());
+                    clickedInv.setItem(slot2, new ItemBuilder(Material.AIR).build());
+                    p.closeInventory();
+                    p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
+                    MoneyManager.updateMoney(p.getUniqueId(), getPrice(intToString(enchantlevel + 1)), true, false);
+                    p.setLevel(p.getLevel() - (enchantlevel * 10));
+                } else {
+                    p.closeInventory();
+                    p.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Enchant §cnicht §7auf dieses Item machen!");
+                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                }
             }else {
                 p.closeInventory();
-                p.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Enchant nicht auf dieses Item machen!");
+                p.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Enchant §cnicht §7auf dieses Item machen!");
                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             }
         }else {
             if(isEnchantForItem(item, enchant)) {
-                Bukkit.broadcastMessage("LEL");
                 ItemMeta im = item.getItemMeta();
                 List<String> liste = im.getLore();
                 if(liste != null) {
@@ -296,7 +303,7 @@ public class CraftAPI {
                 p.setLevel(p.getLevel()-(enchantlevel*10));
             }else {
                 p.closeInventory();
-                p.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Enchant nicht auf dieses Item machen!");
+                p.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Enchant §cnicht §7auf dieses Item machen!");
                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             }
         }
