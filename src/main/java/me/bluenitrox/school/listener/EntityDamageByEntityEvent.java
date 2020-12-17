@@ -1,8 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.enchants.armor.*;
-import me.bluenitrox.school.enchants.bow.Blackout;
-import me.bluenitrox.school.enchants.bow.Dynamite;
+import me.bluenitrox.school.enchants.bow.*;
 import me.bluenitrox.school.enchants.sword.*;
 import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.managers.WorldManager;
@@ -122,6 +121,9 @@ public class EntityDamageByEntityEvent implements Listener {
             Projectile projectile = (Projectile) e.getDamager();
             Blackout.blackoutAuslösen((Player) projectile.getShooter(),(Player)e.getEntity());
             Dynamite.dynamiteAuslösen((Player) projectile.getShooter(),(Player)e.getEntity());
+            Fesseln.fesselnAuslösen((Player) projectile.getShooter(),(Player)e.getEntity());
+            Tod.todAuslösen((Player) projectile.getShooter(),(Player)e.getEntity());
+            Strahlen.strahlenAuslösen((Player) projectile.getShooter(),(Player)e.getEntity());
         }
     }
 
