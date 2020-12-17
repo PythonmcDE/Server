@@ -91,6 +91,8 @@ public class EnchantAPI {
             case 1:
                 if(i == 1){
                     return true;
+                }else {
+                    return false;
                 }
             case 2:
                 for(int wert = 1;  wert <= 2; wert++) {
@@ -98,54 +100,63 @@ public class EnchantAPI {
                         return true;
                     }
                 }
+                return false;
             case 3:
                 for(int wert = 1;  wert <= 3; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 4:
                 for(int wert = 1;  wert <= 4; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 5:
                 for(int wert = 1;  wert <= 5; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 6:
                 for(int wert = 1;  wert <= 6; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 7:
                 for(int wert = 1;  wert <= 7; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 8:
                 for(int wert = 1;  wert <= 8; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 9:
                 for(int wert = 1;  wert <= 9; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 10:
                 for(int wert = 1;  wert <= 10; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             default:
                 return false;
         }
@@ -158,6 +169,8 @@ public class EnchantAPI {
             case 1:
                 if(i == 1){
                     return true;
+                }else {
+                    return false;
                 }
             case 2:
                 for(int wert = 1;  wert <= 2; wert++) {
@@ -165,54 +178,63 @@ public class EnchantAPI {
                         return true;
                     }
                 }
+                return false;
             case 3:
                 for(int wert = 1;  wert <= 3; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 4:
                 for(int wert = 1;  wert <= 4; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 5:
                 for(int wert = 1;  wert <= 5; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 6:
                 for(int wert = 1;  wert <= 6; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 7:
                 for(int wert = 1;  wert <= 7; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 8:
                 for(int wert = 1;  wert <= 8; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 9:
                 for(int wert = 1;  wert <= 9; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 10:
                 for(int wert = 1;  wert <= 10; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             default:
                 return false;
         }
@@ -225,6 +247,8 @@ public class EnchantAPI {
             case 1:
                 if(i == 1){
                     return true;
+                }else {
+                    return false;
                 }
             case 2:
                 for(int wert = 1;  wert <= 2; wert++) {
@@ -232,54 +256,63 @@ public class EnchantAPI {
                         return true;
                     }
                 }
+                return false;
             case 3:
                 for(int wert = 1;  wert <= 3; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 4:
                 for(int wert = 1;  wert <= 4; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 5:
                 for(int wert = 1;  wert <= 5; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 6:
                 for(int wert = 1;  wert <= 6; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 7:
                 for(int wert = 1;  wert <= 7; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 8:
                 for(int wert = 1;  wert <= 8; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 9:
                 for(int wert = 1;  wert <= 9; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 10:
                 for(int wert = 1;  wert <= 10; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             default:
                 return false;
         }
@@ -292,6 +325,8 @@ public class EnchantAPI {
             case 1:
                 if(i == 1){
                     return true;
+                }else {
+                    return false;
                 }
             case 2:
                 for(int wert = 1;  wert <= 2; wert++) {
@@ -299,54 +334,63 @@ public class EnchantAPI {
                         return true;
                     }
                 }
+                return false;
             case 3:
                 for(int wert = 1;  wert <= 3; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 4:
                 for(int wert = 1;  wert <= 4; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 5:
                 for(int wert = 1;  wert <= 5; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 6:
                 for(int wert = 1;  wert <= 6; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 7:
                 for(int wert = 1;  wert <= 7; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 8:
                 for(int wert = 1;  wert <= 8; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 9:
                 for(int wert = 1;  wert <= 9; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             case 10:
                 for(int wert = 1;  wert <= 10; wert++) {
                     if (i == wert) {
                         return true;
                     }
                 }
+                return false;
             default:
                 return false;
         }

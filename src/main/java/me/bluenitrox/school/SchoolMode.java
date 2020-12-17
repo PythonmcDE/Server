@@ -23,12 +23,10 @@ import me.bluenitrox.school.mysql.MySQL_File;
 import me.bluenitrox.school.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -172,6 +170,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new CreatureSpawnEvent(), this);
         pm.registerEvents(new PlayerInteractEntityEvent(), this);
         pm.registerEvents(new PlayerChangedWorldEvent(), this);
+        pm.registerEvents(new BlockExplodeEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/8)");
