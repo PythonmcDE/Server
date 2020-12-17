@@ -2,6 +2,7 @@ package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.commands.Build;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;
+import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,7 +20,6 @@ public class BreakBlockEvent implements Listener {
 
     public int dropBonus;
     public ArrayList<String> allowedWorldToBuild = new ArrayList<>();
-    public String plotworld = "plotworld";
 
     public static ConcurrentHashMap<String, Integer> minen = new ConcurrentHashMap<>();
 
@@ -31,15 +31,21 @@ public class BreakBlockEvent implements Listener {
     public void onBreak(BlockBreakEvent e) {
         dropBonus = 1;
         Player p = e.getPlayer();
+        WorldManager wm = new WorldManager();
         if(Build.build.contains(p)) {
             return;
         }
-        if(p.getWorld().getName().equalsIgnoreCase(plotworld)) return;
+        if(p.getWorld().getName().equalsIgnoreCase(wm.plotworld)) return;
 
-        if((PlayerBreakBlockManager.breakBlock(p, e.getBlock().getLocation(), dropBonus))) {
-            addItemToInv(p,e.getBlock());
-            PlayerBreakBlockManager.updateBlocks(p.getUniqueId(),false);
-        }else {
+        if(p.getWorld().getName().equalsIgnoreCase(wm.mine)) {
+            if ((PlayerBreakBlockManager.breakBlock(p, e.getBlock().getLocation(), dropBonus))) {
+                addItemToInv(p, e.getBlock());
+                PlayerBreakBlockManager.updateBlocks(p.getUniqueId(), false);
+            } else {
+                e.setCancelled(true);
+                e.setExpToDrop(0);
+            }
+        } else {
             e.setCancelled(true);
             e.setExpToDrop(0);
         }

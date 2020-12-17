@@ -1,16 +1,20 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.enchants.armor.*;
+import me.bluenitrox.school.enchants.bow.Blackout;
 import me.bluenitrox.school.enchants.sword.*;
 import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.utils.ArmorUtil;
 import me.bluenitrox.school.warzone.CombatAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.projectiles.ProjectileSource;
 
 public class EntityDamageByEntityEvent implements Listener {
 
@@ -24,6 +28,11 @@ public class EntityDamageByEntityEvent implements Listener {
             combat.onhitCombat(e);
         }
         if(e.getEntity() instanceof Player && e.getDamager() instanceof Player){
+            /*
+
+            SCHWERT ENCHANTS
+
+             */
             Player damager = (Player) e.getDamager();
             Player entity = (Player)e.getEntity();
             if(damager.getItemInHand() != null){
@@ -38,6 +47,12 @@ public class EntityDamageByEntityEvent implements Listener {
                     }
                 }
             }
+
+            /*
+
+            ARMOR ENCHANTS
+
+             */
             ArmorUtil util = new ArmorUtil();
 
             ItemStack helm = entity.getInventory().getHelmet();
@@ -82,6 +97,11 @@ public class EntityDamageByEntityEvent implements Listener {
                 ObsidianSchild.obischildAuslösen(entity,boots);
             }
         }else if(e.getDamager() instanceof Player){
+            /*
+
+            SCHWERT ENCHANT
+
+             */
             Player damager = (Player) e.getDamager();
             Entity entity = e.getEntity();
             if(damager.getItemInHand() != null) {
@@ -91,6 +111,15 @@ public class EntityDamageByEntityEvent implements Listener {
                     }
                 }
             }
+        }
+        if(e.getDamager() instanceof Projectile && e.getEntity() instanceof Player){
+            /*
+
+
+
+             */
+            Projectile projectile = (Projectile) e.getDamager();
+            Blackout.blackoutAuslösen((Player) projectile.getShooter(),(Player)e.getEntity());
         }
     }
 

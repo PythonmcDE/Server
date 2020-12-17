@@ -2,9 +2,10 @@ package me.bluenitrox.school.managers;
 
 public class WorldManager {
 
-    public String spawn = "Spawn";
-    public String plotworld = "PlotWelt";
-    public String warzone = "Spawn";
-    public String arena = "Arena";
+    public final String spawn = "Spawn";
+    public final String plotworld = "PlotWelt";
+    public final String warzone = "Spawn";
+    public final String arena = "Arena";
+    public final String mine = "Minen";
 
 }
