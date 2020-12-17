@@ -115,7 +115,7 @@ public class EntityDamageByEntityEvent implements Listener {
         if(e.getDamager() instanceof Projectile && e.getEntity() instanceof Player){
             /*
 
-
+            BOW ENCHANT
 
              */
             Projectile projectile = (Projectile) e.getDamager();
