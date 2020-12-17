@@ -39,7 +39,7 @@ public class Ah_CMD implements CommandExecutor {
                 AhManager.openAh(invah, 1, p);
 
             }else {
-                p.sendMessage(MessageManager.PREFIX + "§7Das Ah ist §cdeaktivert!");
+                p.sendMessage(MessageManager.PREFIX + "§7Das §6Auktionshaus §7ist derzeit in §cWartungw!");
             }
         }else if(args.length == 2) {
             if(MessageManager.ah) {
@@ -87,7 +87,7 @@ public class Ah_CMD implements CommandExecutor {
                     AhManager.sellItem(p.getItemInHand(), p, preis, invah);
 
                 } else {
-                    p.sendMessage(MessageManager.PREFIX + "§7Das Ah ist §cdeaktivert!");
+                    p.sendMessage(MessageManager.PREFIX + "§7Das §6Auktionshaus §7ist derzeit in §cWartungw!");
                 }
             } else {
                 p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
