@@ -21,7 +21,7 @@ public class Heal implements CommandExecutor {
                         p.sendMessage(MessageManager.PLAYERISOFFLINE(PlayerJoinManager.language));
                         return true;
                     }
-                    t.setHealth(t.getHealth());
+                    t.setHealth(t.getMaxHealth());
                     t.setFoodLevel(20);
                     p.sendMessage(MessageManager.PLAYERHEAL);
                     t.sendMessage(MessageManager.PLAYERWASHEAL(PlayerJoinManager.language));

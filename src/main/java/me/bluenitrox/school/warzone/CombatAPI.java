@@ -3,6 +3,7 @@ package me.bluenitrox.school.warzone;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.WorldManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -20,10 +21,12 @@ public class CombatAPI {
     public HashMap<Player, Integer> fightwarzone = new HashMap<>();
 
     public void onhitCombat(EntityDamageByEntityEvent e) {
-        /*WorldManager wm = new WorldManager();
+        WorldManager wm = new WorldManager();
         if (e.getEntity().getWorld().getName().equalsIgnoreCase(wm.warzone)) {
             if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
+                Bukkit.broadcastMessage(getWarzoneByLocation(e.getEntity().getLocation()));
                 if (getWarzoneByLocation(e.getEntity().getLocation()) != null) {
+                    Bukkit.broadcastMessage("LELELELLE");
                     Player p = (Player) e.getEntity();
                     Player d = (Player) e.getDamager();
                     if (!fightwarzone.containsKey(p)) {
@@ -36,18 +39,29 @@ public class CombatAPI {
                     fight.put(d, 30);
                 }
             }
-        }*/
+        }
     }
 
     public static void onQuit(Player p){
         if(fight.containsKey(p)){
+            Bukkit.broadcastMessage("TOT");
             p.damage(100);
         }
     }
 
     public String getWarzoneByLocation(Location loc) {
-        for (int i = 1; i <= maxwarzone; i++) {
+        for (int i = 1; i <= 1; i++) {
             String curr = String.valueOf(i);
+            loc.setPitch(0);
+            loc.setYaw(0);
+            loc.setX(Math.round(loc.getX()));
+            loc.setZ(Math.round(loc.getZ()));
+            loc.setY(Math.round(loc.getY()));
+            Bukkit.broadcastMessage(getBlocks(curr) +"");
+            Bukkit.broadcastMessage(loc +"");
+            if(getBlocks(curr).contains(loc)){
+                Bukkit.broadcastMessage("LELELEL");
+            }
             if (getBlocks(curr).contains(loc)) {
                 return curr;
             }
@@ -69,7 +83,7 @@ public class CombatAPI {
         List<Location> templist = new ArrayList<>();
 
         String temp = "warzonepoint1" + warzone;
-        String temp2 = "warzonepoint1" + warzone;
+        String temp2 = "warzonepoint2" + warzone;
         loc1 = new LocationManager(temp).getLocation();
         loc2 = new LocationManager(temp2).getLocation();
         templist.add(loc1);
