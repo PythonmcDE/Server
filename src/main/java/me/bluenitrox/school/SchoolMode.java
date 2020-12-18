@@ -21,6 +21,7 @@ import me.bluenitrox.school.mine.manager.Minenreset;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
 import me.bluenitrox.school.utils.*;
+import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
@@ -434,6 +435,13 @@ public class SchoolMode extends JavaPlugin {
                             KitAPI.meister.put(uuid,KitAPI.meister.get(uuid)-1);
                         }else {
                             KitAPI.meister.remove(uuid);
+                        }
+                    }
+                    if(CombatAPI.fight.containsKey(Bukkit.getPlayer(uuid))){
+                        if(CombatAPI.fight.get(Bukkit.getPlayer(uuid)) > 1){
+                            CombatAPI.fight.put(Bukkit.getPlayer(uuid),CombatAPI.fight.get(Bukkit.getPlayer(uuid))-1);
+                        }else {
+                            CombatAPI.fight.remove(Bukkit.getPlayer(uuid));
                         }
                     }
                 }

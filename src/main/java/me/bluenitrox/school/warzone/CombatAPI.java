@@ -26,7 +26,6 @@ public class CombatAPI {
             if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
                 Bukkit.broadcastMessage(getWarzoneByLocation(e.getEntity().getLocation()));
                 if (getWarzoneByLocation(e.getEntity().getLocation()) != null) {
-                    Bukkit.broadcastMessage("LELELELLE");
                     Player p = (Player) e.getEntity();
                     Player d = (Player) e.getDamager();
                     if (!fightwarzone.containsKey(p)) {
@@ -44,7 +43,6 @@ public class CombatAPI {
 
     public static void onQuit(Player p){
         if(fight.containsKey(p)){
-            Bukkit.broadcastMessage("TOT");
             p.damage(100);
         }
     }
@@ -57,11 +55,6 @@ public class CombatAPI {
             loc.setX(Math.round(loc.getX()));
             loc.setZ(Math.round(loc.getZ()));
             loc.setY(Math.round(loc.getY()));
-            Bukkit.broadcastMessage(getBlocks(curr) +"");
-            Bukkit.broadcastMessage(loc +"");
-            if(getBlocks(curr).contains(loc)){
-                Bukkit.broadcastMessage("LELELEL");
-            }
             if (getBlocks(curr).contains(loc)) {
                 return curr;
             }
