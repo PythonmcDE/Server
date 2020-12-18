@@ -90,6 +90,18 @@ public class PreCraftEvent implements Listener {
                 }
             }
         }
+
+        Material itemType12222 = e.getRecipe().getResult().getType();
+        if (itemType12222 == Material.GOLDEN_APPLE && e.getRecipe().getResult().getDurability() == 1) {
+            e.getInventory().setResult(new ItemStack(Material.AIR));
+            for(HumanEntity he:e.getViewers()) {
+                if(he instanceof Player) {
+                    he.closeInventory();
+                    he.sendMessage(MessageManager.CANTCRAFTTHIS(PlayerJoinManager.language));
+                }
+            }
+        }
+
     }
 
 }
