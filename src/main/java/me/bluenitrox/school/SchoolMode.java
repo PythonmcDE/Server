@@ -440,6 +440,7 @@ public class SchoolMode extends JavaPlugin {
                     if(CombatAPI.fight.containsKey(Bukkit.getPlayer(uuid))){
                         if(CombatAPI.fight.get(Bukkit.getPlayer(uuid)) > 1){
                             CombatAPI.fight.put(Bukkit.getPlayer(uuid),CombatAPI.fight.get(Bukkit.getPlayer(uuid))-1);
+                            CombatAPI.updateTimeBar(Bukkit.getPlayer(uuid));
                         }else {
                             CombatAPI.fight.remove(Bukkit.getPlayer(uuid));
                         }

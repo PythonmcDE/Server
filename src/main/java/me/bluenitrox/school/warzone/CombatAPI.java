@@ -3,8 +3,12 @@ package me.bluenitrox.school.warzone;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.WorldManager;
+import net.minecraft.server.v1_8_R3.IChatBaseComponent;
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -12,10 +16,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class CombatAPI {
 
-    private int maxwarzone = 3;
+    private final int maxwarzone = 3;
 
     public static HashMap<Player, Integer> fight = new HashMap<>();
     public HashMap<Player, Integer> fightwarzone = new HashMap<>();
@@ -29,13 +34,15 @@ public class CombatAPI {
                     Player p = (Player) e.getEntity();
                     Player d = (Player) e.getDamager();
                     if (!fightwarzone.containsKey(p)) {
-                        fightwarzone.put(p, Integer.parseInt(getWarzoneByLocation(p.getLocation())));
+                        fightwarzone.put(p, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(p.getLocation()))));
                     }
                     if (!fightwarzone.containsKey(d)) {
-                        fightwarzone.put(d, Integer.parseInt(getWarzoneByLocation(d.getLocation())));
+                        fightwarzone.put(d, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(d.getLocation()))));
                     }
-                    fight.put(p, 30);
-                    fight.put(d, 30);
+                    fight.put(p, 25);
+                    fight.put(d, 25);
+                    updateTimeBar(p);
+                    updateTimeBar(d);
                 }
             }
         }
@@ -47,7 +54,7 @@ public class CombatAPI {
         }
     }
 
-    public String getWarzoneByLocation(Location loc) {
+    private String getWarzoneByLocation(Location loc) {
         for (int i = 1; i <= 1; i++) {
             String curr = String.valueOf(i);
             loc.setPitch(0);
@@ -62,7 +69,7 @@ public class CombatAPI {
         return null;
     }
 
-    public List<Location> getBlocks(String warzone){
+    private List<Location> getBlocks(String warzone){
         List<Location> locs = getEckPoints("warzone" + warzone);
         Location loc1 = locs.get(0);
         Location loc2 = locs.get(1);
@@ -70,7 +77,7 @@ public class CombatAPI {
         return getAllLocationsInside(loc1, loc2);
     }
 
-    public List<Location> getEckPoints(String warzone){
+    private List<Location> getEckPoints(String warzone){
         Location loc1;
         Location loc2;
         List<Location> templist = new ArrayList<>();
@@ -84,7 +91,7 @@ public class CombatAPI {
         return templist;
     }
 
-    public List<Location> getAllLocationsInside(Location loc1, Location loc2){
+    private List<Location> getAllLocationsInside(Location loc1, Location loc2){
         int yTop = 0;
         int yBottom = 0;
         int xTop = 0;
@@ -122,6 +129,22 @@ public class CombatAPI {
                     locs.add(new Location(loc1.getWorld(), x, y, z));
         return locs;
 
+    }
+
+    public static void updateTimeBar(Player p){
+        final String msg = "§8« §c§lIm Kampf §7- §6§l" + fight.get(p) +" Sekunden §8»";
+        Bukkit.getOnlinePlayers().forEach(players ->{
+            if(fight.containsKey(players)) {
+                sendActionbar(players, msg);
+            }
+        });
+    }
+
+    private static void sendActionbar(final Player player, final String message) {
+        final IChatBaseComponent iChatBaseComponent = IChatBaseComponent.ChatSerializer
+                .a("{\"text\": \"" + ChatColor.translateAlternateColorCodes('&', message) + "\"}");
+        final PacketPlayOutChat packet = new PacketPlayOutChat(iChatBaseComponent, (byte) 2);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
     }
 
 }
