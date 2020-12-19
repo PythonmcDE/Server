@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -29,10 +30,25 @@ public class CombatAPI {
         WorldManager wm = new WorldManager();
         if (e.getEntity().getWorld().getName().equalsIgnoreCase(wm.warzone)) {
             if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
-                Bukkit.broadcastMessage(getWarzoneByLocation(e.getEntity().getLocation()));
                 if (getWarzoneByLocation(e.getEntity().getLocation()) != null) {
                     Player p = (Player) e.getEntity();
                     Player d = (Player) e.getDamager();
+                    if (!fightwarzone.containsKey(p)) {
+                        fightwarzone.put(p, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(p.getLocation()))));
+                    }
+                    if (!fightwarzone.containsKey(d)) {
+                        fightwarzone.put(d, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(d.getLocation()))));
+                    }
+                    fight.put(p, 25);
+                    fight.put(d, 25);
+                    updateTimeBar(p);
+                    updateTimeBar(d);
+                }
+            }else if(e.getDamager() instanceof Projectile && e.getEntity() instanceof Player){
+                if (getWarzoneByLocation(e.getEntity().getLocation()) != null) {
+                    Player p = (Player) e.getEntity();
+                    Projectile projectile = (Projectile)e.getDamager();
+                    Player d = (Player) projectile.getShooter();
                     if (!fightwarzone.containsKey(p)) {
                         fightwarzone.put(p, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(p.getLocation()))));
                     }
