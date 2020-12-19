@@ -28,11 +28,12 @@ public class PlayerCommandPreprocessEvent implements Listener {
 
         if(CombatAPI.fight.containsKey(p)){
             normal = new ArrayList<>();
+            registerNormalCommand();
             registerFightCommand();
             if(!p.hasPermission(PermissionsManager.COMMANDBLOCK)){
                 if(normal.contains(e.getMessage())){
                     e.setCancelled(true);
-                    p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
+                    p.sendMessage(MessageManager.PREFIX + "§7Du kannst diesen Command im Kampf §cnicht §7ausführen!");
                     return;
                 }
             }
@@ -89,21 +90,6 @@ public class PlayerCommandPreprocessEvent implements Listener {
     }
 
     private void registerFightCommand(){
-        normal.add("/acc");
-        normal.add("/me");
-        normal.add("/tell");
-        normal.add("/op");
-        normal.add("/?");
-        normal.add("/!");
-        normal.add("/help");
-        normal.add("/abount");
-        normal.add("/version");
-        normal.add("/ver");
-        normal.add("/pl");
-        normal.add("/plugins");
-        normal.add("/plugin");
-        normal.add("/anticrash");
-        normal.add("/händler");
         normal.add("/plot");
         normal.add("/p");
         normal.add("/plotworld");
@@ -118,6 +104,13 @@ public class PlayerCommandPreprocessEvent implements Listener {
         normal.add("/auctionhouse");
         normal.add("/auction");
         normal.add("/auctions");
+        normal.add("/v");
+        normal.add("/vanish");
+        normal.add("/kit");
+        normal.add("/feed");
+        normal.add("/heal");
+        normal.add("/gm");
+        normal.add("/gamemode");
     }
 
 }
