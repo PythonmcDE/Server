@@ -42,46 +42,48 @@ public class CraftAPI {
     public void onClick(final InventoryClickEvent e){
         Player p = (Player) e.getWhoClicked();
         UUID uuid = p.getUniqueId();
-        if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
-             if(e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE || e.getCurrentItem().getType() == Material.SLIME_BALL || e.getCurrentItem().getType() == Material.BARRIER){
-                 e.setCancelled(true);
-             }
+        if(e.getClickedInventory().getName() != null) {
+            if (e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null) {
+                if (e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE || e.getCurrentItem().getType() == Material.SLIME_BALL || e.getCurrentItem().getType() == Material.BARRIER) {
+                    e.setCancelled(true);
+                }
 
-             if(e.getCurrentItem().getType() == Material.SLIME_BALL){
-                 if(e.getClickedInventory().getItem(slot1).getType() == Material.ENCHANTED_BOOK && e.getClickedInventory().getItem(slot2).getType() == Material.ENCHANTED_BOOK){
-                     if(craftBooks(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
-                         String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
-                         float price = getPrice(preis[1]);
-                         int level = getLevel(preis[1]);
-                         if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
-                             craftBooksTogether(p, e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot1)), e.getClickedInventory());
-                         }else {
-                             p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug §6Geld §7oder §6Level§7.");
-                             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                             p.closeInventory();
-                         }
-                     }else {
-                         p.sendMessage(MessageManager.PREFIX + "§7Das ist so §cnicht §7möglich. Schaue auf unserer Website §8(§fDemonMC.eu§8) §7wie du es richtig machst!");
-                         p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                         p.closeInventory();
-                     }
-                 }else if(shouldCraftOn(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))){
-                     String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
-                     float price = getPrice(preis[1]);
-                     int level = getLevel(preis[1]);
-                     if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
-                         craftbookon(p,e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot2)),stringToInt(preis[1]), e.getClickedInventory());
-                     }else {
-                         p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug §6Geld §7oder §6Level§7.");
-                         p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                         p.closeInventory();
-                     }
-                 }else {
-                     p.sendMessage(MessageManager.PREFIX + "§7Das ist so nicht möglich. Schaue auf unserer Website §8(§fDemonMC.eu§8) §7wie du es richtig machst!");
-                     p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                     p.closeInventory();
-                 }
-             }
+                if (e.getCurrentItem().getType() == Material.SLIME_BALL) {
+                    if (e.getClickedInventory().getItem(slot1).getType() == Material.ENCHANTED_BOOK && e.getClickedInventory().getItem(slot2).getType() == Material.ENCHANTED_BOOK) {
+                        if (craftBooks(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
+                            String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
+                            float price = getPrice(preis[1]);
+                            int level = getLevel(preis[1]);
+                            if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
+                                craftBooksTogether(p, e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot1)), e.getClickedInventory());
+                            } else {
+                                p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug §6Geld §7oder §6Level§7.");
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                p.closeInventory();
+                            }
+                        } else {
+                            p.sendMessage(MessageManager.PREFIX + "§7Das ist so §cnicht §7möglich. Schaue auf unserer Website §8(§fDemonMC.eu§8) §7wie du es richtig machst!");
+                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                            p.closeInventory();
+                        }
+                    } else if (shouldCraftOn(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
+                        String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
+                        float price = getPrice(preis[1]);
+                        int level = getLevel(preis[1]);
+                        if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
+                            craftbookon(p, e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot2)), stringToInt(preis[1]), e.getClickedInventory());
+                        } else {
+                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug §6Geld §7oder §6Level§7.");
+                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                            p.closeInventory();
+                        }
+                    } else {
+                        p.sendMessage(MessageManager.PREFIX + "§7Das ist so nicht möglich. Schaue auf unserer Website §8(§fDemonMC.eu§8) §7wie du es richtig machst!");
+                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                        p.closeInventory();
+                    }
+                }
+            }
         }
     }
 
@@ -326,6 +328,10 @@ public class CraftAPI {
             if(item.getType() == Material.DIAMOND_SWORD ||item.getType() == Material.IRON_SWORD){
                 return true;
             }
+        }else if(enchant.startsWith("§f§l")){
+            if(item.getType() == Material.DIAMOND_PICKAXE ||item.getType() == Material.FISHING_ROD || item.getType() == Material.IRON_PICKAXE||item.getType() == Material.BOW || item.getType() == Material.DIAMOND_SWORD ||item.getType() == Material.IRON_SWORD ||item.getType() == Material.DIAMOND_HELMET ||item.getType() == Material.DIAMOND_CHESTPLATE ||item.getType() == Material.DIAMOND_LEGGINGS ||item.getType() == Material.DIAMOND_BOOTS ||item.getType() == Material.IRON_HELMET ||item.getType() == Material.IRON_CHESTPLATE ||item.getType() == Material.IRON_LEGGINGS ||item.getType() == Material.IRON_BOOTS || item.getType() == Material.CHAINMAIL_CHESTPLATE ||item.getType() == Material.CHAINMAIL_HELMET ||item.getType() == Material.CHAINMAIL_LEGGINGS ||item.getType() == Material.CHAINMAIL_BOOTS ||item.getType() == Material.LEATHER_CHESTPLATE){
+                return true;
+            }
         }
         return false;
     }
@@ -493,6 +499,10 @@ public class CraftAPI {
                     return EnchantManager.Fischerglück;
                 }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Goldhaken)){
                     return EnchantManager.Goldhaken;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Erhalt)){
+                    return EnchantManager.Erhalt;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Rune)){
+                    return EnchantManager.Rune;
                 }
             }
         }

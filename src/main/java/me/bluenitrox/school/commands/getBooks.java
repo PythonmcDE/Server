@@ -111,7 +111,7 @@ public class getBooks implements CommandExecutor {
                 inv.setItem(44, is);
 
                 p.openInventory(inv);
-            }else if(args.length == 2){
+            }else if(args.length == 1){
                 if(args[0].equalsIgnoreCase("zwei")){
                     Inventory inv = Bukkit.createInventory(null, 9 * 6, guiname);
 

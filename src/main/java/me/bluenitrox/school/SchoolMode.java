@@ -443,6 +443,7 @@ public class SchoolMode extends JavaPlugin {
                             CombatAPI.updateTimeBar(Bukkit.getPlayer(uuid));
                         }else {
                             CombatAPI.fight.remove(Bukkit.getPlayer(uuid));
+                            CombatAPI.fightwarzone.remove(Bukkit.getPlayer(uuid));
                         }
                     }
                 }

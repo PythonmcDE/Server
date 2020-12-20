@@ -1,9 +1,11 @@
 package me.bluenitrox.school.listener;
 
+import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.enchants.all.Erhalt;
 import me.bluenitrox.school.enchants.sword.Kopfgeld;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.managers.WorldManager;
+import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,9 +22,9 @@ public class PlayerDeathEvent implements Listener {
         e.setDeathMessage(null);
         if(k != null) {
             if(p.getWorld().getName().equalsIgnoreCase(wm.warzone)) {
+                Erhalt.giveItem(p);
                 Schatzmeister.giveInventorySchatzmeister(k, p.getInventory(), p, e);
                 Kopfgeld.giveHead(k, p);
-                Erhalt.giveItem(p);
             }
         }
     }

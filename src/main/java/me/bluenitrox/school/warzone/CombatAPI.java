@@ -24,7 +24,7 @@ public class CombatAPI {
     private final int maxwarzone = 3;
 
     public static HashMap<Player, Integer> fight = new HashMap<>();
-    public HashMap<Player, Integer> fightwarzone = new HashMap<>();
+    public static HashMap<Player, Integer> fightwarzone = new HashMap<>();
 
     public void onhitCombat(EntityDamageByEntityEvent e) {
         WorldManager wm = new WorldManager();
