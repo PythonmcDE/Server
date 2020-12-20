@@ -111,6 +111,25 @@ public class getBooks implements CommandExecutor {
                 inv.setItem(44, is);
 
                 p.openInventory(inv);
+            }else if(args.length == 2){
+                if(args[0].equalsIgnoreCase("zwei")){
+                    Inventory inv = Bukkit.createInventory(null, 9 * 6, guiname);
+
+                    for (int i = 0; i <= 8; i++) {
+                        inv.setItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build());
+                    }
+                    for (int i = 45; i <= 53; i++) {
+                        inv.setItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build());
+                    }
+
+                    ItemStack is1 = new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§8» §6§lMagisches Buch").setLore(EnchantManager.Erhalt + "I").build();
+                    ItemStack is2 = new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§8» §6§lMagisches Buch").setLore(EnchantManager.Rune + "I").build();
+
+                    inv.setItem(9,is1);
+                    inv.setItem(10,is2);
+
+                    p.openInventory(inv);
+                }
             }
         }else {
             p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
