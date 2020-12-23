@@ -6,6 +6,7 @@ import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.plot.PlotCommandList;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -25,6 +26,22 @@ public class PlayerCommandPreprocessEvent implements Listener {
     public void onCommandSend(final org.bukkit.event.player.PlayerCommandPreprocessEvent e){
         Player p = (Player)e.getPlayer();
 
+        normal = new ArrayList<>();
+        registerNormalCommand();
+
+        if(!p.hasPermission(PermissionsManager.COMMANDBLOCK)) {
+            if (normal.contains(e.getMessage())) {
+                e.setCancelled(true);
+                p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
+                return;
+            }else if(!startP(e.getMessage())){
+                if(e.getMessage().startsWith("plot")){
+                    e.setCancelled(true);
+                    p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
+                    return;
+                }
+            }
+        }
 
         if(CombatAPI.fight.containsKey(p)){
             normal = new ArrayList<>();
@@ -36,6 +53,13 @@ public class PlayerCommandPreprocessEvent implements Listener {
                     p.sendMessage(MessageManager.PREFIX + "§7Du kannst diesen Command im Kampf §cnicht §7ausführen!");
                     return;
                 }
+            }
+        }
+
+        if(startP(e.getMessage())){
+            if(PlotCommandList.replaceCommand(e)){
+                e.setCancelled(true);
+                return;
             }
         }
 
@@ -58,17 +82,6 @@ public class PlayerCommandPreprocessEvent implements Listener {
             e.setCancelled(true);
             return;
         }
-
-        normal = new ArrayList<>();
-        registerNormalCommand();
-
-        if(!p.hasPermission(PermissionsManager.COMMANDBLOCK)) {
-            if (normal.contains(e.getMessage())) {
-                e.setCancelled(true);
-                p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
-                return;
-            }
-        }
     }
 
     private void registerNormalCommand(){
@@ -87,6 +100,11 @@ public class PlayerCommandPreprocessEvent implements Listener {
         normal.add("/plugin");
         normal.add("/anticrash");
         normal.add("/händler");
+        normal.add("/p");
+        normal.add("/p h");
+        normal.add("/p auto");
+        normal.add("/p claim");
+        normal.add("/p merge");
     }
 
     private void registerFightCommand(){
@@ -111,6 +129,27 @@ public class PlayerCommandPreprocessEvent implements Listener {
         normal.add("/heal");
         normal.add("/gm");
         normal.add("/gamemode");
+    }
+
+    private boolean startP(String p){
+        if(p.startsWith("/p ")){
+            return true;
+        }else if(p.startsWith("/p2 ")){
+            return true;
+        }else if(p.startsWith("/plot ")){
+            return true;
+        }else if(p.startsWith("/plots ")){
+            return true;
+        }else if(p.startsWith("/ps ")){
+            return true;
+        }else if(p.startsWith("/2 ")){
+            return true;
+        }else if(p.startsWith("/plotsquared ")){
+            return true;
+        }else if(p.startsWith("/plotme ")){
+            return true;
+        }
+        return false;
     }
 
 }
