@@ -40,7 +40,7 @@ public class Enchanter {
         ItemStack tisch = new ItemBuilder(Material.ENCHANTMENT_TABLE).setDisplayname("§8» §6§lZaubertisch").setLore("§6§l▶ §7Unser §5Verzauberungs-System §7funktioniert", "§6§l▶ §7ein wenig anders, als das normale.", " ", "§cInfo:", "§8● §7Wenn du mehr erfahren willst, besuche", "§8● §7doch unsere Website §8(§fDemonMC.eu§8)").build("isInInv");
         ItemStack notokay = new ItemBuilder(Material.BARRIER).setDisplayname("§8» §cUngültige Verzauberung").setLore("§8● §7Entweder liegt kein Item auf dem freien Slot,", "§8● §7oder dieses kann nicht verzaubert werden.").build("isInInv");
         ItemStack glasblack = new ItemBuilder(Material.STAINED_GLASS_PANE, (short)15).setDisplayname(" ").build("isInInv");
-
+        
         for(int i = 0; i<= 8; i++){
             inv.setItem(i, glas);
         }

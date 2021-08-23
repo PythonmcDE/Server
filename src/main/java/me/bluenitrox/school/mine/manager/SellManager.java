@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class SellManager {
     public enum Preise {
-        STONE("STONE", 20),
+        STONE("STONE", 6),
         COAL("COAL",80),
         IRON_INGOT("IRON_INGOT", 160),
         GOLD_INGOT("GOLD_INGOT",500),

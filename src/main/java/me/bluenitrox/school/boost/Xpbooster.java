@@ -8,7 +8,7 @@ public class Xpbooster extends Boost{
 
     public Xpbooster() {
         setName("§bXp-Booster");
-        setLenth(45);
+        setLenth(60);
     }
 
     @Override

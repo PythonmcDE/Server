@@ -54,7 +54,7 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Integer> playerchest = new HashMap<>();
     public static HashMap<UUID, Integer> playergemlimit = new HashMap<>();
     public static ArrayList<UUID> playerwason = new ArrayList<>();
-    public static HashMap<String,Entity> Pets = new HashMap<String, Entity>();
+    public static HashMap<String,Entity> Pets = new HashMap<>();
     private static final Random r = new Random();
     private BoosterManager boostermanager;
     public BoosterManager getBoostermanager() {
@@ -138,6 +138,8 @@ public class SchoolMode extends JavaPlugin {
         getCommand("setlevel").setExecutor(new SetLevel());
         getCommand("prestige").setExecutor(new Prestige());
         getCommand("plotworld").setExecutor(new Plotworld());
+        getCommand("mülleimer").setExecutor(new Mülleimer());
+        getCommand("getBooks").setExecutor(new GetLeveledBooks());
 
 
         //
@@ -185,7 +187,7 @@ public class SchoolMode extends JavaPlugin {
                AhManager.openedAH.clear();
                 Pet.openCooldown.clear();
             }
-        }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
+        }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*5, 20*5);
     }
     private void startMySQL() {
         Bukkit.getConsoleSender().sendMessage("§4Verbinde zu §4MySQL...");

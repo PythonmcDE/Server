@@ -38,6 +38,7 @@ public class CaseAPI {
         clearAllArrays();
         getCasePot(cases, p);
 
+
         Inventory inv = Bukkit.getServer().createInventory(null, 9 * 3, toCase(cases));
 
         ItemStack hopper = new ItemBuilder(Material.HOPPER).setDisplayname("§e§lDein Gewinn").setLore("§b» §7Wenn die Case zum Stillstand kommt, bekommst", "§b» §7du das Item auf diesem Slot.").addEnchant(Enchantment.ARROW_DAMAGE, 10, false).build();

@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class MessageManager {
 
-    public static final String PREFIX = "§c§lDemonMC §8» ";
+    public static final String PREFIX = "§a§lPythonMC §8» ";
     public static final String ERROR = PREFIX + "§7Es ist ein §cFehler §7aufgetreten! Bitte Versuche es erneut";
     public static final String NOPLAYER = PREFIX + "§7Dazu musst du ein §cSpieler §7sein";
     public static final String KONTOSTANDOFOTHER = PREFIX + "§7Der Kontostand des Spielers §e";
@@ -186,7 +186,7 @@ public class MessageManager {
 
     public static boolean ah = true;
     public static final int MONEY_BOOSTER_BOOST = 2;
-    public static final int MAX_MINE = 25;
+    public static final int MAX_MINE = 2;
 
     public static final int MINE_1_PREIS = 0;
     public static final int MINE_2_PREIS = 20000;

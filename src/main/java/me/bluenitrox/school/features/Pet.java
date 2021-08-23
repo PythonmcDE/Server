@@ -78,10 +78,10 @@ public class Pet {
                         this.cancel();
                     }
                     if(makeOrNot80(expToLevel(api.getFarid(p.getUniqueId())))){
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1, 20*3));
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*3, 1));
                     }
                 }
-            }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
+            }.runTaskTimer(SchoolMode.getInstance(), 20*10, 20*10);
         }else if(pet == PetType.EDDY) {
             new BukkitRunnable() {
                 @Override
@@ -94,10 +94,10 @@ public class Pet {
                         this.cancel();
                     }
                     if(makeOrNot80(expToLevel(api.getEddy(p.getUniqueId())))){
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1, 20*3));
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*3, 1));
                     }
                 }
-            }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
+            }.runTaskTimer(SchoolMode.getInstance(), 20*10, 20*10);
         }else if(pet == PetType.HELGAR) {
             new BukkitRunnable() {
                 @Override
@@ -110,10 +110,10 @@ public class Pet {
                         this.cancel();
                     }
                     if(makeOrNot80(expToLevel(api.getHelgar(p.getUniqueId())))){
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 1, 20*3));
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 20*3, 1));
                     }
                 }
-            }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
+            }.runTaskTimer(SchoolMode.getInstance(), 20*10, 20*10);
         }else if(pet == PetType.PETER) {
             new BukkitRunnable() {
                 @Override
@@ -126,18 +126,17 @@ public class Pet {
                         this.cancel();
                     }
                     if(makeOrNot80(expToLevel(api.getPeter(p.getUniqueId())))){
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1, 20*3));
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 1, 20*3));
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*3, 1));
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20*3, 1));
                     }
                 }
-            }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
+            }.runTaskTimer(SchoolMode.getInstance(), 20*10, 20*10);
 
         }
     }
 
     private boolean makeOrNot80(int i){
         int r = new Random().nextInt(15);
-
         switch (r){
             case 1:
                 if(i == 10 || i == 9|| i == 8|| i == 7|| i == 6|| i == 5|| i == 4|| i == 3|| i == 2|| i == 1){
@@ -208,85 +207,91 @@ public class Pet {
         PetAPI api = new PetAPI();
         UUID uuid = p.getUniqueId();
 
-        if(p.getItemInHand().getItemMeta().getDisplayName().startsWith("§6Haustier")) {
-            e.setCancelled(true);
+        if(p.getItemInHand() != null) {
+            if (p.getItemInHand().getItemMeta() != null) {
+                if (p.getItemInHand().getItemMeta().getDisplayName() != null) {
+                    if (p.getItemInHand().getItemMeta().getDisplayName().startsWith("§6Haustier")) {
+                        e.setCancelled(true);
 
-            if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Benjamin")) {
-                if (api.getBenjamin(uuid) == 0) {
-                    api.updateBenjamin(uuid, 1, false);
-                    p.sendMessage(MessageManager.PETUSED);
-                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                } else {
-                    p.sendMessage(MessageManager.PETALREADYHAS);
-                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                    return;
+                        if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Benjamin")) {
+                            if (api.getBenjamin(uuid) == 0) {
+                                api.updateBenjamin(uuid, 1, false);
+                                p.sendMessage(MessageManager.PETUSED);
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            } else {
+                                p.sendMessage(MessageManager.PETALREADYHAS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                return;
+                            }
+                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Merlin")) {
+                            if (api.getMerlin(uuid) == 0) {
+                                api.updateMerlin(uuid, 1, false);
+                                p.sendMessage(MessageManager.PETUSED);
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            } else {
+                                p.sendMessage(MessageManager.PETALREADYHAS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                return;
+                            }
+                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Eddy")) {
+                            if (api.getEddy(uuid) == 0) {
+                                api.updateEddy(uuid, 1, false);
+                                p.sendMessage(MessageManager.PETUSED);
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            } else {
+                                p.sendMessage(MessageManager.PETALREADYHAS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                return;
+                            }
+                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Anton")) {
+                            if (api.getAnton(uuid) == 0) {
+                                api.updateAnton(uuid, 1, false);
+                                p.sendMessage(MessageManager.PETUSED);
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            } else {
+                                p.sendMessage(MessageManager.PETALREADYHAS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                return;
+                            }
+                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Helgar")) {
+                            if (api.getHelgar(uuid) == 0) {
+                                api.updateHelgar(uuid, 1, false);
+                                p.sendMessage(MessageManager.PETUSED);
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            } else {
+                                p.sendMessage(MessageManager.PETALREADYHAS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                return;
+                            }
+                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Farid")) {
+                            if (api.getFarid(uuid) == 0) {
+                                api.updateFarid(uuid, 1, false);
+                                p.sendMessage(MessageManager.PETUSED);
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            } else {
+                                p.sendMessage(MessageManager.PETALREADYHAS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                return;
+                            }
+                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Peter")) {
+                            if (api.getPeter(uuid) == 0) {
+                                api.updatePeter(uuid, 1, false);
+                                p.sendMessage(MessageManager.PETUSED);
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            } else {
+                                p.sendMessage(MessageManager.PETALREADYHAS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                return;
+                            }
+                        }
+                        if (p.getItemInHand().getAmount() > 1) {
+                            p.getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
+                        } else if (p.getItemInHand().getAmount() == 1) {
+                            ItemStack air = new ItemStack(Material.AIR);
+                            p.setItemInHand(air);
+                        }
+                    }
                 }
-            } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Merlin")) {
-                if (api.getMerlin(uuid) == 0) {
-                    api.updateMerlin(uuid, 1, false);
-                    p.sendMessage(MessageManager.PETUSED);
-                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                } else {
-                    p.sendMessage(MessageManager.PETALREADYHAS);
-                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                    return;
-                }
-            } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Eddy")) {
-                if (api.getEddy(uuid) == 0) {
-                    api.updateEddy(uuid, 1, false);
-                    p.sendMessage(MessageManager.PETUSED);
-                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                } else {
-                    p.sendMessage(MessageManager.PETALREADYHAS);
-                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                    return;
-                }
-            } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Anton")) {
-                if (api.getAnton(uuid) == 0) {
-                    api.updateAnton(uuid, 1, false);
-                    p.sendMessage(MessageManager.PETUSED);
-                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                } else {
-                    p.sendMessage(MessageManager.PETALREADYHAS);
-                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                    return;
-                }
-            } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Helgar")) {
-                if (api.getHelgar(uuid) == 0) {
-                    api.updateHelgar(uuid, 1, false);
-                    p.sendMessage(MessageManager.PETUSED);
-                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                } else {
-                    p.sendMessage(MessageManager.PETALREADYHAS);
-                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                    return;
-                }
-            } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Farid")) {
-                if (api.getFarid(uuid) == 0) {
-                    api.updateFarid(uuid, 1, false);
-                    p.sendMessage(MessageManager.PETUSED);
-                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                } else {
-                    p.sendMessage(MessageManager.PETALREADYHAS);
-                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                    return;
-                }
-            } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Peter")) {
-                if (api.getPeter(uuid) == 0) {
-                    api.updatePeter(uuid, 1, false);
-                    p.sendMessage(MessageManager.PETUSED);
-                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                } else {
-                    p.sendMessage(MessageManager.PETALREADYHAS);
-                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                    return;
-                }
-            }
-            if (p.getItemInHand().getAmount() > 1) {
-                p.getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
-            } else if (p.getItemInHand().getAmount() == 1) {
-                ItemStack air = new ItemStack(Material.AIR);
-                p.setItemInHand(air);
             }
         }
     }
@@ -316,21 +321,21 @@ public class Pet {
         inv.setItem(49,barrier);
 
         if(api.getBenjamin(uuid) > 0){
-            ItemStack tie1 = new ItemBuilder(Material.MONSTER_EGG, (short) 67).setDisplayname("§6Haustier : Benjamin").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.BENJAMIN),"§8● §7Akuelles XP:§6 " + api.getBenjamin(p.getUniqueId())," ","§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
+            ItemStack tie1 = new ItemBuilder(Material.MONSTER_EGG, (short) 90).setDisplayname("§6Haustier : Benjamin").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.BENJAMIN),"§8● §7Akuelles XP:§6 " + api.getBenjamin(p.getUniqueId())," ","§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
             inv.setItem(9,tie1);
         }else {
             inv.setItem(9,barrier2);
         }
 
         if(api.getMerlin(uuid) > 0){
-            ItemStack tie2 = new ItemBuilder(Material.MONSTER_EGG, (short) 65).setDisplayname("§6Haustier : Merlin").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.MERLIN),"§8● §7Akuelles XP:§6 " + api.getMerlin(p.getUniqueId())," ","§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
+            ItemStack tie2 = new ItemBuilder(Material.MONSTER_EGG, (short) 91).setDisplayname("§6Haustier : Merlin").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.MERLIN),"§8● §7Akuelles XP:§6 " + api.getMerlin(p.getUniqueId())," ","§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
             inv.setItem(10,tie2);
         }else {
             inv.setItem(10,barrier2);
         }
 
         if(api.getEddy(uuid) > 0){
-            ItemStack tie3 = new ItemBuilder(Material.MONSTER_EGG, (short) 62).setDisplayname("§6Haustier : Eddy").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.EDDY),"§8● §7Akuelles XP:§6 " + api.getEddy(p.getUniqueId())," ","§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
+            ItemStack tie3 = new ItemBuilder(Material.MONSTER_EGG, (short) 92).setDisplayname("§6Haustier : Eddy").setLore("§7Statistiken:","§8● §7Aktuelles Level:§6 " + getLevel(p,PetType.EDDY),"§8● §7Akuelles XP:§6 " + api.getEddy(p.getUniqueId())," ","§8» §aKlicke hier§7, um dieses §6Haustier §7zu §aspawnen§7.").build();
             inv.setItem(11,tie3);
         }else {
             inv.setItem(11,barrier2);
@@ -392,11 +397,11 @@ public class Pet {
     public PetType entityToPetType(EntityType type){
         if(type == EntityType.WOLF){
             return PetType.FARID;
-        }else if(type == EntityType.ENDERMITE){
+        }else if(type == EntityType.PIG){
             return PetType.BENJAMIN;
-        }else if(type == EntityType.MAGMA_CUBE){
+        }else if(type == EntityType.COW){
             return PetType.EDDY;
-        }else if(type == EntityType.BAT){
+        }else if(type == EntityType.SHEEP){
             return PetType.MERLIN;
         }else if(type == EntityType.OCELOT){
             return PetType.ANTON;
@@ -457,7 +462,7 @@ public class Pet {
         if(SchoolMode.Pets != null) {
             if (SchoolMode.Pets.containsKey(player.getName())) {
                 for (Entity all : player.getWorld().getEntities()) {
-                    if (all.getName().equalsIgnoreCase("§8[§6" + getLevel(player,entityToPetType(type)) + "§8] " + player.getDisplayName() + " 's §6§lTier")) {
+                    if (all.getName().equalsIgnoreCase("§8[§6" + getLevel(player,entityToPetType(type)) + "§8]§7 " + player.getDisplayName() + " 's §6§lTier")) {
                         all.remove();
                     }
                 }
@@ -465,7 +470,7 @@ public class Pet {
             }
         }
         Entity entity = (Entity) player.getWorld().spawnEntity(player.getLocation(), type);
-        entity.setCustomName("§8[§6" + getLevel(player,entityToPetType(type)) + "§8] " + player.getDisplayName() + " 's §6§lTier");
+        entity.setCustomName("§8[§6" + getLevel(player,entityToPetType(type)) + "§8]§7 " + player.getDisplayName() + " 's §6§lTier");
         entity.setCustomNameVisible(true);
         SchoolMode.Pets.put(player.getName(), entity);
         player.playSound(player.getLocation(), Sound.BAT_DEATH, 1L, 1L);

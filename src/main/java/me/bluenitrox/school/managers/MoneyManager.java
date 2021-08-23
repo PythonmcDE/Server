@@ -36,8 +36,8 @@ public class MoneyManager {
                 } else {
                     Moneybooster money = new Moneybooster();
                     if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
-                        float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
-                        SchoolMode.setPlayerMoney(uuid, newAmount * MessageManager.MONEY_BOOSTER_BOOST);
+                        float newAmount = SchoolMode.getPlayerMoney(uuid) + (amount* MessageManager.MONEY_BOOSTER_BOOST);
+                        SchoolMode.setPlayerMoney(uuid, newAmount);
                         ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
                         updateGemlimit(uuid,amount, true);
                         return true;

@@ -31,21 +31,54 @@ public class Schatzmeister {
         if(p.getItemInHand() != null) {
             if (p.getItemInHand().getItemMeta() != null) {
                 if(p.getItemInHand().getItemMeta().getLore() != null) {
-                    if (p.getItemInHand().getItemMeta().getLore().contains(EnchantManager.schatzmeister)) {
+                    if (p.getItemInHand().getItemMeta().getLore().contains(EnchantManager.schatzmeister + "I")) {
+                        Bukkit.broadcastMessage("TEstInventory");
                         ItemStack chest = new ItemBuilder(Material.CHEST).setDisplayname("§8» §cInventar von §b" + inventoryowner.getDisplayName()).setLore("§6§l▶ §7Rechtsklicke die Kiste um die Items", "§6§l▶ §7deines §cGegners §7zu bekommen!").build();
 
                         NBTTags nbt = new NBTTags(chest);
-                        nbt.setNBTTag("itemsiddata", putInDatabase(inv) +" ID");
+                        nbt.setNBTTag("itemsiddata", putInDatabase(addArmorToInv(inv, inventoryowner)) +" ID");
+
+                        Bukkit.broadcastMessage("TEST");
 
                         p.getInventory().addItem(Antidupe.addID(chest));
                         e.setDroppedExp(0);
                         e.setKeepInventory(true);
                         inventoryowner.getInventory().clear();
-                        ArmorUtil.setArmorNull(p);
+                        ArmorUtil.setArmorNull(inventoryowner);
                     }
                 }
             }
         }
+    }
+
+    private static Inventory addArmorToInv(Inventory inv, Player inventoryowner){
+        Inventory returninv = inv;
+
+        ItemStack helmet = inventoryowner.getInventory().getHelmet();
+        ItemStack chestplate = inventoryowner.getInventory().getChestplate();
+        ItemStack leggings = inventoryowner.getInventory().getLeggings();
+        ItemStack boots = inventoryowner.getInventory().getBoots();
+
+        int round = 0;
+
+        for(int i = 0 ; i <= inv.getSize(); i++){
+            if(inv.getItem(i) == null){
+                if(round == 0) {
+                    returninv.setItem(i, helmet);
+                    round++;
+                }else if(round == 1) {
+                    returninv.setItem(i, chestplate);
+                    round++;
+                }else if(round == 2) {
+                    returninv.setItem(i, leggings);
+                    round++;
+                }else if(round == 3) {
+                    returninv.setItem(i, boots);
+                    round++;
+                }
+            }
+        }
+        return returninv;
     }
 
     public static void openInventory(Player p, PlayerInteractEvent e){

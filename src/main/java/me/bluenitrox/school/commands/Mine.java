@@ -156,17 +156,23 @@ public class Mine implements CommandExecutor {
         return false;
     }
 
-    public static void onMinenClick(InventoryClickEvent e){
-        if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
-            e.setCancelled(true);
-            if(e.getCurrentItem().getType() != Material.STAINED_GLASS_PANE) {
-                if (e.getCurrentItem().getItemMeta().getLore().size() != 2) {
-                    String[] mine = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
-                    buyMine(Integer.parseInt(mine[2]), e.getWhoClicked().getUniqueId(), PlayerJoinManager.language);
-                } else {
-                    String[] name = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
-                    e.getWhoClicked().teleport(new LocationManager("mine" + name[2]).getLocation());
-                    e.getWhoClicked().sendMessage(MessageManager.TPTOMINE);
+    public static void onMinenClick(InventoryClickEvent e) {
+        if (e.getClickedInventory().getName().equalsIgnoreCase(guiname)) {
+            if (e.getCurrentItem() != null) {
+                e.setCancelled(true);
+                if (e.getCurrentItem().getType() != Material.STAINED_GLASS_PANE && e.getCurrentItem().getType() != Material.IRON_PICKAXE) {
+                    if (e.getCurrentItem().getItemMeta() != null) {
+                        if (e.getCurrentItem().getItemMeta().getLore() != null) {
+                            if (e.getCurrentItem().getItemMeta().getLore().size() != 2) {
+                                String[] mine = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
+                                buyMine(Integer.parseInt(mine[2]), e.getWhoClicked().getUniqueId(), PlayerJoinManager.language);
+                            } else {
+                                String[] name = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
+                                e.getWhoClicked().teleport(new LocationManager("mine" + name[2]).getLocation());
+                                e.getWhoClicked().sendMessage(MessageManager.TPTOMINE);
+                            }
+                        }
+                    }
                 }
             }
         }

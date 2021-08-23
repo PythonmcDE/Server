@@ -11,6 +11,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -88,6 +89,17 @@ public class Schmied {
                     p.sendMessage(MessageManager.NOTMONEY(PlayerJoinManager.language));
                     p.closeInventory();
                     p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L,1L);
+                }
+            }
+        }
+    }
+
+    public static void onClose(InventoryCloseEvent e){
+        if(e.getInventory().getName() != null) {
+            if (e.getInventory().getName().equals(GUI_NAME)) {
+                if (e.getInventory().getItem(22) != null) {
+                    e.getPlayer().getInventory().addItem(e.getInventory().getItem(22));
+                    e.getInventory().setItem(22, new ItemBuilder(Material.AIR).build());
                 }
             }
         }

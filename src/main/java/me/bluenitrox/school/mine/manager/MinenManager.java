@@ -158,6 +158,7 @@ public class MinenManager {
     public String getMineByLocation(Location loc) {
         for (int i = 1; i <= MessageManager.MAX_MINE; i++) {
             String curr = String.valueOf(i);
+            loc.setWorld(null);
             if (getBlocks(curr).contains(loc)) {
                 return curr;
             }
@@ -169,7 +170,6 @@ public class MinenManager {
         List<Location> locs = getEckPoints("mine" + mine);
         Location loc1 = locs.get(0);
         Location loc2 = locs.get(1);
-
         return getAllLocationsInside(loc1, loc2);
     }
 
@@ -182,6 +182,8 @@ public class MinenManager {
         String temp2 = "eckpoint2" + mine;
         loc1 = new LocationManager(temp).getLocation();
         loc2 = new LocationManager(temp2).getLocation();
+        loc1.setWorld(null);
+        loc2.setWorld(null);
         templist.add(loc1);
         templist.add(loc2);
         return templist;
@@ -195,8 +197,8 @@ public class MinenManager {
         int zTop = 0;
         int zBottom = 0;
 
-        List<Location> locs = new ArrayList<>();
 
+        List<Location> locs = new ArrayList<>();
         if(loc1.getBlockY() >= loc2.getBlockY()) {
             yTop = loc1.getBlockY();
             yBottom = loc2.getBlockY();
@@ -219,15 +221,16 @@ public class MinenManager {
             zTop = loc2.getBlockZ();
             zBottom = loc1.getBlockZ();
         }
-        for(int x = xBottom; x < xTop; x++)
-            for(int y = yBottom; y < yTop; y++)
-                for(int z = zBottom; z < zTop; z++)
+        for(int x = xBottom; x <= xTop; x++)
+            for(int y = yBottom; y <= yTop; y++)
+                for(int z = zBottom; z <= zTop; z++)
                     locs.add(new Location(loc1.getWorld(), x, y, z));
         return locs;
 
     }
 
-    public boolean isInMine(Player p, Location loc1, Location loc2){
+
+    /*public boolean isInMine(Player p, Location loc1, Location loc2){
         List<Location> getLocations = getAllLocationsInside(loc1, loc2);
 
 
@@ -237,5 +240,5 @@ public class MinenManager {
             return true;
         else
             return false;
-    }
+    }*/
 }

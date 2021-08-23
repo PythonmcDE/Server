@@ -34,13 +34,13 @@ public class Minenreset {
         String temp2 = "eckpoint2" + mine;
         Location eckpoint1 = new LocationManager(temp).getLocation();
         Location eckpoint2 = new LocationManager(temp2).getLocation();
-        World w = eckpoint1.getWorld();
+        World w = Bukkit.getWorld("Minen");
 
         int minX = Math.min(eckpoint1.getBlockX(), eckpoint2.getBlockX());
         int minY = Math.min(eckpoint1.getBlockY(), eckpoint2.getBlockY());
         int minZ = Math.min(eckpoint1.getBlockZ(), eckpoint2.getBlockZ());
         int maxX = Math.max(eckpoint1.getBlockX(), eckpoint2.getBlockX());
-        int maxY = Math.max(eckpoint1.getBlockY(), eckpoint2.getBlockY());
+        int maxY = Math.max(eckpoint1.getBlockY(), eckpoint2.getBlockY()) -1;
         int maxZ = Math.max(eckpoint1.getBlockZ(), eckpoint2.getBlockZ());
 
         for(int x3 = minX; x3 <= maxX; x3++) {
@@ -54,11 +54,9 @@ public class Minenreset {
             }
         }
         for(Player all: Bukkit.getOnlinePlayers()) {
-            if (all.getLocation().getBlockX() >= eckpoint1.getBlockX() && all.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
-                if (all.getLocation().getBlockY() >= eckpoint1.getBlockY() && all.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
-                    if (all.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && all.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
-                        all.teleport(new LocationManager(mine).getLocation());
-                    }
+            if(all.getWorld().getName().equals("Minen")){
+                if(teleportRequest(all,eckpoint1,eckpoint2,mine)){
+                    all.teleport(new LocationManager(mine).getLocation());
                 }
             }
         }
@@ -655,6 +653,220 @@ public class Minenreset {
                 hashmine.add(Material.EMERALD_BLOCK);
             }
         }
+    }
+
+    private boolean teleportRequest(Player p, Location eckpoint1, Location eckpoint2, String mine){
+        if(mine.equals("mine1")) {
+            if (p.getLocation().getBlockX() <= eckpoint1.getBlockX() && p.getLocation().getBlockX() >= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() <= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() >= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine2")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }/* TODO HIER DIE FUCKING MINEN FREISCHALTEN SOBALD SIE VERFÜGBAR SIND
+        else if(mine.equals("mine3")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine4")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine5")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine6")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine7")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine8")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine9")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine10")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine11")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine12")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine13")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine14")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine15")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine16")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine17")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine18")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine19")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine20")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine2")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine21")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine22")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine23")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine24")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }else if(mine.equals("mine25")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }*/
+        return false;
     }
 
 }

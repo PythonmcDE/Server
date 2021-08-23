@@ -152,7 +152,7 @@ public class AhManager {
         Timestamp ablaufdatum = new Timestamp(cal.getTime().getTime());
 
         if(is.getType() == Material.CHEST || is.getType() == Material.SIGN || is.getType() == Material.STAINED_GLASS_PANE || is.getType() == Material.PAPER){
-            p.sendMessage("§7Dieses Item kannst du §cnicht §7ins ah stellen!");
+            p.sendMessage(MessageManager.PREFIX + "§7Dieses Item kannst du §cnicht §7ins ah stellen!");
             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             return;
         }
@@ -170,7 +170,7 @@ public class AhManager {
             ps.setTimestamp(4, einstelldatum);
             ps.setTimestamp(5, ablaufdatum);
             ps.executeUpdate();
-            p.sendMessage("§7Dein Item wurde erfolgreich ins ah gestellt!");
+            p.sendMessage(MessageManager.PREFIX + "§7Dein Item wurde erfolgreich ins ah gestellt!");
             p.setItemInHand(new ItemBuilder(Material.AIR).build());
 
             try(PreparedStatement ps2 = MySQL.getConnection().prepareStatement("SELECT id FROM AhItems WHERE spieleruuid = ? ORDER BY id DESC LIMIT 1")){
@@ -297,7 +297,7 @@ public class AhManager {
                     return;
                 }
                 if(buyer == Bukkit.getPlayer(UUID.fromString(rs.getString(2)))){
-                    buyer.sendMessage("§cDu kannst deine eigenen Items nicht kaufen!");
+                    buyer.sendMessage(MessageManager.PREFIX + "§cDu kannst deine eigenen Items nicht kaufen!");
                     buyer.closeInventory();
                     buyer.playSound(buyer.getLocation(), Sound.VILLAGER_NO, 1L , 1L);
                     return;
@@ -313,12 +313,12 @@ public class AhManager {
                     try(PreparedStatement ps3 = MySQL.getConnection().prepareStatement("DELETE FROM AhItems WHERE id = ?")){
                         ps3.setInt(1, id);
                         ps3.execute();
-                        buyer.sendMessage("§7Dein Kauf war §aerfolgreich §7du findest dein Item unter abgelaufenen Auktionen im §c/ah §7!");
+                        buyer.sendMessage(MessageManager.PREFIX + "§7Dein Kauf war §aerfolgreich §7du findest dein Item unter abgelaufenen Auktionen im §c/ah §7!");
                         MoneyManager.updateMoney(buyer.getUniqueId(), rs.getInt(4), true,false);
-                        MoneyManager.updateMoney(UUID.fromString(rs.getString(2)),rs.getInt(4), true, false);
+                        MoneyManager.updateMoney(UUID.fromString(rs.getString(2)),rs.getInt(4), false, false);
                         if(Bukkit.getPlayer(UUID.fromString(rs.getString(2))).isOnline()) {
                             Player t = Bukkit.getPlayer(UUID.fromString(rs.getString(2)));
-                            t.sendMessage("§7Deine §6Auktion §7wurde von " + buyer.getName() + "§a gekauft!");
+                            t.sendMessage(MessageManager.PREFIX + "§7Deine §6Auktion §7wurde von " + buyer.getName() + "§a gekauft!");
                             t.playSound(t.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                         }
                         buyer.playSound(buyer.getLocation(), Sound.NOTE_BASS, 1L , 1L);
@@ -433,7 +433,7 @@ public class AhManager {
                                 invah.clear();
                                 setAhContent(invah, currPage, curr);
                                 if(Bukkit.getPlayer(UUID.fromString(rs.getString(2))) != null){
-                                    Bukkit.getPlayer(UUID.fromString(rs.getString(2))).sendMessage("§7Deine Auktion konnte §cnicht §7verkauft werden. Du kannst sie unter §6Abgelaufenen Auktionen §7im §6/ah §7wieder abholen!");
+                                    Bukkit.getPlayer(UUID.fromString(rs.getString(2))).sendMessage(MessageManager.PREFIX + "§7Deine Auktion konnte §cnicht §7verkauft werden. Du kannst sie unter §6Abgelaufenen Auktionen §7im §6/ah §7wieder abholen!");
                                 }
                             }
                     }catch (SQLException ex){

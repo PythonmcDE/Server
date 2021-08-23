@@ -24,7 +24,7 @@ public class Bergmann {
         ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lHändler").setLore("§6§l▶ §7Bei §9§lHändlern §7kannst du bestimmt", "§6§l▶ Items §aerwerben §7oder auch §averkaufen§7.").build();
 
-        ItemStack stein = new ItemBuilder(Material.STONE).setDisplayname("§7Stein").setLore("§8» §7Kaufen:§6 100 Gems", "§8» §7Verkaufen:§6 20 Gems").build();
+        ItemStack stein = new ItemBuilder(Material.STONE).setDisplayname("§7Stein").setLore("§8» §7Kaufen:§6 100 Gems", "§8» §7Verkaufen:§6 6 Gems").build();
         ItemStack feuerstein = new ItemBuilder(Material.FLINT).setDisplayname("§7Feuerstein").setLore("§8» §7Kaufen:§6 600 Gems", "§8» §7Verkaufen:§6 120 Gems").build();
         ItemStack kohle = new ItemBuilder(Material.COAL).setDisplayname("§7Kohle").setLore("§8» §7Kaufen:§6 400 Gems", "§8» §7Verkaufen:§6 80 Gems").build();
         ItemStack holzkohle = new ItemBuilder(Material.COAL, (short)1).setDisplayname("§7Holzkohle").setLore("§8» §7Kaufen:§6 400 Gems", "§8» §7Verkaufen:§6 80 Gems").build();

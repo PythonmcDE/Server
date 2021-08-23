@@ -92,14 +92,13 @@ public class LocationManager {
                 ps.setString(1, this.name);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()){
-                    String weltname = rs.getString("world");
+                    String worldname = rs.getString("world");
                     double x = rs.getDouble("x");
                     double y = rs.getDouble("y");
                     double z = rs.getDouble("z");
                     float yaw = rs.getFloat("yaw");
                     float pitch = rs.getFloat("pitch");
-
-                    return new Location(Bukkit.getWorld(weltname), x, y, z, yaw, pitch);
+                    return new Location(Bukkit.getWorld(worldname), x, y, z, yaw, pitch);
 
                 }
             } catch (SQLException e) {

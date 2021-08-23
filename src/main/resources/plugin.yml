@@ -67,6 +67,8 @@ commands:
       - pw
       - plotwelt
   vanish:
+    aliases:
+      - v
   books:
   prestige:
   setlevel:
@@ -88,3 +90,8 @@ commands:
       - verkaufen
       - sells
       - händler
+  mülleimer:
+    aliases:
+      - trash
+      - müll
+  getBooks:

@@ -3,6 +3,7 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.enchants.all.Erhalt;
 import me.bluenitrox.school.managers.LocationManager;
+import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,33 +17,39 @@ import java.util.Arrays;
 public class PlayerRespawnEvent implements Listener {
 
     @EventHandler
-    public void onRespawn(final org.bukkit.event.player.PlayerRespawnEvent e){
-        Player p = (Player)e.getPlayer();
+    public void onRespawn(final org.bukkit.event.player.PlayerRespawnEvent e) {
+        Player p = (Player) e.getPlayer();
         spawntp(p);
         erhaltItems(p);
+        CombatAPI.fight.remove(p);
+        CombatAPI.fightwarzone.remove(p);
     }
 
-    private void spawntp(Player p){
-        new BukkitRunnable(){
+    private void spawntp(Player p) {
+        new BukkitRunnable() {
             @Override
             public void run() {
-                p.teleport(new LocationManager("spawn").getLocation());
+                p.teleport(new LocationManager("Spawn").getLocation());
 
             }
-        }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 2);
+        }.runTaskLater(SchoolMode.getInstance(), 2);
     }
 
     private void erhaltItems(Player p) {
         new BukkitRunnable() {
+
             @Override
             public void run() {
-                if (Erhalt.items.containsKey(p)) {
-                    for (int i = 0; i < Erhalt.items.get(p).size(); i++) {
-                        ArrayList<ItemStack> array = Erhalt.items.get(p);
-                        p.getInventory().addItem(array.get(i));
+                if (Erhalt.items != null) {
+                    if (Erhalt.items.containsKey(p.getUniqueId())) {
+                        for (int i = 0; i < Erhalt.items.size(); i++) {
+                            ItemStack item = Erhalt.items.get(p.getUniqueId());
+                            p.getInventory().addItem(item);
+                            Erhalt.items.remove(p.getUniqueId());
+                        }
                     }
                 }
             }
-        }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20);
+        }.runTaskLater(SchoolMode.getInstance(), 20);
     }
 }

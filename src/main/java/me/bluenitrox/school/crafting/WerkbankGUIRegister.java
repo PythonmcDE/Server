@@ -105,13 +105,19 @@ public class WerkbankGUIRegister {
                 Inventory inv = Bukkit.createInventory(null, InventoryType.WORKBENCH, guinamewerkbank);
                 p.openInventory(inv);
             }
-        }else if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
+        }else if(e.getClickedInventory().getName().equalsIgnoreCase(guiname)) {
             e.setCancelled(true);
-            if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Normale Werkbank")) {
-                Inventory inv = Bukkit.createInventory(null, InventoryType.WORKBENCH, guinamewerkbank);
-                p.openInventory(inv);
-            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Crafting-Rezepte")){
-                p.openInventory(rezeptMenuSeite1());
+            if (e.getCurrentItem() != null) {
+                if (e.getCurrentItem().getItemMeta() != null) {
+                    if (e.getCurrentItem().getItemMeta().getDisplayName() != null) {
+                        if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Normale Werkbank")) {
+                            Inventory inv = Bukkit.createInventory(null, InventoryType.WORKBENCH, guinamewerkbank);
+                            p.openInventory(inv);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Crafting-Rezepte")) {
+                            p.openInventory(rezeptMenuSeite1());
+                        }
+                    }
+                }
             }
         }
     }

@@ -11,23 +11,26 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Erhalt extends EnchantAPI {
 
-    public static HashMap<Player, ArrayList<ItemStack>> items = new HashMap<>();
+    public static HashMap<UUID, ItemStack> items = new HashMap<>();
 
-    private static ArrayList<ItemStack> itemStacks;
 
     public static void giveItem(Player owner){
-        itemStacks = new ArrayList<>();
         for(int i = 0; i< owner.getInventory().getSize();i++) {
             Inventory inv = owner.getInventory();
             if (inv.getItem(i) != null) {
                 if (inv.getItem(i).getItemMeta() != null) {
                     if (inv.getItem(i).getItemMeta().getLore() != null) {
                         if (hasEnchant(inv.getItem(i), EnchantManager.Erhalt)) {
+                            Bukkit.broadcastMessage("Vor Erhalt aktivierung!");
                             if (makeOrNot80(stringToNumber(inv.getItem(i), EnchantManager.Erhalt))) {
-                                itemStacks.add(inv.getItem(i));
+                                Bukkit.broadcastMessage("Erhalt aktiviert!");
+                                Bukkit.broadcastMessage("§6" + inv.getItem(i).toString());
+                                items.put(owner.getUniqueId(), inv.getItem(i));
+                                Bukkit.broadcastMessage("§a" + items.get(owner.getUniqueId()).toString());
                                 inv.setItem(i, new ItemBuilder(Material.AIR).build());
                             }
                         }
@@ -35,7 +38,6 @@ public class Erhalt extends EnchantAPI {
                 }
             }
         }
-        items.put(owner,itemStacks);
     }
 
 }

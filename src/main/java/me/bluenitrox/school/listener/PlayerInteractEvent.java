@@ -61,13 +61,13 @@ public class PlayerInteractEvent implements Listener {
                 }
             }
             CaseAPI caseapi = new CaseAPI();
+            caseapi.openCase(p,caseapi.fromCase(p.getItemInHand().getItemMeta().getDisplayName()));
             if(p.getItemInHand().getAmount() > 1) {
                 p.getItemInHand().setAmount(p.getItemInHand().getAmount() -1);
             }else if(p.getItemInHand().getAmount() == 1) {
                 ItemStack air = new ItemStack(Material.AIR);
                 p.setItemInHand(air);
             }
-            caseapi.openCase(p,caseapi.fromCase(p.getItemInHand().getItemMeta().getDisplayName()));
         }
     }
 
@@ -76,19 +76,25 @@ public class PlayerInteractEvent implements Listener {
            Beispiel
         "§8» §7Beinhaltet:§6§l 3000 XP"
          */
-        if(p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6§lSchool XP")){
-            e.setCancelled(true);
-            String[] lore = p.getItemInHand().getItemMeta().getLore().get(0).split(" ");
-            int anzahl = Integer.parseInt(lore[2]);
-            ExpManager.updateXP(p.getUniqueId(), anzahl, false);
-            if(p.getItemInHand().getAmount() > 1) {
-                p.getItemInHand().setAmount(p.getItemInHand().getAmount() -1);
-            }else if(p.getItemInHand().getAmount() == 1) {
-                ItemStack air = new ItemStack(Material.AIR);
-                p.setItemInHand(air);
+        if(p.getItemInHand() != null) {
+            if(p.getItemInHand().getItemMeta() != null) {
+                if(p.getItemInHand().getItemMeta().getDisplayName() != null) {
+                    if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6§lSchool XP")) {
+                        e.setCancelled(true);
+                        String[] lore = p.getItemInHand().getItemMeta().getLore().get(0).split(" ");
+                        int anzahl = Integer.parseInt(lore[2]);
+                        ExpManager.updateXP(p.getUniqueId(), anzahl, false);
+                        if (p.getItemInHand().getAmount() > 1) {
+                            p.getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
+                        } else if (p.getItemInHand().getAmount() == 1) {
+                            ItemStack air = new ItemStack(Material.AIR);
+                            p.setItemInHand(air);
+                        }
+                        p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                        p.sendMessage(MessageManager.SCHOOLXP(PlayerJoinManager.language) + anzahl);
+                    }
+                }
             }
-            p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-            p.sendMessage(MessageManager.SCHOOLXP(PlayerJoinManager.language) + anzahl);
         }
     }
 

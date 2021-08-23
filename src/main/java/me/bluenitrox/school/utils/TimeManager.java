@@ -2,6 +2,7 @@ package me.bluenitrox.school.utils;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.mysql.MySQL;
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.PreparedStatement;
@@ -26,7 +27,7 @@ public class TimeManager {
                 }
             }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20*60);
             return true;
-        }else if(sdf.format(currentDate).equalsIgnoreCase("11-07")){
+        }else if(sdf.format(currentDate).equalsIgnoreCase("15-07")){
             return true;
         }
         return false;

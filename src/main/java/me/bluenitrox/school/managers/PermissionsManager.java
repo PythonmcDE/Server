@@ -34,5 +34,6 @@ public class PermissionsManager {
     public static final String VANISHBYPASS = "System.vanishbypass";
     public static final String VANISH = "System.vanish";
     public static final String TP = "System.tp";
+    public static final String NPCS = "System.npc.use";
 
 }

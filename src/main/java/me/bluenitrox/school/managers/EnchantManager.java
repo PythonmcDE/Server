@@ -9,7 +9,7 @@ public class EnchantManager {
      *
      */
 
-    public static final String schatzmeister = "§c§lSchatzmeister I";
+    public static final String schatzmeister = "§c§lSchatzmeister ";
     public static final String Fluch = "§c§lFluch ";
     public static final String Kopfgeld = "§c§lKopfgeld ";
     public static final String Assassine = "§c§lAssassine ";

@@ -7,8 +7,8 @@ import org.bukkit.Bukkit;
 public class Moneybooster extends Boost {
 
     public Moneybooster() {
-        setName("§bMoney-Booster");
-        setLenth(45);
+        setName("§bGem-Booster");
+        setLenth(60);
     }
 
     @Override

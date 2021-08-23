@@ -70,26 +70,32 @@ public class DailyReward {
     }
 
     public void dailyRewardClick(final InventoryClickEvent e){
-        if(e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null){
+        if(e.getClickedInventory().getName().equalsIgnoreCase(guiname)) {
             e.setCancelled(true);
             UUID uuid = e.getWhoClicked().getUniqueId();
             Player p = (Player) e.getWhoClicked();
-            if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6Tägliche Belohnung")){
-                updateBelohnung(uuid,1,false);
-                p.closeInventory();
-                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                MoneyManager.updateMoney(uuid,1000,false,true);
-            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6Tägliche Erfahrung")){
-                updateErfahrung(uuid,1,false);
-                p.closeInventory();
-                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                ExpManager.updateXP(uuid,1000,false);
-            }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6Tägliche Case")){
-                updateCase(uuid,1,false);
-                p.closeInventory();
-                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                p.getInventory().addItem(Antidupe.addID(new ItemBuilder(Material.DRAGON_EGG).setDisplayname(CaseAPI.daily).setLore("§8» §7Dieser §6§lFund §7verspricht dir",
-                        "§8» §5§lbesondere §6Belohnungen§7.").addEnchant(Enchantment.ARROW_INFINITE, 10, false).build()));
+            if (e.getCurrentItem() != null) {
+                if (e.getCurrentItem().getItemMeta() != null) {
+                    if (e.getCurrentItem().getItemMeta().getDisplayName() != null) {
+                        if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6Tägliche Belohnung")) {
+                            updateBelohnung(uuid, 1, false);
+                            p.closeInventory();
+                            p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            MoneyManager.updateMoney(uuid, 1000, false, true);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6Tägliche Erfahrung")) {
+                            updateErfahrung(uuid, 1, false);
+                            p.closeInventory();
+                            p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            ExpManager.updateXP(uuid, 1000, false);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6Tägliche Case")) {
+                            updateCase(uuid, 1, false);
+                            p.closeInventory();
+                            p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            p.getInventory().addItem(Antidupe.addID(new ItemBuilder(Material.DRAGON_EGG).setDisplayname(CaseAPI.daily).setLore("§8» §7Dieser §6§lFund §7verspricht dir",
+                                    "§8» §5§lbesondere §6Belohnungen§7.").addEnchant(Enchantment.ARROW_INFINITE, 10, false).build()));
+                        }
+                    }
+                }
             }
         }
     }

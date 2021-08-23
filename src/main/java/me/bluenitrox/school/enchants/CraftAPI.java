@@ -39,10 +39,10 @@ public class CraftAPI {
     public static final int slot1 = 19;
     public static final int slot2 = 22;
 
-    public void onClick(final InventoryClickEvent e){
+    public void onClick(final InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         UUID uuid = p.getUniqueId();
-        if(e.getClickedInventory().getName() != null) {
+        if (e.getClickedInventory().getName() != null) {
             if (e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null) {
                 if (e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE || e.getCurrentItem().getType() == Material.SLIME_BALL || e.getCurrentItem().getType() == Material.BARRIER) {
                     e.setCancelled(true);

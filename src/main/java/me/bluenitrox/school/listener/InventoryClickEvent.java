@@ -33,28 +33,29 @@ public class InventoryClickEvent implements Listener {
                 return;
             }
         }
-        Prestige.onClick(e);
-        craft.onClick(e);
-        SkillSystem.onClick(e);
-        caseClick(e);
-        BoostInv.inventoryClick(e, p);
-        Mine.onMinenClick(e);
-        KitAPI.kitApiClickEvent(e);
-        Schmied.onClickSchmied(e);
-        wgr.onClick(e);
-        pet.petClickEventInventory(e);
-        api.onClickHändler(e);
-        dr.dailyRewardClick(e);
-        AhListener.onClickAuctionhouse(e);
-        Enchanter.inventoryClick(e);
-        getBooks.onClick(e);
+        if(e.getClickedInventory() != null) {
+            if (e.getClickedInventory().getName() != null) {
+                Prestige.onClick(e);
+                craft.onClick(e);
+                SkillSystem.onClick(e);
+                caseClick(e);
+                BoostInv.inventoryClick(e, p);
+                Mine.onMinenClick(e);
+                KitAPI.kitApiClickEvent(e);
+                Schmied.onClickSchmied(e);
+                wgr.onClick(e);
+                pet.petClickEventInventory(e);
+                api.onClickHändler(e);
+                dr.dailyRewardClick(e);
+                AhListener.onClickAuctionhouse(e);
+                Enchanter.inventoryClick(e);
+                getBooks.onClick(e);
+            }
+        }
     }
 
     private void caseClick(org.bukkit.event.inventory.InventoryClickEvent e){
-        if(e.getClickedInventory() == null){
-            return;
-        }
-        if(e.getClickedInventory().getName() == null && e.getCurrentItem() != null){
+        if(e.getCurrentItem() != null){
             return;
         }
         if((e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.daily)

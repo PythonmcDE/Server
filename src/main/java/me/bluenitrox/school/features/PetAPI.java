@@ -277,12 +277,12 @@ public class PetAPI {
 
     public EntityType itemToEntity(ItemStack item){
         if(item != null){
-            if(item.getDurability() == 67){
-                return EntityType.ENDERMITE;
-            }else if(item.getDurability() == 65){
-                return EntityType.BAT;
-            }else if(item.getDurability() == 62){
-                return EntityType.MAGMA_CUBE;
+            if(item.getDurability() == 90){
+                return EntityType.PIG;
+            }else if(item.getDurability() == 91){
+                return EntityType.SHEEP;
+            }else if(item.getDurability() == 92){
+                return EntityType.COW;
             }else if(item.getDurability() == 98){
                 return EntityType.OCELOT;
             }else if(item.getDurability() == 93){

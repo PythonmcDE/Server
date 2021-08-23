@@ -102,8 +102,8 @@ public class ExpManager {
         } else {
             Xpbooster xp = new Xpbooster();
             if(SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(xp.getName())))) {
-                float newAmount = getExp(uuid) + amount;
-                SchoolMode.setPlayerExp(uuid, newAmount*2);
+                float newAmount = getExp(uuid) + (amount*2);
+                SchoolMode.setPlayerExp(uuid, newAmount);
             }else {
                 float newAmount = getExp(uuid) + amount;
                 SchoolMode.setPlayerExp(uuid, newAmount);

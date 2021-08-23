@@ -71,7 +71,7 @@ public class BoosterAPI implements CommandExecutor {
                         removeXpBooster(p.getUniqueId(), 1);
                         return true;
                     }else {
-                        p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + xp.getName() + " §7da bereits einer aktiv ist!");
+                        p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + xp.getName() + " §7aktivieren, da bereits einer aktiv ist!");
                     }
                 }else {
                     p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Xp-Booster.");
@@ -100,7 +100,7 @@ public class BoosterAPI implements CommandExecutor {
                         removeMoneyBooster(p.getUniqueId(), 1);
                         return true;
                     }else {
-                        p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + money.getName() + " §7da bereits einer aktiv ist!");
+                        p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + money.getName() + " §7aktivieren, da bereits einer aktiv ist!");
                     }
                 }else {
                     p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Gem-Booster.");
@@ -129,7 +129,7 @@ public class BoosterAPI implements CommandExecutor {
                         removeAngelBooster(p.getUniqueId(), 1);
                         return true;
                     }else {
-                        p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + money.getName() + " §7da bereits einer aktiv ist!");
+                        p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + money.getName() + " §7aktivieren, da bereits einer aktiv ist!");
                     }
                 }else {
                     p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Angel-Booster.");
@@ -227,7 +227,7 @@ public class BoosterAPI implements CommandExecutor {
 
     }
 
-    public static String VERZEICHNISS = "//home//Cloud//local//services//School-1//plugins//DemonMCBooster";
+    public static String VERZEICHNISS = "//home//SimpleCloud//static//SchoolMelior-1//plugins//DemonMCBooster";
 
     public static Integer getXpBooster(UUID uuid) {
         File file = new File(VERZEICHNISS, "booster.yml");

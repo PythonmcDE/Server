@@ -43,7 +43,7 @@ public class ScoreboardManager {
         ScoreboardScore a40 = new ScoreboardScore(scoreboard, obj, "   §6" + ValuetoString.valueToString(SchoolMode.getPlayerMoney(p.getUniqueId())));
         ScoreboardScore a41 = new ScoreboardScore(scoreboard, obj, "    ");
         ScoreboardScore a7 = new ScoreboardScore(scoreboard, obj, "§8§m-------------");
-        ScoreboardScore a8 = new ScoreboardScore(scoreboard, obj, "§8» §7IP: §c§lDemonMC.eu");
+        ScoreboardScore a8 = new ScoreboardScore(scoreboard, obj, "§8» §7IP: §a§lPythonMC.de");
         //ScoreboardScore a3 = new ScoreboardScore(scoreboard, obj, "§9      ");
         a1.setScore(12);
         a2.setScore(11);

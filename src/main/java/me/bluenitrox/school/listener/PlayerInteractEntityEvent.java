@@ -30,14 +30,15 @@ public class PlayerInteractEntityEvent implements Listener {
                             String[] display = e.getPlayer().getItemInHand().getItemMeta().getDisplayName().split(" ");
                             if (display[1].equalsIgnoreCase("Packung")) {
                                 if (e.getRightClicked().getName().startsWith("§8[§6")) {
+
                                     String[] entityownerarray = e.getRightClicked().getName().split(" ");
                                     String entityowner = entityownerarray[1];
+
                                     if (entityowner.equalsIgnoreCase(e.getPlayer().getName())) {
                                         String[] lore = e.getPlayer().getItemInHand().getItemMeta().getLore().get(0).split(" ");
                                         int petxp = Integer.parseInt(lore[2]);
 
                                         Pet pet = new Pet();
-
                                         String haustier = pet.petTypeToEntity(pet.entityToPetType(e.getRightClicked().getType()));
 
 

@@ -32,10 +32,10 @@ public class BoostInv {
         ItemStack gemhave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lGem-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + BoosterAPI.getMoneyBooster(p.getUniqueId()) + " §6Gem Booster", "§6§l▶ §aKlicke§7, um einen §6Gem Booster §7zu aktivieren!").build();
         ItemStack angelhave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lAngel-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + BoosterAPI.getAngelBooster(p.getUniqueId()) + " §6Angel Booster", "§6§l▶ §aKlicke§7, um einen §6Angel Booster §7zu aktivieren!").build();
 
-        ItemStack chesthavenot = new ItemBuilder(Material.INK_SACK, (short)8).setDisplayname("§8§l» §6§lChest-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §c§l0 §6Chest Booster", "§6§l▶ §7Jetzt erwerben: §fdemonmc.eu/booster").build();
-        ItemStack xphavenot = new ItemBuilder(Material.INK_SACK, (short)8).setDisplayname("§8§l» §6§lXP-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §c§l0 §6XP Booster", "§6§l▶ §7Jetzt erwerben: §fdemonmc.eu/booster").build();
-        ItemStack gemhavenot = new ItemBuilder(Material.INK_SACK, (short)8).setDisplayname("§8§l» §6§lGem-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §c§l0 §6Gem Booster", "§6§l▶ §7Jetzt erwerben: §fdemonmc.eu/booster").build();
-        ItemStack angelhavenot = new ItemBuilder(Material.INK_SACK, (short)8).setDisplayname("§8§l» §6§lAngel-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §c§l0 §6Angel Booster", "§6§l▶ §7Jetzt erwerben: §fdemonmc.eu/booster").build();
+        ItemStack chesthavenot = new ItemBuilder(Material.INK_SACK, (short)8).setDisplayname("§8§l» §6§lChest-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §c§l0 §6Chest Booster", "§6§l▶ §7Jetzt erwerben: §fPythonmc.de/booster").build();
+        ItemStack xphavenot = new ItemBuilder(Material.INK_SACK, (short)8).setDisplayname("§8§l» §6§lXP-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §c§l0 §6XP Booster", "§6§l▶ §7Jetzt erwerben: §fPythonmc.de/booster").build();
+        ItemStack gemhavenot = new ItemBuilder(Material.INK_SACK, (short)8).setDisplayname("§8§l» §6§lGem-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §c§l0 §6Gem Booster", "§6§l▶ §7Jetzt erwerben: §fPythonmc.de/booster").build();
+        ItemStack angelhavenot = new ItemBuilder(Material.INK_SACK, (short)8).setDisplayname("§8§l» §6§lAngel-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §c§l0 §6Angel Booster", "§6§l▶ §7Jetzt erwerben: §fPythonmc.de/booster").build();
 
         ItemStack chestnoton = new ItemBuilder(Material.BARRIER).setDisplayname("§8§l» §6§lChest-Booster").setLore("§6§l▶ §7Aktuell ist §ckein §6Chest Booster §7aktiv!").build();
         ItemStack xpnoton = new ItemBuilder(Material.BARRIER).setDisplayname("§8§l» §6§lXP-Booster").setLore("§6§l▶ §7Aktuell ist §ckein §6XP Booster §7aktiv!").build();
