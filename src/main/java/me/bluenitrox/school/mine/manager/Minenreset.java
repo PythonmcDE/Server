@@ -30,6 +30,13 @@ public class Minenreset {
         Location eckpoint2 = new LocationManager(temp2).getLocation();
         World w = Bukkit.getWorld("Minen");
 
+        if(eckpoint1 == null){
+            return;
+        }
+        if(eckpoint2 == null){
+            return;
+        }
+
         int minX = Math.min(eckpoint1.getBlockX(), eckpoint2.getBlockX());
         int minY = Math.min(eckpoint1.getBlockY(), eckpoint2.getBlockY());
         int minZ = Math.min(eckpoint1.getBlockZ(), eckpoint2.getBlockZ());

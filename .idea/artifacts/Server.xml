@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Server">
+    <output-path>$USER_HOME$/Desktop/localhost/plugins</output-path>
+    <root id="archive" name="Server.jar">
+      <element id="module-output" name="neuerserver" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>

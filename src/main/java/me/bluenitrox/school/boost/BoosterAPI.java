@@ -227,7 +227,8 @@ public class BoosterAPI implements CommandExecutor {
 
     }
 
-    public static String VERZEICHNISS = "//home//SimpleCloud//static//SchoolMelior-1//plugins//DemonMCBooster";
+   // public static String VERZEICHNISS = "//home//SimpleCloud//static//SchoolMelior-1//plugins//DemonMCBooster";
+    public static String VERZEICHNISS = "plugins//PythonMC";
 
     public static Integer getXpBooster(UUID uuid) {
         File file = new File(VERZEICHNISS, "booster.yml");

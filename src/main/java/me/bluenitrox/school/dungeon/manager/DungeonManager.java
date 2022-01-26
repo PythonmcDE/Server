@@ -64,6 +64,9 @@ public class DungeonManager {
     }
 
     private void spawnMonster(Location loc, int dungeon) {
+        if(loc == null){
+            return;
+        }
         if (dungeon == 1) {
             LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
             entity.setCustomName("§fZombie §8(§7Level §61§8)");

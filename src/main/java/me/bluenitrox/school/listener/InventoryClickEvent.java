@@ -14,6 +14,7 @@ import me.bluenitrox.school.features.*;
 import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.haendler.commands.Schmied;
 import me.bluenitrox.school.haendler.commands.Taxi;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,6 +38,7 @@ public class InventoryClickEvent implements Listener {
         }
         if(e.getClickedInventory() != null) {
             if (e.getClickedInventory().getName() != null) {
+                try {
                 Prestige.onClick(e);
                 craft.onClick(e);
                 SkillSystem.onClick(e);
@@ -54,6 +56,10 @@ public class InventoryClickEvent implements Listener {
                 getBooks.onClick(e);
                 Taxi.onClick(e);
                 DungeonInventory.onClick(e);
+                } catch (Throwable t) {
+                    Bukkit.broadcastMessage("Failure during InventoryClickEvent initial " + t);
+                    throw t;
+                }
             }
         }
     }

@@ -42,6 +42,7 @@ public class AhListener implements Listener {
             } else if (e.getClickedInventory().getName().equals(GUI_NAME)) {
 
                 e.setCancelled(true);
+                if (e.getCurrentItem() == null) return;
                 if (e.getCurrentItem().getType() == Material.SIGN) return;
                 if (e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE) return;
                 if (e.getCurrentItem().getType() == Material.CHEST) {
@@ -108,11 +109,17 @@ public class AhListener implements Listener {
             } else if (e.getClickedInventory().getName().equalsIgnoreCase(Ah_CMD.GUI_NAME) && e.getCurrentItem() != null) {
 
                 e.setCancelled(true);
-                if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7Abgelaufene §6Auktionen§7/§6Gekaufte §7Auktionen")) {
-                    Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);
-                    AhManager.openabgelaufeneundgekaufteAuktionen(p, 1, invah);
+                if (e.getCurrentItem() == null) return;
+                if (e.getCurrentItem().getItemMeta() != null) {
+                    if (e.getCurrentItem().getItemMeta().getDisplayName() != null) {
+                        if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7Abgelaufene §6Auktionen§7/§6Gekaufte §7Auktionen")) {
+                            Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);
+                            AhManager.openabgelaufeneundgekaufteAuktionen(p, 1, invah);
+                            return;
+                        }
+                    }
                 }
-
+                if (e.getCurrentItem() == null) return;
                 if (e.getCurrentItem().getType() == Material.SIGN) return;
                 if (e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE) return;
                 if (e.getCurrentItem().getType() == Material.PAPER) {
@@ -139,11 +146,15 @@ public class AhListener implements Listener {
                         return;
                     }
                 } else {
-                    int line = e.getCurrentItem().getItemMeta().getLore().size() - 2;
-                    String[] stringregex = e.getCurrentItem().getItemMeta().getLore().get(line).split(" ");
-                    int id = Integer.parseInt(stringregex[2]);
-                    Inventory buyinv = Bukkit.createInventory(null, InventoryType.BREWING, GUI_NAME1);
-                    AhManager.openBuyInv(id, buyinv, p);
+                    if(e.getCurrentItem().getItemMeta() != null) {
+                        if (e.getCurrentItem().getItemMeta().getLore() != null) {
+                            int line = e.getCurrentItem().getItemMeta().getLore().size() - 2;
+                            String[] stringregex = e.getCurrentItem().getItemMeta().getLore().get(line).split(" ");
+                            int id = Integer.parseInt(stringregex[2]);
+                            Inventory buyinv = Bukkit.createInventory(null, InventoryType.BREWING, GUI_NAME1);
+                            AhManager.openBuyInv(id, buyinv, p);
+                        }
+                    }
                 }
             }
         }

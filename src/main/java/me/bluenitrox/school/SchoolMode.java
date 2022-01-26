@@ -256,7 +256,7 @@ public class SchoolMode extends JavaPlugin {
         }
 
         try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS AhItems ( `id` INT(11) NOT NULL AUTO_INCREMENT , `spieleruuid` CHAR(36) NOT NULL , `item` TEXT NOT NULL , `preis` INT(11) NOT NULL , `einstelldatum` TIMESTAMP(6) NOT NULL , `ablaufdatum` TIMESTAMP(6) NOT NULL , PRIMARY KEY (`id`))");
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS AhItems ( `id` INT(11) NOT NULL AUTO_INCREMENT , `spieleruuid` CHAR(36) NOT NULL , `item` TEXT NOT NULL , `preis` INT(11) NOT NULL , `einstelldatum` TIMESTAMP(6) NOT NULL , PRIMARY KEY (`id`))");
             ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();

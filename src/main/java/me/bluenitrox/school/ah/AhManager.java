@@ -163,12 +163,11 @@ public class AhManager {
         }
         String item = encodeItem(is);
 
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO AhItems (spieleruuid, item, preis, einstelldatum, ablaufdatum) VALUES (?, ?, ?, ?, ?)")){
+        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO AhItems (spieleruuid, item, preis, einstelldatum) VALUES (?, ?, ?, ?)")){
             ps.setString(1, p.getUniqueId().toString());
             ps.setString(2, item);
             ps.setInt(3, preis);
             ps.setTimestamp(4, einstelldatum);
-            ps.setTimestamp(5, ablaufdatum);
             ps.executeUpdate();
             p.sendMessage(MessageManager.PREFIX + "§7Dein Item wurde erfolgreich ins ah gestellt!");
             p.setItemInHand(new ItemBuilder(Material.AIR).build());

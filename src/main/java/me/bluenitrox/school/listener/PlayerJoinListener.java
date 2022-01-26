@@ -29,7 +29,9 @@ public class PlayerJoinListener implements Listener {
         ScoreboardManager.setBoard(p);
         p.setGameMode(GameMode.SURVIVAL);
         e.setJoinMessage(null);
-        p.teleport(new LocationManager("spawn").getLocation());
+        if(new LocationManager("Spawn").getLocation() != null) {
+            p.teleport(new LocationManager("spawn").getLocation());
+        }
         PlayerRespawnEvent.erhaltItems(p);
         Antidupe.checkInventory(e.getPlayer().getInventory(), e.getPlayer());
     }
