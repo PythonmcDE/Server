@@ -47,6 +47,7 @@ public class InventoryClickEvent implements Listener {
                 Mine.onMinenClick(e);
                 KitAPI.kitApiClickEvent(e);
                 Schmied.onClickSchmied(e);
+
                 wgr.onClick(e);
                 pet.petClickEventInventory(e);
                 api.onClickHändler(e);
