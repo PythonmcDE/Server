@@ -1,11 +1,14 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.commands.Skill;
+import me.bluenitrox.school.features.SkillAPI;
 import me.bluenitrox.school.features.StatsAPI;
 import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -23,7 +26,8 @@ public class PlayerJoinManager {
 
     public static void cachPlayerData(UUID uuid) {
         StatsAPI api = new StatsAPI();
-        if(!isSkillUserExists(uuid)) {
+        SkillAPI sapi = new SkillAPI();
+        if(!isPetUserExists(uuid)) {
             configuratePlayer(uuid);
             configurateKitPlayer(uuid);
             configuratePetPlayer(uuid);
@@ -40,7 +44,27 @@ public class PlayerJoinManager {
         SchoolMode.setPlayerMine(uuid, mine);
         SchoolMode.setPlayerBlocks(uuid, blocks);
         SchoolMode.setPlayerCase(uuid,api.getCasesDatabase(uuid));
+        SchoolMode.setPlayerChest(uuid, api.getChestsDatabase(uuid));
         SchoolMode.setPlayerMob(uuid,mobs);
+        SchoolMode.setPrestige(uuid, ExpManager.getPrestigeDatabase(uuid));
+        Skill.cantopenSkill.add(Bukkit.getPlayer(uuid));
+        new BukkitRunnable(){
+
+            @Override
+            public void run() {
+                SchoolMode.playerskillpunkte.put(uuid, sapi.getSkillpunkteDatabase(uuid));
+                SchoolMode.playerangriff.put(uuid, sapi.getDatabase(uuid, "angriff"));
+                SchoolMode.playerverteidigung.put(uuid, sapi.getDatabase(uuid, "verteidigung"));
+                SchoolMode.playerextraenergie.put(uuid, sapi.getDatabase(uuid, "extraenergie"));
+                SchoolMode.playerscharfschütze.put(uuid, sapi.getDatabase(uuid, "scharfschütze"));
+                SchoolMode.playermining.put(uuid, sapi.getDatabase(uuid, "mining"));
+                SchoolMode.playerhandler.put(uuid, sapi.getDatabase(uuid, "handler"));
+                SchoolMode.playeralchemist.put(uuid, sapi.getDatabase(uuid, "alchemist"));
+                SchoolMode.playerbonusloot.put(uuid, sapi.getDatabase(uuid, "bonusloot"));
+                SchoolMode.playergluckspilz.put(uuid, sapi.getDatabase(uuid, "gluckspilz"));
+                Skill.cantopenSkill.remove(Bukkit.getPlayer(uuid));
+            }
+        }.runTaskLater(SchoolMode.getInstance(), 20*10);
         if(!isRewardUserExists(uuid)){
             configurateRewardPlayer(uuid);
         }
@@ -48,102 +72,92 @@ public class PlayerJoinManager {
     }
 
     public static void configuratePlayer(UUID uuid) {
-        if(!isUserExists(uuid)) {
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO spielerdaten (spieleruuid, money, dungeon, exp, mine, prestige, kills, deaths, cases, bloecke, mob, chests, level) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
-                ps.setString(1, uuid.toString());
-                ps.setFloat(2, 1000);
-                ps.setInt(3, 1);
-                ps.setFloat(4, 0);
-                ps.setInt(5, 1);
-                ps.setInt(6, 0);
-                ps.setInt(7, 0);
-                ps.setInt(8, 0);
-                ps.setInt(9, 0);
-                ps.setInt(10, 0);
-                ps.setInt(11, 0);
-                ps.setInt(12, 0);
-                ps.setInt(13, 1);
-                ps.executeUpdate();
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO spielerdaten (spieleruuid, money, dungeon, exp, mine, prestige, kills, deaths, cases, bloecke, mob, chests, level) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+            ps.setString(1, uuid.toString());
+            ps.setFloat(2, 1000);
+            ps.setInt(3, 1);
+            ps.setFloat(4, 0);
+            ps.setInt(5, 1);
+            ps.setInt(6, 0);
+            ps.setInt(7, 0);
+            ps.setInt(8, 0);
+            ps.setInt(9, 0);
+            ps.setInt(10, 0);
+            ps.setInt(11, 0);
+            ps.setInt(12, 0);
+            ps.setInt(13, 1);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     public static void configurateKitPlayer(UUID uuid) {
-        if(!isKitUserExists(uuid)) {
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO KitSystem (UUID, Holz, Stein, Eisen, Warzone, Diamant, Bergarbeiter, Goldfinger, Juwelier, Banker, Ninja, Sensei, Meister) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
-                ps.setString(1, uuid.toString());
-                ps.setInt(2, 0);
-                ps.setInt(3, 35);
-                ps.setInt(4, 50);
-                ps.setInt(5, 50);
-                ps.setInt(6, 50);
-                ps.setInt(7, 50);
-                ps.setInt(8, 35);
-                ps.setInt(9, 50);
-                ps.setInt(10, 50);
-                ps.setInt(11, 50);
-                ps.setInt(12, 35);
-                ps.setInt(13, 50);
-                ps.executeUpdate();
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO KitSystem (UUID, Holz, Stein, Eisen, Warzone, Diamant, Bergarbeiter, Goldfinger, Juwelier, Banker, Ninja, Sensei, Meister) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+            ps.setString(1, uuid.toString());
+            ps.setInt(2, 0);
+            ps.setInt(3, 35);
+            ps.setInt(4, 50);
+            ps.setInt(5, 50);
+            ps.setInt(6, 50);
+            ps.setInt(7, 50);
+            ps.setInt(8, 35);
+            ps.setInt(9, 50);
+            ps.setInt(10, 50);
+            ps.setInt(11, 50);
+            ps.setInt(12, 35);
+            ps.setInt(13, 50);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     public static void configuratePetPlayer(UUID uuid) {
-        if(!isPetUserExists(uuid)) {
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO PetSystem (UUID, Benjamin, Merlin, Eddy, Anton, Helgar, Farid, Peter) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
-                ps.setString(1, uuid.toString());
-                ps.setInt(2, 0);
-                ps.setInt(3, 0);
-                ps.setInt(4, 0);
-                ps.setInt(5, 0);
-                ps.setInt(6, 0);
-                ps.setInt(7, 0);
-                ps.setInt(8, 0);
-                ps.executeUpdate();
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO PetSystem (UUID, Benjamin, Merlin, Eddy, Anton, Helgar, Farid, Peter) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+            ps.setString(1, uuid.toString());
+            ps.setInt(2, 0);
+            ps.setInt(3, 0);
+            ps.setInt(4, 0);
+            ps.setInt(5, 0);
+            ps.setInt(6, 0);
+            ps.setInt(7, 0);
+            ps.setInt(8, 0);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     public static void configurateRewardPlayer(UUID uuid) {
-        if(!isRewardUserExists(uuid)) {
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO DailyReward (UUID, Belohnung, Erfahrung, Cases, GemLimit) VALUES (?, ?, ?, ?, ?)")) {
-                ps.setString(1, uuid.toString());
-                ps.setInt(2, 0);
-                ps.setInt(3, 0);
-                ps.setInt(4, 0);
-                ps.setInt(5, (int) ((ExpManager.getExp(uuid)*7)+500000));
-                ps.executeUpdate();
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO DailyReward (UUID, Belohnung, Erfahrung, Cases, GemLimit) VALUES (?, ?, ?, ?, ?)")) {
+            ps.setString(1, uuid.toString());
+            ps.setInt(2, 0);
+            ps.setInt(3, 0);
+            ps.setInt(4, 0);
+            ps.setInt(5, (int) MoneyManager.berechnungGemlimit(uuid));
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     public static void configurateSkillPlayer(UUID uuid) {
-        if(!isSkillUserExists(uuid)) {
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO skills (UUID, skillpunkte, angriff, verteidigung, extraenergie,scharfschütze,mining,handler,alchemist,bonusloot,gluckspilz) VALUES (?, ?, ?, ?, ?,?,?,?,?,?,?)")) {
-                ps.setString(1, uuid.toString());
-                ps.setInt(2, 0);
-                ps.setInt(3, 0);
-                ps.setInt(4, 0);
-                ps.setInt(5, 0);
-                ps.setInt(6, 0);
-                ps.setInt(7, 0);
-                ps.setInt(8, 0);
-                ps.setInt(9, 0);
-                ps.setInt(10, 0);
-                ps.setInt(11, 0);
-                ps.executeUpdate();
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO skills (UUID, skillpunkte, angriff, verteidigung, extraenergie,scharfschütze,mining,handler,alchemist,bonusloot,gluckspilz) VALUES (?, ?, ?, ?, ?,?,?,?,?,?,?)")) {
+            ps.setString(1, uuid.toString());
+            ps.setInt(2, 0);
+            ps.setInt(3, 0);
+            ps.setInt(4, 0);
+            ps.setInt(5, 0);
+            ps.setInt(6, 0);
+            ps.setInt(7, 0);
+            ps.setInt(8, 0);
+            ps.setInt(9, 0);
+            ps.setInt(10, 0);
+            ps.setInt(11, 0);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

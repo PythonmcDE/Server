@@ -25,13 +25,13 @@ import java.util.*;
 
 public class CraftAPI {
 
-    private static ArrayList<String> armor = new ArrayList<>();
-    private static ArrayList<String> sword = new ArrayList<>();
-    private static ArrayList<String> pickaxe = new ArrayList<>();
-    private static ArrayList<String> bow = new ArrayList<>();
-    private static ArrayList<String> rod = new ArrayList<>();
+    private static LinkedList<String> armor = new LinkedList<>();
+    private static LinkedList<String> sword = new LinkedList<>();
+    private static LinkedList<String> pickaxe = new LinkedList<>();
+    private static LinkedList<String> bow = new LinkedList<>();
+    private static LinkedList<String> rod = new LinkedList<>();
 
-    private static ArrayList<Player> dontgiveItem = new ArrayList<>();
+    private static LinkedList<Player> dontgiveItem = new LinkedList<>();
 
     public static final String guiname = "§8» §5Amboss";
 
@@ -50,21 +50,46 @@ public class CraftAPI {
 
                 if (e.getCurrentItem().getType() == Material.SLIME_BALL) {
                     if (e.getClickedInventory().getItem(slot1).getType() == Material.ENCHANTED_BOOK && e.getClickedInventory().getItem(slot2).getType() == Material.ENCHANTED_BOOK) {
-                        if (craftBooks(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
-                            String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
-                            float price = getPrice(preis[1]);
-                            int level = getLevel(preis[1]);
-                            if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
-                                craftBooksTogether(p, e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot1)), e.getClickedInventory());
-                            } else {
-                                p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug §6Geld §7oder §6Level§7.");
-                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                                p.closeInventory();
+                        if(e.getClickedInventory().getItem(slot1).getItemMeta() != null && e.getClickedInventory().getItem(slot2).getItemMeta() != null ) {
+                            if (e.getClickedInventory().getItem(slot1).getItemMeta().getDisplayName() != null && e.getClickedInventory().getItem(slot2).getItemMeta().getDisplayName() != null) {
+                                if(e.getClickedInventory().getItem(slot1).getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lMagisches Buch") && e.getClickedInventory().getItem(slot2).getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lMagisches Buch")) {
+                                    if (craftBooks(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
+                                        String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
+                                        float price = getPrice(preis[1]);
+                                        int level = getLevel(preis[1]);
+                                        if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
+                                            craftBooksTogether(p, e.getClickedInventory().getItem(slot1), getEnchantofItem(e.getClickedInventory().getItem(slot1)), e.getClickedInventory());
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug §6Geld §7oder §6Level§7.");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Das ist so §cnicht §7möglich. Schaue auf unserer Website §8(§fPythonMC.de§8) §7wie du es richtig machst!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                }else {
+                                    if(e.getClickedInventory().getItem(slot1).getItemMeta().getDisplayName().equalsIgnoreCase("§5Verzaubertes Buch") && e.getClickedInventory().getItem(slot2).getItemMeta().getDisplayName().equalsIgnoreCase("§5Verzaubertes Buch")){
+                                        if(craftVanillaBooks(e.getClickedInventory().getItem(slot1))) {
+                                            String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
+                                            float price = getPrice(preis[1]);
+                                            int level = getLevel(preis[1]);
+                                            if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
+                                                craftVanillaBooksTogether(p, e.getClickedInventory().getItem(slot1), getVanillaEnchantofItem(e.getClickedInventory().getItem(slot1)), e.getClickedInventory());
+                                            } else {
+                                                p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug §6Geld §7oder §6Level§7.");
+                                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                                p.closeInventory();
+                                            }
+                                        }else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast das §chöchste Level §7dieser Verzauberung erreicht.");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    }
+                                }
                             }
-                        } else {
-                            p.sendMessage(MessageManager.PREFIX + "§7Das ist so §cnicht §7möglich. Schaue auf unserer Website §8(§fDemonMC.eu§8) §7wie du es richtig machst!");
-                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                            p.closeInventory();
                         }
                     } else if (shouldCraftOn(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
                         String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
@@ -78,7 +103,7 @@ public class CraftAPI {
                             p.closeInventory();
                         }
                     } else {
-                        p.sendMessage(MessageManager.PREFIX + "§7Das ist so nicht möglich. Schaue auf unserer Website §8(§fDemonMC.eu§8) §7wie du es richtig machst!");
+                        p.sendMessage(MessageManager.PREFIX + "§7Das ist so nicht möglich. Schaue auf unserer Website §8(§fPythonMC.de§8) §7wie du es richtig machst!");
                         p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                         p.closeInventory();
                     }
@@ -173,6 +198,23 @@ public class CraftAPI {
         p.closeInventory();
         p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
 
+    }
+
+    private void craftVanillaBooksTogether(Player p, ItemStack item, String enchant, Inventory clickedInv){
+        String[] levelofbooksarray = item.getItemMeta().getLore().get(0).split(" ");
+        int levelofbooks = stringToInt(levelofbooksarray[1]);
+
+        ItemStack books = new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§5Verzaubertes Buch").setLore(enchant + intToString(levelofbooks+1)).build();
+
+
+        clickedInv.setItem(slot1, new ItemBuilder(Material.AIR).build());
+        clickedInv.setItem(slot2, new ItemBuilder(Material.AIR).build());
+
+        MoneyManager.updateMoney(p.getUniqueId(),getPrice(intToString(levelofbooks +1)),true,false);
+        p.setLevel(p.getLevel()-(levelofbooks*10));
+        p.getInventory().addItem(Antidupe.addID(books));
+        p.closeInventory();
+        p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
     }
 
     private String intToString(int i){
@@ -353,6 +395,53 @@ public class CraftAPI {
             return false;
         }
     }
+    private boolean craftVanillaBooks(ItemStack i){
+        String[] leveltomatestring = i.getItemMeta().getLore().get(0).split(" ");
+        int maxlevel = 0;
+        int leveltomate = stringToInt(leveltomatestring[1])+1;
+        if(i.getItemMeta() != null){
+            if(i.getItemMeta().getLore() != null){
+                if(i.getItemMeta().getLore().get(0).startsWith("§7Verbrennung")){
+                    maxlevel = 2;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Schärfe")){
+                    maxlevel = 5;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Stärke")){
+                    maxlevel = 5;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Schutz")){
+                    maxlevel = 4;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Effizienz")){
+                    maxlevel = 5;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Haltbarkeit")){
+                    maxlevel = 5;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Explosionsschutz")){
+                    maxlevel = 4;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Schusssicher")){
+                    maxlevel = 4;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Feuerschutz")){
+                    maxlevel = 4;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Bann")){
+                    maxlevel = 5;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Nemesis der Gliederfüßler")){
+                    maxlevel = 5;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Wasserläufer")){
+                    maxlevel = 3;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Rückstoß")){
+                    maxlevel = 2;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Wasseraffinität")){
+                    maxlevel = 3;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Atmung")){
+                    maxlevel = 3;
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Dornen")){
+                    maxlevel = 3;
+                }
+            }
+        }
+        if(leveltomate <= maxlevel){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     private boolean hasItemEnchant(ItemStack item, String enchant){
         int line = 200;
@@ -503,6 +592,46 @@ public class CraftAPI {
                     return EnchantManager.Erhalt;
                 }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Rune)){
                     return EnchantManager.Rune;
+                }
+            }
+        }
+        return null;
+    }
+    private String getVanillaEnchantofItem(ItemStack i){
+        if(i.getItemMeta() != null){
+            if(i.getItemMeta().getLore() != null){
+                if(i.getItemMeta().getLore().get(0).startsWith("§7Verbrennung")){
+                    return "§7Verbrennung ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Schärfe")){
+                    return "§7Schärfe ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Stärke")){
+                    return "§7Stärke ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Schutz")){
+                    return "§7Schutz ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Effizienz")){
+                    return "§7Effizienz ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Haltbarkeit")){
+                    return "§7Haltbarkeit ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Explosionsschutz")){
+                    return "§7Explosionsschutz ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Schusssicher")){
+                    return "§7Schusssicher ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Feuerschutz")){
+                    return "§7Feuerschutz ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Bann")){
+                    return "§7Bann ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Nemesis der Gliederfüßler")){
+                    return "§7Nemesis der Gliederfüßler ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Wasserläufer")){
+                    return "§7Wasserläufer ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Rückstoß")){
+                    return "§7Rückstoß ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Wasseraffinität")){
+                    return "§7Wasseraffinität ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Atmung")){
+                    return "§7Atmung ";
+                }else if(i.getItemMeta().getLore().get(0).startsWith("§7Dornen")){
+                    return "§7Dornen ";
                 }
             }
         }

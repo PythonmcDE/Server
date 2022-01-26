@@ -12,7 +12,7 @@ public class ObsidianSchild extends EnchantAPI {
 
     public static void obischildAuslösen(Player damager, ItemStack i) {
         if (hasEnchant(i, EnchantManager.ObsidianSchild)) {
-            if (makeOrNot50(stringToNumber(i, EnchantManager.ObsidianSchild))) {
+            if (makeOrNot20(stringToNumber(i, EnchantManager.ObsidianSchild))) {
                 damager.playSound(damager.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                 damager.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20*3, 2));
             }

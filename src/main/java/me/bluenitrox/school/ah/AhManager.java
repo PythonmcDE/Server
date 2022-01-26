@@ -314,8 +314,8 @@ public class AhManager {
                         ps3.setInt(1, id);
                         ps3.execute();
                         buyer.sendMessage(MessageManager.PREFIX + "§7Dein Kauf war §aerfolgreich §7du findest dein Item unter abgelaufenen Auktionen im §c/ah §7!");
-                        MoneyManager.updateMoney(buyer.getUniqueId(), rs.getInt(4), true,false);
-                        MoneyManager.updateMoney(UUID.fromString(rs.getString(2)),rs.getInt(4), false, false);
+                        MoneyManager.updateMoney(buyer.getUniqueId(), rs.getInt(4), true,false, false);
+                        MoneyManager.updateMoney(UUID.fromString(rs.getString(2)),rs.getInt(4), false, false, false);
                         if(Bukkit.getPlayer(UUID.fromString(rs.getString(2))).isOnline()) {
                             Player t = Bukkit.getPlayer(UUID.fromString(rs.getString(2)));
                             t.sendMessage(MessageManager.PREFIX + "§7Deine §6Auktion §7wurde von " + buyer.getName() + "§a gekauft!");

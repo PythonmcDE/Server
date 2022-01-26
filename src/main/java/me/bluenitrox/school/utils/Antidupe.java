@@ -1,10 +1,18 @@
 package me.bluenitrox.school.utils;
 
+import de.Herbystar.TTA.TTA_Methods;
+import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.listener.InventoryCloseEvent;
+import me.bluenitrox.school.managers.LocationManager;
+import me.bluenitrox.school.managers.MessageManager;
+import me.bluenitrox.school.managers.PermissionsManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 
@@ -34,6 +42,12 @@ public class Antidupe {
                                 inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
                                                 "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                                duperantimation(p);
+                                for(Player all : Bukkit.getOnlinePlayers()){
+                                    if(all.hasPermission(PermissionsManager.ALLPERMS)){
+                                        all.sendMessage(MessageManager.PREFIX + "§7Der Spieler " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + p.getDisplayName() + "§7 wurde gerade als Duplizierer markiert.");
+                                    }
+                                }
                             }
                         }
                         ids.add(id);
@@ -42,6 +56,163 @@ public class Antidupe {
             }
         }
         ids.clear();
+    }
+
+    private static void duperantimation(Player p){
+        TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊§7▊▊▊▊▊▊▊▊▊ §a10% loaded", 20, 20, 20);
+        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊§7▊▊▊▊▊▊▊▊ §a20% loaded", 20, 20, 20);
+                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                new BukkitRunnable(){
+                    @Override
+                    public void run() {
+                        TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊§7▊▊▊▊▊▊▊ §a30% loaded", 20, 20, 20);
+                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                        new BukkitRunnable(){
+                            @Override
+                            public void run() {
+                                TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊§7▊▊▊▊▊▊ §a40% loaded", 20, 20, 20);
+                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                new BukkitRunnable(){
+                                    @Override
+                                    public void run() {
+                                        TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊§7▊▊▊▊▊ §a50% loaded", 20, 20, 20);
+                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                        new BukkitRunnable(){
+                                            @Override
+                                            public void run() {
+                                                TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊§7▊▊▊▊ §a60% loaded", 20, 20, 20);
+                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                new BukkitRunnable(){
+                                                    @Override
+                                                    public void run() {
+                                                        TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊▊§7▊▊▊ §a70% loaded", 20, 20, 20);
+                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                        new BukkitRunnable(){
+                                                            @Override
+                                                            public void run() {
+                                                                TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊▊▊§7▊▊ §a80% loaded", 20, 20, 20);
+                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                new BukkitRunnable(){
+                                                                    @Override
+                                                                    public void run() {
+                                                                        TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊▊▊§7▊ §a90% loaded", 20, 20, 20);
+                                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                        p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                        new BukkitRunnable(){
+                                                                            @Override
+                                                                            public void run() {
+                                                                                TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊▊▊▊§7▊ §a99% loaded", 20, 20, 20);
+                                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                                p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
+                                                                                new BukkitRunnable(){
+                                                                                    @Override
+                                                                                    public void run() {
+                                                                                        TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊▊▊▊▊ §a100% loaded", 20, 20, 20);
+                                                                                        p.playSound(p.getLocation(), Sound.GHAST_SCREAM, 1L, 1L);
+                                                                                        p.playSound(p.getLocation(), Sound.GHAST_SCREAM, 1L, 1L);
+                                                                                        p.playSound(p.getLocation(), Sound.GHAST_SCREAM, 1L, 1L);
+                                                                                        p.playSound(p.getLocation(), Sound.GHAST_SCREAM, 1L, 1L);
+                                                                                        p.playSound(p.getLocation(), Sound.GHAST_SCREAM, 1L, 1L);
+                                                                                        p.playSound(p.getLocation(), Sound.GHAST_SCREAM, 1L, 1L);
+                                                                                        p.playSound(p.getLocation(), Sound.GHAST_SCREAM, 1L, 1L);
+                                                                                        p.playSound(p.getLocation(), Sound.GHAST_SCREAM, 1L, 1L);
+                                                                                        new BukkitRunnable(){
+                                                                                            @Override
+                                                                                            public void run() {
+                                                                                                p.teleport(new LocationManager("duperloc").getLocation());
+                                                                                                p.sendMessage(MessageManager.PREFIX + "§7Du wurdest als §4Duplizierer §7erkannt. Ein §4Admin §7wird sich dein anliegen anschauen. Mit §6/spawn §7kommst du zurück!");
+                                                                                            }
+                                                                                        }.runTaskLater(SchoolMode.getInstance(), 20*5);
+                                                                                    }
+                                                                                }.runTaskLater(SchoolMode.getInstance(), 20*2);
+                                                                            }
+                                                                        }.runTaskLater(SchoolMode.getInstance(), 20*2);
+                                                                    }
+                                                                }.runTaskLater(SchoolMode.getInstance(), 20*2);
+                                                            }
+                                                        }.runTaskLater(SchoolMode.getInstance(), 20*2);
+                                                    }
+                                                }.runTaskLater(SchoolMode.getInstance(), 20*2);
+                                            }
+                                        }.runTaskLater(SchoolMode.getInstance(), 20*2);
+                                    }
+                                }.runTaskLater(SchoolMode.getInstance(), 20*2);
+                            }
+                        }.runTaskLater(SchoolMode.getInstance(), 20*2);
+                    }
+                }.runTaskLater(SchoolMode.getInstance(), 20*2);
+            }
+        }.runTaskLater(SchoolMode.getInstance(), 20*2);
     }
 
     public static void checkAllInventorys(Inventory inv, Player p){
@@ -57,6 +228,12 @@ public class Antidupe {
                                 inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
                                                 "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                                duperantimation(p);
+                                for(Player all : Bukkit.getOnlinePlayers()){
+                                    if(all.hasPermission(PermissionsManager.ALLPERMS)){
+                                        all.sendMessage(MessageManager.PREFIX + "§7Der Spieler " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + p.getDisplayName() + "§7 wurde gerade als Duplizierer markiert.");
+                                    }
+                                }
                             }
                         }
                         ids.add(id);
@@ -80,6 +257,12 @@ public class Antidupe {
                                 inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
                                                 "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                                duperantimation(p);
+                                for(Player all : Bukkit.getOnlinePlayers()){
+                                    if(all.hasPermission(PermissionsManager.ALLPERMS)){
+                                        all.sendMessage(MessageManager.PREFIX + "§7Der Spieler " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + p.getDisplayName() + "§7 wurde gerade als Duplizierer markiert.");
+                                    }
+                                }
                             }
                         }
                         ids.add(id);
@@ -99,6 +282,12 @@ public class Antidupe {
                             invzwei.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                     .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
                                             "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                            duperantimation(p);
+                            for(Player all : Bukkit.getOnlinePlayers()){
+                                if(all.hasPermission(PermissionsManager.ALLPERMS)){
+                                    all.sendMessage(MessageManager.PREFIX + "§7Der Spieler " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + p.getDisplayName() + "§7 wurde gerade als Duplizierer markiert.");
+                                }
+                            }
                         }
                         ids.add(id);
                     }

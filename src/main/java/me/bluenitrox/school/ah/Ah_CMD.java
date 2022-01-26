@@ -2,6 +2,7 @@ package me.bluenitrox.school.ah;
 
 import com.avaje.ebeaninternal.server.core.Message;
 import me.bluenitrox.school.managers.MessageManager;
+import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.warzone.CombatAPI;
@@ -25,12 +26,13 @@ public class Ah_CMD implements CommandExecutor {
             cs.sendMessage(MessageManager.NOPLAYER);
             return true;
         }
-        /*CombatAPI api = new CombatAPI();
-        if(api.getWarzoneByLocation(p.getLocation()) != null){
-            p.sendMessage(MessageManager.PREFIX + "§7Du kannst das §6Auktionshaus §7in der Warzone §cnicht §7benutzen!");
-            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-            return true;
-        }*/
+        if(CombatAPI.fight != null) {
+            if (CombatAPI.fight.containsKey(p)) {
+                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                p.sendMessage(MessageManager.CANTDOINFIGHT);
+                return true;
+            }
+        }
 
         if(args.length == 0){
             if(MessageManager.ah) {
@@ -40,6 +42,7 @@ public class Ah_CMD implements CommandExecutor {
 
             }else {
                 p.sendMessage(MessageManager.PREFIX + "§7Das §6Auktionshaus §7ist derzeit in §cWartungw!");
+                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             }
         }else if(args.length == 2) {
             if(MessageManager.ah) {
@@ -62,6 +65,7 @@ public class Ah_CMD implements CommandExecutor {
 
                     if (AhManager.getAhItems(p) >= allowedItems) {
                         p.sendMessage(MessageManager.PREFIX + "§7Du hast bereits die maximale Anzahl an Items ins Ah gestellt [§a" + allowedItems + "§7 ]!");
+                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                         return true;
                     }
 
@@ -69,10 +73,12 @@ public class Ah_CMD implements CommandExecutor {
                     int preis = Integer.parseInt(args[1]);
                     if (p.getItemInHand().getType() == Material.AIR) {
                         p.sendMessage(MessageManager.PREFIX + "§cBitte halte ein Item in der Hand!");
+                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                         return true;
                     }
                     if(preis <= 0){
                         p.sendMessage(MessageManager.PREFIX + "§cDer Preis ist so nicht möglich");
+                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                         return true;
                     }
                     if(preis > 1000000000){
@@ -80,6 +86,12 @@ public class Ah_CMD implements CommandExecutor {
                     }
                     if(!CheckAmount.check(args[1])){
                         p.sendMessage(MessageManager.PREFIX + "§cDer Preis ist so nicht möglich");
+                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                        return true;
+                    }
+                    if(preis > MoneyManager.getGemlimit(p.getUniqueId())){
+                        p.sendMessage(MessageManager.PREFIX + "§7Du kannst heute §ckeine §7Gems mehr verdienen.");
+                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                         return true;
                     }
                     Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);
@@ -88,9 +100,11 @@ public class Ah_CMD implements CommandExecutor {
 
                 } else {
                     p.sendMessage(MessageManager.PREFIX + "§7Das §6Auktionshaus §7ist derzeit in §cWartungw!");
+                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                 }
             } else {
                 p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
+                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             }
         }else {
             p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));

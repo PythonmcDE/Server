@@ -1,34 +1,28 @@
 package me.bluenitrox.school.mine.manager;
 
+import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.managers.LocationManager;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import me.bluenitrox.school.managers.MessageManager;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 
 public class Minenreset {
 
-    private ArrayList<Material> hashmine;
+    private LinkedList<Material> hashmine;
 
     public static void fillMineServerStart(){
-        try {
-            for (int i = 1; i <= 25; i++) {
-                Minenreset mr = new Minenreset();
-                mr.fillMine("mine" + i);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+        for (int i = 1; i <= MessageManager.MAX_MINE; i++) {
+            Minenreset mr = new Minenreset();
+            mr.fillMine("mine" + i);
         }
     }
 
     public void fillMine(String mine){
-        hashmine = new ArrayList<>();
+        hashmine = new LinkedList<>();
         registerHash(mine);
         String temp = "eckpoint1" + mine;
         String temp2 = "eckpoint2" + mine;
@@ -57,6 +51,9 @@ public class Minenreset {
             if(all.getWorld().getName().equals("Minen")){
                 if(teleportRequest(all,eckpoint1,eckpoint2,mine)){
                     all.teleport(new LocationManager(mine).getLocation());
+                    String minen = mine.replace("m", "M");
+                    TTA_Methods.sendTitle(all, "§6§lMinenreset", 20, 20, 20, "§8» §7" + minen, 20, 20, 20);
+                    all.playSound(all.getLocation(), Sound.NOTE_BASS, 1L, 1L);
                 }
             }
         }
@@ -74,21 +71,21 @@ public class Minenreset {
             for(int i = 0; i< 98; i++){
                 hashmine.add(Material.STONE);
             }
-            for(int i = 0; i< 5; i++){
+            for(int i = 0; i< 10; i++){
                 hashmine.add(Material.COAL_ORE);
             }
         }else if(mine.equalsIgnoreCase("mine3")){
             for(int i = 0; i< 95; i++){
                 hashmine.add(Material.STONE);
             }
-            for(int i = 0; i< 8; i++){
+            for(int i = 0; i< 15; i++){
                 hashmine.add(Material.COAL_ORE);
             }
         }else if(mine.equalsIgnoreCase("mine4")){
             for(int i = 0; i< 90; i++){
                 hashmine.add(Material.STONE);
             }
-            for(int i = 0; i< 10; i++){
+            for(int i = 0; i< 15; i++){
                 hashmine.add(Material.COAL_ORE);
             }
             for(int i = 0; i< 5; i++){
@@ -98,7 +95,7 @@ public class Minenreset {
             for(int i = 0; i< 90; i++){
                 hashmine.add(Material.STONE);
             }
-            for(int i = 0; i< 10; i++){
+            for(int i = 0; i< 15; i++){
                 hashmine.add(Material.COAL_ORE);
             }
             for(int i = 0; i< 10; i++){
@@ -108,7 +105,7 @@ public class Minenreset {
             for(int i = 0; i< 80; i++){
                 hashmine.add(Material.STONE);
             }
-            for(int i = 0; i< 10; i++){
+            for(int i = 0; i< 15; i++){
                 hashmine.add(Material.COAL_ORE);
             }
             for(int i = 0; i< 10; i++){
@@ -121,7 +118,7 @@ public class Minenreset {
             for(int i = 0; i< 80; i++){
                 hashmine.add(Material.STONE);
             }
-            for(int i = 0; i< 10; i++){
+            for(int i = 0; i< 15; i++){
                 hashmine.add(Material.COAL_ORE);
             }
             for(int i = 0; i< 10; i++){
@@ -134,7 +131,7 @@ public class Minenreset {
             for(int i = 0; i< 75; i++){
                 hashmine.add(Material.STONE);
             }
-            for(int i = 0; i< 10; i++){
+            for(int i = 0; i< 15; i++){
                 hashmine.add(Material.COAL_ORE);
             }
             for(int i = 0; i< 10; i++){
@@ -150,7 +147,7 @@ public class Minenreset {
             for(int i = 0; i< 75; i++){
                 hashmine.add(Material.STONE);
             }
-            for(int i = 0; i< 10; i++){
+            for(int i = 0; i< 15; i++){
                 hashmine.add(Material.COAL_ORE);
             }
             for(int i = 0; i< 10; i++){
@@ -657,17 +654,21 @@ public class Minenreset {
 
     private boolean teleportRequest(Player p, Location eckpoint1, Location eckpoint2, String mine){
         if(mine.equals("mine1")) {
-            if (p.getLocation().getBlockX() <= eckpoint1.getBlockX() && p.getLocation().getBlockX() >= eckpoint2.getBlockX()) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
                 if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
-                    if (p.getLocation().getBlockZ() <= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() >= eckpoint2.getBlockZ()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
                         return true;
                     }
                 }
             }
         }else if(mine.equals("mine2")) {
-            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+            Bukkit.broadcastMessage("0");
+            if (p.getLocation().getBlockX() <= eckpoint1.getBlockX() && p.getLocation().getBlockX() >= eckpoint2.getBlockX()) {
+                Bukkit.broadcastMessage("1");
                 if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
-                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                    Bukkit.broadcastMessage("2");
+                    if (p.getLocation().getBlockZ() <= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() >= eckpoint2.getBlockZ()) {
+                        Bukkit.broadcastMessage("3");
                         return true;
                     }
                 }

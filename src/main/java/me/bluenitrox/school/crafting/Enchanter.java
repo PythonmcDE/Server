@@ -23,7 +23,7 @@ import java.util.Random;
 public class Enchanter {
 
     public static String GUI_NAME = "§8» §5Zaubertisch";
-    private static ArrayList<Enchantment> enchantments;
+    private static ArrayList<String> enchantments;
 
     public static final int levelneeded = 3;
 
@@ -37,7 +37,7 @@ public class Enchanter {
 
     private static void setZaubertischContent(Inventory inv){
         ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build("isInInv");
-        ItemStack tisch = new ItemBuilder(Material.ENCHANTMENT_TABLE).setDisplayname("§8» §6§lZaubertisch").setLore("§6§l▶ §7Unser §5Verzauberungs-System §7funktioniert", "§6§l▶ §7ein wenig anders, als das normale.", " ", "§cInfo:", "§8● §7Wenn du mehr erfahren willst, besuche", "§8● §7doch unsere Website §8(§fDemonMC.eu§8)").build("isInInv");
+        ItemStack tisch = new ItemBuilder(Material.ENCHANTMENT_TABLE).setDisplayname("§8» §6§lZaubertisch").setLore("§6§l▶ §7Unser §5Verzauberungs-System §7funktioniert", "§6§l▶ §7ein wenig anders, als das normale.", " ", "§cInfo:", "§8● §7Wenn du mehr erfahren willst, besuche", "§8● §7doch unsere Website §8(§fPythonMC.de§8)").build("isInInv");
         ItemStack notokay = new ItemBuilder(Material.BARRIER).setDisplayname("§8» §cUngültige Verzauberung").setLore("§8● §7Entweder liegt kein Item auf dem freien Slot,", "§8● §7oder dieses kann nicht verzaubert werden.").build("isInInv");
         ItemStack glasblack = new ItemBuilder(Material.STAINED_GLASS_PANE, (short)15).setDisplayname(" ").build("isInInv");
         
@@ -74,10 +74,10 @@ public class Enchanter {
                                         registerArray();
                                         e.getClickedInventory().setItem(22, new ItemBuilder(Material.AIR).build());
                                         p.setLevel(p.getLevel() - levelneeded);
-                                        MoneyManager.updateMoney(p.getUniqueId(), 15000, true, false);
+                                        MoneyManager.updateMoney(p.getUniqueId(), 15000, true, false, false);
                                         p.closeInventory();
-                                        int r = new Random().nextInt(97);
-                                        p.getInventory().addItem(new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§5Verzaubertes Buch").addEnchant(enchantments.get(r), 1, false).build());
+                                        int r = new Random().nextInt(95);
+                                        p.getInventory().addItem(new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§5Verzaubertes Buch").setLore("§7" + enchantments.get(r)).build());
                                         p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
                                     }
                                 }
@@ -104,58 +104,54 @@ public class Enchanter {
     }
 
     private static void registerArray(){
-        enchantments.add(Enchantment.FIRE_ASPECT);
+        enchantments.add("Verbrennung I");
 
         for(int i = 0; i<= 9; i++){
-            enchantments.add(Enchantment.DAMAGE_ALL);
+            enchantments.add("Schärfe I");
         }
         for(int i = 0; i<= 9; i++){
-            enchantments.add(Enchantment.PROTECTION_ENVIRONMENTAL);
+            enchantments.add("Schutz I");
         }
         for(int i = 0; i<= 9; i++){
-            enchantments.add(Enchantment.ARROW_DAMAGE);
+            enchantments.add("Stärke I");
         }
         for(int i = 0; i<= 9; i++){
-            enchantments.add(Enchantment.DIG_SPEED);
+            enchantments.add("Effizienz I");
         }
         for(int i = 0; i<= 9; i++){
-            enchantments.add(Enchantment.DURABILITY);
+            enchantments.add("Haltbarkeit I");
         }
 
         for(int i = 0; i<= 5; i++){
-            enchantments.add(Enchantment.PROTECTION_EXPLOSIONS);
+            enchantments.add("Explosionsschutz I");
         }
         for(int i = 0; i<= 5; i++){
-            enchantments.add(Enchantment.PROTECTION_PROJECTILE);
+            enchantments.add("Schusssicher I");
         }
         for(int i = 0; i<= 5; i++){
-            enchantments.add(Enchantment.PROTECTION_FIRE);
+            enchantments.add("Feuerschutz I");
         }
         for(int i = 0; i<= 5; i++){
-            enchantments.add(Enchantment.DAMAGE_UNDEAD);
+            enchantments.add("Bann I");
         }
         for(int i = 0; i<= 5; i++){
-            enchantments.add(Enchantment.DAMAGE_ARTHROPODS);
+            enchantments.add("Nemesis der Gliederfüßler I");
         }
 
         for(int i = 0; i<= 2; i++){
-            enchantments.add(Enchantment.WATER_WORKER);
+            enchantments.add("Wasserläufer I");
         }
         for(int i = 0; i<= 2; i++){
-            enchantments.add(Enchantment.KNOCKBACK);
+            enchantments.add("Rückstoß I");
         }
         for(int i = 0; i<= 2; i++){
-            enchantments.add(Enchantment.DEPTH_STRIDER);
+            enchantments.add("Wasseraffinität I");
         }
         for(int i = 0; i<= 2; i++){
-            enchantments.add(Enchantment.OXYGEN);
+            enchantments.add("Atmung I");
         }
         for(int i = 0; i<= 2; i++){
-            enchantments.add(Enchantment.THORNS);
-        }
-
-        for(int i = 0; i<= 1; i++){
-            enchantments.add(Enchantment.LURE);
+            enchantments.add("Dornen I");
         }
     }
 

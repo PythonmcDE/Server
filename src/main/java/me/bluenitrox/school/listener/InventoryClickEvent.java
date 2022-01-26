@@ -7,11 +7,13 @@ import me.bluenitrox.school.commands.Prestige;
 import me.bluenitrox.school.commands.getBooks;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
+import me.bluenitrox.school.dungeon.command.DungeonInventory;
 import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.enchants.Enchant;
 import me.bluenitrox.school.features.*;
 import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.haendler.commands.Schmied;
+import me.bluenitrox.school.haendler.commands.Taxi;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -50,25 +52,26 @@ public class InventoryClickEvent implements Listener {
                 AhListener.onClickAuctionhouse(e);
                 Enchanter.inventoryClick(e);
                 getBooks.onClick(e);
+                Taxi.onClick(e);
+                DungeonInventory.onClick(e);
             }
         }
     }
 
     private void caseClick(org.bukkit.event.inventory.InventoryClickEvent e){
-        if(e.getCurrentItem() != null){
-            return;
-        }
-        if((e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.daily)
-                || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.gewöhnlich)
-                || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.selten)
-                || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.episch)
-                || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.legendär)
-                || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.mysthische)
-                || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.tier)) && e.getCurrentItem() != null){
-            e.setCancelled(true);
-        }else if(e.getClickedInventory().getName().equalsIgnoreCase("§e§lCase Gewinn")){
-            if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(" ") || e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§e§lDein Gewinn")){
+        if(e.getCurrentItem() != null) {
+            if ((e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.daily)
+                    || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.gewöhnlich)
+                    || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.selten)
+                    || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.episch)
+                    || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.legendär)
+                    || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.mysthische)
+                    || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.tier)) && e.getCurrentItem() != null) {
                 e.setCancelled(true);
+            } else if (e.getClickedInventory().getName().equalsIgnoreCase("§e§lCase Gewinn")) {
+                if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(" ") || e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§e§lDein Gewinn")) {
+                    e.setCancelled(true);
+                }
             }
         }
     }

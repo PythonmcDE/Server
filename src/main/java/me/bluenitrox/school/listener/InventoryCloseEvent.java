@@ -3,6 +3,7 @@ package me.bluenitrox.school.listener;
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.crafting.Enchanter;
+import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.haendler.commands.Schmied;
@@ -17,6 +18,7 @@ public class InventoryCloseEvent implements Listener {
     @EventHandler
     public void onClose(final org.bukkit.event.inventory.InventoryCloseEvent e){
         Player p = (Player)e.getPlayer();
+        WerkbankGUIRegister gui = new WerkbankGUIRegister();
         if(e.getInventory().getName().equalsIgnoreCase("§e§lCase Gewinn")){
             if(e.getInventory().getItem(13) != null){
                 if(!CaseAPI.caseöffnen.contains(p)) {
@@ -26,6 +28,7 @@ public class InventoryCloseEvent implements Listener {
                 }
             }
         }
+        gui.onClose(e);
         Schmied.onClose(e);
         CraftAPI.onClose(e);
         Enchanter.onInventoryClose(e);

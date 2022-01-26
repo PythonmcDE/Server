@@ -10,6 +10,7 @@ import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
+import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -29,6 +30,14 @@ public class HändlerAPI implements CommandExecutor {
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player) cs;
         DailyReward dr = new DailyReward();
+
+        if(CombatAPI.fight != null) {
+            if (CombatAPI.fight.containsKey(p)) {
+                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                p.sendMessage(MessageManager.CANTDOINFIGHT);
+                return true;
+            }
+        }
 
         if (args.length == 1) {
             if (p.hasPermission(PermissionsManager.NPCS)) {
@@ -58,6 +67,8 @@ public class HändlerAPI implements CommandExecutor {
                     Jäger.onCommand(cs, cmd, s, args);
                 } else if (args[0].equalsIgnoreCase("dailyreward")) {
                     dr.onCommand(cs, cmd, s, args);
+                } else if (args[0].equalsIgnoreCase("taxi")) {
+                    Taxi.onCommand(cs, cmd, s, args);
                 }
             }
         }
@@ -132,7 +143,7 @@ public class HändlerAPI implements CommandExecutor {
                                             if (p.getInventory().getItem(i).getType() == clickeditem) {
                                                 if (p.getInventory().getItem(i).getDurability() == dura) {
                                                     if (p.getInventory().getItem(i).getAmount() > 1) {
-                                                        p.getInventory().getItem(i).setAmount(p.getItemInHand().getAmount() - 1);
+                                                        p.getInventory().getItem(i).setAmount(p.getInventory().getItem(i).getAmount() - 1);
                                                     } else if (p.getInventory().getItem(i).getAmount() == 1) {
                                                         ItemStack air = new ItemStack(Material.AIR);
                                                         p.getInventory().setItem(i, air);

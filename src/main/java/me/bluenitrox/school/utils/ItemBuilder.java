@@ -32,7 +32,7 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder addEnchantment(Enchantment enchantment, int level){
+    public ItemBuilder addEnchantment(Enchantment enchantment, int level, boolean b){
         this.itemStack.addEnchantment(enchantment, level);
         return this;
     }

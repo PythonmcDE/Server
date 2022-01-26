@@ -3,7 +3,9 @@ package me.bluenitrox.school.commands;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,6 +25,14 @@ public class Vanish implements CommandExecutor {
             return true;
         }
         Player p = (Player) sender;
+
+        if(CombatAPI.fight != null) {
+            if (CombatAPI.fight.containsKey(p)) {
+                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                p.sendMessage(MessageManager.CANTDOINFIGHT);
+                return true;
+            }
+        }
 
 
         if(!p.hasPermission(PermissionsManager.VANISH)) {

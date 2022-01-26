@@ -1,8 +1,8 @@
-name: DemonMCSchool
+name: PythonMCSchool
 main: me.bluenitrox.school.SchoolMode
 description: "This is a Plugin of two German programmers."
 authors: [1BlueNitrox - Daarkii]
-version: 1.0
+version: 2.0.1
 
 commands:
   set:
@@ -95,3 +95,11 @@ commands:
       - trash
       - müll
   getBooks:
+  pl:
+    aliases:
+      - plugin
+      - plugins
+      - pls
+  stats:
+  dungeon:
+  DungeonInventory:

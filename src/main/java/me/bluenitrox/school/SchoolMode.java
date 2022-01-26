@@ -6,6 +6,8 @@ import me.bluenitrox.school.ah.Ah_CMD;
 import me.bluenitrox.school.boost.BoosterAPI;
 import me.bluenitrox.school.boost.BoosterManager;
 import me.bluenitrox.school.crafting.Enchanter;
+import me.bluenitrox.school.dungeon.command.Dungeon;
+import me.bluenitrox.school.dungeon.command.DungeonInventory;
 import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
@@ -14,9 +16,12 @@ import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.LevelManager;
+import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
+import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.mine.commands.Sell;
 import me.bluenitrox.school.listener.BreakBlockEvent;
+import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mine.manager.Minenreset;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
@@ -24,6 +29,7 @@ import me.bluenitrox.school.utils.*;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -36,10 +42,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class SchoolMode extends JavaPlugin {
 
@@ -53,9 +56,21 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Integer> playercase = new HashMap<>();
     public static HashMap<UUID, Integer> playerchest = new HashMap<>();
     public static HashMap<UUID, Integer> playergemlimit = new HashMap<>();
+    public static HashMap<UUID, Integer> playerprestige = new HashMap<>();
+    public static HashMap<UUID, Integer> playerskillpunkte = new HashMap<>();
+    public static HashMap<UUID, Integer> playerangriff = new HashMap<>();
+    public static HashMap<UUID, Integer> playerverteidigung = new HashMap<>();
+    public static HashMap<UUID, Integer> playerextraenergie = new HashMap<>();
+    public static HashMap<UUID, Integer> playerscharfschütze = new HashMap<>();
+    public static HashMap<UUID, Integer> playermining = new HashMap<>();
+    public static HashMap<UUID, Integer> playerhandler = new HashMap<>();
+    public static HashMap<UUID, Integer> playeralchemist = new HashMap<>();
+    public static HashMap<UUID, Integer> playerbonusloot = new HashMap<>();
+    public static HashMap<UUID, Integer> playergluckspilz = new HashMap<>();
     public static ArrayList<UUID> playerwason = new ArrayList<>();
     public static HashMap<String,Entity> Pets = new HashMap<>();
     private static final Random r = new Random();
+    private int entityclear = 0;
     private BoosterManager boostermanager;
     public BoosterManager getBoostermanager() {
         return boostermanager;
@@ -80,12 +95,13 @@ public class SchoolMode extends JavaPlugin {
         startAhUpdate();
         Bukkit.getConsoleSender().sendMessage("§4AhAnticrash §4aktivieren... §4(7/8)");
         startAhAnticrash();
+        startEntityClear();
         setBoostermanager(new BoosterManager());
         LevelManager.registerLevel();
         setGameRules();
-        startKitSystem();
+        startScoreboard();;
         Bukkit.getConsoleSender().sendMessage("§4Befülle alle Minen... §4(8/8)");
-        Minenreset.fillMineServerStart();
+        registerMine();
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
     }
 
@@ -140,7 +156,10 @@ public class SchoolMode extends JavaPlugin {
         getCommand("plotworld").setExecutor(new Plotworld());
         getCommand("mülleimer").setExecutor(new Mülleimer());
         getCommand("getBooks").setExecutor(new GetLeveledBooks());
-
+        getCommand("pl").setExecutor(new Plugin());
+        getCommand("stats").setExecutor(new Stats());
+        getCommand("dungeon").setExecutor(new Dungeon());
+        getCommand("DungeonInventory").setExecutor(new DungeonInventory());
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/8)");
@@ -150,6 +169,7 @@ public class SchoolMode extends JavaPlugin {
 
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new PlayerQuitListener(), this);
+        pm.registerEvents(new EntityDeathEvent(), this);
         pm.registerEvents(new InventoryClickEvent(), this);
         pm.registerEvents(new PlayerInteractEvent(), this);
         pm.registerEvents(new InventoryOpenEvent(), this);
@@ -277,11 +297,38 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
 
+        try{
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `erhaltitems` ( `UUID` CHAR(36) NOT NULL , `item` TEXT NOT NULL)");
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
         Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/8)");
+    }
+    private void registerMine(){
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                Minenreset.fillMineServerStart();
+            }
+        }.runTaskLater(getInstance(), 20*3);
     }
     private void startAntiDupe() {
         new BukkitRunnable() {
 
+            @Override
+            public void run() {
+                Antidupe.ids = new ArrayList<>();
+                for (Player all : Bukkit.getOnlinePlayers()) {
+                    Antidupe.checkAllInventorys(all.getInventory(), all);
+                }
+                Antidupe.ids.clear();
+            }
+        }.runTaskTimerAsynchronously(this, 20, 20);
+    }
+    private void startScoreboard(){
+        new BukkitRunnable() {
             @Override
             public void run() {
                 if(!StopCommand.alreadystarted) {
@@ -289,16 +336,25 @@ public class SchoolMode extends JavaPlugin {
                         StopCommand.restartServer();
                     }
                 }
-                Antidupe.ids = new ArrayList<>();
                 for (Player all : Bukkit.getOnlinePlayers()) {
-                    playerlevel.get(all.getUniqueId());
                     ScoreboardManager.setBoard(Bukkit.getPlayer(all.getUniqueId()));
                     Antidupe.checkAllInventorys(all.getInventory(), all);
                     return;
                 }
-                Antidupe.ids.clear();
+                for(int i = 1; i<= MessageManager.MAX_MINE; i++) {
+                    String mine = String.valueOf(i);
+                    if(BreakBlockEvent.minen != null) {
+                        if(BreakBlockEvent.minen.get(mine) != null) {
+                            if (BreakBlockEvent.minen.get(mine) >= MessageManager.blocksforreset.get("mine" + mine)) {
+                                Minenreset mr = new Minenreset();
+                                mr.fillMine("mine" + mine);
+                                BreakBlockEvent.minen.put(mine, 0);
+                            }
+                        }
+                    }
+                }
             }
-        }.runTaskTimerAsynchronously(this, 20 * 3, 20 * 3);
+        }.runTaskTimer(this, 20*10, 20*10);
     }
     private void startAhUpdate(){
         new BukkitRunnable() {
@@ -319,41 +375,6 @@ public class SchoolMode extends JavaPlugin {
                         }
                     }
                 });
-            }
-        }.runTaskTimerAsynchronously(this,20,20);
-    }
-    private void getCurrentDupeID(){
-        if(isDupeIDExists()) {
-            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe")) {
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    Antidupe.nextItemID = rs.getInt("dupeid") + 1;
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }else {
-            try (PreparedStatement ps1 = MySQL.getConnection().prepareStatement("INSERT INTO antidupe (dupeid) VALUES (?)")) {
-                ps1.setInt(1,1);
-                ps1.executeUpdate();
-            } catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-    }
-    private void setGameRules(){
-        Bukkit.setWhitelist(false);
-        for(World world : Bukkit.getWorlds()){
-            world.setGameRuleValue("doTileDrops", "false");
-            world.setGameRuleValue("doDaylightCycle","false");
-            world.setDifficulty(Difficulty.EASY);
-        }
-
-    }
-    private void startKitSystem(){
-        new BukkitRunnable() {
-            @Override
-            public void run() {
                 for(UUID uuid : playerwason){
                     if(KitAPI.holz.containsKey(uuid)){
                         if(KitAPI.holz.get(uuid) > 1){
@@ -450,7 +471,55 @@ public class SchoolMode extends JavaPlugin {
                     }
                 }
             }
-        }.runTaskTimerAsynchronously(this, 20, 20);
+        }.runTaskTimerAsynchronously(this,20,20);
+    }
+    private void getCurrentDupeID(){
+        if(isDupeIDExists()) {
+            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe")) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Antidupe.nextItemID = rs.getInt("dupeid") + 1;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else {
+            try (PreparedStatement ps1 = MySQL.getConnection().prepareStatement("INSERT INTO antidupe (dupeid) VALUES (?)")) {
+                ps1.setInt(1,1);
+                ps1.executeUpdate();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
+    private void startEntityClear(){
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                if(Bukkit.getWorld(WorldManager.dungeon).getEntities() != null) {
+                    for (Entity e : Bukkit.getWorld(WorldManager.dungeon).getEntities()) {
+                        e.remove();
+                    }
+                }
+                if(entityclear == 0){
+                    for(World world : Bukkit.getWorlds()) {
+                        if (world.getEntities() != null) {
+                            for (Entity e : world.getEntities()) {
+                                e.remove();
+                            }
+                        }
+                    }
+                }
+            }
+        }.runTaskTimerAsynchronously(getInstance(), 20*60*10, 20*60*10);
+    }
+    private void setGameRules(){
+        Bukkit.setWhitelist(false);
+        for(World world : Bukkit.getWorlds()){
+            world.setGameRuleValue("doTileDrops", "false");
+            world.setGameRuleValue("doDaylightCycle","false");
+            world.setDifficulty(Difficulty.NORMAL);
+        }
 
     }
 
@@ -514,6 +583,9 @@ public class SchoolMode extends JavaPlugin {
     public static int getGemLimit(UUID uuid) {
         return playergemlimit.get(uuid);
     }
+    public static int getPrestige(UUID uuid) {
+        return playerprestige.get(uuid);
+    }
     public static void setPlayerMine(UUID uuid, int amount) {
         playerMine.put(uuid, amount);
     }
@@ -525,6 +597,9 @@ public class SchoolMode extends JavaPlugin {
     }
     public static void setGemLimit(UUID uuid, int amount) {
         playergemlimit.put(uuid, amount);
+    }
+    public static void setPrestige(UUID uuid, int amount) {
+        playerprestige.put(uuid, amount);
     }
     public static float getPlayerExp(UUID uuid) {
         return playerExp.get(uuid);

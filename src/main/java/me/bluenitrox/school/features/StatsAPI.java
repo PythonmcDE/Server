@@ -124,7 +124,7 @@ public class StatsAPI {
     public int getChestsDatabase(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT kills FROM spielerdaten WHERE UUID = ?")) {
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT kills FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -145,7 +145,7 @@ public class StatsAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET kills = ? WHERE UUID = ?")) {
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET kills = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -161,7 +161,7 @@ public class StatsAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET deaths = ? WHERE UUID = ?")) {
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET deaths = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -177,7 +177,7 @@ public class StatsAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET cases = ? WHERE UUID = ?")) {
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET cases = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -193,7 +193,7 @@ public class StatsAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET mob = ? WHERE UUID = ?")) {
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET mob = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -209,7 +209,7 @@ public class StatsAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET chests = ? WHERE UUID = ?")) {
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET chests = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();

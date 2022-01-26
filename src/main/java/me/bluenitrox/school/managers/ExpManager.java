@@ -1,5 +1,6 @@
 package me.bluenitrox.school.managers;
 
+import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.boost.Moneybooster;
 import me.bluenitrox.school.boost.Xpbooster;
@@ -88,6 +89,9 @@ public class ExpManager {
 
         return xp;
     }
+    public static int getPrestige(UUID uuid) {
+        return SchoolMode.getPrestige(uuid);
+    }
 
     public static float getExp(UUID uuid) {
         return SchoolMode.getPlayerExp(uuid);
@@ -108,13 +112,20 @@ public class ExpManager {
                 float newAmount = getExp(uuid) + amount;
                 SchoolMode.setPlayerExp(uuid, newAmount);
             }
+            if(amount > 10){
+                ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+            }
         }
         for(int i = 0; i != 50; i++) {
             if (checkLevelUp(getExp(uuid), LevelManager.level.get(SchoolMode.playerlevel.get(uuid)))) {
                 SchoolMode.playerlevel.put(uuid, SchoolMode.playerlevel.get(uuid) + 1);
+                SchoolMode.setPlayerExp(uuid, 0);
                 Bukkit.getPlayer(uuid).sendMessage(MessageManager.PREFIX + "§7Du bist im §cLevel §7aufgestiegen!");
+                TTA_Methods.sendTitle(Bukkit.getPlayer(uuid), "§4§kII§r  §6§lLevelup  §4§kII", 20, 20, 20, "§8» §7Level " + getLevel(uuid), 20, 20, 20);
                 SkillAPI api = new SkillAPI();
                 api.updateSkillpunkte(uuid, 1, false);
+                Firework.Firework(Bukkit.getPlayer(uuid));
+                Firework.Firework(Bukkit.getPlayer(uuid));
                 Firework.Firework(Bukkit.getPlayer(uuid));
                 ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
             }
@@ -139,7 +150,7 @@ public class ExpManager {
         }
     }
 
-    public static void updatePrestigeDatabase(UUID uuid, float amount, boolean remove) {
+    /*public static void updatePrestigeDatabase(UUID uuid, float amount, boolean remove) {
         float currMoney = getPrestigeDatabase(uuid);
         float newAmount;
         if (remove) {
@@ -155,6 +166,16 @@ public class ExpManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }*/
+    public static void updatePrestige(UUID uuid, float amount, boolean remove) {
+        int currMoney = getPrestige(uuid);
+        int newAmount;
+        if (remove) {
+            newAmount = (int) (currMoney - amount);
+        } else {
+            newAmount = (int) (currMoney + amount);
+        }
+        SchoolMode.setPrestige(uuid, (int) newAmount);
     }
 }
 

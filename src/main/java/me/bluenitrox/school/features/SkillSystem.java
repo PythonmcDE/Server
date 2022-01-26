@@ -1,9 +1,11 @@
 package me.bluenitrox.school.features;
 
 import me.bluenitrox.school.managers.ExpManager;
+import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -20,23 +22,41 @@ public class SkillSystem {
         SkillAPI api = new SkillAPI();
 
         int swordprozent = 3*api.get(uuid,"angriff");
-        int swordprozent2 = swordprozent+1;
+        int swordlevel = api.get(uuid,"angriff");
+        int swordprozent2 = swordlevel+1;
+
         int armorprozent = 3*api.get(uuid,"verteidigung");
-        int armorprozent2 = armorprozent+1;
+        int armorlevel = api.get(uuid,"verteidigung");
+        int armorprozent2 = armorlevel+1;
+
         int energieprozent = 3*api.get(uuid,"extraenergie");
-        int energieprozent2 = energieprozent+1;
+        int energielevel = api.get(uuid,"extraenergie");
+        int energieprozent2 = energielevel+1;
+
         int scharfprozent = 3*api.get(uuid,"scharfschütze");
-        int scharfprozent2 = scharfprozent+1;
+        int scharflevel = api.get(uuid,"scharfschütze");
+        int scharfprozent2 = scharflevel+1;
+
         int miningprozent = 3*api.get(uuid,"mining");
-        int miningprozent2 = miningprozent+1;
+        int mininglevel = api.get(uuid,"mining");
+        int miningprozent2 = mininglevel+1;
+
         int händlerprozent = 3*api.get(uuid,"handler");
-        int händlerprozent2 = händlerprozent+1;
+        int händlerlevel = api.get(uuid,"handler");
+        int händlerprozent2 = händlerlevel+1;
+
         int alcheprozent = 3*api.get(uuid,"alchemist");
-        int alcheprozent2 = alcheprozent+1;
+        int alchelevel = api.get(uuid,"alchemist");
+        int alcheprozent2 = alchelevel+1;
+
         int warzoneprozent = 3*api.get(uuid,"bonusloot");
-        int warzoneprozent2 = warzoneprozent+1;
+        int warzonelevel = api.get(uuid,"bonusloot");
+        int warzoneprozent2 = warzonelevel+1;
+
         int glückprozent = 3*api.get(uuid,"gluckspilz");
-        int glückprozent2 = glückprozent+1;
+        int glücklevel = api.get(uuid,"gluckspilz");
+        int glückprozent2 = glücklevel+1;
+
 
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
@@ -82,8 +102,146 @@ public class SkillSystem {
     }
 
     public static void onClick(final InventoryClickEvent e) {
-        if (e.getClickedInventory().getName().equalsIgnoreCase(guiname) && e.getCurrentItem() != null) {
+        UUID uuid = e.getWhoClicked().getUniqueId();
+        Player p = (Player)e.getWhoClicked();
+        SkillAPI api = new SkillAPI();
+        int swordlevel = api.get(uuid,"angriff");
+        int swordprozent2 = swordlevel+1;
+        int armorlevel = api.get(uuid,"verteidigung");
+        int armorprozent2 = armorlevel+1;
+        int energielevel = api.get(uuid,"extraenergie");
+        int energieprozent2 = energielevel+1;
+        int scharflevel = api.get(uuid,"scharfschütze");
+        int scharfprozent2 = scharflevel+1;
+        int mininglevel = api.get(uuid,"mining");
+        int miningprozent2 = mininglevel+1;
+        int händlerlevel = api.get(uuid,"handler");
+        int händlerprozent2 = händlerlevel+1;
+        int alchelevel = api.get(uuid,"alchemist");
+        int alcheprozent2 = alchelevel+1;
+        int warzonelevel = api.get(uuid,"bonusloot");
+        int warzoneprozent2 = warzonelevel+1;
+        int glücklevel = api.get(uuid,"gluckspilz");
+        int glückprozent2 = glücklevel+1;
+        int skillpoints = api.getSkillpunkte(uuid);
+
+        if (e.getClickedInventory().getName().equalsIgnoreCase(guiname)) {
             e.setCancelled(true);
+            if(e.getCurrentItem() != null){
+                if(e.getCurrentItem().getItemMeta() != null){
+                    if(e.getCurrentItem().getItemMeta().getDisplayName() != null){
+                        if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l§oAngriff")) {
+                            if(skillpoints >= swordprozent2){
+                                api.update(uuid, 1, false, "angriff");
+                                api.updateSkillpunkte(uuid, swordprozent2, true);
+                                p.closeInventory();
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            }else {
+                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                p.closeInventory();
+                                return;
+                            }
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6§l§oVerteidigung")) {
+                            if(skillpoints >= armorprozent2){
+                                api.update(uuid, 1, false, "verteidigung");
+                                api.updateSkillpunkte(uuid, armorprozent2, true);
+                                p.closeInventory();
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            }else {
+                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                p.closeInventory();
+                                return;
+                            }
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l§oEntraenergie")) {
+                            if(skillpoints >= energieprozent2){
+                                api.update(uuid, 1, false, "extraenergie");
+                                api.updateSkillpunkte(uuid, energieprozent2, true);
+                                p.closeInventory();
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            }else {
+                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                p.closeInventory();
+                                return;
+                            }
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6§l§oScharfschütze")) {
+                            if(skillpoints >= scharfprozent2){
+                                api.update(uuid, 1, false, "scharfschütze");
+                                api.updateSkillpunkte(uuid, scharfprozent2, true);
+                                p.closeInventory();
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            }else {
+                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                p.closeInventory();
+                                return;
+                            }
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6§l§oHändler")) {
+                            if(skillpoints >= händlerprozent2){
+                                api.update(uuid, 1, false, "handler");
+                                api.updateSkillpunkte(uuid, händlerprozent2, true);
+                                p.closeInventory();
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            }else {
+                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                p.closeInventory();
+                                return;
+                            }
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l§oAlchemist")) {
+                            if(skillpoints >= alcheprozent2){
+                                api.update(uuid, 1, false, "alchemist");
+                                api.updateSkillpunkte(uuid, alcheprozent2, true);
+                                p.closeInventory();
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            }else {
+                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                p.closeInventory();
+                                return;
+                            }
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6§l§oBonusloot")) {
+                            if(skillpoints >= warzoneprozent2){
+                                api.update(uuid, 1, false, "bonusloot");
+                                api.updateSkillpunkte(uuid, warzoneprozent2, true);
+                                p.closeInventory();
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            }else {
+                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                p.closeInventory();
+                                return;
+                            }
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l§oGlückspilz")) {
+                            if(skillpoints >= glückprozent2){
+                                api.update(uuid, 1, false, "gluckspilz");
+                                api.updateSkillpunkte(uuid, glückprozent2, true);
+                                p.closeInventory();
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            }else {
+                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                p.closeInventory();
+                                return;
+                            }
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l§oMining")){
+                            if(skillpoints >= miningprozent2){
+                                api.update(uuid, 1, false, "mining");
+                                api.updateSkillpunkte(uuid, miningprozent2, true);
+                                p.closeInventory();
+                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                            }else {
+                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                p.closeInventory();
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

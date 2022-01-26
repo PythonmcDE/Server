@@ -6,6 +6,7 @@ import me.bluenitrox.school.enchants.sword.*;
 import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.utils.ArmorUtil;
+import me.bluenitrox.school.utils.EntityHitDelay;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -21,11 +22,14 @@ public class EntityDamageByEntityEvent implements Listener {
     @EventHandler
     public void onDamage(final org.bukkit.event.entity.EntityDamageByEntityEvent e){
         Pet pet = new Pet();
-        WorldManager wm = new WorldManager();
+        EntityHitDelay ehd = new EntityHitDelay();
         pet.damagePetEvent(e);
-        if(e.getEntity().getWorld().getName().equalsIgnoreCase(wm.warzone)){
+        if(e.getEntity().getWorld().getName().equalsIgnoreCase(WorldManager.warzone)){
             CombatAPI combat = new CombatAPI();
             combat.onhitCombat(e);
+        }
+        if(e.getEntity().getWorld().getName().equalsIgnoreCase(WorldManager.plotworld)){
+            ehd.onEntityHit(e);
         }
         if(e.getEntity() instanceof Player && e.getDamager() instanceof Player){
             /*

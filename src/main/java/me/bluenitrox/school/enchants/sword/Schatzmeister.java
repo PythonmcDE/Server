@@ -32,13 +32,11 @@ public class Schatzmeister {
             if (p.getItemInHand().getItemMeta() != null) {
                 if(p.getItemInHand().getItemMeta().getLore() != null) {
                     if (p.getItemInHand().getItemMeta().getLore().contains(EnchantManager.schatzmeister + "I")) {
-                        Bukkit.broadcastMessage("TEstInventory");
                         ItemStack chest = new ItemBuilder(Material.CHEST).setDisplayname("§8» §cInventar von §b" + inventoryowner.getDisplayName()).setLore("§6§l▶ §7Rechtsklicke die Kiste um die Items", "§6§l▶ §7deines §cGegners §7zu bekommen!").build();
 
                         NBTTags nbt = new NBTTags(chest);
                         nbt.setNBTTag("itemsiddata", putInDatabase(addArmorToInv(inv, inventoryowner)) +" ID");
 
-                        Bukkit.broadcastMessage("TEST");
 
                         p.getInventory().addItem(Antidupe.addID(chest));
                         e.setDroppedExp(0);

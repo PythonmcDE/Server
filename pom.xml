@@ -20,6 +20,10 @@
             <url>http://releases.herbystar.eu</url>
         </repository>
         <repository>
+            <id>gradle-release-local</id>
+            <url>https://repo.thesimplecloud.eu/artifactory/list/gradle-release-local/</url>
+        </repository>
+        <repository>
             <id>bungeecord-repo</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
@@ -69,19 +73,24 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--  cloudnet driver for plugins and modules -->
         <dependency>
-            <groupId>de.dytanic.cloudnet</groupId>
-            <artifactId>cloudnet-driver</artifactId>
-            <version>3.3.0-RELEASE</version>
+            <groupId>eu.thesimplecloud.simplecloud</groupId>
+            <artifactId>simplecloud-plugin</artifactId>
+            <version>2.2.0</version>
             <scope>provided</scope>
         </dependency>
 
-        <!--  cloudnet bridge module for plugins and modules -->
         <dependency>
-            <groupId>de.dytanic.cloudnet</groupId>
-            <artifactId>cloudnet-bridge</artifactId>
-            <version>3.3.0-RELEASE</version>
+            <groupId>eu.thesimplecloud.simplecloud</groupId>
+            <artifactId>simplecloud-api</artifactId>
+            <version>2.2.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.thesimplecloud.simplecloud</groupId>
+            <artifactId>simplecloud-module-permission</artifactId>
+            <version>2.2.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -100,27 +109,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--
-         PlotSquared Core API
-        <dependency>
-            <groupId>com.plotsquared</groupId>
-            <artifactId>PlotSquared-Core</artifactId>
-            <version>LATEST</version>
-        </dependency>
-
-        PlotSquared Bukkit API
-        <dependency>
-            <groupId>com.plotsquared</groupId>
-            <artifactId>PlotSquared-Bukkit</artifactId>
-            <version>LATEST</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>PlotSquared-Core</artifactId>
-                    <groupId>*</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        -->
 
     </dependencies>
 

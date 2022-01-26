@@ -14,10 +14,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CombatAPI {
 
@@ -27,8 +24,7 @@ public class CombatAPI {
     public static HashMap<Player, Integer> fightwarzone = new HashMap<>();
 
     public void onhitCombat(EntityDamageByEntityEvent e) {
-        WorldManager wm = new WorldManager();
-        if (e.getEntity().getWorld().getName().equalsIgnoreCase(wm.warzone)) {
+        if (e.getEntity().getWorld().getName().equalsIgnoreCase(WorldManager.warzone)) {
             if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
                 if (getWarzoneByLocation(e.getEntity().getLocation()) != null) {
                     Player p = (Player) e.getEntity();
@@ -70,7 +66,7 @@ public class CombatAPI {
         }
     }
 
-    private String getWarzoneByLocation(Location loc) {
+    public String getWarzoneByLocation(Location loc) {
         for (int i = 1; i <= 1; i++) {
             String curr = String.valueOf(i);
             loc.setPitch(0);
@@ -85,18 +81,18 @@ public class CombatAPI {
         return null;
     }
 
-    private List<Location> getBlocks(String warzone){
-        List<Location> locs = getEckPoints("warzone" + warzone);
+    private LinkedList<Location> getBlocks(String warzone){
+        LinkedList<Location> locs = getEckPoints("warzone" + warzone);
         Location loc1 = locs.get(0);
         Location loc2 = locs.get(1);
 
         return getAllLocationsInside(loc1, loc2);
     }
 
-    private List<Location> getEckPoints(String warzone){
+    private LinkedList<Location> getEckPoints(String warzone){
         Location loc1;
         Location loc2;
-        List<Location> templist = new ArrayList<>();
+        LinkedList<Location> templist = new LinkedList<>();
 
         String temp = "warzonepoint1" + warzone;
         String temp2 = "warzonepoint2" + warzone;
@@ -107,7 +103,7 @@ public class CombatAPI {
         return templist;
     }
 
-    private List<Location> getAllLocationsInside(Location loc1, Location loc2){
+    private LinkedList<Location> getAllLocationsInside(Location loc1, Location loc2){
         int yTop = 0;
         int yBottom = 0;
         int xTop = 0;
@@ -115,7 +111,7 @@ public class CombatAPI {
         int zTop = 0;
         int zBottom = 0;
 
-        List<Location> locs = new ArrayList<>();
+        LinkedList<Location> locs = new LinkedList<>();
 
         if(loc1.getBlockY() >= loc2.getBlockY()) {
             yTop = loc1.getBlockY();

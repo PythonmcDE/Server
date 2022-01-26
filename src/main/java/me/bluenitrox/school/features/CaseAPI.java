@@ -38,6 +38,9 @@ public class CaseAPI {
         clearAllArrays();
         getCasePot(cases, p);
 
+        StatsAPI api = new StatsAPI();
+        api.updateCase(p.getUniqueId(), 1, false);
+
 
         Inventory inv = Bukkit.getServer().createInventory(null, 9 * 3, toCase(cases));
 
@@ -178,11 +181,11 @@ public class CaseAPI {
         } else if (cases == 1) {
             allCasesGet(80, 30, 10, 5);
         } else if (cases == 2) {
-            allCasesGet(70, 40, 12, 7);
+            allCasesGet(60, 50, 16, 7);
         } else if (cases == 3) {
-            allCasesGet(60, 40, 25, 10);
+            allCasesGet(60, 50, 30, 10);
         } else if (cases == 4) {
-            allCasesGet(60, 40, 40, 20);
+            allCasesGet(60, 50, 40, 20);
         } else if (cases == 5) {
             for (int i = 0; i <= 60; i++) {
                 casepot.add(CaseItems.mysthische.get(new Random().nextInt(CaseItems.mysthische.size())));

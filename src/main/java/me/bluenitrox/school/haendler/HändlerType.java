@@ -12,6 +12,7 @@ public enum HändlerType {
     Landwirt,
     Schmied,
     Gärtner,
-    Künstlerin;
+    Künstlerin,
+    TAXI;
 
 }

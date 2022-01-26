@@ -18,6 +18,73 @@ public class MoneyManager {
 
     private static ArrayList<Player> sendChatMSG = new ArrayList<>();
 
+    public static boolean updateMoney(UUID uuid, float amount, boolean remove, boolean beachtungVonDoubleGemBooster, boolean ignoreGemlimit) {
+        if (remove) {
+            if (SchoolMode.getPlayerMoney(uuid) >= amount) {
+                float newAmount = SchoolMode.getPlayerMoney(uuid) - amount;
+                SchoolMode.setPlayerMoney(uuid, newAmount);
+                ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+            }
+        } else {
+            if(ignoreGemlimit == true){
+                if (!beachtungVonDoubleGemBooster) {
+                    float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
+                    SchoolMode.setPlayerMoney(uuid, newAmount);
+                    ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+                    return true;
+                } else {
+                    Moneybooster money = new Moneybooster();
+                    if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
+                        float newAmount = SchoolMode.getPlayerMoney(uuid) + (amount* MessageManager.MONEY_BOOSTER_BOOST);
+                        SchoolMode.setPlayerMoney(uuid, newAmount);
+                        ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+                        return true;
+                    }
+                    float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
+                    SchoolMode.setPlayerMoney(uuid, newAmount);
+                    ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+                    return true;
+                }
+            }
+            if(getGemlimit(uuid) > amount) {
+                if (!beachtungVonDoubleGemBooster) {
+                    float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
+                    SchoolMode.setPlayerMoney(uuid, newAmount);
+                    ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+                    updateGemlimit(uuid,amount, true);
+                    return true;
+                } else {
+                    Moneybooster money = new Moneybooster();
+                    if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
+                        float newAmount = SchoolMode.getPlayerMoney(uuid) + (amount* MessageManager.MONEY_BOOSTER_BOOST);
+                        SchoolMode.setPlayerMoney(uuid, newAmount);
+                        ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+                        updateGemlimit(uuid,amount, true);
+                        return true;
+                    }
+                    float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
+                    SchoolMode.setPlayerMoney(uuid, newAmount);
+                    ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+                    updateGemlimit(uuid,amount, true);
+                    return true;
+                }
+            }
+            if(!sendChatMSG.contains(Bukkit.getPlayer(uuid))) {
+                sendChatMSG.add(Bukkit.getPlayer(uuid));
+                Bukkit.getPlayer(uuid).sendMessage(MessageManager.PREFIX + "§7Du kannst heute §ckeine §7Gems mehr verdienen.");
+                Bukkit.getPlayer(uuid).playSound(Bukkit.getPlayer(uuid).getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                new BukkitRunnable(){
+                    @Override
+                    public void run() {
+                        sendChatMSG.remove(Bukkit.getPlayer(uuid));
+                    }
+                }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 30);
+            }
+            return false;
+        }
+        return true;
+    }
+
     public static boolean updateMoney(UUID uuid, float amount, boolean remove, boolean beachtungVonDoubleGemBooster) {
         if (remove) {
             if (SchoolMode.getPlayerMoney(uuid) >= amount) {
@@ -64,6 +131,7 @@ public class MoneyManager {
         }
         return true;
     }
+
     public static float getMoney(UUID uuid){
         return SchoolMode.getPlayerMoney(uuid);
     }
@@ -151,6 +219,23 @@ public class MoneyManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static float berechnungGemlimit(UUID uuid){
+        int level = ExpManager.getLevel(uuid);
+        float limit = 0;
+
+        limit += 200000;
+        limit += (level*200000);
+        if(ExpManager.getPrestige(uuid) == 1){
+            limit += 17000000;
+        }else if(ExpManager.getPrestige(uuid) == 2){
+            limit += 30000000;
+        }else if(ExpManager.getPrestige(uuid) == 3){
+            limit += 30000000;
+        }
+
+        return limit;
     }
 }
 

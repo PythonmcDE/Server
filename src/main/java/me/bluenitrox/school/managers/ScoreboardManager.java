@@ -92,22 +92,21 @@ public class ScoreboardManager {
     }
 
     private static String umrechnungToString(UUID uuid){
-        float playerexpbefor = LevelManager.level.get(ExpManager.getLevel(uuid)-1);
-        float sechstel = (LevelManager.level.get(ExpManager.getLevel(uuid)) - playerexpbefor) / 7;
+        float neededEXPoverall = LevelManager.level.get(ExpManager.getLevel(uuid));
+        float sechstel = neededEXPoverall / 7;
         float current = ExpManager.getExp(uuid);
-        float differenz = current - playerexpbefor;
 
-        if(differenz >= sechstel*6){
+        if(current >= sechstel*6){
             return "   §a▊▊▊▊▊▊";
-        }else if(differenz >= sechstel*5){
+        }else if(current >= sechstel*5){
             return "   §a▊▊▊▊▊§7▊";
-        }else if(differenz >= sechstel*4){
+        }else if(current >= sechstel*4){
             return "   §a▊▊▊▊§7▊▊";
-        }else if(differenz >= sechstel*3){
+        }else if(current >= sechstel*3){
             return "   §a▊▊▊§7▊▊▊";
-        }else if(differenz >= sechstel*2){
+        }else if(current >= sechstel*2){
             return "   §a▊▊§7▊▊▊▊";
-        }else if(differenz >= sechstel*1){
+        }else if(current >= sechstel){
             return "   §a▊§7▊▊▊▊▊";
         }else {
             return "   §7▊▊▊▊▊▊";

@@ -1,5 +1,6 @@
 package me.bluenitrox.school.haendler.commands;
 
+import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
@@ -32,7 +33,7 @@ public class Schmied {
         ItemStack glasblack = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 15).setDisplayname(" ").build();
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lItems reparieren").setLore("§6§l▶ §7Dein Item ist §cbeschädigt§7?", "§6§l▶ §7Kein Problem, §frepariere §7es hier beim §9§lSchmied","§6§l▶ §7für einen geringen Gem-Betrag.").build();
         ItemStack barrier = new ItemBuilder(Material.BARRIER).setDisplayname("§8» §cNicht möglich!").setLore("§6§l▶ §7Entweder liegt kein Item auf dem freien Slot,","§6§l▶ §7oder dieses Item kann repariert werden").build();
-        ItemStack dye = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8» §aKlicke hier, zum Reparieren!").setLore("§6§l▶ §7Kosten: §615 Tsd Gems").build();
+        ItemStack dye = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8» §aKlicke hier, zum Reparieren!").setLore("§6§l▶ §7Kosten: §6" + kostenBerechnung(p)  +" Gems").build();
 
         for(int i = 0; i<= 8; i++){
             inv.setItem(i, glas);
@@ -59,6 +60,12 @@ public class Schmied {
         return;
     }
 
+    private static int kostenBerechnung(Player p){
+        int kosten = 5000;
+        kosten += ExpManager.getLevel(p.getUniqueId())*1500;
+        return kosten;
+    }
+
     public static void onClickSchmied(InventoryClickEvent e){
         Player p = (Player) e.getWhoClicked();
         if(e.getClickedInventory().getName().equals(GUI_NAME) && e.getCurrentItem() != null){
@@ -67,11 +74,11 @@ public class Schmied {
             }
             if(e.getCurrentItem().getType() == Material.INK_SACK){
                 e.setCancelled(true);
-                if(MoneyManager.getMoney(p.getUniqueId()) >= 15000) {
+                if(MoneyManager.getMoney(p.getUniqueId()) >= kostenBerechnung(p)) {
                     if (e.getClickedInventory().getItem(22) != null) {
                         if (e.getClickedInventory().getItem(22).getDurability() != 0) {
 
-                            MoneyManager.updateMoney(p.getUniqueId(), 15000, true, false);
+                            MoneyManager.updateMoney(p.getUniqueId(), kostenBerechnung(p), true, false);
                             e.getClickedInventory().getItem(22).setDurability((short) 0);
 
 

@@ -17,16 +17,17 @@ import org.bukkit.help.HelpTopic;
 import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class PlayerCommandPreprocessEvent implements Listener {
 
-    public static ArrayList<String> normal;
+    public static LinkedList<String> normal;
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onCommandSend(final org.bukkit.event.player.PlayerCommandPreprocessEvent e){
         Player p = (Player)e.getPlayer();
 
-        normal = new ArrayList<>();
+        normal = new LinkedList<>();
         registerNormalCommand();
 
         if(!p.hasPermission(PermissionsManager.COMMANDBLOCK)) {
@@ -44,7 +45,7 @@ public class PlayerCommandPreprocessEvent implements Listener {
         }
 
         if(CombatAPI.fight.containsKey(p)){
-            normal = new ArrayList<>();
+            normal = new LinkedList<>();
             registerNormalCommand();
             registerFightCommand();
             if(!p.hasPermission(PermissionsManager.COMMANDBLOCK)){
@@ -105,7 +106,9 @@ public class PlayerCommandPreprocessEvent implements Listener {
         normal.add("/p auto");
         normal.add("/p claim");
         normal.add("/p merge");
+        normal.add("/znpcs");
     }
+
 
     private void registerFightCommand(){
         normal.add("/plot");

@@ -501,7 +501,10 @@ public class Pet {
                 break;
         }
 
-
+        if(!location.getWorld().getName().equals(creature.getWorld().getName())){
+            SchoolMode.Pets.remove(player.getName());
+            return;
+        }
         if(location.distanceSquared(creature.getLocation()) > 200){
             if(!player.isOnGround()){
                 return;

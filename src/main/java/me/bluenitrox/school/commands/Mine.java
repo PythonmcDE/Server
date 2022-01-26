@@ -1,12 +1,14 @@
 package me.bluenitrox.school.commands;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.UUIDFetcher;
 import me.bluenitrox.school.utils.ValuetoString;
+import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -32,6 +34,13 @@ public class Mine implements CommandExecutor {
     public boolean onCommand(CommandSender cs, Command c, String label, String[] args) {
         if(cs instanceof Player) {
             Player p = (Player) cs;
+            if(CombatAPI.fight != null) {
+                if (CombatAPI.fight.containsKey(p)) {
+                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                    p.sendMessage(MessageManager.CANTDOINFIGHT);
+                    return true;
+                }
+            }
             if(args.length == 0) {
                 //TODO: minen GUI öffnen
                 Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
@@ -59,6 +68,8 @@ public class Mine implements CommandExecutor {
                         }
 
                         String mineToTp = mine + number;
+                        DungeonManager dm = new DungeonManager();
+                        dm.onQuitDungeon(p);
                         p.teleport(new LocationManager(mineToTp).getLocation());
 
                     }catch (NumberFormatException e) {
@@ -183,7 +194,7 @@ public class Mine implements CommandExecutor {
         Player p = Bukkit.getPlayer(uuid);
         if(mine == 2){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_2_PREIS){
-                MoneyManager.updateMoney(uuid,MessageManager.MINE_2_PREIS, true, false);
+                MoneyManager.updateMoney(uuid,MessageManager.MINE_2_PREIS, true, false, false);
                 MinenManager.updateMine(uuid, false);
                 p.sendMessage(MessageManager.MINEBUYED);
                 p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -195,7 +206,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 3){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_3_PREIS){
                 if(MinenManager.getMine(uuid) == 2) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_3_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_3_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -211,7 +222,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 4){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_4_PREIS){
                 if(MinenManager.getMine(uuid) == 3) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_4_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_4_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -227,7 +238,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 5){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_5_PREIS){
                 if(MinenManager.getMine(uuid) == 4) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_5_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_5_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -243,7 +254,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 6){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_6_PREIS){
                 if(MinenManager.getMine(uuid) == 5) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_6_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_6_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -259,7 +270,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 7){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_7_PREIS){
                 if(MinenManager.getMine(uuid) == 6) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_7_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_7_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -275,7 +286,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 8){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_8_PREIS){
                 if(MinenManager.getMine(uuid) == 7) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_8_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_8_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -291,7 +302,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 9){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_9_PREIS){
                 if(MinenManager.getMine(uuid) == 8) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_9_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_9_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -307,7 +318,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 10){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_10_PREIS){
                 if(MinenManager.getMine(uuid) == 9) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_10_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_10_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -323,7 +334,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 11){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_11_PREIS){
                 if(MinenManager.getMine(uuid) == 10) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_11_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_11_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -339,7 +350,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 12){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_12_PREIS){
                 if(MinenManager.getMine(uuid) == 11) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_12_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_12_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -355,7 +366,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 13){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_13_PREIS){
                 if(MinenManager.getMine(uuid) == 12) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_13_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_13_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -371,7 +382,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 14){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_14_PREIS){
                 if(MinenManager.getMine(uuid) == 13) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_14_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_14_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -387,7 +398,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 15){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_15_PREIS){
                 if(MinenManager.getMine(uuid) == 14) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_15_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_15_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -403,7 +414,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 16){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_16_PREIS){
                 if(MinenManager.getMine(uuid) == 15) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_16_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_16_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -419,7 +430,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 17){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_17_PREIS){
                 if(MinenManager.getMine(uuid) == 16) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_17_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_17_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -435,7 +446,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 18){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_18_PREIS){
                 if(MinenManager.getMine(uuid) == 17) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_18_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_18_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -451,7 +462,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 19){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_19_PREIS){
                 if(MinenManager.getMine(uuid) == 18) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_19_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_19_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -467,7 +478,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 20){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_20_PREIS){
                 if(MinenManager.getMine(uuid) == 19) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_20_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_20_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -483,7 +494,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 21){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_21_PREIS){
                 if(MinenManager.getMine(uuid) == 20) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_21_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_21_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -499,7 +510,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 22){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_22_PREIS){
                 if(MinenManager.getMine(uuid) == 21) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_22_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_22_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -515,7 +526,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 23){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_23_PREIS){
                 if(MinenManager.getMine(uuid) == 22) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_23_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_23_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -531,7 +542,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 24){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_24_PREIS){
                 if(MinenManager.getMine(uuid) == 23) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_24_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_24_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -547,7 +558,7 @@ public class Mine implements CommandExecutor {
         }else if(mine == 25){
             if(MoneyManager.getMoney(uuid) >= MessageManager.MINE_25_PREIS){
                 if(MinenManager.getMine(uuid) == 24) {
-                    MoneyManager.updateMoney(uuid,MessageManager.MINE_25_PREIS, true, false);
+                    MoneyManager.updateMoney(uuid,MessageManager.MINE_25_PREIS, true, false, false);
                     MinenManager.updateMine(uuid, false);
                     p.sendMessage(MessageManager.MINEBUYED);
                     p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);

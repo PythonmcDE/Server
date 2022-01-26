@@ -13,7 +13,7 @@ public class Eis extends EnchantAPI {
 
     public static void eisAuslösen(Player damager, Player entity, ItemStack i) {
         if (hasEnchant(i, EnchantManager.Eis)) {
-            if (makeOrNot50(stringToNumber(i, EnchantManager.Eis))) {
+            if (makeOrNot20(stringToNumber(i, EnchantManager.Eis))) {
                 damager.playSound(damager.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                 entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*3, 0));
             }

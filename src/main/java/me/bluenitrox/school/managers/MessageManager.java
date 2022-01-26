@@ -46,6 +46,8 @@ public class MessageManager {
     public static final String DONTHAVEKIT = PREFIX + "§7Du hast dieses Kit noch §cnicht freigeschalten§7.";
     public static final String PETUSED = PREFIX + "§7Du hast gerade ein §aPet §7eingelöst.";
     public static final String PETALREADYHAS = PREFIX + "§7Du hast dieses §cPet bereits§7.";
+    public static final String NOTENOUGHSKILLPOINTS = PREFIX + "§7Du hast nicht genug §cSkillpunkte§7.";
+    public static final String CANTDOINFIGHT = PREFIX + "§7Das kannst du im §cKampf §7nicht machen.";
 
     public static String PLAYERWASSETGAMEMODE(int i){
         if(i == 0){

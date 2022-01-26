@@ -3,8 +3,16 @@ package me.bluenitrox.school.utils;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.enchants.Enchant;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
+
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class UpdateUtils {
 
@@ -17,14 +25,30 @@ public class UpdateUtils {
         all.updateInventory();
     }
 
-    public static void updateCraft(Player all){
+    public static void updateCraft(Player all) {
         if (all.getOpenInventory().getItem(CraftAPI.slot1) != null && all.getOpenInventory().getItem(CraftAPI.slot2) != null) {
-            if (all.getOpenInventory().getItem(CraftAPI.slot2).getItemMeta() != null) {
-                if (all.getOpenInventory().getItem(CraftAPI.slot2).getItemMeta().getLore() != null) {
-                    String[] preis = all.getOpenInventory().getItem(CraftAPI.slot2).getItemMeta().getLore().get(0).split(" ");
-                    float price = CraftAPI.getPrice(preis[1]);
-                    int level = CraftAPI.getLevel(preis[1]);
-                    all.getOpenInventory().setItem(25, new ItemBuilder(Material.SLIME_BALL).setDisplayname("§8» §7Item Verzaubern").setLore("§8● §7Kosten:§6§l " + level + " Vanilla Level", "§8● §7Gem-Kosten:§6§l " + price + " Gems").build());
+            if (all.getOpenInventory().getItem(CraftAPI.slot1).getItemMeta() != null && all.getOpenInventory().getItem(CraftAPI.slot2).getItemMeta() != null) {
+                if (all.getOpenInventory().getItem(CraftAPI.slot1).getItemMeta().getDisplayName() != null && all.getOpenInventory().getItem(CraftAPI.slot2).getItemMeta().getDisplayName() != null) {
+                    if (all.getOpenInventory().getItem(CraftAPI.slot1).getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lMagisches Buch") && all.getOpenInventory().getItem(CraftAPI.slot2).getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lMagisches Buch")) {
+                        String[] preis = all.getOpenInventory().getItem(CraftAPI.slot2).getItemMeta().getLore().get(0).split(" ");
+                        float price = CraftAPI.getPrice(preis[1]);
+                        int level = CraftAPI.getLevel(preis[1]);
+                        all.getOpenInventory().setItem(25, new ItemBuilder(Material.SLIME_BALL).setDisplayname("§8» §7Item Verzaubern").setLore("§8● §7Kosten:§6§l " + level + " Vanilla Level", "§8● §7Gem-Kosten:§6§l " + price + " Gems").build());
+                    } else {
+                        if (all.getOpenInventory().getItem(CraftAPI.slot1).getType() == Material.ENCHANTED_BOOK && all.getOpenInventory().getItem(CraftAPI.slot2).getType() == Material.ENCHANTED_BOOK) {
+                            if (all.getOpenInventory().getItem(CraftAPI.slot1).getItemMeta().getDisplayName().equalsIgnoreCase("§5Verzaubertes Buch") && all.getOpenInventory().getItem(CraftAPI.slot2).getItemMeta().getDisplayName().equalsIgnoreCase("§5Verzaubertes Buch")) {
+                                ItemStack is1 = all.getOpenInventory().getItem(CraftAPI.slot1);
+                                ItemStack is2 = all.getOpenInventory().getItem(CraftAPI.slot2);
+
+                                if (is1.getItemMeta().getLore().equals(is2.getItemMeta().getLore())){
+                                    String[] preis = is2.getItemMeta().getLore().get(0).split(" ");
+                                    float price = CraftAPI.getPrice(preis[1]);
+                                    int level = CraftAPI.getLevel(preis[1]);
+                                    all.getOpenInventory().setItem(25, new ItemBuilder(Material.SLIME_BALL).setDisplayname("§8» §7Item Verzaubern").setLore("§8● §7Kosten:§6§l " + level + " Vanilla Level", "§8● §7Gem-Kosten:§6§l " + price + " Gems").build());
+                                }
+                            }
+                        }
+                    }
                 }
             }
         } else {
@@ -32,4 +56,9 @@ public class UpdateUtils {
         }
         all.updateInventory();
     }
+
+    /*private static Enchantment getEnchant(Map<Enchantment,Integer>){
+        Enchantment enchantment = null;
+        return enchantment;
+    }*/
 }

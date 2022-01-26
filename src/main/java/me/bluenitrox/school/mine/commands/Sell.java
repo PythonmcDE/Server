@@ -8,6 +8,7 @@ import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.mine.manager.SellManager;
 import me.bluenitrox.school.utils.ValuetoString;
+import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -25,10 +26,19 @@ public class Sell implements CommandExecutor {
             return true;
         }
 
+
         Player p = (Player) cs;
         if (!p.hasPermission(PermissionsManager.SELL) || !p.hasPermission(PermissionsManager.ALLPERMS)) {
             p.sendMessage(MessageManager.NOPERMISSIONS(PlayerJoinManager.language));
             return true;
+        }
+
+        if(CombatAPI.fight != null) {
+            if (CombatAPI.fight.containsKey(p)) {
+                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                p.sendMessage(MessageManager.CANTDOINFIGHT);
+                return true;
+            }
         }
 
         if (args.length == 0) {
@@ -40,7 +50,7 @@ public class Sell implements CommandExecutor {
                         float preis = SellManager.getPriceByMaterial(p.getInventory().getItem(i).getType().toString(), p);
                         preis = preis*amount;
                         if(preis != 0) {
-                            if (MoneyManager.updateMoney(p.getUniqueId(), preis, false, true)) {
+                            if (MoneyManager.updateMoney(p.getUniqueId(), preis, false, true, false)) {
                                 ItemStack air = new ItemStack(Material.AIR);
                                 p.getInventory().setItem(i,air);
                                 alles = (int) (alles + preis);

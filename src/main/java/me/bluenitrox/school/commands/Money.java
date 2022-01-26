@@ -60,7 +60,7 @@ public class Money implements CommandExecutor {
                                 SchoolMode.setPlayerMoney(t.getUniqueId(), 0);
                                 return false;
                             }
-                            MoneyManager.updateMoney(t.getUniqueId(), amount, true, false);
+                            MoneyManager.updateMoney(t.getUniqueId(), amount, true, false, false);
                             t.sendMessage(MessageManager.UPDATE_KONTOSTAND(PlayerJoinManager.language));
                             if(t != p) {
                                 p.sendMessage(MessageManager.UPDATE_KONTOSTAND_OTHER);
@@ -81,7 +81,7 @@ public class Money implements CommandExecutor {
                         }
                     } else if (args[0].equalsIgnoreCase("add")) {
                         if(t != null){
-                            MoneyManager.updateMoney(t.getUniqueId(), amount, false, false);
+                            MoneyManager.updateMoney(t.getUniqueId(), amount, false, false, false);
                             t.sendMessage(MessageManager.UPDATE_KONTOSTAND(PlayerJoinManager.language));
                             if(t != p) {
                                 p.sendMessage(MessageManager.UPDATE_KONTOSTAND_OTHER);

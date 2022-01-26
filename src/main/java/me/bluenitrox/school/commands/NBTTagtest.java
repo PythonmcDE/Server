@@ -1,5 +1,6 @@
 package me.bluenitrox.school.commands;
 
+import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.managers.EnchantManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -20,7 +21,9 @@ public class NBTTagtest implements CommandExecutor{
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player)cs;
-        
+        DungeonManager dm = new DungeonManager();
+        dm.shouldMonsterSpawn = true;
+        dm.startMonsterSpawn();
         return false;
     }
 

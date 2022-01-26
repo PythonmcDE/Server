@@ -81,7 +81,7 @@ public class DailyReward {
                             updateBelohnung(uuid, 1, false);
                             p.closeInventory();
                             p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                            MoneyManager.updateMoney(uuid, 1000, false, true);
+                            MoneyManager.updateMoney(uuid, 1000, false, true, false);
                         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6Tägliche Erfahrung")) {
                             updateErfahrung(uuid, 1, false);
                             p.closeInventory();

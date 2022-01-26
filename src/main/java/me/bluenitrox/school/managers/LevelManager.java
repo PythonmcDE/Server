@@ -47,7 +47,6 @@ public class LevelManager {
         level.put(37,314700F);
         level.put(38,340700F);
         level.put(39,366700F);
-
         level.put(40,392700F);
         level.put(41,420700F);
         level.put(42,448000F);
@@ -58,7 +57,6 @@ public class LevelManager {
         level.put(47,544100F);
         level.put(48,581100F);
         level.put(49,620600F);
-
         level.put(50,662100F);
         level.put(51,663150F);
         level.put(52,705600F);
@@ -69,7 +67,6 @@ public class LevelManager {
         level.put(57,897600F);
         level.put(58,950000F);
         level.put(59,950001F);
-
         level.put(60,1000000F);
         level.put(61,1007600F);
         level.put(62,1066600F);
@@ -80,7 +77,6 @@ public class LevelManager {
         level.put(67,1330000F);
         level.put(68,1390400F);
         level.put(69,1465300F);
-
         level.put(70,1500000F);
         level.put(71,1555300F);
         level.put(72,1636300F);

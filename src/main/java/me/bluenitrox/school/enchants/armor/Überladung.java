@@ -12,7 +12,7 @@ public class Überladung extends EnchantAPI {
 
     public static void überladungAuslösen(Player damager, ItemStack i) {
         if (hasEnchant(i, EnchantManager.Überladung)) {
-            if (makeOrNot50(stringToNumber(i, EnchantManager.Überladung))) {
+            if (makeOrNot20(stringToNumber(i, EnchantManager.Überladung))) {
                 damager.playSound(damager.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                 damager.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20*3, 2));
             }
