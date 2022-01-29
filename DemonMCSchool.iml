@@ -17,6 +17,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="simplecloud-module-chat-tab-2.3.0" level="project" />
+    <orderEntry type="library" name="simplecloud-module-chat-tab-2.3.0 (1)" level="project" />
     <orderEntry type="library" name="SimpleCloud-Permission" level="project" />
     <orderEntry type="library" name="SimpleCloud-Plugin" level="project" />
     <orderEntry type="library" name="spigot" level="project" />

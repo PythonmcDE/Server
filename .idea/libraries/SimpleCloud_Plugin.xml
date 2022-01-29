@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="SimpleCloud-Plugin">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../SimpleCloud-Plugin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/SimpleCloud-Plugin.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
