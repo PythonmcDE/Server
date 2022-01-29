@@ -93,7 +93,7 @@ public class SchoolMode extends JavaPlugin {
         startAntiDupe();
         Bukkit.getConsoleSender().sendMessage("§4AhUpdate §4aktivieren... §4(6/8)");
         startAhUpdate();
-        Bukkit.getConsoleSender().sendMessage("§4AhAnticrash §4aktivieren... §4(7/8)");
+        Bukkit.getConsoleSender().sendMessage("§4AhAnticrash §4aktivieren.... §4(7/8)");
         startAhAnticrash();
         startEntityClear();
         setBoostermanager(new BoosterManager());
