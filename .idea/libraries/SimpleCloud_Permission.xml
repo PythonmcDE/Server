@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="SimpleCloud-Permission">
     <CLASSES>
-      <root url="jar://$USER_HOME$/DemonMC/Plugins/plugins/SimpleCloud-Permission.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SimpleCloud-Permission.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
