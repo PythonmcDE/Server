@@ -94,15 +94,21 @@ public class DungeonInventory implements CommandExecutor {
             if(e.getCurrentItem() != null){
                 e.setCancelled(true);
                 if(e.getCurrentItem().getType() == Material.BONE){
-                    p.teleport(new LocationManager("dungeon1spawn").getLocation());
+                    if(new LocationManager("dungeon1spawn").getLocation() != null) {
+                        p.teleport(new LocationManager("dungeon1spawn").getLocation());
+                    }
                     p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in §6Dungeon 1 §7teleportiert.");
                     p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
                 }else if(e.getCurrentItem().getType() == Material.ROTTEN_FLESH){
-                    p.teleport(new LocationManager("dungeon2spawn").getLocation());
+                    if(new LocationManager("dungeon2spawn").getLocation() != null) {
+                        p.teleport(new LocationManager("dungeon2spawn").getLocation());
+                    }
                     p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in §6Dungeon 2 §7teleportiert.");
                     p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
                 }else if(e.getCurrentItem().getType() == Material.SPIDER_EYE){
-                    p.teleport(new LocationManager("dungeon3spawn").getLocation());
+                    if(new LocationManager("dungeon3spawn").getLocation() != null) {
+                        p.teleport(new LocationManager("dungeon3spawn").getLocation());
+                    }
                     p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in §6Dungeon 3 §7teleportiert.");
                     p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
                 }

@@ -53,9 +53,11 @@ public class DungeonManager {
             @Override
             public void run() {
                 if(shouldMonsterSpawn){
-                    for(int i2 = 1; i2<= Maxpoints; i2++) {
-                        for (int i = 1; i <= Maxdungeon; i++) {
-                            spawnMonster(new LocationManager("spawn" + i2 + "dungeon" + i).getLocation(), i);
+                    if(new LocationManager("spawn1dungeon1").getLocation() != null) {
+                        for (int i2 = 1; i2 <= Maxpoints; i2++) {
+                            for (int i = 1; i <= Maxdungeon; i++) {
+                                spawnMonster(new LocationManager("spawn" + i2 + "dungeon" + i).getLocation(), i);
+                            }
                         }
                     }
                 }

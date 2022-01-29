@@ -32,7 +32,9 @@ public class PlayerRespawnEvent implements Listener {
             @Override
             public void run() {
                 p.getInventory().clear();
-                p.teleport(new LocationManager("Spawn").getLocation());
+                if(new LocationManager("Spawn").getLocation() != null) {
+                    p.teleport(new LocationManager("Spawn").getLocation());
+                }
 
             }
         }.runTaskLater(SchoolMode.getInstance(), 2);

@@ -46,7 +46,7 @@ public class AhListener implements Listener {
                 if (e.getCurrentItem().getType() == Material.SIGN) return;
                 if (e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE) return;
                 if (e.getCurrentItem().getType() == Material.CHEST) {
-                    Inventory invah = Bukkit.createInventory(null, 9 * 5, Ah_CMD.GUI_NAME);
+                    Inventory invah = Bukkit.createInventory(null, 9 * 6, Ah_CMD.GUI_NAME);
                     AhManager.openAh(invah, 1, p);
                     return;
                 } else if (e.getCurrentItem().getType() == Material.PAPER) {
@@ -74,6 +74,9 @@ public class AhListener implements Listener {
 
                     }
                 } else {
+                    if(e.getCurrentItem() == null) return;
+                    if(e.getCurrentItem().getItemMeta() == null) return;
+                    if(e.getCurrentItem().getItemMeta().getLore() == null) return;
                     int line = e.getCurrentItem().getItemMeta().getLore().size() - 2;
                     String[] stringregex = e.getCurrentItem().getItemMeta().getLore().get(line).split(" ");
                     int id = Integer.parseInt(stringregex[2]);

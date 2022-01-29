@@ -33,7 +33,9 @@ public class Spawn implements CommandExecutor {
         if(args.length == 0){
             DungeonManager dm = new DungeonManager();
             dm.onQuitDungeon(p);
-            p.teleport(new LocationManager("spawn").getLocation());
+            if(new LocationManager("spawn").getLocation() != null) {
+                p.teleport(new LocationManager("spawn").getLocation());
+            }
         }else if(args.length == 1){
             if(!p.hasPermission(PermissionsManager.ALLPERMS)) {
                 p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));

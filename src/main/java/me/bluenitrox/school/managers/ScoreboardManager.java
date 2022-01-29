@@ -26,7 +26,7 @@ public class ScoreboardManager {
 
     public static void setBoard(Player p) {
         //p.setDisplayName("§8[§6" + exp.getLevel(p.getUniqueId()) + "§8]§r " + p.getName());
-        Scoreboard scoreboard = new Scoreboard();
+            Scoreboard scoreboard = new Scoreboard();
         ScoreboardObjective obj = scoreboard.registerObjective("TEST", IScoreboardCriteria.b);
         obj.setDisplayName("§8« §c§lSCHOOL §8»");
         PacketPlayOutScoreboardObjective createPacket = new PacketPlayOutScoreboardObjective(obj, 0);

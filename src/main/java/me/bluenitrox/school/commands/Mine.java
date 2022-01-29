@@ -70,7 +70,9 @@ public class Mine implements CommandExecutor {
                         String mineToTp = mine + number;
                         DungeonManager dm = new DungeonManager();
                         dm.onQuitDungeon(p);
-                        p.teleport(new LocationManager(mineToTp).getLocation());
+                        if(new LocationManager(mineToTp).getLocation() != null) {
+                            p.teleport(new LocationManager(mineToTp).getLocation());
+                        }
 
                     }catch (NumberFormatException e) {
                         e.printStackTrace();
@@ -179,7 +181,9 @@ public class Mine implements CommandExecutor {
                                 buyMine(Integer.parseInt(mine[2]), e.getWhoClicked().getUniqueId(), PlayerJoinManager.language);
                             } else {
                                 String[] name = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
-                                e.getWhoClicked().teleport(new LocationManager("mine" + name[2]).getLocation());
+                                if(new LocationManager("mine" + name[2]).getLocation() != null) {
+                                    e.getWhoClicked().teleport(new LocationManager("mine" + name[2]).getLocation());
+                                }
                                 e.getWhoClicked().sendMessage(MessageManager.TPTOMINE);
                             }
                         }
