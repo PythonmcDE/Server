@@ -209,7 +209,7 @@ public class SchoolMode extends JavaPlugin {
         }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*5, 20*5);
     }
     private void startMySQL() {
-        Bukkit.getConsoleSender().sendMessage("§4Verbinde zu §4MySQL...");
+        Bukkit.getConsoleSender().sendMessage("§4Verbinde zu §4MySQL....");
         //MySQL Verbindung
         MySQL_File file = new MySQL_File();
         file.setdefault();
