@@ -184,7 +184,6 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PlayerAchievementAwardedEvent(), this);
         pm.registerEvents(new EntityCreatePortalEvent(), this);
         pm.registerEvents(new WeatherChangeEvent(), this);
-        pm.registerEvents(new AsyncPlayerChatEvent(), this);
         pm.registerEvents(new PlayerDeathEvent(), this);
         pm.registerEvents(new PlayerRespawnEvent(), this);
         pm.registerEvents(new PlayerMoveEvent(), this);

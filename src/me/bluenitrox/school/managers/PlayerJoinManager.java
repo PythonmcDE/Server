@@ -1,5 +1,9 @@
 package me.bluenitrox.school.managers;
 
+import de.pythonmc.clansystem.api.ClanAPI;
+import de.pythonmc.clansystem.listener.PlayerJoinListener;
+import de.pythonmc.clansystem.mysql.NickManager;
+import de.pythonmc.clansystem.systemmanager.SystemManager;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.commands.Skill;
 import me.bluenitrox.school.features.SkillAPI;
@@ -7,21 +11,25 @@ import me.bluenitrox.school.features.StatsAPI;
 import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.UUID;
 
 public class PlayerJoinManager {
 
     public static int language = 0;
+
+    public static Scoreboard getBoard() {
+        Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+        return board;
+    }
 
 
     public static void cachPlayerData(UUID uuid) {
@@ -222,8 +230,39 @@ public class PlayerJoinManager {
     }
 
     public static void updateBelowName(Player p){
-        org.bukkit.scoreboard.ScoreboardManager manager = (org.bukkit.scoreboard.ScoreboardManager) Bukkit.getScoreboardManager();
-        Scoreboard board = manager.getNewScoreboard();
+        Scoreboard board = getBoard();
+        Team admin = board.registerNewTeam("aaa");
+        Team dev = board.registerNewTeam("bbb");
+        Team mod = board.registerNewTeam("ccc");
+        Team sup = board.registerNewTeam("ddd");
+        Team yt = board.registerNewTeam("eee");
+        Team premium = board.registerNewTeam("fff");
+        Team spieler = board.registerNewTeam("ggg");
+        Iterator var11 = Bukkit.getOnlinePlayers().iterator();
+
+
+        while(var11.hasNext()) {
+            Player onlineplayers = (Player)var11.next();
+            if(NickManager.isNicked(onlineplayers.getUniqueId())) {
+                PlayerJoinListener.loadTeam(p, board, spieler, "ggg", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("spieler")));
+            } else {
+                if (onlineplayers.hasPermission("prefix.admin")) {
+                    loadTeam(onlineplayers, board, admin, "aaa", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("admin")));
+                } else if (onlineplayers.hasPermission("prefix.dev")) {
+                    loadTeam(onlineplayers, board, dev, "bbb", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("dev")));
+                } else if (onlineplayers.hasPermission("prefix.mod")) {
+                    loadTeam(onlineplayers, board, mod, "ccc", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("mod")));
+                } else if (onlineplayers.hasPermission("prefix.sup")) {
+                    loadTeam(onlineplayers, board, sup, "ddd", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("sup")));
+                } else if (onlineplayers.hasPermission("prefix.yt")) {
+                    loadTeam(onlineplayers, board, yt, "eee", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("yt")));
+                } else if (onlineplayers.hasPermission("prefix.premium")) {
+                    loadTeam(onlineplayers, board, premium, "fff", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("premium")));
+                } else if (onlineplayers.hasPermission("prefix.spieler")) {
+                    loadTeam(onlineplayers, board, spieler, "ggg", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("spieler")));
+                }
+            }
+        }
         Objective objective = board.registerNewObjective("showkill", "player_kills");
         objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
         objective.setDisplayName(" §6§lLevel");
@@ -232,5 +271,29 @@ public class PlayerJoinManager {
             final Score score = objective.getScore(online);
             score.setScore(ExpManager.getLevel(online.getUniqueId()));
         }
+    }
+
+    public static void loadTeam(Player player, Scoreboard board, Team team, String teamname, String prefix) {
+        team = board.getTeam(teamname);
+        if (team == null) {
+            team = board.registerNewTeam(teamname);
+        }
+
+        if (team.hasEntry(player.getName())) {
+        }
+
+        team.removeEntry(player.getName());
+        team.setPrefix(prefix);
+        if (ClanAPI.isPlayerInClan(player.getUniqueId())) {
+            String clanTag = ClanAPI.getClanTag(player.getUniqueId());
+            player.setCustomName(team.getPrefix() + player.getName());
+            player.setPlayerListName(team.getPrefix() + player.getName() + " §7[§e" + clanTag + "§7]");
+            team.addPlayer(player);
+        } else {
+            player.setCustomName(team.getPrefix() + player.getPlayerListName());
+            player.setPlayerListName(team.getPrefix() + player.getName());
+            team.addPlayer(player);
+        }
+        player.setScoreboard(board);
     }
 }
