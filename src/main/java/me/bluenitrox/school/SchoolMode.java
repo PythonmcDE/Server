@@ -15,10 +15,7 @@ import me.bluenitrox.school.features.KitAPI;
 import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.listener.*;
-import me.bluenitrox.school.managers.LevelManager;
-import me.bluenitrox.school.managers.MessageManager;
-import me.bluenitrox.school.managers.ScoreboardManager;
-import me.bluenitrox.school.managers.WorldManager;
+import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.mine.commands.Sell;
 import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mine.manager.MinenManager;
@@ -102,6 +99,7 @@ public class SchoolMode extends JavaPlugin {
         startScoreboard();;
         Bukkit.getConsoleSender().sendMessage("§4Befülle alle Minen... §4(8/8)");
         registerMine();
+        DiscordWebhook.setHook("SchoolAlive-1 wurde gestartet!");
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
     }
 
@@ -116,6 +114,7 @@ public class SchoolMode extends JavaPlugin {
         ahDisable();
         disablePets();
         MySQL.disconnect();
+        DiscordWebhook.setHook("SchoolAlive-1 wurde gestoppt!s");
     }
 
     private void register(PluginManager pm){

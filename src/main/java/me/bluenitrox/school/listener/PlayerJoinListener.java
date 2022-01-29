@@ -1,6 +1,5 @@
 package me.bluenitrox.school.listener;
 
-import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;

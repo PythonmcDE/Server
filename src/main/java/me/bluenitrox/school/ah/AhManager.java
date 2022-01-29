@@ -46,9 +46,10 @@ public class AhManager {
         for(int i= 0; i != 9; i++){
             inv.setItem(i , is);
         }
-        for(int i= 36+9; i != 45+9; i++){
+        for(int i= 45; i != 54; i++){
             inv.setItem(i , is);
         }
+        inv.setItem(53, is);
         inv.setItem(40+9, chest);
         inv.setItem(4, sign);
         if(getAllItems() != 0) {
