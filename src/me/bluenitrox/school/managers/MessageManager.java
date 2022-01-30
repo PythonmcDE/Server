@@ -215,6 +215,7 @@ public class MessageManager {
     public static final int MINE_23_PREIS = 129000000;
     public static final int MINE_24_PREIS = 189000000;
     public static final int MINE_25_PREIS = 289000000;
+    public static final int MINE_26_PREIS = 419000000;
 
     public static final HashMap<String, Integer> blocksforreset = fillMap();
 

@@ -245,7 +245,7 @@ public class PlayerJoinManager {
         while(var11.hasNext()) {
             Player onlineplayers = (Player)var11.next();
             if(NickManager.isNicked(onlineplayers.getUniqueId())) {
-                PlayerJoinListener.loadTeam(p, board, spieler, "ggg", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("spieler")));
+                PlayerJoinListener.loadTeam(onlineplayers, board, spieler, "ggg", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("spieler")));
             } else {
                 if (onlineplayers.hasPermission("prefix.admin")) {
                     loadTeam(onlineplayers, board, admin, "aaa", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("admin")));

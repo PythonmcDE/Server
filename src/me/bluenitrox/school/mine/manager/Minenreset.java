@@ -656,6 +656,49 @@ public class Minenreset {
             for(int i = 0; i< 5; i++){
                 hashmine.add(Material.EMERALD_BLOCK);
             }
+        } else if(mine.equalsIgnoreCase("mine25")){
+            for(int i = 0; i< 35; i++){
+                hashmine.add(Material.STONE);
+            }
+            for(int i = 0; i< 8; i++){
+                hashmine.add(Material.REDSTONE_ORE);
+            }
+            for(int i = 0; i< 8; i++){
+                hashmine.add(Material.LAPIS_ORE);
+            }
+            for(int i = 0; i< 10; i++){
+                hashmine.add(Material.GOLD_ORE);
+            }
+            for(int i = 0; i< 10; i++){
+                hashmine.add(Material.DIAMOND_ORE);
+            }
+            for(int i = 0; i< 14; i++){
+                hashmine.add(Material.EMERALD_ORE);
+            }
+            for(int i = 0; i< 8; i++){
+                hashmine.add(Material.QUARTZ_BLOCK);
+            }
+            for(int i = 0; i< 8; i++){
+                hashmine.add(Material.COAL_BLOCK);
+            }
+            for(int i = 0; i< 8; i++){
+                hashmine.add(Material.IRON_BLOCK);
+            }
+            for(int i = 0; i< 8; i++){
+                hashmine.add(Material.LAPIS_BLOCK);
+            }
+            for(int i = 0; i< 8; i++){
+                hashmine.add(Material.GOLD_BLOCK);
+            }
+            for(int i = 0; i< 8; i++){
+                hashmine.add(Material.DIAMOND_BLOCK);
+            }
+            for(int i = 0; i< 7; i++){
+                hashmine.add(Material.EMERALD_BLOCK);
+            }
+            for(int i = 0; i< 8; i++){
+                hashmine.add(Material.OBSIDIAN);
+            }
         }
     }
 
