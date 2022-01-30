@@ -1,6 +1,8 @@
 package me.bluenitrox.school.features;
 
+import me.bluenitrox.school.commands.Prestige;
 import me.bluenitrox.school.managers.ExpManager;
+import me.bluenitrox.school.managers.LevelManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -65,15 +67,15 @@ public class SkillSystem {
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lSkills").setLore("§6§l▶ §7Du erhälst durch das §6Aufteigen", "§6§l▶ §7im §6Level §aSkillpunkte", "§6§l▶ §7Hier kannst du mit ihnen §ebesondere", "§6§l▶ §eFähigkeiten §6freischalten §7und §6leveln§7!").build("isInInv");
         ItemStack pearl = new ItemBuilder(Material.ENDER_PEARL).setDisplayname("§6§lSkillpunkte").setLore("§8» §7Dein Level:§6§l " + ExpManager.getLevel(uuid), "§8» §7Aktuelle Skillpunkte:§a§l " + api.getSkillpunkte(uuid)).build("isInInv");
 
-        ItemStack sword = new ItemBuilder(Material.IRON_SWORD).setDisplayname("§c§l§oAngriff").setLore("§7Erhöht deinen Nahkampfschaden.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"angriff"), "§8» §7Prozentsatz:§6 " + swordprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ swordprozent2, "  ", "§aKlicke, zum upgraden").build();
+        ItemStack sword = new ItemBuilder(Material.IRON_SWORD).setDisplayname("§6§l§oAngriff").setLore("§7Erhöht deinen Nahkampfschaden.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"angriff"), "§8» §7Prozentsatz:§6 " + swordprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ swordprozent2, "  ", "§aKlicke, zum upgraden").build();
         ItemStack armor = new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayname("§6§l§oVerteidigung").setLore("§7Reduziert den erlittenen Schaden..", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"verteidigung"), "§8» §7Prozentsatz:§6 "+ armorprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ armorprozent2, "  ", "§aKlicke, zum upgraden").build();
-        ItemStack energie = new ItemBuilder(Material.GOLDEN_APPLE).setDisplayname("§c§l§oEntraenergie").setLore("§7Ermöglicht es dir zusätzliche Herzen zu erlangen.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"extraenergie"), "§8» §7Prozentsatz:§6 "+ energieprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ energieprozent2, "  ", "§aKlicke, zum upgraden").build();
+        ItemStack energie = new ItemBuilder(Material.GOLDEN_APPLE).setDisplayname("§6§l§oEntraenergie").setLore("§7Ermöglicht es dir zusätzliche Herzen zu erlangen.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"extraenergie"), "§8» §7Prozentsatz:§6 "+ energieprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ energieprozent2, "  ", "§aKlicke, zum upgraden").build();
         ItemStack scharf = new ItemBuilder(Material.BOW).setDisplayname("§6§l§oScharfschütze").setLore("§7Erhöht deinen Schaden mit Pfeil und Bogen.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"scharfschütze"), "§8» §7Prozentsatz:§6 "+ scharfprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ scharfprozent2, "  ", "§aKlicke, zum upgraden").build();
-        ItemStack mining = new ItemBuilder(Material.IRON_PICKAXE).setDisplayname("§c§l§oMining").setLore("§7Verdoppelt möglicherweise deine abgebauten Erze.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"mining"), "§8» §7Prozentsatz:§6 "+ miningprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ miningprozent2, "  ", "§aKlicke, zum upgraden").build();
+        ItemStack mining = new ItemBuilder(Material.IRON_PICKAXE).setDisplayname("§6§l§oMining").setLore("§7Verdoppelt möglicherweise deine abgebauten Erze.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"mining"), "§8» §7Prozentsatz:§6 "+ miningprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ miningprozent2, "  ", "§aKlicke, zum upgraden").build();
         ItemStack händler = new ItemBuilder(Material.EMERALD).setDisplayname("§6§l§oHändler").setLore("§7Du verdienst beim Verkaufen mehr Gems.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"handler"), "§8» §7Prozentsatz:§6 "+ händlerprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ händlerprozent2, "  ", "§aKlicke, zum upgraden").build();
-        ItemStack alche = new ItemBuilder(Material.POTION).setDisplayname("§c§l§oAlchemist").setLore("§7Verlängert die Laufzeit eines getrunkenen Tranks.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"alchemist"), "§8» §7Prozentsatz:§6 "+ alcheprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ alcheprozent2, "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige I").build();
-        ItemStack warzone = new ItemBuilder(Material.CHEST).setDisplayname("§6§l§oBonusloot").setLore("§7Du bekommst beim öffnen einer Warzonekiste mehr Loot.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"bonusloot"), "§8» §7Prozentsatz:§6 "+ warzoneprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ warzoneprozent2, "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige III").build();
-        ItemStack glück = new ItemBuilder(Material.ENDER_CHEST).setDisplayname("§c§l§oGlückspilz").setLore("§7Lässt beim öffnen einer Warzone-Kiste, eine weitere spawnen..", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"gluckspilz"), "§8» §7Prozentsatz:§6 "+ glückprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ glückprozent2, "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige III").build();
+        ItemStack alche = new ItemBuilder(Material.POTION).setDisplayname("§6§l§oAlchemist").setLore("§7Verlängert die Laufzeit eines getrunkenen Tranks.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"alchemist"), "§8» §7Prozentsatz:§6 "+ alcheprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ alcheprozent2, "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige I").build();
+        ItemStack warzone = new ItemBuilder(Material.CHEST).setDisplayname("§6§l§oBonusloot").setLore("§7Du bekommst beim öffnen einer Warzonekiste mehr Loot.", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"bonusloot"), "§8» §7Prozentsatz:§6 "+ warzoneprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ warzoneprozent2, "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige II").build();
+        ItemStack glück = new ItemBuilder(Material.ENDER_CHEST).setDisplayname("§6§l§oGlückspilz").setLore("§7Lässt beim öffnen einer Warzone-Kiste, eine weitere spawnen..", " ", "§8» §7Aktuelles Level:§a " + api.get(uuid,"gluckspilz"), "§8» §7Prozentsatz:§6 "+ glückprozent + "%", "§8» §7Benötigte Skillpunkte:§a "+ glückprozent2, "  ", "§aKlicke, zum upgraden", "§c§lDieser Skill benötigt §6§lPrestige III").build();
 
         for(int i = 0; i<= 8; i++){
             inv.setItem(i, glaswhite);
@@ -130,7 +132,7 @@ public class SkillSystem {
             if(e.getCurrentItem() != null){
                 if(e.getCurrentItem().getItemMeta() != null){
                     if(e.getCurrentItem().getItemMeta().getDisplayName() != null){
-                        if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l§oAngriff")) {
+                        if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6§l§oAngriff")) {
                             if(skillpoints >= swordprozent2){
                                 api.update(uuid, 1, false, "angriff");
                                 api.updateSkillpunkte(uuid, swordprozent2, true);
@@ -154,7 +156,7 @@ public class SkillSystem {
                                 p.closeInventory();
                                 return;
                             }
-                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l§oEntraenergie")) {
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6§l§oEntraenergie")) {
                             if(skillpoints >= energieprozent2){
                                 api.update(uuid, 1, false, "extraenergie");
                                 api.updateSkillpunkte(uuid, energieprozent2, true);
@@ -190,49 +192,55 @@ public class SkillSystem {
                                 p.closeInventory();
                                 return;
                             }
-                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l§oAlchemist")) {
-                            if(skillpoints >= alcheprozent2){
-                                api.update(uuid, 1, false, "alchemist");
-                                api.updateSkillpunkte(uuid, alcheprozent2, true);
-                                p.closeInventory();
-                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                            }else {
-                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
-                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                                p.closeInventory();
-                                return;
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6§l§oAlchemist")) {
+                            if(ExpManager.getPrestige(uuid) >= 1) {
+                                if (skillpoints >= alcheprozent2) {
+                                    api.update(uuid, 1, false, "alchemist");
+                                    api.updateSkillpunkte(uuid, alcheprozent2, true);
+                                    p.closeInventory();
+                                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                                } else {
+                                    p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                    return;
+                                }
                             }
                         }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6§l§oBonusloot")) {
-                            if(skillpoints >= warzoneprozent2){
-                                api.update(uuid, 1, false, "bonusloot");
-                                api.updateSkillpunkte(uuid, warzoneprozent2, true);
-                                p.closeInventory();
-                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                            }else {
-                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
-                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                                p.closeInventory();
-                                return;
+                            if(ExpManager.getPrestige(uuid) >= 2) {
+                                if (skillpoints >= warzoneprozent2) {
+                                    api.update(uuid, 1, false, "bonusloot");
+                                    api.updateSkillpunkte(uuid, warzoneprozent2, true);
+                                    p.closeInventory();
+                                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                                } else {
+                                    p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                    return;
+                                }
                             }
-                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l§oGlückspilz")) {
-                            if(skillpoints >= glückprozent2){
-                                api.update(uuid, 1, false, "gluckspilz");
-                                api.updateSkillpunkte(uuid, glückprozent2, true);
-                                p.closeInventory();
-                                p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                            }else {
-                                p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
-                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                                p.closeInventory();
-                                return;
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6§l§oGlückspilz")) {
+                            if(ExpManager.getPrestige(uuid) >= 3) {
+                                if (skillpoints >= glückprozent2) {
+                                    api.update(uuid, 1, false, "gluckspilz");
+                                    api.updateSkillpunkte(uuid, glückprozent2, true);
+                                    p.closeInventory();
+                                    p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
+                                } else {
+                                    p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                    return;
+                                }
                             }
-                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§c§l§oMining")){
-                            if(skillpoints >= miningprozent2){
+                        }else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6§l§oMining")) {
+                            if (skillpoints >= miningprozent2) {
                                 api.update(uuid, 1, false, "mining");
                                 api.updateSkillpunkte(uuid, miningprozent2, true);
                                 p.closeInventory();
                                 p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
-                            }else {
+                            } else {
                                 p.sendMessage(MessageManager.NOTENOUGHSKILLPOINTS);
                                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                                 p.closeInventory();

@@ -59,77 +59,77 @@ public class Antidupe {
 
     private static void duperantimation(Player p){
         TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊§7▊▊▊▊▊▊▊▊▊ §a10% loaded", 20, 20, 20);
-        for(int i = 0; i == 9; i++) {
+        for(int i = 0; i <= 9; i++) {
             p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
         }
         new BukkitRunnable(){
             @Override
             public void run() {
                 TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊§7▊▊▊▊▊▊▊▊ §a20% loaded", 20, 20, 20);
-                for(int i = 0; i == 9; i++) {
+                for(int i = 0; i <= 9; i++) {
                     p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
                 }
                 new BukkitRunnable(){
                     @Override
                     public void run() {
                         TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊§7▊▊▊▊▊▊▊ §a30% loaded", 20, 20, 20);
-                        for(int i = 0; i == 9; i++) {
+                        for(int i = 0; i <= 9; i++) {
                             p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
                         }
                         new BukkitRunnable(){
                             @Override
                             public void run() {
                                 TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊§7▊▊▊▊▊▊ §a40% loaded", 20, 20, 20);
-                                for(int i = 0; i == 9; i++) {
+                                for(int i = 0; i <= 9; i++) {
                                     p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
                                 }
                                 new BukkitRunnable(){
                                     @Override
                                     public void run() {
                                         TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊§7▊▊▊▊▊ §a50% loaded", 20, 20, 20);
-                                        for(int i = 0; i == 9; i++) {
+                                        for(int i = 0; i <= 9; i++) {
                                             p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
                                         }
                                         new BukkitRunnable(){
                                             @Override
                                             public void run() {
                                                 TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊§7▊▊▊▊ §a60% loaded", 20, 20, 20);
-                                                for(int i = 0; i == 9; i++) {
+                                                for(int i = 0; i <= 9; i++) {
                                                     p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
                                                 }
                                                 new BukkitRunnable(){
                                                     @Override
                                                     public void run() {
                                                         TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊▊§7▊▊▊ §a70% loaded", 20, 20, 20);
-                                                        for(int i = 0; i == 9; i++) {
+                                                        for(int i = 0; i <= 9; i++) {
                                                             p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
                                                         }
                                                         new BukkitRunnable(){
                                                             @Override
                                                             public void run() {
                                                                 TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊▊▊§7▊▊ §a80% loaded", 20, 20, 20);
-                                                                for(int i = 0; i == 9; i++) {
+                                                                for(int i = 0; i <= 9; i++) {
                                                                     p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
                                                                 }
                                                                 new BukkitRunnable(){
                                                                     @Override
                                                                     public void run() {
                                                                         TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊▊▊§7▊ §a90% loaded", 20, 20, 20);
-                                                                        for(int i = 0; i == 9; i++) {
+                                                                        for(int i = 0; i <= 9; i++) {
                                                                             p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
                                                                         }
                                                                         new BukkitRunnable(){
                                                                             @Override
                                                                             public void run() {
                                                                                 TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊▊▊▊§7▊ §a99% loaded", 20, 20, 20);
-                                                                                for(int i = 0; i == 9; i++) {
+                                                                                for(int i = 0; i <= 9; i++) {
                                                                                     p.playSound(p.getLocation(), Sound.GHAST_CHARGE, 1L, 1L);
                                                                                 }
                                                                                 new BukkitRunnable(){
                                                                                     @Override
                                                                                     public void run() {
                                                                                         TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊▊▊▊▊▊▊▊▊▊ §a100% loaded", 20, 20, 20);
-                                                                                        for(int i = 0; i == 9; i++) {
+                                                                                        for(int i = 0; i <= 9; i++) {
                                                                                             p.playSound(p.getLocation(), Sound.GHAST_SCREAM, 1L, 1L);
                                                                                         }
                                                                                         new BukkitRunnable(){
