@@ -7,6 +7,8 @@ import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.KopfUtil;
+import me.bluenitrox.school.utils.NameFetcher;
+import me.bluenitrox.school.utils.UUIDFetcher;
 import org.apache.logging.log4j.message.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -20,10 +22,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class Kopfgeld implements CommandExecutor {
 
@@ -84,17 +83,19 @@ public class Kopfgeld implements CommandExecutor {
 
         int slot = 9;
 
-            for(Map.Entry<UUID, Integer> entry : SchoolMode.playerkopfgeld.entrySet()) {
-                UUID key = entry.getKey();
-                Integer value = entry.getValue();
-                ItemStack item = KopfUtil.createSkull(Bukkit.getPlayer(key).getName(), "§6" + Bukkit.getPlayer(key).getDisplayName());
-                ItemMeta im = item.getItemMeta();
-                im.setLore(Arrays.asList("§7» §6Kopfgeld: §a" + value));
-                item.setItemMeta(im);
-                inv.setItem(slot, item);
-                slot++;
-            }
+            if(SchoolMode.playerkopfgeld != null) {
+                for (Map.Entry<UUID, Integer> entry : SchoolMode.playerkopfgeld.entrySet()) {
+                    UUID key = entry.getKey();
+                    Integer value = entry.getValue();
+                    ItemStack item = KopfUtil.createSkull(NameFetcher.getName(key), "§6" + NameFetcher.getName(key));
+                    ItemMeta im = item.getItemMeta();
+                    im.setLore(Collections.singletonList("§7» §6Kopfgeld: §a" + value));
+                    item.setItemMeta(im);
+                    inv.setItem(slot, item);
+                    slot++;
+                }
 
+            }
         player.openInventory(inv);
     }
 

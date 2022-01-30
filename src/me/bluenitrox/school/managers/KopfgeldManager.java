@@ -84,7 +84,7 @@ public class KopfgeldManager {
     private static void deleteUser(UUID uuid){
         try(PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE FROM kopfgeld WHERE spieleruuid = ?")){
             ps.setString(1, uuid.toString());
-            ps.executeQuery();
+            ps.execute();
         }catch (SQLException e){
             e.printStackTrace();
         }
