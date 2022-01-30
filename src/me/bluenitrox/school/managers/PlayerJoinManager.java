@@ -55,6 +55,7 @@ public class PlayerJoinManager {
         SchoolMode.setPlayerChest(uuid, api.getChestsDatabase(uuid));
         SchoolMode.setPlayerMob(uuid,mobs);
         SchoolMode.setPrestige(uuid, ExpManager.getPrestigeDatabase(uuid));
+        KopfgeldManager.onTartgetJoin(uuid);
         Skill.cantopenSkill.add(Bukkit.getPlayer(uuid));
         new BukkitRunnable(){
 

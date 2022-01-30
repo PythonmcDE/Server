@@ -2,6 +2,7 @@ package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.boost.BoostInv;
+import me.bluenitrox.school.commands.Kopfgeld;
 import me.bluenitrox.school.commands.Mine;
 import me.bluenitrox.school.commands.Prestige;
 import me.bluenitrox.school.commands.getBooks;
@@ -28,6 +29,7 @@ public class InventoryClickEvent implements Listener {
         Pet pet = new Pet();
         HändlerAPI api = new HändlerAPI();
         DailyReward dr = new DailyReward();
+        Kopfgeld k = new Kopfgeld();
 
         if(CaseAPI.caseöffnen != null) {
             if (CaseAPI.caseöffnen.contains(p)) {
@@ -47,6 +49,7 @@ public class InventoryClickEvent implements Listener {
                 KitAPI.kitApiClickEvent(e);
                 Schmied.onClickSchmied(e);
 
+                k.onClick(e);
                 wgr.onClick(e);
                 pet.petClickEventInventory(e);
                 api.onClickHändler(e);

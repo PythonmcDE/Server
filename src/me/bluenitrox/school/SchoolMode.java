@@ -67,6 +67,7 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Integer> playeralchemist = new HashMap<>();
     public static HashMap<UUID, Integer> playerbonusloot = new HashMap<>();
     public static HashMap<UUID, Integer> playergluckspilz = new HashMap<>();
+    public static HashMap<UUID, Integer> playerkopfgeld = new HashMap<>();
     public static ArrayList<UUID> playerwason = new ArrayList<>();
     public static HashMap<String,Entity> Pets = new HashMap<>();
     private static final Random r = new Random();
@@ -115,6 +116,7 @@ public class SchoolMode extends JavaPlugin {
             e.printStackTrace();
         }
         ahDisable();
+        KopfgeldManager.servershutdown();
         disablePets();
         MySQL.disconnect();
         DiscordWebhook.setHook("SchoolAlive-1 wurde gestoppt!s");
@@ -162,6 +164,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("stats").setExecutor(new Stats());
         getCommand("dungeon").setExecutor(new Dungeon());
         getCommand("DungeonInventory").setExecutor(new DungeonInventory());
+        getCommand("kopfgeld").setExecutor(new Kopfgeld());
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/8)");
@@ -201,6 +204,7 @@ public class SchoolMode extends JavaPlugin {
 
         CraftAPI.registerEnchants();
     }
+
     private void startAhAnticrash(){
         new BukkitRunnable(){
             @Override
@@ -222,6 +226,13 @@ public class SchoolMode extends JavaPlugin {
         //Tabellen Erstellung
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `spielerdaten` ( `spieleruuid` CHAR(36) NOT NULL , `money` BIGINT(11) NOT NULL , `dungeon` INT(11) NOT NULL ,`exp` FLOAT NOT NULL , `mine` INT(11) NOT NULL , `prestige` INT(11) NOT NULL , `kills` INT(11) NOT NULL , `deaths` INT(11) NOT NULL , `cases` INT(11) NOT NULL , `bloecke` INT(11) NOT NULL , `mob` INT(11) NOT NULL ,`chests` INT(11) NOT NULL ,`level` INT(11) NOT NULL , PRIMARY KEY (`spieleruuid`))");
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `kopfgeld` ( `spieleruuid` CHAR(36) NOT NULL , `kopfgeld` INT(11) NOT NULL , PRIMARY KEY (`spieleruuid`))");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -569,6 +580,9 @@ public class SchoolMode extends JavaPlugin {
         return instance;
     }
 
+    public static int getPlayerKopfgeld(UUID uuid) {
+        return playerkopfgeld.get(uuid);
+    }
     public static int getPlayerBlocks(UUID uuid) {
         return playerBlocks.get(uuid);
     }
@@ -601,6 +615,9 @@ public class SchoolMode extends JavaPlugin {
     }
     public static void setPrestige(UUID uuid, int amount) {
         playerprestige.put(uuid, amount);
+    }
+    public static void setKopfgeld(UUID uuid, int amount) {
+        playerkopfgeld.put(uuid, amount);
     }
     public static float getPlayerExp(UUID uuid) {
         return playerExp.get(uuid);

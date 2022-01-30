@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="SimpleCloud-Plugin">
+  <library name="Nicksystem">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/SimpleCloud-Plugin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../libs/Nicksystem.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

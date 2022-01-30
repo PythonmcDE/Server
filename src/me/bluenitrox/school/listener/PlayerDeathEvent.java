@@ -5,6 +5,7 @@ import me.bluenitrox.school.enchants.all.Erhalt;
 import me.bluenitrox.school.enchants.sword.Kopfgeld;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.features.StatsAPI;
+import me.bluenitrox.school.managers.KopfgeldManager;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.utils.ArmorUtil;
 import org.bukkit.entity.Player;
@@ -26,6 +27,8 @@ public class PlayerDeathEvent implements Listener {
         WorldManager wm = new WorldManager();
         StatsAPI api = new StatsAPI();
         e.setDeathMessage(null);
+        KopfgeldManager km = new KopfgeldManager();
+        km.onKill(e);
         if(k != null) {
             if(k.getWorld().getName().equalsIgnoreCase(wm.warzone)) {
                 api.updateDeathsDatabase(p.getUniqueId(), 1, false);
