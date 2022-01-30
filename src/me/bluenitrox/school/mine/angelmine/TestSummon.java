@@ -26,7 +26,7 @@ public class TestSummon implements CommandExecutor {
                 if(PartikelManager.locations != null) {
                     if (PartikelManager.locations.contains(loc)) {
                         if (i <= 40) {
-                            pm.summonCircle(loc, 1);
+                            pm.summonCircle(loc, 1,1);
                             i++;
                         } else {
                             Bukkit.broadcastMessage("Should Cancel");

@@ -16,11 +16,11 @@ import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.*;
-import me.bluenitrox.school.mine.angelmine.TestEvent;
+import me.bluenitrox.school.mine.angelmine.PartikelManager;
+import me.bluenitrox.school.mine.angelmine.AngelListener;
 import me.bluenitrox.school.mine.angelmine.TestSummon;
 import me.bluenitrox.school.mine.commands.Sell;
 import me.bluenitrox.school.listener.BreakBlockEvent;
-import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mine.manager.Minenreset;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
@@ -28,7 +28,6 @@ import me.bluenitrox.school.utils.*;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -121,7 +120,7 @@ public class SchoolMode extends JavaPlugin {
         KopfgeldManager.servershutdown();
         disablePets();
         MySQL.disconnect();
-        DiscordWebhook.setHook("SchoolAlive-1 wurde gestoppt!s");
+        DiscordWebhook.setHook("SchoolAlive-1 wurde gestoppt!");
     }
 
     private void register(PluginManager pm){
@@ -203,7 +202,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PlayerChangedWorldEvent(), this);
         pm.registerEvents(new BlockExplodeEvent(), this);
 
-        pm.registerEvents(new TestEvent(), this);
+        pm.registerEvents(new AngelListener(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/8)");
@@ -530,6 +529,7 @@ public class SchoolMode extends JavaPlugin {
                         }
                     }
                 }
+                PartikelManager.locations.clear();
             }
         }.runTaskTimerAsynchronously(getInstance(), 20*60*10, 20*60*10);
     }

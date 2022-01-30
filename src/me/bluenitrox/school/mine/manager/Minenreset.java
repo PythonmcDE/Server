@@ -131,7 +131,7 @@ public class Minenreset {
             for(int i = 0; i< 10; i++){
                 hashmine.add(Material.IRON_ORE);
             }
-            for(int i = 0; i< 5; i++){
+            for(int i = 0; i< 10; i++){
                 hashmine.add(Material.QUARTZ_ORE);
             }
         }else if(mine.equalsIgnoreCase("mine8")){

@@ -633,53 +633,53 @@ public class Mine implements CommandExecutor {
                 "§6§l▶ §7hier zum §6§lTeleportieren§7.").build();
 
         ItemStack mine22 = new ItemBuilder(Material.COAL_ORE).setDisplayname("§8§l» §6§lMine 2").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_2_PREIS)).build();
+                "", "§8§l● §7Neu: Kohle","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_2_PREIS)).build();
         ItemStack mine32 = new ItemBuilder(Material.COAL).setDisplayname("§8§l» §6§lMine 3").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_3_PREIS)).build();
+                "", "§8§l● §7Neu: Mehr Kohle","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_3_PREIS)).build();
         ItemStack mine42 = new ItemBuilder(Material.IRON_ORE).setDisplayname("§8§l» §6§lMine 4").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_4_PREIS)).build();
+                "", "§8§l● §7Neu: Eisen","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_4_PREIS)).build();
         ItemStack mine52 = new ItemBuilder(Material.IRON_INGOT).setDisplayname("§8§l» §6§lMine 5").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_5_PREIS)).build();
+                "", "§8§l● §7Neu: Mehr Eisen","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_5_PREIS)).build();
         ItemStack mine62 = new ItemBuilder(Material.QUARTZ_ORE).setDisplayname("§8§l» §6§lMine 6").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_6_PREIS)).build();
+                "", "§8§l● §7Neu: Quarz","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_6_PREIS)).build();
         ItemStack mine72 = new ItemBuilder(Material.QUARTZ).setDisplayname("§8§l» §6§lMine 7").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_7_PREIS)).build();
+                "", "§8§l● §7Neu: Mehr Quarz","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_7_PREIS)).build();
         ItemStack mine82 = new ItemBuilder(Material.REDSTONE_ORE).setDisplayname("§8§l» §6§lMine 8").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_8_PREIS)).build();
+                "", "§8§l● §7Neu: Redstone","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_8_PREIS)).build();
         ItemStack mine92 = new ItemBuilder(Material.REDSTONE).setDisplayname("§8§l» §6§lMine 9").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_9_PREIS)).build();
+                "", "§8§l● §7Neu: Mehr Redstone","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_9_PREIS)).build();
         ItemStack mine102 = new ItemBuilder(Material.LAPIS_ORE).setDisplayname("§8§l» §6§lMine 10").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_10_PREIS)).build();
+                "", "§8§l● §7Neu: Lapis","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_10_PREIS)).build();
         ItemStack mine112 = new ItemBuilder(Material.INK_SACK, (short)4).setDisplayname("§8§l» §6§lMine 11").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_11_PREIS)).build();
+                "", "§8§l● §7Neu: Mehr Lapis","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_11_PREIS)).build();
         ItemStack mine122 = new ItemBuilder(Material.GOLD_ORE).setDisplayname("§8§l» §6§lMine 12").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_12_PREIS)).build();
+                "", "§8§l● §7Neu: Gold","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_12_PREIS)).build();
         ItemStack mine132 = new ItemBuilder(Material.GOLD_INGOT).setDisplayname("§8§l» §6§lMine 13").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_13_PREIS)).build();
+                "", "§8§l● §7Neu: Mehr Gold","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_13_PREIS)).build();
         ItemStack mine142 = new ItemBuilder(Material.DIAMOND_ORE).setDisplayname("§8§l» §6§lMine 14").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_14_PREIS)).build();
+                "", "§8§l● §7Neu: Diamanten","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_14_PREIS)).build();
         ItemStack mine152 = new ItemBuilder(Material.DIAMOND).setDisplayname("§8§l» §6§lMine 15").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_15_PREIS)).build();
+                "", "§8§l● §7Neu: Mehr Diamanten","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_15_PREIS)).build();
         ItemStack mine162 = new ItemBuilder(Material.EMERALD_ORE).setDisplayname("§8§l» §6§lMine 16").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_16_PREIS)).build();
+                "", "§8§l● §7Neu: Smarakte","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_16_PREIS)).build();
         ItemStack mine172 = new ItemBuilder(Material.EMERALD).setDisplayname("§8§l» §6§lMine 17").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_17_PREIS)).build();
+                "", "§8§l● §7Neu: Mehr Smarakte","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_17_PREIS)).build();
         ItemStack mine182 = new ItemBuilder(Material.QUARTZ_BLOCK).setDisplayname("§8§l» §6§lMine 18").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_18_PREIS)).build();
+                "", "§8§l● §7Neu: Quarzblöcke","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_18_PREIS)).build();
         ItemStack mine192 = new ItemBuilder(Material.COAL_BLOCK).setDisplayname("§8§l» §6§lMine 19").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_19_PREIS)).build();
+                "", "§8§l● §7Neu: Kohleblöcke","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_19_PREIS)).build();
         ItemStack mine202 = new ItemBuilder(Material.IRON_BLOCK).setDisplayname("§8§l» §6§lMine 20").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_20_PREIS)).build();
+                "", "§8§l● §7Neu: Eisenblöcke","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_20_PREIS)).build();
         ItemStack mine212 = new ItemBuilder(Material.REDSTONE_BLOCK).setDisplayname("§8§l» §6§lMine 21").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_21_PREIS)).build();
+                "", "§8§l● §7Neu: Redstoneblöcke","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_21_PREIS)).build();
         ItemStack mine222 = new ItemBuilder(Material.LAPIS_BLOCK).setDisplayname("§8§l» §6§lMine 22").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_22_PREIS)).build();
+                "", "§8§l● §7Neu: Lapisblöcke","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_22_PREIS)).build();
         ItemStack mine232 = new ItemBuilder(Material.GOLD_BLOCK).setDisplayname("§8§l» §6§lMine 23").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_23_PREIS)).build();
+                "", "§8§l● §7Neu: Goldblöcke","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_23_PREIS)).build();
         ItemStack mine242 = new ItemBuilder(Material.DIAMOND_BLOCK).setDisplayname("§8§l» §6§lMine 24").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_24_PREIS)).build();
+                "", "§8§l● §7Neu: Diamantblöcke","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_24_PREIS)).build();
         ItemStack mine252 = new ItemBuilder(Material.EMERALD_BLOCK).setDisplayname("§8§l» §6§lMine 25").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.", " ", "§fWas ist neu in der Mine?",
-                "", "§8§l● §7Neu: Nichts","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_25_PREIS)).build();
+                "", "§8§l● §7Neu: Emeraldblöcke","  ", "§6§l▶ §7Kaufspreis: §6" + ValuetoString.valueToString(MessageManager.MINE_25_PREIS)).build();
 
         for(int i = 0; i <= 8; i++) {
             if (i != 4) {
