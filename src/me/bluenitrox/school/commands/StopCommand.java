@@ -1,6 +1,8 @@
 package me.bluenitrox.school.commands;
 
 import de.Herbystar.TTA.TTA_Methods;
+import eu.thesimplecloud.api.CloudAPI;
+import eu.thesimplecloud.api.player.ICloudPlayer;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
@@ -140,7 +142,8 @@ public class StopCommand implements CommandExecutor {
                                                                                             CombatAPI.fightwarzone.clear();
                                                                                         }
                                                                                         for(Player all: Bukkit.getOnlinePlayers()) {
-                                                                                            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "kick " + all.getName());
+                                                                                            ICloudPlayer player = CloudAPI.getInstance().getCloudPlayerManager().getCachedCloudPlayer(all.getName());
+                                                                                            player.connect(CloudAPI.getInstance().getCloudServiceManager().getCloudServiceByName("Lobby-1"));
                                                                                         }
                                                                                         new BukkitRunnable(){
                                                                                             @Override

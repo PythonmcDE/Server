@@ -16,6 +16,8 @@ import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.*;
+import me.bluenitrox.school.mine.angelmine.TestEvent;
+import me.bluenitrox.school.mine.angelmine.TestSummon;
 import me.bluenitrox.school.mine.commands.Sell;
 import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mine.manager.MinenManager;
@@ -166,6 +168,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("DungeonInventory").setExecutor(new DungeonInventory());
         getCommand("kopfgeld").setExecutor(new Kopfgeld());
         getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
+        getCommand("testsummon").setExecutor(new TestSummon());
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/8)");
@@ -199,6 +202,8 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PlayerInteractEntityEvent(), this);
         pm.registerEvents(new PlayerChangedWorldEvent(), this);
         pm.registerEvents(new BlockExplodeEvent(), this);
+
+        pm.registerEvents(new TestEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/8)");
