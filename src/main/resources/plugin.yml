@@ -104,3 +104,4 @@ commands:
   dungeon:
   DungeonInventory:
   kopfgeld:
+  giveSchoolXP:

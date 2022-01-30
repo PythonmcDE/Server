@@ -28,7 +28,7 @@ public class Minenreset {
         String temp2 = "eckpoint2" + mine;
         Location eckpoint1 = new LocationManager(temp).getLocation();
         Location eckpoint2 = new LocationManager(temp2).getLocation();
-        World w = Bukkit.getWorld("Minen");
+        World w = Bukkit.getWorld("FISCHMC");
 
         if(eckpoint1 == null){
             return;

@@ -165,6 +165,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("dungeon").setExecutor(new Dungeon());
         getCommand("DungeonInventory").setExecutor(new DungeonInventory());
         getCommand("kopfgeld").setExecutor(new Kopfgeld());
+        getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/8)");
@@ -508,9 +509,11 @@ public class SchoolMode extends JavaPlugin {
         new BukkitRunnable(){
             @Override
             public void run() {
-                if(Bukkit.getWorld(WorldManager.dungeon).getEntities() != null) {
-                    for (Entity e : Bukkit.getWorld(WorldManager.dungeon).getEntities()) {
-                        e.remove();
+                if(Bukkit.getWorld(WorldManager.dungeon) != null) {
+                    if (Bukkit.getWorld(WorldManager.dungeon).getEntities() != null) {
+                        for (Entity e : Bukkit.getWorld(WorldManager.dungeon).getEntities()) {
+                            e.remove();
+                        }
                     }
                 }
                 if(entityclear == 0){
