@@ -3,6 +3,7 @@ package me.bluenitrox.school.commands;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.KopfgeldManager;
 import me.bluenitrox.school.managers.MessageManager;
+import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.KopfUtil;
@@ -41,8 +42,18 @@ public class Kopfgeld implements CommandExecutor {
         }else if(args.length == 2){
             Player target = Bukkit.getPlayer(args[0]);
             if(target.isOnline()){
+                if(SchoolMode.playerkopfgeld.containsKey(target.getUniqueId())){
+                    player.sendMessage(MessageManager.PREFIX + "§7Dieser Spieler hat bereits ein Kopfgeld!");
+                    player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                    return true;
+                }
                 if(Integer.parseInt(args[1]) >= 1000){
-                    KopfgeldManager.setKopfgeld(Bukkit.getPlayer(args[0]).getUniqueId(), Integer.parseInt(args[1]), player);
+                    if(MoneyManager.getMoney(player.getUniqueId()) >= Integer.parseInt(args[1])) {
+                        KopfgeldManager.setKopfgeld(Bukkit.getPlayer(args[0]).getUniqueId(), Integer.parseInt(args[1]), player);
+                    }else {
+                        player.sendMessage(MessageManager.NOTMONEY(PlayerJoinManager.language));
+                        player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                    }
                 }else {
                     player.sendMessage(MessageManager.PREFIX + "§7Der kleinst mögliche Betrag liegt bei 1000.");
                     player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
