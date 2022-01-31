@@ -23,5 +23,6 @@
     <orderEntry type="library" name="spigot" level="project" />
     <orderEntry type="library" name="TTA-3.6" level="project" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="libs" level="project" />
   </component>
 </module>

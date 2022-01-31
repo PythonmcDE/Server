@@ -11,9 +11,11 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Antidupe {
 
@@ -23,6 +25,12 @@ public class Antidupe {
     public static ItemStack addID(ItemStack i){
         NBTTags nbt = new NBTTags(i);
         nbt.setNBTTag("antidupe", nextItemID + "");
+        ItemMeta itemMeta = i.getItemMeta();
+        for(int j = 0; j<= 10; j++) {
+            if(itemMeta.getLore().get(j) != null) {
+                itemMeta.setLore(Arrays.asList(itemMeta.getLore().get(j), "Dupeid + " + nextItemID));
+            }
+        }
         nextItemID++;
         return i;
     }
@@ -38,9 +46,9 @@ public class Antidupe {
                         int id = Integer.parseInt(test[1]);
                         if (ids != null) {
                             if (ids.contains(id)) {
-                                inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
+                                /*inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
-                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());*/
                                 duperantimation(p);
                                 for(Player all : Bukkit.getOnlinePlayers()){
                                     if(all.hasPermission(PermissionsManager.ALLPERMS)){
