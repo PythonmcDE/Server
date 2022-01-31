@@ -231,39 +231,13 @@ public class PlayerJoinManager {
     }
 
     public static void updateBelowName(Player p){
-        Scoreboard board = getBoard();
-        Team admin = board.registerNewTeam("aaa");
-        Team dev = board.registerNewTeam("bbb");
-        Team mod = board.registerNewTeam("ccc");
-        Team sup = board.registerNewTeam("ddd");
-        Team yt = board.registerNewTeam("eee");
-        Team premium = board.registerNewTeam("fff");
-        Team spieler = board.registerNewTeam("ggg");
-        Iterator var11 = Bukkit.getOnlinePlayers().iterator();
 
+        /*
+        Ausgeladert in Nicksystem
+         */
 
-        while(var11.hasNext()) {
-            Player onlineplayers = (Player)var11.next();
-            if(NickManager.isNicked(onlineplayers.getUniqueId())) {
-                PlayerJoinListener.loadTeam(onlineplayers, board, spieler, "ggg", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("spieler")));
-            } else {
-                if (onlineplayers.hasPermission("prefix.admin")) {
-                    loadTeam(onlineplayers, board, admin, "aaa", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("admin")));
-                } else if (onlineplayers.hasPermission("prefix.dev")) {
-                    loadTeam(onlineplayers, board, dev, "bbb", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("dev")));
-                } else if (onlineplayers.hasPermission("prefix.mod")) {
-                    loadTeam(onlineplayers, board, mod, "ccc", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("mod")));
-                } else if (onlineplayers.hasPermission("prefix.sup")) {
-                    loadTeam(onlineplayers, board, sup, "ddd", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("sup")));
-                } else if (onlineplayers.hasPermission("prefix.yt")) {
-                    loadTeam(onlineplayers, board, yt, "eee", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("yt")));
-                } else if (onlineplayers.hasPermission("prefix.premium")) {
-                    loadTeam(onlineplayers, board, premium, "fff", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("premium")));
-                } else if (onlineplayers.hasPermission("prefix.spieler")) {
-                    loadTeam(onlineplayers, board, spieler, "ggg", ChatColor.translateAlternateColorCodes('&', SystemManager.getPlayerTag("spieler")));
-                }
-            }
-        }
+        /*Scoreboard board = getBoard();
+
         Objective objective = board.registerNewObjective("showkill", "player_kills");
         objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
         objective.setDisplayName(" §6§lLevel");
@@ -271,7 +245,7 @@ public class PlayerJoinManager {
             online.setScoreboard(board);
             final Score score = objective.getScore(online);
             score.setScore(ExpManager.getLevel(online.getUniqueId()));
-        }
+        }*/
     }
 
     public static void loadTeam(Player player, Scoreboard board, Team team, String teamname, String prefix) {

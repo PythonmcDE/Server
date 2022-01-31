@@ -16,6 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Antidupe {
 
@@ -26,17 +27,19 @@ public class Antidupe {
         NBTTags nbt = new NBTTags(i);
         nbt.setNBTTag("antidupe", nextItemID + "");
         ItemMeta itemMeta = i.getItemMeta();
-        for(int j = 0; j<= 10; j++) {
-            if(itemMeta.getLore().get(j) != null) {
-                itemMeta.setLore(Arrays.asList(itemMeta.getLore().get(j), "Dupeid + " + nextItemID));
-            }
+        List<String> strings = itemMeta.getLore();
+        if(strings != null) {
+            strings.add("DupeID + " + nextItemID);
         }
+        itemMeta.setLore(strings);
+        i.setItemMeta(itemMeta);
         nextItemID++;
         return i;
     }
 
     public static void checkInventory(Inventory inv,Player p){
         ids = new ArrayList<>();
+        ids.add(1);
         for(int i = 0; i <= 35; i++) {
             if(inv.getItem(i) != null){
                 if (inv.getItem(i).getItemMeta() != null) {
@@ -46,6 +49,7 @@ public class Antidupe {
                         int id = Integer.parseInt(test[1]);
                         if (ids != null) {
                             if (ids.contains(id)) {
+                                Bukkit.broadcastMessage("ausgelöste id: §6" + id);
                                 /*inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
                                                 "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());*/
@@ -181,9 +185,10 @@ public class Antidupe {
                         int id = Integer.parseInt(test[1]);
                         if (ids != null) {
                             if (ids.contains(id)) {
-                                inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
+                                Bukkit.broadcastMessage("ausgelöste id: §6" + id);
+                                /*inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
-                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());*/
                                 duperantimation(p);
                                 for(Player all : Bukkit.getOnlinePlayers()){
                                     if(all.hasPermission(PermissionsManager.ALLPERMS)){
@@ -210,9 +215,10 @@ public class Antidupe {
                         int id = Integer.parseInt(test[1]);
                         if (ids != null) {
                             if (ids.contains(id)) {
-                                inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
+                                Bukkit.broadcastMessage("ausgelöste id: §6" + id);
+                                /*inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
-                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());*/
                                 duperantimation(p);
                                 for(Player all : Bukkit.getOnlinePlayers()){
                                     if(all.hasPermission(PermissionsManager.ALLPERMS)){
@@ -235,9 +241,10 @@ public class Antidupe {
                         String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
                         int id = Integer.parseInt(test[1]);
                         if (ids.contains(id)) {
-                            invzwei.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
+                            Bukkit.broadcastMessage("ausgelöste id: §6" + id);
+                            /*invzwei.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                     .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
-                                            "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                                            "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());*/
                             duperantimation(p);
                             for(Player all : Bukkit.getOnlinePlayers()){
                                 if(all.hasPermission(PermissionsManager.ALLPERMS)){

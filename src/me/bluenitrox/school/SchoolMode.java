@@ -342,7 +342,7 @@ public class SchoolMode extends JavaPlugin {
                 }
                 Antidupe.ids.clear();
             }
-        }.runTaskTimerAsynchronously(this, 20, 20);
+        }.runTaskTimerAsynchronously(this, 40, 40);
     }
     private void startScoreboard(){
         new BukkitRunnable() {
