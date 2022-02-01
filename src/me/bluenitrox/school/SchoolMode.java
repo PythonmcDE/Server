@@ -336,10 +336,11 @@ public class SchoolMode extends JavaPlugin {
 
             @Override
             public void run() {
-                Antidupe.ids = new ArrayList<>();
+                Antidupe.ids = new LinkedList<>();
                 for (Player all : Bukkit.getOnlinePlayers()) {
                     Antidupe.checkAllInventorys(all.getInventory(), all);
                 }
+                Bukkit.broadcastMessage("antidupe checked");
                 Antidupe.ids.clear();
             }
         }.runTaskTimerAsynchronously(this, 40, 40);
@@ -355,7 +356,6 @@ public class SchoolMode extends JavaPlugin {
                 }
                 for (Player all : Bukkit.getOnlinePlayers()) {
                     ScoreboardManager.setBoard(Bukkit.getPlayer(all.getUniqueId()));
-                    Antidupe.checkAllInventorys(all.getInventory(), all);
                     return;
                 }
                 for(int i = 1; i<= MessageManager.MAX_MINE; i++) {

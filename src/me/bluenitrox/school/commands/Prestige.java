@@ -8,6 +8,8 @@ import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.utils.Firework;
 import me.bluenitrox.school.utils.GetDisplayColor;
 import me.bluenitrox.school.utils.ItemBuilder;
+import me.bluenitrox.school.utils.NameFetcher;
+import org.apache.logging.log4j.message.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -105,7 +107,7 @@ public class Prestige implements CommandExecutor {
                         Firework.Firework(p);
                         MoneyManager.updateMoney(uuid, 5000000, false, true, true);
                         p.sendMessage(MessageManager.PREFIX + "§7Du hast §65 Mio Gems §7erhalten.");
-                        Bukkit.broadcastMessage(GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + p.getDisplayName() + "§7 hat gerade ein §6§lPrestige Upgrade §7erhalten. §6§lHerzlichen Glückwunsch!!");
+                        Bukkit.broadcastMessage(MessageManager.PREFIX + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + NameFetcher.getName(p.getUniqueId()) + "§7 hat gerade ein §6§lPrestige Upgrade §7erhalten. §6§lHerzlichen Glückwunsch!!");
                         ExpManager.updatePrestige(uuid, 1, false);
                     }
                 }
