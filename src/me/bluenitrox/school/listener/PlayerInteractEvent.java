@@ -81,7 +81,23 @@ public class PlayerInteractEvent implements Listener {
                         e.setCancelled(true);
                         String[] lore = p.getItemInHand().getItemMeta().getLore().get(0).split(" ");
                         int anzahl = Integer.parseInt(lore[2]);
-                        ExpManager.updateXP(p.getUniqueId(), anzahl, false);
+                        if(anzahl > ExpManager.neededExp(p.getUniqueId())) {
+                            int rest = (int) (anzahl - ExpManager.neededExp(p.getUniqueId()));
+                            ExpManager.updateXP(p.getUniqueId(), (int) ExpManager.neededExp(p.getUniqueId()), false);
+                            if(rest > ExpManager.neededExp(p.getUniqueId())){
+                                int rest1 = (int) (rest - ExpManager.neededExp(p.getUniqueId()));
+                                ExpManager.updateXP(p.getUniqueId(), (int) ExpManager.neededExp(p.getUniqueId()), false);
+                                if(rest1 > ExpManager.neededExp(p.getUniqueId())){
+                                    int rest2 = (int) (rest1 - ExpManager.neededExp(p.getUniqueId()));
+                                    ExpManager.updateXP(p.getUniqueId(), (int) ExpManager.neededExp(p.getUniqueId()), false);
+                                    if(rest2 > ExpManager.neededExp(p.getUniqueId())){
+                                        ExpManager.updateXP(p.getUniqueId(), (int) ExpManager.neededExp(p.getUniqueId()), false);
+                                    }
+                                }
+                            }
+                        }else {
+                            ExpManager.updateXP(p.getUniqueId(), anzahl, false);
+                        }
                         if (p.getItemInHand().getAmount() > 1) {
                             p.getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                         } else if (p.getItemInHand().getAmount() == 1) {

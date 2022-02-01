@@ -2,6 +2,7 @@ package me.bluenitrox.school.utils;
 
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.managers.DiscordWebhook;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
@@ -11,51 +12,110 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Antidupe {
 
     public static int nextItemID;
-    public static ArrayList<Integer> ids;
+    public static LinkedList<Integer> ids;
 
     public static ItemStack addID(ItemStack i){
         NBTTags nbt = new NBTTags(i);
         nbt.setNBTTag("antidupe", nextItemID + "");
+        ItemMeta itemMeta = i.getItemMeta();
+        List<String> strings = itemMeta.getLore();
+        if(strings != null) {
+            strings.add("DupeID + " + nextItemID);
+        }
+        itemMeta.setLore(strings);
+        i.setItemMeta(itemMeta);
         nextItemID++;
         return i;
     }
 
-    public static void checkInventory(Inventory inv,Player p){
-        ids = new ArrayList<>();
-        for(int i = 0; i <= 35; i++) {
+    public static void checkInventory(Inventory inv,Player p) {
+        ids = new LinkedList<>();
+        /*if (inv.getItem(i).getItemMeta() != null) {
+            if (NBTTags.hasTag("antidupe", inv.getItem(i))) {
+                NBTTags nbt = new NBTTags(inv.getItem(i));
+                String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
+                int id = Integer.parseInt(test[1]);
+            }
+        }*/
+        for(int i = 0; i <= 35; i++){
             if(inv.getItem(i) != null){
-                if (inv.getItem(i).getItemMeta() != null) {
-                    if(NBTTags.hasTag("antidupe", inv.getItem(i))) {
+                if(inv.getItem(i).getItemMeta() != null){
+                    if(NBTTags.hasTag("antidupe", inv.getItem(i))){
                         NBTTags nbt = new NBTTags(inv.getItem(i));
                         String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
                         int id = Integer.parseInt(test[1]);
-                        if (ids != null) {
-                            if (ids.contains(id)) {
-                                inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
-                                        .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
-                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                        if(ids != null){
+                            if(ids.contains(id)){
                                 duperantimation(p);
-                                for(Player all : Bukkit.getOnlinePlayers()){
-                                    if(all.hasPermission(PermissionsManager.ALLPERMS)){
-                                        all.sendMessage(MessageManager.PREFIX + "§7Der Spieler " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + p.getDisplayName() + "§7 wurde gerade als Duplizierer markiert.");
-                                    }
-                                }
+                                Bukkit.broadcastMessage("§6Duperid " + id);
+                                DiscordWebhook.setHook(NameFetcher.getName(p.getUniqueId()) + " wurde als Duplizierer markiert!");
+                            }else {
+                                ids.add(id);
                             }
+                        }else {
+                            ids.add(id);
                         }
-                        ids.add(id);
                     }
                 }
             }
         }
-        ids.clear();
+        /*
+        ?? ids.clear(); ??
+         */
     }
+
+    public static void checkAllInventorys(Inventory inv,Player p) {
+        /*if (inv.getItem(i).getItemMeta() != null) {
+            if (NBTTags.hasTag("antidupe", inv.getItem(i))) {
+                NBTTags nbt = new NBTTags(inv.getItem(i));
+                String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
+                int id = Integer.parseInt(test[1]);
+            }
+        }*/
+        for(int i = 0; i <= 35; i++){
+            if(inv.getItem(i) != null){
+                if(inv.getItem(i).getItemMeta() != null){
+                    if(NBTTags.hasTag("antidupe", inv.getItem(i))){
+                        NBTTags nbt = new NBTTags(inv.getItem(i));
+                        String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
+                        int id = Integer.parseInt(test[1]);
+                        if(ids != null){
+                            if(ids.contains(id)){
+                                duperantimation(p);
+                                DiscordWebhook.setHook(NameFetcher.getName(p.getUniqueId()) + " wurde als Duplizierer markiert!");
+                            }else {
+                                ids.add(id);
+                            }
+                        }else {
+                            ids.add(id);
+                        }
+                    }
+                }
+            }
+        }
+        /*
+        ?? ids.clear(); ??
+         */
+    }
+
+
+
+
+
+
+
+
 
     private static void duperantimation(Player p){
         TTA_Methods.sendTitle(p, "§4§lDuplizierung erkannt!", 20, 20, 20, "§a▊§7▊▊▊▊▊▊▊▊▊ §a10% loaded", 20, 20, 20);
@@ -163,36 +223,8 @@ public class Antidupe {
         }.runTaskLater(SchoolMode.getInstance(), 20*2);
     }
 
-    public static void checkAllInventorys(Inventory inv, Player p){
-        for(int i = 0; i < 36; i++) {
-            if(inv.getItem(i) != null){
-                if (inv.getItem(i).getItemMeta() != null) {
-                    if(NBTTags.hasTag("antidupe", inv.getItem(i))) {
-                        NBTTags nbt = new NBTTags(inv.getItem(i));
-                        String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
-                        int id = Integer.parseInt(test[1]);
-                        if (ids != null) {
-                            if (ids.contains(id)) {
-                                inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
-                                        .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
-                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
-                                duperantimation(p);
-                                for(Player all : Bukkit.getOnlinePlayers()){
-                                    if(all.hasPermission(PermissionsManager.ALLPERMS)){
-                                        all.sendMessage(MessageManager.PREFIX + "§7Der Spieler " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + p.getDisplayName() + "§7 wurde gerade als Duplizierer markiert.");
-                                    }
-                                }
-                            }
-                        }
-                        ids.add(id);
-                    }
-                }
-            }
-        }
-    }
-
     public static void checkChest(Inventory inv, Player p){
-        ids = new ArrayList<>();
+        ids = new LinkedList<>();
         for(int i = 0; i <= inv.getSize() - 1; i++){
             if(inv.getItem(i) != null){
                 if (inv.getItem(i).getItemMeta() != null) {
@@ -202,9 +234,10 @@ public class Antidupe {
                         int id = Integer.parseInt(test[1]);
                         if (ids != null) {
                             if (ids.contains(id)) {
-                                inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
+                                Bukkit.broadcastMessage("ausgelöste id: §6" + id);
+                                /*inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                         .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
-                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());*/
                                 duperantimation(p);
                                 for(Player all : Bukkit.getOnlinePlayers()){
                                     if(all.hasPermission(PermissionsManager.ALLPERMS)){
@@ -227,9 +260,10 @@ public class Antidupe {
                         String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
                         int id = Integer.parseInt(test[1]);
                         if (ids.contains(id)) {
-                            invzwei.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
+                            Bukkit.broadcastMessage("ausgelöste id: §6" + id);
+                            /*invzwei.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
                                     .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
-                                            "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
+                                            "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());*/
                             duperantimation(p);
                             for(Player all : Bukkit.getOnlinePlayers()){
                                 if(all.hasPermission(PermissionsManager.ALLPERMS)){
