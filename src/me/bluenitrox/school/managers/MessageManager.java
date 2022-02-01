@@ -217,6 +217,17 @@ public class MessageManager {
     public static final int MINE_25_PREIS = 289000000;
     public static final int MINE_26_PREIS = 419000000;
 
+    public static final int ANGELMINE_1_PREIS = 0;
+    public static final int ANGELMINE_2_PREIS = 40000;
+    public static final int ANGELMINE_3_PREIS = 120000;
+    public static final int ANGELMINE_4_PREIS = 400000;
+    public static final int ANGELMINE_5_PREIS = 1000000;
+    public static final int ANGELMINE_6_PREIS = 11600000;
+    public static final int ANGELMINE_7_PREIS = 27850000;
+    public static final int ANGELMINE_8_PREIS = 89600000;
+    public static final int ANGELMINE_9_PREIS = 167000000;
+    public static final int ANGELMINE_10_PREIS = 365000000;
+
     public static final HashMap<String, Integer> blocksforreset = fillMap();
 
 

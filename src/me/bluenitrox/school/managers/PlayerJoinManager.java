@@ -232,43 +232,5 @@ public class PlayerJoinManager {
 
     public static void updateBelowName(Player p){
 
-        /*
-        Ausgeladert in Nicksystem
-         */
-
-        /*Scoreboard board = getBoard();
-
-        Objective objective = board.registerNewObjective("showkill", "player_kills");
-        objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
-        objective.setDisplayName(" §6§lLevel");
-        for(Player online : Bukkit.getOnlinePlayers()){
-            online.setScoreboard(board);
-            final Score score = objective.getScore(online);
-            score.setScore(ExpManager.getLevel(online.getUniqueId()));
-        }*/
-    }
-
-    public static void loadTeam(Player player, Scoreboard board, Team team, String teamname, String prefix) {
-        team = board.getTeam(teamname);
-        if (team == null) {
-            team = board.registerNewTeam(teamname);
-        }
-
-        if (team.hasEntry(player.getName())) {
-        }
-
-        team.removeEntry(player.getName());
-        team.setPrefix(prefix);
-        if (ClanAPI.isPlayerInClan(player.getUniqueId())) {
-            String clanTag = ClanAPI.getClanTag(player.getUniqueId());
-            player.setCustomName(team.getPrefix() + player.getName());
-            player.setPlayerListName(team.getPrefix() + player.getName() + " §7[§e" + clanTag + "§7]");
-            team.addPlayer(player);
-        } else {
-            player.setCustomName(team.getPrefix() + player.getPlayerListName());
-            player.setPlayerListName(team.getPrefix() + player.getName());
-            team.addPlayer(player);
-        }
-        player.setScoreboard(board);
     }
 }
