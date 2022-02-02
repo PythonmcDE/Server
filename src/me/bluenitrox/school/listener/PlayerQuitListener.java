@@ -30,7 +30,7 @@ public class PlayerQuitListener implements Listener {
 
     private void updateDatabase(Player p){
         if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId()) && SchoolMode.playerlevel.containsKey(p.getUniqueId()) && SchoolMode.playercase.containsKey(p.getUniqueId())) {
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ?, level = ?, chests = ?, cases = ?,mob = ?, prestige = ? WHERE spieleruuid = ?")) {
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ?, level = ?, chests = ?, cases = ?,mob = ?, prestige = ?, angelmine = ? WHERE spieleruuid = ?")) {
                 ps.setFloat(1, SchoolMode.getPlayerMoney(p.getUniqueId()));
                 ps.setFloat(2, SchoolMode.getPlayerExp(p.getUniqueId()));
                 ps.setInt(3, SchoolMode.getPlayerMine(p.getUniqueId()));
@@ -41,6 +41,7 @@ public class PlayerQuitListener implements Listener {
                 ps.setInt(8, SchoolMode.getPlayerMob(p.getUniqueId()));
                 ps.setInt(9, SchoolMode.getPrestige(p.getUniqueId()));
                 ps.setString(10, p.getUniqueId().toString());
+                ps.setInt(11, SchoolMode.getPlayerAngelMine(p.getUniqueId()));
                 ps.executeUpdate();
 
                 SchoolMode.playerBlocks.remove(p.getUniqueId());
@@ -50,6 +51,7 @@ public class PlayerQuitListener implements Listener {
                 SchoolMode.playerMoney.remove(p.getUniqueId());
                 SchoolMode.playercase.remove(p.getUniqueId());
                 SchoolMode.playerprestige.remove(p.getUniqueId());
+                SchoolMode.playerangelmine.remove(p.getUniqueId());
             }catch (SQLException ex) {
                 ex.printStackTrace();
             }

@@ -8,6 +8,7 @@ import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.commands.Skill;
 import me.bluenitrox.school.features.SkillAPI;
 import me.bluenitrox.school.features.StatsAPI;
+import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
@@ -35,7 +36,7 @@ public class PlayerJoinManager {
     public static void cachPlayerData(UUID uuid) {
         StatsAPI api = new StatsAPI();
         SkillAPI sapi = new SkillAPI();
-        if(!isPetUserExists(uuid)) {
+        if(!isUserExists(uuid)) {
             configuratePlayer(uuid);
             configurateKitPlayer(uuid);
             configuratePetPlayer(uuid);
@@ -44,12 +45,14 @@ public class PlayerJoinManager {
         float money = MoneyManager.getMoneyDatabase(uuid);
         float exp = ExpManager.getExpDatabase(uuid);
         int mine = MinenManager.getMineDatabase(uuid);
+        int angelmine = AngelminenManager.getAngelmineDatabase(uuid);
         int blocks = PlayerBreakBlockManager.getBlocksDatabase(uuid);
         int mobs = StatsAPI.getMobDatabase(uuid);
         SchoolMode.setPlayerMoney(uuid, money);
         SchoolMode.playerlevel.put(uuid,ExpManager.getLevelDatabase(uuid));
         SchoolMode.setPlayerExp(uuid, exp);
         SchoolMode.setPlayerMine(uuid, mine);
+        SchoolMode.setPlayerAngelmine(uuid,angelmine);
         SchoolMode.setPlayerBlocks(uuid, blocks);
         SchoolMode.setPlayerCase(uuid,api.getCasesDatabase(uuid));
         SchoolMode.setPlayerChest(uuid, api.getChestsDatabase(uuid));
@@ -81,7 +84,7 @@ public class PlayerJoinManager {
     }
 
     public static void configuratePlayer(UUID uuid) {
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO spielerdaten (spieleruuid, money, dungeon, exp, mine, prestige, kills, deaths, cases, bloecke, mob, chests, level) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO spielerdaten (spieleruuid, money, dungeon, exp, mine, prestige, kills, deaths, cases, bloecke, mob, chests, level, angelmine) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)")) {
             ps.setString(1, uuid.toString());
             ps.setFloat(2, 1000);
             ps.setInt(3, 1);
@@ -95,6 +98,7 @@ public class PlayerJoinManager {
             ps.setInt(11, 0);
             ps.setInt(12, 0);
             ps.setInt(13, 1);
+            ps.setInt(14, 1);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

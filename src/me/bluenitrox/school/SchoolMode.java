@@ -16,6 +16,7 @@ import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.*;
+import me.bluenitrox.school.mine.angelmine.Angelmine;
 import me.bluenitrox.school.mine.angelmine.PartikelManager;
 import me.bluenitrox.school.mine.angelmine.AngelListener;
 import me.bluenitrox.school.mine.angelmine.TestSummon;
@@ -52,6 +53,7 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Float> playerExp = new HashMap<>();
     public static HashMap<UUID, Integer> playerBlocks = new HashMap<>();
     public static HashMap<UUID, Integer> playerMine = new HashMap<>();
+    public static HashMap<UUID, Integer> playerangelmine = new HashMap<>();
     public static HashMap<UUID, Integer> playerMob = new HashMap<>();
     public static HashMap<UUID, Integer> playerlevel = new HashMap<>();
     public static HashMap<UUID, Integer> playercase = new HashMap<>();
@@ -134,8 +136,6 @@ public class SchoolMode extends JavaPlugin {
         getCommand("fly").setExecutor(new Fly());
         getCommand("set").setExecutor(new SetLocations());
         getCommand("money").setExecutor(new Money());
-        getCommand("test").setExecutor(new NBTTagtest());
-        getCommand("testzwei").setExecutor(new OtherTest());
         getCommand("getcases").setExecutor(new GetCases());
         getCommand("mine").setExecutor(new Mine());
         getCommand("sell").setExecutor(new Sell());
@@ -156,20 +156,23 @@ public class SchoolMode extends JavaPlugin {
         getCommand("tp").setExecutor(new Tp());
         getCommand("tphere").setExecutor(new Tphere());
         getCommand("skill").setExecutor(new Skill());
-        getCommand("books").setExecutor(new getBooks());
         getCommand("setlevel").setExecutor(new SetLevel());
         getCommand("prestige").setExecutor(new Prestige());
         getCommand("plotworld").setExecutor(new Plotworld());
         getCommand("mülleimer").setExecutor(new Mülleimer());
-        getCommand("getBooks").setExecutor(new GetLeveledBooks());
         getCommand("pl").setExecutor(new Plugin());
         getCommand("stats").setExecutor(new Stats());
         getCommand("dungeon").setExecutor(new Dungeon());
         getCommand("DungeonInventory").setExecutor(new DungeonInventory());
         getCommand("kopfgeld").setExecutor(new Kopfgeld());
+        getCommand("angelmine").setExecutor(new Angelmine());
+
         getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
         getCommand("testsummon").setExecutor(new TestSummon());
-
+        getCommand("getBooks").setExecutor(new GetLeveledBooks());
+        getCommand("books").setExecutor(new getBooks());
+        getCommand("test").setExecutor(new NBTTagtest());
+        getCommand("testzwei").setExecutor(new OtherTest());
         //
         Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/8)");
         Bukkit.getConsoleSender().sendMessage("§4Lade §4Events...");
@@ -231,7 +234,7 @@ public class SchoolMode extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§4Erstelle §4Tabellen...");
         //Tabellen Erstellung
         try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `spielerdaten` ( `spieleruuid` CHAR(36) NOT NULL , `money` BIGINT(11) NOT NULL , `dungeon` INT(11) NOT NULL ,`exp` FLOAT NOT NULL , `mine` INT(11) NOT NULL , `prestige` INT(11) NOT NULL , `kills` INT(11) NOT NULL , `deaths` INT(11) NOT NULL , `cases` INT(11) NOT NULL , `bloecke` INT(11) NOT NULL , `mob` INT(11) NOT NULL ,`chests` INT(11) NOT NULL ,`level` INT(11) NOT NULL , PRIMARY KEY (`spieleruuid`))");
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `spielerdaten` ( `spieleruuid` CHAR(36) NOT NULL , `money` BIGINT(11) NOT NULL , `dungeon` INT(11) NOT NULL ,`exp` FLOAT NOT NULL , `mine` INT(11) NOT NULL , `prestige` INT(11) NOT NULL , `kills` INT(11) NOT NULL , `deaths` INT(11) NOT NULL , `cases` INT(11) NOT NULL , `bloecke` INT(11) NOT NULL , `mob` INT(11) NOT NULL ,`chests` INT(11) NOT NULL ,`level` INT(11) NOT NULL ,`angelmine` INT(11) NOT NULL , PRIMARY KEY (`spieleruuid`))");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -601,6 +604,9 @@ public class SchoolMode extends JavaPlugin {
     public static int getPlayerMine(UUID uuid) {
         return playerMine.get(uuid);
     }
+    public static int getPlayerAngelMine(UUID uuid) {
+        return playerangelmine.get(uuid);
+    }
     public static int getPlayerMob(UUID uuid) {
         return playerMob.get(uuid);
     }
@@ -612,6 +618,9 @@ public class SchoolMode extends JavaPlugin {
     }
     public static void setPlayerMine(UUID uuid, int amount) {
         playerMine.put(uuid, amount);
+    }
+    public static void setPlayerAngelmine(UUID uuid, int amount) {
+        playerangelmine.put(uuid, amount);
     }
     public static void setPlayerMob(UUID uuid, int amount) {
         playerMob.put(uuid, amount);

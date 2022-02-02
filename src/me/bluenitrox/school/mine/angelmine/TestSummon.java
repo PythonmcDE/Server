@@ -2,6 +2,9 @@ package me.bluenitrox.school.mine.angelmine;
 
 import com.sun.xml.internal.ws.wsdl.writer.document.Part;
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.managers.MessageManager;
+import me.bluenitrox.school.managers.PermissionsManager;
+import me.bluenitrox.school.managers.PlayerJoinManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -18,7 +21,11 @@ public class TestSummon implements CommandExecutor {
         Location loc = p.getLocation();
         PartikelManager.locations.add(loc);
 
-
+        if(!p.hasPermission(PermissionsManager.ALLPERMS)){
+            p.sendMessage(MessageManager.NOPERMISSIONS(PlayerJoinManager.language));
+            return true;
+        }
+        int partikel = Integer.parseInt(args[0]);
         new BukkitRunnable() {
             int i = 0;
             @Override
@@ -26,14 +33,12 @@ public class TestSummon implements CommandExecutor {
                 if(PartikelManager.locations != null) {
                     if (PartikelManager.locations.contains(loc)) {
                         if (i <= 40) {
-                            pm.summonCircle(loc, 1,1);
+                            pm.summonCircle(loc, 1,partikel);
                             i++;
                         } else {
-                            Bukkit.broadcastMessage("Should Cancel");
                             this.cancel();
                         }
                     }else {
-                        Bukkit.broadcastMessage("Should Cancel");
                         this.cancel();
                     }
                 }

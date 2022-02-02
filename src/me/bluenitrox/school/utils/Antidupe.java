@@ -7,6 +7,7 @@ import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -30,13 +31,6 @@ public class Antidupe {
     }
 
     public static void checkAllInventorys(Inventory inv,Player p) {
-        /*if (inv.getItem(i).getItemMeta() != null) {
-            if (NBTTags.hasTag("antidupe", inv.getItem(i))) {
-                NBTTags nbt = new NBTTags(inv.getItem(i));
-                String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
-                int id = Integer.parseInt(test[1]);
-            }
-        }*/
         for(int i = 0; i <= 35; i++){
             if(inv.getItem(i) != null){
                 if(inv.getItem(i).getItemMeta() != null){
@@ -46,7 +40,16 @@ public class Antidupe {
                         int id = Integer.parseInt(test[1]);
                         if(ids != null){
                             if(ids.contains(id)){
+                                Bukkit.broadcastMessage("ausgelöste id: §6" + id);
+                                inv.setItem(i, new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§cNetter Versuch zu Duplizieren §4<3")
+                                        .setLore("§b» §7Du wurdest nun als §bDuplizierer §7markiert.",
+                                                "§b» §7Ein §4Admin §7wird sich dein Anliegen bald genau anschauen.").build());
                                 duperantimation(p);
+                                for(Player all : Bukkit.getOnlinePlayers()){
+                                    if(all.hasPermission(PermissionsManager.ALLPERMS)){
+                                        all.sendMessage(MessageManager.PREFIX + "§7Der Spieler " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + p.getDisplayName() + "§7 wurde gerade als Duplizierer markiert.");
+                                    }
+                                }
                                 DiscordWebhook.setHook(NameFetcher.getName(p.getUniqueId()) + " wurde als Duplizierer markiert!");
                             }else {
                                 ids.add(id);

@@ -14,6 +14,7 @@ import me.bluenitrox.school.features.*;
 import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.haendler.commands.Schmied;
 import me.bluenitrox.school.haendler.commands.Taxi;
+import me.bluenitrox.school.mine.angelmine.Angelmine;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,6 +31,7 @@ public class InventoryClickEvent implements Listener {
         HändlerAPI api = new HändlerAPI();
         DailyReward dr = new DailyReward();
         Kopfgeld k = new Kopfgeld();
+        Angelmine am = new Angelmine();
 
         if(CaseAPI.caseöffnen != null) {
             if (CaseAPI.caseöffnen.contains(p)) {
@@ -48,6 +50,7 @@ public class InventoryClickEvent implements Listener {
                 Mine.onMinenClick(e);
                 KitAPI.kitApiClickEvent(e);
                 Schmied.onClickSchmied(e);
+                am.onInventoryClick(e);
 
                 k.onClick(e);
                 wgr.onClick(e);
