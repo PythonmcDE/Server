@@ -147,6 +147,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("kit").setExecutor(new Kit());
         getCommand("pet").setExecutor(new PetCommand());
         getCommand("stop").setExecutor(new StopCommand());
+        getCommand("restart").setExecutor(new Restart());
         getCommand("invsee").setExecutor(new Invsee());
         getCommand("clear").setExecutor(new Clear());
         getCommand("tk").setExecutor(new TK());

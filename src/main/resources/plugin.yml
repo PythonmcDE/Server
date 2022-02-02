@@ -38,9 +38,9 @@ commands:
   tp:
   tphere:
   kit:
+  restart:
   stop:
     aliases:
-      - restart
       - neustart
   pet:
     aliases:

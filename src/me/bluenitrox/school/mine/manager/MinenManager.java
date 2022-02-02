@@ -102,7 +102,7 @@ public class MinenManager {
             ExpManager.updateXP(p.getUniqueId(), amount, false);
             BreakBlockEvent.minen.put(mine, BreakBlockEvent.minen.getOrDefault(mine, 0) + 1);
             double abgebauteBloeckeInProzent = 0.0052 * BreakBlockEvent.minen.getOrDefault(mine, 0);
-            abgebauteBloeckeInProzent = ValuetoString.round(abgebauteBloeckeInProzent, 2);
+            abgebauteBloeckeInProzent = ValuetoString.round2(abgebauteBloeckeInProzent, 2);
             if (String.valueOf(abgebauteBloeckeInProzent).length() <= 5) {
                 TTA_Methods.sendActionBar(p, "§8» §6" + abgebauteBloeckeInProzent + "% §7der Mine ist abgebaut");
             }
