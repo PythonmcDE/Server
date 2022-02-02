@@ -348,7 +348,7 @@ public class CraftAPI {
         }
     }
 
-    private boolean isEnchantForItem(ItemStack item, String enchant){
+    public static boolean isEnchantForItem(ItemStack item, String enchant){
         if(enchant.startsWith("§6§l")){
             if(item.getType() == Material.DIAMOND_PICKAXE ||item.getType() == Material.FISHING_ROD || item.getType() == Material.IRON_PICKAXE ){
                 return true;
@@ -373,8 +373,26 @@ public class CraftAPI {
         return false;
     }
 
-    private boolean isItemForEnchant(ItemStack is){
-        if(is.getType() == Material.DIAMOND_HELMET || is.getType() == Material.DIAMOND_CHESTPLATE || is.getType() == Material.DIAMOND_LEGGINGS || is.getType() == Material.DIAMOND_BOOTS || is.getType() == Material.IRON_HELMET ||is.getType() == Material.IRON_CHESTPLATE ||is.getType() == Material.IRON_LEGGINGS ||is.getType() == Material.IRON_BOOTS ||is.getType() == Material.CHAINMAIL_BOOTS ||is.getType() == Material.CHAINMAIL_HELMET ||is.getType() == Material.CHAINMAIL_CHESTPLATE ||is.getType() == Material.CHAINMAIL_LEGGINGS ||is.getType() == Material.CHAINMAIL_HELMET ||is.getType() == Material.DIAMOND_SWORD ||is.getType() == Material.BOW ||is.getType() == Material.IRON_SWORD ||is.getType() == Material.DIAMOND_PICKAXE ||is.getType() == Material.FISHING_ROD ||is.getType() == Material.IRON_PICKAXE){
+    public static boolean isItemForEnchant(ItemStack is){
+        if(is.getType() == Material.DIAMOND_HELMET
+                ||is.getType() == Material.DIAMOND_CHESTPLATE
+                ||is.getType() == Material.DIAMOND_LEGGINGS
+                ||is.getType() == Material.DIAMOND_BOOTS
+                ||is.getType() == Material.IRON_HELMET
+                ||is.getType() == Material.IRON_CHESTPLATE
+                ||is.getType() == Material.IRON_LEGGINGS
+                ||is.getType() == Material.IRON_BOOTS
+                ||is.getType() == Material.CHAINMAIL_BOOTS
+                ||is.getType() == Material.CHAINMAIL_HELMET
+                ||is.getType() == Material.CHAINMAIL_CHESTPLATE
+                ||is.getType() == Material.CHAINMAIL_LEGGINGS
+                ||is.getType() == Material.CHAINMAIL_HELMET
+                ||is.getType() == Material.DIAMOND_SWORD
+                ||is.getType() == Material.BOW
+                ||is.getType() == Material.IRON_SWORD
+                ||is.getType() == Material.DIAMOND_PICKAXE
+                ||is.getType() == Material.FISHING_ROD
+                ||is.getType() == Material.IRON_PICKAXE){
             return true;
         }
         return false;
@@ -486,27 +504,27 @@ public class CraftAPI {
     }
 
     public static int getLevel(String s){
-        int standard = 10;
+        int standard = 20;
         if(s.equalsIgnoreCase("I")){
             return standard;
         }else if(s.equalsIgnoreCase("II")){
-            return standard*2;
+            return standard+10;
         }else if(s.equalsIgnoreCase("III")){
-            return standard*3;
+            return standard+20;
         }else if(s.equalsIgnoreCase("IV")){
-            return standard*4;
+            return standard+30;
         }else if(s.equalsIgnoreCase("V")){
-            return standard*5;
+            return standard+40;
         }else if(s.equalsIgnoreCase("VI")){
-            return standard*6;
+            return standard+50;
         }else if(s.equalsIgnoreCase("VII")){
-            return standard*7;
+            return standard+60;
         }else if(s.equalsIgnoreCase("VIII")){
-            return standard*8;
+            return standard+70;
         }else if(s.equalsIgnoreCase("IX")){
-            return standard*9;
+            return standard+80;
         }else if(s.equalsIgnoreCase("X")){
-            return standard*10;
+            return standard+90;
         }else {
             return standard*10;
         }

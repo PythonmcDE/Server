@@ -7,7 +7,6 @@ import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -15,8 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,51 +25,8 @@ public class Antidupe {
     public static ItemStack addID(ItemStack i){
         NBTTags nbt = new NBTTags(i);
         nbt.setNBTTag("antidupe", nextItemID + "");
-        ItemMeta itemMeta = i.getItemMeta();
-        List<String> strings = itemMeta.getLore();
-        if(strings != null) {
-            strings.add("DupeID + " + nextItemID);
-        }
-        itemMeta.setLore(strings);
-        i.setItemMeta(itemMeta);
         nextItemID++;
         return i;
-    }
-
-    public static void checkInventory(Inventory inv,Player p) {
-        ids = new LinkedList<>();
-        /*if (inv.getItem(i).getItemMeta() != null) {
-            if (NBTTags.hasTag("antidupe", inv.getItem(i))) {
-                NBTTags nbt = new NBTTags(inv.getItem(i));
-                String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
-                int id = Integer.parseInt(test[1]);
-            }
-        }*/
-        for(int i = 0; i <= 35; i++){
-            if(inv.getItem(i) != null){
-                if(inv.getItem(i).getItemMeta() != null){
-                    if(NBTTags.hasTag("antidupe", inv.getItem(i))){
-                        NBTTags nbt = new NBTTags(inv.getItem(i));
-                        String[] test = nbt.getNBTTag("antidupe").toString().split("\"");
-                        int id = Integer.parseInt(test[1]);
-                        if(ids != null){
-                            if(ids.contains(id)){
-                                duperantimation(p);
-                                Bukkit.broadcastMessage("§6Duperid " + id);
-                                DiscordWebhook.setHook(NameFetcher.getName(p.getUniqueId()) + " wurde als Duplizierer markiert!");
-                            }else {
-                                ids.add(id);
-                            }
-                        }else {
-                            ids.add(id);
-                        }
-                    }
-                }
-            }
-        }
-        /*
-        ?? ids.clear(); ??
-         */
     }
 
     public static void checkAllInventorys(Inventory inv,Player p) {

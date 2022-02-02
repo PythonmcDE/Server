@@ -163,9 +163,9 @@ public class MessageManager {
 
     public static String TOTALEXP(int i){
         if(i == 0){
-            return PREFIX + "§7Dein Insgesamten EXP: §6";
+            return PREFIX + "§7Deine Level EXP: §6";
         }else {
-            return PREFIX + "§7Your total EXP: §6";
+            return PREFIX + "§7Your level EXP: §6";
         }
     }
 

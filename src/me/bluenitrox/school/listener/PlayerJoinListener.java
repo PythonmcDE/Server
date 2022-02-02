@@ -32,7 +32,6 @@ public class PlayerJoinListener implements Listener {
             p.teleport(new LocationManager("spawn").getLocation());
         }
         PlayerRespawnEvent.erhaltItems(p);
-        Antidupe.checkInventory(e.getPlayer().getInventory(), e.getPlayer());
     }
 
 }

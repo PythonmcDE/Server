@@ -343,7 +343,7 @@ public class SchoolMode extends JavaPlugin {
                 Bukkit.broadcastMessage("antidupe checked");
                 Antidupe.ids.clear();
             }
-        }.runTaskTimerAsynchronously(this, 40, 40);
+        }.runTaskTimerAsynchronously(this, 20, 20);
     }
     private void startScoreboard(){
         new BukkitRunnable() {
@@ -510,7 +510,7 @@ public class SchoolMode extends JavaPlugin {
         }
     }
     private void startEntityClear(){
-        new BukkitRunnable(){
+        /*new BukkitRunnable(){
             @Override
             public void run() {
                 if(Bukkit.getWorld(WorldManager.dungeon) != null) {
@@ -531,7 +531,7 @@ public class SchoolMode extends JavaPlugin {
                 }
                 PartikelManager.locations.clear();
             }
-        }.runTaskTimerAsynchronously(getInstance(), 20*60*10, 20*60*10);
+        }.runTaskTimerAsynchronously(getInstance(), 20*60*10, 20*60*10);*/
     }
     private void setGameRules(){
         Bukkit.setWhitelist(false);

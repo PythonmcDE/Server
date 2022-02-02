@@ -6,11 +6,11 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class WorldManager {
 
-    public static final String spawn = "Spawn";
+    public static final String spawn = "FISCHMC";
     public static final String plotworld = "PlotWelt";
-    public static final String warzone = "Spawn";
+    public static final String warzone = "FISCHMC";
     public static final String arena = "Arena";
-    public static final String mine = "Minen";
+    public static final String mine = "FISCHMC";
     public static final String dungeon = "Dungeon";
 
     public static void turnDamageOff(EntityDamageEvent e) {
