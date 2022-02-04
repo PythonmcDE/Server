@@ -2,6 +2,7 @@ package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.ah.AhManager;
+import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.entity.Player;
@@ -26,6 +27,7 @@ public class PlayerQuitListener implements Listener {
             SchoolMode.Pets.get(p.getName()).remove();
         }
         CombatAPI.onQuit(p);
+        AngelminenManager.quitAngelmine(p);
     }
 
     private void updateDatabase(Player p){

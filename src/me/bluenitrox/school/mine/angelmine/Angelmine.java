@@ -310,8 +310,9 @@ public class Angelmine implements CommandExecutor {
                                     p.closeInventory();
                                     p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L , 1L);
                                 }else if(e.getCurrentItem().getItemMeta().getLore().get(0).startsWith("§6§l▶ §7Du besitzt diese")){
-                                    if(new LocationManager("angelmine" + angelmine).getLocation() != null) {
-                                        e.getWhoClicked().teleport(new LocationManager("angelmine" + angelmine).getLocation());
+                                    if(new LocationManager("Angelmine" + angelmine).getLocation() != null) {
+                                        p.teleport(new LocationManager("Angelmine" + angelmine).getLocation());
+                                        AngelminenManager.joinAngelmine(p, angelmine);
                                     }
                                     p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
                                     p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in Angelmine §a" + angelmine + "§7 teleportiert!");

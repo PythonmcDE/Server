@@ -103,7 +103,7 @@ public class PlayerCommandPreprocessEvent implements Listener {
         normal.add("/p auto");
         normal.add("/p claim");
         normal.add("/p merge");
-        normal.add("/znpcs");
+        normal.add("");
     }
 
 

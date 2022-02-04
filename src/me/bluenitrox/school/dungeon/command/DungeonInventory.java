@@ -3,6 +3,7 @@ package me.bluenitrox.school.dungeon.command;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
+import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
@@ -95,18 +96,21 @@ public class DungeonInventory implements CommandExecutor {
                 if(e.getCurrentItem().getType() == Material.BONE){
                     if(new LocationManager("dungeon1spawn").getLocation() != null) {
                         p.teleport(new LocationManager("dungeon1spawn").getLocation());
+                        AngelminenManager.quitAngelmine(p);
                     }
                     p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in §6Dungeon 1 §7teleportiert.");
                     p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
                 }else if(e.getCurrentItem().getType() == Material.ROTTEN_FLESH){
                     if(new LocationManager("dungeon2spawn").getLocation() != null) {
                         p.teleport(new LocationManager("dungeon2spawn").getLocation());
+                        AngelminenManager.quitAngelmine(p);
                     }
                     p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in §6Dungeon 2 §7teleportiert.");
                     p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
                 }else if(e.getCurrentItem().getType() == Material.SPIDER_EYE){
                     if(new LocationManager("dungeon3spawn").getLocation() != null) {
                         p.teleport(new LocationManager("dungeon3spawn").getLocation());
+                        AngelminenManager.quitAngelmine(p);
                     }
                     p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in §6Dungeon 3 §7teleportiert.");
                     p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);

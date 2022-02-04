@@ -3,6 +3,7 @@ package me.bluenitrox.school.commands;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,6 +21,7 @@ public class Tphere implements CommandExecutor {
                 if(Bukkit.getPlayer(args[0]) != null) {
                     Player t = Bukkit.getPlayer(args[0]);
                     t.teleport(p);
+                    AngelminenManager.quitAngelmine(p);
                     t.getLocation();
                     p.sendMessage(MessageManager.PREFIX + "§7Du hast den Spieler §6" + t.getName() + " §7zu dir teleportiert");
                 }

@@ -16,10 +16,7 @@ import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.*;
-import me.bluenitrox.school.mine.angelmine.Angelmine;
-import me.bluenitrox.school.mine.angelmine.PartikelManager;
-import me.bluenitrox.school.mine.angelmine.AngelListener;
-import me.bluenitrox.school.mine.angelmine.TestSummon;
+import me.bluenitrox.school.mine.angelmine.*;
 import me.bluenitrox.school.mine.commands.Sell;
 import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mine.manager.Minenreset;
@@ -97,6 +94,7 @@ public class SchoolMode extends JavaPlugin {
         startAntiDupe();
         Bukkit.getConsoleSender().sendMessage("§4AhUpdate §4aktivieren... §4(6/8)");
         startAhUpdate();
+        startAngelmine();
         Bukkit.getConsoleSender().sendMessage("§4AhAnticrash §4aktivieren.... §4(7/8)");
         startAhAnticrash();
         startEntityClear();
@@ -344,7 +342,6 @@ public class SchoolMode extends JavaPlugin {
                 for (Player all : Bukkit.getOnlinePlayers()) {
                     Antidupe.checkAllInventorys(all.getInventory(), all);
                 }
-                Bukkit.broadcastMessage("antidupe checked");
                 Antidupe.ids.clear();
             }
         }.runTaskTimerAsynchronously(this, 20, 20);
@@ -376,6 +373,16 @@ public class SchoolMode extends JavaPlugin {
                 }
             }
         }.runTaskTimer(this, 20*10, 20*10);
+    }
+    private void startAngelmine(){
+        new BukkitRunnable(){
+
+            @Override
+            public void run() {
+                CircleSpawner cs = new CircleSpawner();
+                cs.setCircle();
+            }
+        }.runTaskTimer(getInstance(), 20*20, 20*20);
     }
     private void startAhUpdate(){
         new BukkitRunnable() {

@@ -5,9 +5,12 @@ import me.bluenitrox.school.listener.PlayerInteractEvent;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class AngelListener implements Listener {
 
@@ -33,6 +36,8 @@ public class AngelListener implements Listener {
                             e.getHook().getLocation().add(0, 6, 0).distanceSquared(PartikelManager.locations.get(i)) <= 3) {
                         line = i;
                         spins += 10;
+                        addPlayerItem(e.getPlayer());
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_BASS, 1L, 1L);
                     } else {
                     }
                 }
@@ -41,4 +46,12 @@ public class AngelListener implements Listener {
         }
     }
 
+    public void addPlayerItem(Player p){
+        int angelmine = AngelminenManager.playerangelmine.get(p);
+        p.getInventory().addItem();
+    }
+    private ItemStack getItemforMine(){
+        ItemStack is = null;
+        return is;
+    }
 }

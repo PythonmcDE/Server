@@ -5,6 +5,7 @@ import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
@@ -35,6 +36,7 @@ public class Spawn implements CommandExecutor {
             dm.onQuitDungeon(p);
             if(new LocationManager("spawn").getLocation() != null) {
                 p.teleport(new LocationManager("spawn").getLocation());
+                AngelminenManager.quitAngelmine(p);
             }
         }else if(args.length == 1){
             if(!p.hasPermission(PermissionsManager.ALLPERMS)) {

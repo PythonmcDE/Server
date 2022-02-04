@@ -2,6 +2,7 @@ package me.bluenitrox.school.commands;
 
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.managers.*;
+import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ItemBuilder;
@@ -70,6 +71,7 @@ public class Mine implements CommandExecutor {
                         dm.onQuitDungeon(p);
                         if(new LocationManager(mineToTp).getLocation() != null) {
                             p.teleport(new LocationManager(mineToTp).getLocation());
+                            AngelminenManager.quitAngelmine(p);
                         }
 
                     }catch (NumberFormatException e) {
@@ -181,6 +183,7 @@ public class Mine implements CommandExecutor {
                                 String[] name = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
                                 if(new LocationManager("mine" + name[2]).getLocation() != null) {
                                     e.getWhoClicked().teleport(new LocationManager("mine" + name[2]).getLocation());
+                                    AngelminenManager.quitAngelmine((Player) e.getWhoClicked());
                                 }
                                 e.getWhoClicked().sendMessage(MessageManager.TPTOMINE);
                             }

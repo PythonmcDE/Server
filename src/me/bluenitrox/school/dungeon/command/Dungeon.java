@@ -4,6 +4,7 @@ import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -28,6 +29,7 @@ public class Dungeon implements CommandExecutor {
         if(args.length == 0){
             p.teleport(new LocationManager("Dungeonspawn").getLocation());
             dm.onJoinDungeon(p);
+            AngelminenManager.quitAngelmine(p);
         }else {
             p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
