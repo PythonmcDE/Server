@@ -1,5 +1,6 @@
 package me.bluenitrox.school.listener;
 
+import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
 import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
@@ -26,6 +27,7 @@ public class PlayerCommandPreprocessEvent implements Listener {
 
         normal = new LinkedList<>();
         registerNormalCommand();
+        AufgabenMethods.onTaskCommand(e);
 
         if(!p.hasPermission(PermissionsManager.COMMANDBLOCK)) {
             if (normal.contains(e.getMessage())) {
@@ -103,7 +105,6 @@ public class PlayerCommandPreprocessEvent implements Listener {
         normal.add("/p auto");
         normal.add("/p claim");
         normal.add("/p merge");
-        normal.add("");
     }
 
 

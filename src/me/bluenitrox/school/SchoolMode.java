@@ -3,6 +3,7 @@ package me.bluenitrox.school;
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.ah.Ah_CMD;
+import me.bluenitrox.school.aufgabensystem.AufgabenCMD;
 import me.bluenitrox.school.boost.BoosterAPI;
 import me.bluenitrox.school.boost.BoosterManager;
 import me.bluenitrox.school.crafting.Enchanter;
@@ -68,6 +69,8 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Integer> playerbonusloot = new HashMap<>();
     public static HashMap<UUID, Integer> playergluckspilz = new HashMap<>();
     public static HashMap<UUID, Integer> playerkopfgeld = new HashMap<>();
+    public static HashMap<UUID, Integer> playertask = new HashMap<>();
+    public static HashMap<UUID, Integer> playertoggletask = new HashMap<>();
     public static ArrayList<UUID> playerwason = new ArrayList<>();
     public static HashMap<String,Entity> Pets = new HashMap<>();
     private static final Random r = new Random();
@@ -165,6 +168,8 @@ public class SchoolMode extends JavaPlugin {
         getCommand("kopfgeld").setExecutor(new Kopfgeld());
         getCommand("angelmine").setExecutor(new Angelmine());
         getCommand("gemlimit").setExecutor(new Gemlimit());
+        getCommand("aufgaben").setExecutor(new AufgabenCMD());
+        getCommand("school").setExecutor(new School());
 
         getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
         getCommand("testsummon").setExecutor(new TestSummon());
@@ -322,6 +327,13 @@ public class SchoolMode extends JavaPlugin {
             ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
+        }
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `aufgaben` ( `spieleruuid` CHAR(36) NOT NULL , `aufgabenfortschritt` INT(11) NOT NULL , `toggle` INT(2) NOT NULL)");
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
         }
 
         Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/8)");
@@ -645,11 +657,23 @@ public class SchoolMode extends JavaPlugin {
     public static void setKopfgeld(UUID uuid, int amount) {
         playerkopfgeld.put(uuid, amount);
     }
+    public static void setPlayerTask(UUID uuid, int amount){
+        playertask.put(uuid, amount);
+    }
+    public static void setPlayertoggleTask(UUID uuid, int amount){
+        playertoggletask.put(uuid, amount);
+    }
     public static float getPlayerExp(UUID uuid) {
         return playerExp.get(uuid);
     }
     public static float getPlayerChest(UUID uuid) {
         return playerchest.get(uuid);
+    }
+    public static int getPlayerTask(UUID uuid){
+        return playertask.get(uuid);
+    }
+    public static int getPlayerToggleTask(UUID uuid){
+        return playertoggletask.get(uuid);
     }
     public static String getPlayerExpString(UUID uuid) {
         float exp = playerExp.get(uuid);

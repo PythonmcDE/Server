@@ -5,6 +5,7 @@ import de.pythonmc.clansystem.listener.PlayerJoinListener;
 import de.pythonmc.clansystem.mysql.NickManager;
 import de.pythonmc.clansystem.systemmanager.SystemManager;
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.commands.Skill;
 import me.bluenitrox.school.features.SkillAPI;
 import me.bluenitrox.school.features.StatsAPI;
@@ -36,11 +37,12 @@ public class PlayerJoinManager {
     public static void cachPlayerData(UUID uuid) {
         StatsAPI api = new StatsAPI();
         SkillAPI sapi = new SkillAPI();
-        if(!isUserExists(uuid)) {
+        if(!isTaskUserExists(uuid)) {
             configuratePlayer(uuid);
             configurateKitPlayer(uuid);
             configuratePetPlayer(uuid);
             configurateSkillPlayer(uuid);
+            configurateTaskPlayer(uuid);
         }
         float money = MoneyManager.getMoneyDatabase(uuid);
         float exp = ExpManager.getExpDatabase(uuid);
@@ -48,6 +50,8 @@ public class PlayerJoinManager {
         int angelmine = AngelminenManager.getAngelmineDatabase(uuid);
         int blocks = PlayerBreakBlockManager.getBlocksDatabase(uuid);
         int mobs = StatsAPI.getMobDatabase(uuid);
+        int task = AufgabenManager.getTaskDatabase(uuid);
+        int toggletask = AufgabenManager.getToggleDatabase(uuid);
         SchoolMode.setPlayerMoney(uuid, money);
         SchoolMode.playerlevel.put(uuid,ExpManager.getLevelDatabase(uuid));
         SchoolMode.setPlayerExp(uuid, exp);
@@ -58,6 +62,8 @@ public class PlayerJoinManager {
         SchoolMode.setPlayerChest(uuid, api.getChestsDatabase(uuid));
         SchoolMode.setPlayerMob(uuid,mobs);
         SchoolMode.setPrestige(uuid, ExpManager.getPrestigeDatabase(uuid));
+        SchoolMode.setPlayerTask(uuid, task);
+        SchoolMode.setPlayertoggleTask(uuid, toggletask);
         KopfgeldManager.onTartgetJoin(uuid);
         Skill.cantopenSkill.add(Bukkit.getPlayer(uuid));
         new BukkitRunnable(){
@@ -155,6 +161,17 @@ public class PlayerJoinManager {
         }
     }
 
+    public static void configurateTaskPlayer(UUID uuid) {
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO aufgaben (spieleruuid, aufgabenfortschritt, toggle) VALUES (?, ?, ?)")) {
+            ps.setString(1, uuid.toString());
+            ps.setInt(2, 1);
+            ps.setInt(3, 0);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void configurateSkillPlayer(UUID uuid) {
         try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO skills (UUID, skillpunkte, angriff, verteidigung, extraenergie,scharfschütze,mining,handler,alchemist,bonusloot,gluckspilz) VALUES (?, ?, ?, ?, ?,?,?,?,?,?,?)")) {
             ps.setString(1, uuid.toString());
@@ -185,6 +202,19 @@ public class PlayerJoinManager {
         }
         return false;
     }
+
+    private static boolean isTaskUserExists(UUID uuid) {
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT spieleruuid FROM aufgaben WHERE spieleruuid = ?");
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
     private static boolean isKitUserExists(UUID uuid) {
         try {
