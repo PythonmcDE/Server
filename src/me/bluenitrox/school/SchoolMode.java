@@ -164,6 +164,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("DungeonInventory").setExecutor(new DungeonInventory());
         getCommand("kopfgeld").setExecutor(new Kopfgeld());
         getCommand("angelmine").setExecutor(new Angelmine());
+        getCommand("gemlimit").setExecutor(new Gemlimit());
 
         getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
         getCommand("testsummon").setExecutor(new TestSummon());
