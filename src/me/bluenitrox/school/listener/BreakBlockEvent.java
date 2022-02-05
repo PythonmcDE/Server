@@ -2,6 +2,7 @@ package me.bluenitrox.school.listener;
 
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.commands.Build;
+import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.utils.InventoryUtil;
@@ -60,6 +61,7 @@ public class BreakBlockEvent implements Listener {
         if (!allowedWorldToBuild.contains(p.getLocation().getWorld().getName())) {
             e.setCancelled(true);
         }
+        placeenderchest(e);
     }
 
     private void addItemToInv(Player p, Block b){
@@ -115,5 +117,13 @@ public class BreakBlockEvent implements Listener {
             }
         }
         b.setType(Material.AIR);
+    }
+
+    private void placeenderchest(BlockPlaceEvent e){
+        if(e.getBlock().getType() == Material.ENDER_CHEST){
+            e.setCancelled(true);
+            e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+            e.getPlayer().sendMessage(MessageManager.PREFIX + "§7Du kannst keine §cEnderkisten §7platzieren!");
+        }
     }
 }

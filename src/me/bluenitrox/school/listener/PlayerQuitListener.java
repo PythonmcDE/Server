@@ -5,6 +5,7 @@ import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.warzone.CombatAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,7 +32,7 @@ public class PlayerQuitListener implements Listener {
     }
 
     private void updateDatabase(Player p){
-        if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId()) && SchoolMode.playerlevel.containsKey(p.getUniqueId()) && SchoolMode.playercase.containsKey(p.getUniqueId())) {
+        if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId()) && SchoolMode.playerlevel.containsKey(p.getUniqueId()) && SchoolMode.playercase.containsKey(p.getUniqueId()) && SchoolMode.playerangelmine.containsKey(p.getUniqueId())) {
             try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ?, level = ?, chests = ?, cases = ?,mob = ?, prestige = ?, angelmine = ? WHERE spieleruuid = ?")) {
                 ps.setFloat(1, SchoolMode.getPlayerMoney(p.getUniqueId()));
                 ps.setFloat(2, SchoolMode.getPlayerExp(p.getUniqueId()));
@@ -42,8 +43,8 @@ public class PlayerQuitListener implements Listener {
                 ps.setInt(7, SchoolMode.getPlayerCases(p.getUniqueId()));
                 ps.setInt(8, SchoolMode.getPlayerMob(p.getUniqueId()));
                 ps.setInt(9, SchoolMode.getPrestige(p.getUniqueId()));
-                ps.setString(10, p.getUniqueId().toString());
-                ps.setInt(11, SchoolMode.getPlayerAngelMine(p.getUniqueId()));
+                ps.setInt(10, SchoolMode.getPlayerAngelMine(p.getUniqueId()));
+                ps.setString(11, p.getUniqueId().toString());
                 ps.executeUpdate();
 
                 SchoolMode.playerBlocks.remove(p.getUniqueId());
