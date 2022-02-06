@@ -1,6 +1,8 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.aufgabensystem.Aufgaben;
+import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
@@ -21,6 +23,7 @@ public class PlayerJoinListener implements Listener {
         Player p = e.getPlayer();
         PlayerJoinManager.cachPlayerData(p.getUniqueId());
         SchoolMode.playerwason.add(p.getUniqueId());
+        AufgabenMethods.updateTaskBar(p);
 
         PlayerJoinManager.updateBelowName(p);
 

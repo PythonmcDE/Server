@@ -111,6 +111,9 @@ commands:
     aliases:
       - gl
   aufgaben:
+    aliases:
+      - task
+      - tasks
   school:
   wz:
     aliases:

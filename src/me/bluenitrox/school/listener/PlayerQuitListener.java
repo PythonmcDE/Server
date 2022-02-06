@@ -60,13 +60,23 @@ public class PlayerQuitListener implements Listener {
             }
         }
         if(SchoolMode.playertask.containsKey(p.getUniqueId()) && SchoolMode.playertoggletask.containsKey(p.getUniqueId())){
-            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE aufgaben SET aufgabenfortschritt = ?, toggle = ? WHERE spieleruuid = ?")) {
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE aufgaben SET aufgabenfortschritt = ? WHERE spieleruuid = ?")) {
                 ps.setInt(1, SchoolMode.getPlayerTask(p.getUniqueId()));
-                ps.setInt(2, SchoolMode.getPlayerToggleTask(p.getUniqueId()));
-                ps.setString(3, p.getUniqueId().toString());
+                ps.setString(2, p.getUniqueId().toString());
                 ps.executeUpdate();
 
                 SchoolMode.playertask.remove(p.getUniqueId());
+            }catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        if(SchoolMode.playertoggletask.containsKey(p.getUniqueId())){
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE aufgaben SET toggle = ? WHERE spieleruuid = ?")) {
+                ps.setInt(1, SchoolMode.getPlayerToggleTask(p.getUniqueId()));
+                ps.setString(2, p.getUniqueId().toString());
+                ps.executeUpdate();
+
                 SchoolMode.playertoggletask.remove(p.getUniqueId());
             }catch (SQLException ex) {
                 ex.printStackTrace();

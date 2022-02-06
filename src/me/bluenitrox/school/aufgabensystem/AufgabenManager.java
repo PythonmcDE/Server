@@ -28,7 +28,7 @@ public class AufgabenManager {
         SchoolMode.setPlayerTask(uuid, amount);
     }
     public static void setToggle(UUID uuid, int amount){
-        SchoolMode.setPlayerTask(uuid, amount);
+        SchoolMode.setPlayertoggleTask(uuid, amount);
     }
 
     public static void onComplete(UUID uuid, int task){
@@ -45,19 +45,19 @@ public class AufgabenManager {
                 ExpManager.updateXP(p.getUniqueId(), 1000, false);
                 setTask(p.getUniqueId(), 2);
                 TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
-                TTA_Methods.sendActionBar(p, "§aGebe den Befehl /xp in den Chat ein", -1);
-                p.sendMessage("§8» §7Hier kannst du dein Level sehen");
-                p.sendMessage("§8» §7und siehst zusätzlich wie viele Xp für ein Level-Up fehlen.");
-                p.sendMessage("§8» §7Auch siehst du dein Prestige Level, wobei dein Level eine andere Farbe erhält,");
-                p.sendMessage("§8» §7und du ein neues Dungeon freischaltest.");
-                p.sendMessage("§8» §7Du kannst dich mit dem Befehl /prestige prestigen,");
-                p.sendMessage("§8» §7dabei wird dein Level auf 1 zurückgesetzt.");
+                AufgabenMethods.sendActionbar(p, Aufgaben.TASK_2);
+                p.sendMessage(MessageManager.PREFIX + "§7Der §6§lSchool Command");
+                p.sendMessage("§b» §7Hier werden dir die §6wichtigsten Befehle §7angezeigt.");
                 break;
             case 2:
                 ExpManager.updateXP(p.getUniqueId(), 1500, false);
                 setTask(p.getUniqueId(), 3);
                 TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 20,20,20, "§7Neue Aufgabe freigeschaltet.", 20, 20, 20);
-                TTA_Methods.sendActionBar(p, "§7Neue Aufgabe freigeschaltet", -1);
+                AufgabenMethods.sendActionbar(p, Aufgaben.TASK_3);
+                p.sendMessage(MessageManager.PREFIX + "§7Das §6§lXp System");
+                p.sendMessage("§b» §7Hier siehst du dein §6Level§7, dein §6Prestige Level §7und deine §6benötigten Xp §7für ein Level-UP.");
+                p.sendMessage("§b» §7Du kannst dich mit §6/prestige §7prestigen, dabei wirst du auf Level 1 zurückgesetzt.");
+                p.sendMessage("§b» §7Damit schaltest du ein §6neues Dungeon §7frei und deine §6Level Farbe §7ändern sich.");
                 break;
         }
     }

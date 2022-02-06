@@ -14,12 +14,10 @@ public class School implements CommandExecutor {
         if(!(commandSender instanceof Player)) {
             return true;
         }
-        p.sendMessage("§b» §7Hier kannst du dein Level sehen");
-        p.sendMessage("§b» §7und siehst zusätzlich wie viele Xp für ein Level-Up fehlen.");
-        p.sendMessage("§b» §7Auch siehst du dein Prestige Level, wobei dein Level eine andere Farbe erhält,");
-        p.sendMessage("§b» §7und du ein neues Dungeon freischaltest.");
-        p.sendMessage("§b» §7Du kannst dich mit dem Befehl /prestige prestigen,");
-        p.sendMessage("§b» §7dabei wird dein Level auf 1 zurückgesetzt.");
+        p.sendMessage(MessageManager.PREFIX + "§7Das §6§lXp System");
+        p.sendMessage("§b» §7Hier siehst du dein §6Level§7, dein §6Prestige Level §7und deine §6benötigten Xp §7für ein Level-UP.");
+        p.sendMessage("§b» §7Du kannst dich mit §6/prestige §7prestigen, dabei wirst du auf Level 1 zurückgesetzt.");
+        p.sendMessage("§b» §7Damit schaltest du ein §6neues Dungeon §7frei und deine §6Level Farbe §7ändern sich.");
         return false;
     }
 }

@@ -21,7 +21,6 @@ public class AufgabenCMD implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         Player player = (Player) commandSender;
         UUID uuid = player.getUniqueId();
-        String guiname = "";
 
         if(!(commandSender instanceof Player)) {
             return true;
@@ -30,8 +29,14 @@ public class AufgabenCMD implements CommandExecutor {
         switch (args.length) {
 
             case 0:
-                Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-                setInventoryContent(inv, player);
+                if(AufgabenManager.getToggle(uuid) == 1) {
+                    AufgabenManager.setToggle(uuid, 0);
+                    player.sendMessage(MessageManager.PREFIX + "§7Dir werden §awieder §6Aufgaben §7angezeigt.");
+                    AufgabenMethods.updateTaskBar(player);
+                } else {
+                    AufgabenManager.setToggle(uuid, 1);
+                    player.sendMessage(MessageManager.PREFIX + "§7Dir werden nun §ckeine §6Aufgaben §7mehr angezeigt.");
+                }
                 break;
             default:
                 player.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
@@ -39,12 +44,5 @@ public class AufgabenCMD implements CommandExecutor {
         }
 
         return false;
-    }
-
-    private void setInventoryContent(Inventory inv, Player player) {
-
-        ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
-        player.openInventory(inv);
-
     }
 }
