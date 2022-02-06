@@ -8,6 +8,7 @@ import me.bluenitrox.school.features.StatsAPI;
 import me.bluenitrox.school.managers.KopfgeldManager;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.utils.ArmorUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,13 +25,12 @@ public class PlayerDeathEvent implements Listener {
     public void onDeath(final org.bukkit.event.entity.PlayerDeathEvent e) {
         Player p = (Player)e.getEntity();
         Player k = (Player)e.getEntity().getKiller();
-        WorldManager wm = new WorldManager();
         StatsAPI api = new StatsAPI();
         e.setDeathMessage(null);
         KopfgeldManager km = new KopfgeldManager();
         km.onKill(e);
         if(k != null) {
-            if(k.getWorld().getName().equalsIgnoreCase(wm.warzone)) {
+            if(k.getWorld().getName().equalsIgnoreCase(WorldManager.warzone)) {
                 api.updateDeathsDatabase(p.getUniqueId(), 1, false);
                 api.updateKillsDatabase(k.getUniqueId(), 1, false);
                 playerinv = new ArrayList<>();
@@ -52,8 +52,15 @@ public class PlayerDeathEvent implements Listener {
                     playerinv.add(p.getInventory().getBoots());
                 }
                 e.setKeepInventory(true);
-                ArmorUtil.setArmorNull(p);
-                Erhalt.giveItem(p, playerinv);
+                Erhalt.giveItem(k,p, playerinv);
+                if(Erhalt.itemserhalt != null){
+                    for(int i = 0; i< Erhalt.itemserhalt.size();i++){
+                        p.getInventory().remove(Erhalt.itemserhalt.get(i));
+                        Erhalt.itemserhalt.remove(i);
+                        Bukkit.broadcastMessage("item removed");
+                    }
+                    ArmorUtil.setArmorNull(p);
+                }
                 Schatzmeister.giveInventorySchatzmeister(k, p.getInventory(), p, e);
                 Kopfgeld.giveHead(k, p);
                 playerinv.clear();
@@ -64,7 +71,7 @@ public class PlayerDeathEvent implements Listener {
             public void run() {
                 p.spigot().respawn();
             }
-        }.runTaskLater(SchoolMode.getInstance(), 20*1);
+        }.runTaskLater(SchoolMode.getInstance(), 20);
     }
 
 }

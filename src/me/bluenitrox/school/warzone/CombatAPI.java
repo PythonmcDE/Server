@@ -1,5 +1,6 @@
 package me.bluenitrox.school.warzone;
 
+import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.WorldManager;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
@@ -7,19 +8,26 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.*;
 
 public class CombatAPI {
 
-    private final int maxwarzone = 3;
+    private final int maxwarzone = 2;
+    private final int startcoord1 = -149;
+    private final int startcoord2 = -158;
+    private final int endcord1 = -159;
+    private final int endcord2 = -173;
 
     public static HashMap<Player, Integer> fight = new HashMap<>();
     public static HashMap<Player, Integer> fightwarzone = new HashMap<>();
+    public static HashMap<UUID, String> playerinwarzone = new HashMap<>(); // On wz join
 
     public void onhitCombat(EntityDamageByEntityEvent e) {
         if (e.getEntity().getWorld().getName().equalsIgnoreCase(WorldManager.warzone)) {
@@ -64,8 +72,54 @@ public class CombatAPI {
         }
     }
 
+    public void joinwarzone(PlayerMoveEvent e){
+        if(e.getPlayer().getWorld().getName().equalsIgnoreCase(WorldManager.warzone)){
+            if(getWarzoneByLocation(e.getPlayer().getLocation()) != null){
+                if(playerinwarzone != null) {
+                    if (!playerinwarzone.containsKey(e.getPlayer().getUniqueId())) {
+                        Bukkit.broadcastMessage(getWarzoneByLocation(e.getPlayer().getLocation()));
+                        playerinwarzone.put(e.getPlayer().getUniqueId(), getWarzoneByLocation(e.getPlayer().getLocation()));
+                        Bukkit.broadcastMessage("wz join");
+                        TTA_Methods.sendActionBar(e.getPlayer(), "§b» §7Warzone betreten: §6Levelunterschied: " + getLevelunterschied(Integer.parseInt(getWarzoneByLocation(e.getPlayer().getLocation()))));
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                    }
+                }
+            }else {
+                if(playerinwarzone != null) {
+                    if (playerinwarzone.containsKey(e.getPlayer().getUniqueId())) {
+                        playerinwarzone.remove(e.getPlayer().getUniqueId());
+                        Bukkit.broadcastMessage("wz leave");
+                        Bukkit.broadcastMessage(getWarzoneByLocation(e.getPlayer().getLocation()));
+                    }
+                }
+            }
+            if(fight != null){
+                if(fight.containsKey(e.getPlayer())){
+                    if((e.getPlayer().getLocation().getX() <= startcoord1 && e.getPlayer().getLocation().getX() >= startcoord1 -3) || (e.getPlayer().getLocation().getX() <= startcoord2 && e.getPlayer().getLocation().getX() >= startcoord2 -5)){
+                        Player t = e.getPlayer();
+                        t.setVelocity(t.getVelocity().setX(-0.5D));
+                        t.playSound(t.getLocation(), Sound.PISTON_EXTEND, 1L, 1L);
+                    }
+                    if((e.getPlayer().getLocation().getX() >= endcord1 && e.getPlayer().getLocation().getX() <= endcord1 +3) || (e.getPlayer().getLocation().getX() >= endcord2 && e.getPlayer().getLocation().getX() <= endcord2 +3)){
+                        Player t = e.getPlayer();
+                        t.setVelocity(t.getVelocity().setX(0.5D));
+                        t.playSound(t.getLocation(), Sound.PISTON_RETRACT, 1L, 1L);
+                    }
+                }
+            }
+        }
+    }
+
+    private String getLevelunterschied(int warzone){
+        if(warzone == 1){
+            return 15 +" Level";
+        }else if(warzone == 2){
+            return 30 +" Level";
+        }else return "unendlich";
+    }
+
     public String getWarzoneByLocation(Location loc) {
-        for (int i = 1; i <= 1; i++) {
+        for (int i = 1; i <= maxwarzone; i++) {
             String curr = String.valueOf(i);
             loc.setPitch(0);
             loc.setYaw(0);

@@ -3,6 +3,7 @@ package me.bluenitrox.school.dungeon.manager;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
+import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -145,7 +146,7 @@ public class DungeonManager {
     }
 
     public static void entityDeathItemAdd(EntityDeathEvent e){
-        if(e.getEntity().getWorld().getName().equalsIgnoreCase("world")){
+        if(e.getEntity().getWorld().getName().equalsIgnoreCase(WorldManager.dungeon)){
             if(e.getEntity() instanceof Zombie){
                 if(e.getEntity().getName() != null) {
                     if (e.getEntity().getName().equalsIgnoreCase("§fZombie §8(§7Level §61§8)")) {

@@ -40,6 +40,7 @@ public class Schatzmeister {
 
                         p.getInventory().addItem(Antidupe.addID(chest));
                         e.setDroppedExp(0);
+                        Bukkit.broadcastMessage("clear + true");
                         e.setKeepInventory(true);
                         inventoryowner.getInventory().clear();
                         ArmorUtil.setArmorNull(inventoryowner);

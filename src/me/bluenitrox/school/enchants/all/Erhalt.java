@@ -4,10 +4,12 @@ import me.bluenitrox.school.enchants.EnchantAPI;
 import me.bluenitrox.school.managers.EnchantManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ItemBuilder;
+import net.minecraft.server.v1_8_R3.EnchantmentManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -16,17 +18,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Erhalt extends EnchantAPI {
 
     public static HashMap<UUID, ItemStack> items = new HashMap<>();
+    public static LinkedList<ItemStack> itemserhalt = new LinkedList<>();
 
 
-    public static void giveItem(Player owner, ArrayList<ItemStack> itemsinv){
+    public static void giveItem(Player killer,Player owner, ArrayList<ItemStack> itemsinv){
         Inventory inv = vrInventory(itemsinv);
         for(int i = 0; i< owner.getInventory().getSize();i++) {
             if (inv.getItem(i) != null) {
@@ -40,10 +40,13 @@ public class Erhalt extends EnchantAPI {
                                 List<String> imn = im.getLore();
                                 ArrayList<String> lore = new ArrayList<String>();
                                 lore.addAll(imn);
-                                lore.remove("§f§lErhalt ");
+                                lore.remove("§f§lErhalt " + EnchantAPI.stringToNumber(is, EnchantManager.Erhalt));
                                 im.setLore(lore);
                                 is.setItemMeta(im);
 
+                                Bukkit.broadcastMessage("itemstack added");
+
+                                itemserhalt.add(is);
                                 itemStackinDatabase(owner.getUniqueId(), encodeItem(is));
                                 inv.setItem(i, new ItemBuilder(Material.AIR).build());
                             }
@@ -52,7 +55,16 @@ public class Erhalt extends EnchantAPI {
                 }
             }
         }
-        for(int in = 0; in < inv.getSize(); in++){
+        if(killer.getItemInHand() != null) {
+            if(killer.getItemInHand().getItemMeta() != null) {
+                if (killer.getItemInHand().getItemMeta().getLore() != null) {
+                    if (killer.getItemInHand().getItemMeta().getLore().contains(EnchantManager.schatzmeister + "I")) {
+                        return;
+                    }
+                }
+            }
+        }
+        for (int in = 0; in < inv.getSize(); in++) {
             if (inv.getItem(in) != null) {
                 Bukkit.getWorld(owner.getWorld().getName()).dropItem(owner.getLocation(), inv.getItem(in));
             }
@@ -112,16 +124,14 @@ public class Erhalt extends EnchantAPI {
     }
 
 
-    public static boolean deleteItem(String item) {
+    public static void deleteItem(String item) {
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE FROM erhaltitems WHERE item = ?");
             ps.setString(1, item);
-            ResultSet rs = ps.executeQuery();
-            return rs.next();
+            ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     public static String getItemErhalt(UUID uuid) {

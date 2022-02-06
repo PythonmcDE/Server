@@ -107,11 +107,12 @@ commands:
   giveSchoolXP:
   testsummon:
   angelmine:
-  school:
   gemlimit:
     aliases:
       - gl
   aufgaben:
+  school:
+  wz:
     aliases:
-      - task
-      - tasks
+      - warzone
+      - kampfzone

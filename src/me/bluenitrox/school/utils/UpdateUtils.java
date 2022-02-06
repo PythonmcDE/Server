@@ -71,7 +71,45 @@ public class UpdateUtils extends CraftAPI {
                              */
                         }
                     }
+                }else if(isItemForEnchant(all.getOpenInventory().getItem(slot1)) && all.getOpenInventory().getItem(slot2).getType() == Material.ENCHANTED_BOOK){
+                    if(all.getOpenInventory().getItem(slot2).getType() != null) {
+                        if(all.getOpenInventory().getItem(slot2).getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lMagisches Buch")){
+                            if(isEnchantForItem(all.getOpenInventory().getItem(slot1), all.getOpenInventory().getItem(slot2).getItemMeta().getLore().get(0))) {
+                                    /*
+                                    special book on armor
+                                     */
+
+                                String[] preis = all.getOpenInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
+                                float price = CraftAPI.getPrice(preis[1]);
+                                int level = CraftAPI.getLevel(preis[1]);
+                                all.getOpenInventory().setItem(25, new ItemBuilder(Material.SLIME_BALL).setDisplayname("§8» §7Item Verzaubern").setLore("§8● §7Kosten:§6§l " + level + " Vanilla Level", "§8● §7Gem-Kosten:§6§l " + price + " Gems").build());
+                                return;
+                            }
+                        }
+                    }
+                            /*
+                            normal book on armor
+                             */
                 }
+            }else if(isItemForEnchant(all.getOpenInventory().getItem(slot1)) && all.getOpenInventory().getItem(slot2).getType() == Material.ENCHANTED_BOOK){
+                if(all.getOpenInventory().getItem(slot2).getType() != null) {
+                    if(all.getOpenInventory().getItem(slot2).getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lMagisches Buch")){
+                        if(isEnchantForItem(all.getOpenInventory().getItem(slot1), all.getOpenInventory().getItem(slot2).getItemMeta().getLore().get(0))) {
+                                    /*
+                                    special book on armor
+                                     */
+
+                            String[] preis = all.getOpenInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
+                            float price = CraftAPI.getPrice(preis[1]);
+                            int level = CraftAPI.getLevel(preis[1]);
+                            all.getOpenInventory().setItem(25, new ItemBuilder(Material.SLIME_BALL).setDisplayname("§8» §7Item Verzaubern").setLore("§8● §7Kosten:§6§l " + level + " Vanilla Level", "§8● §7Gem-Kosten:§6§l " + price + " Gems").build());
+                            return;
+                        }
+                    }
+                }
+                            /*
+                            normal book on armor
+                             */
             }
         } else {
             all.getOpenInventory().setItem(25, new ItemBuilder(Material.BARRIER).setDisplayname("§8» §cUngültige Kombination").setLore("§8● §7Diese Verzauberung ist leider nicht möglich.").build());

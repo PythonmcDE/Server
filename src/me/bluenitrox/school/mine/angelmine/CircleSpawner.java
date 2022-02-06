@@ -43,9 +43,11 @@ public class CircleSpawner {
                                                 pm.summonCircle(new LocationManager("spawn" + b + "mine" + finalA).getLocation(), 1, finalA);
                                                 i++;
                                             } else {
+                                                PartikelManager.locations.remove(new LocationManager("spawn"+b+"mine"+finalA).getLocation());
                                                 this.cancel();
                                             }
                                         } else {
+                                            PartikelManager.locations.remove(new LocationManager("spawn"+b+"mine"+finalA).getLocation());
                                             this.cancel();
                                         }
                                     }
@@ -71,9 +73,11 @@ public class CircleSpawner {
                                                 pm.summonCircle(new LocationManager("spawn" + b + "mine" + finalA).getLocation(), 1, finalA);
                                                 i++;
                                             } else {
+                                                PartikelManager.locations.remove(new LocationManager("spawn"+b+"mine"+finalA).getLocation());
                                                 this.cancel();
                                             }
                                         } else {
+                                            PartikelManager.locations.remove(new LocationManager("spawn"+b+"mine"+finalA).getLocation());
                                             this.cancel();
                                         }
                                     }

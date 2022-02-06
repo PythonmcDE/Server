@@ -9,6 +9,8 @@ import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.managers.WorldManager;
+import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -42,6 +44,7 @@ public class PlayerInteractEvent implements Listener {
             interactAnvil(p, e);
             interactEnchantmentTable(p, e);
         }
+        disableSpawnInteract(e);
     }
 
     private void interactCase(Player p, org.bukkit.event.player.PlayerInteractEvent e){
@@ -116,6 +119,30 @@ public class PlayerInteractEvent implements Listener {
         if(e.getClickedBlock().getType() == Material.ENDER_CHEST){
             e.setCancelled(true);
             p.sendMessage(MessageManager.ENDERCHEST);
+        }
+    }
+
+    private void disableSpawnInteract(org.bukkit.event.player.PlayerInteractEvent e){
+        if(e.getPlayer().getWorld().getName().equalsIgnoreCase(WorldManager.spawn)) {
+            if (e.getClickedBlock() != null) {
+                if (e.getClickedBlock().getType() == Material.FENCE_GATE
+                        || e.getClickedBlock().getType() == Material.LEVER
+                        || e.getClickedBlock().getType() == Material.TRAP_DOOR
+                        || e.getClickedBlock().getType() == Material.WOOD_DOOR
+                        || e.getClickedBlock().getType() == Material.BED
+                        || e.getClickedBlock().getType() == Material.STONE_BUTTON
+                        || e.getClickedBlock().getType() == Material.WOOD_BUTTON
+                        || e.getClickedBlock().getType() == Material.HOPPER
+                        || e.getClickedBlock().getType() == Material.TRAPPED_CHEST) {
+                    e.setCancelled(true);
+                }else if(e.getClickedBlock().getType() == Material.CHEST){
+                    if(CombatAPI.playerinwarzone != null) {
+                        if (!CombatAPI.playerinwarzone.containsKey(e.getPlayer().getUniqueId())) {
+                            e.setCancelled(true);
+                        }
+                    }
+                }
+            }
         }
     }
 

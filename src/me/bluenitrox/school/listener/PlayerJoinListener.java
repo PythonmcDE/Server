@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class PlayerJoinListener implements Listener {
 
@@ -19,9 +21,6 @@ public class PlayerJoinListener implements Listener {
         Player p = e.getPlayer();
         PlayerJoinManager.cachPlayerData(p.getUniqueId());
         SchoolMode.playerwason.add(p.getUniqueId());
-
-        p.getInventory().clear();
-        ArmorUtil.setArmorNull(p);
 
         PlayerJoinManager.updateBelowName(p);
 
@@ -32,6 +31,8 @@ public class PlayerJoinListener implements Listener {
             p.teleport(new LocationManager("spawn").getLocation());
         }
         PlayerRespawnEvent.erhaltItems(p);
+
+        e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20*60*20, 1));
     }
 
 }

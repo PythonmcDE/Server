@@ -25,6 +25,7 @@ import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
 import me.bluenitrox.school.utils.*;
 import me.bluenitrox.school.warzone.CombatAPI;
+import me.bluenitrox.school.warzone.Warzone;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
@@ -34,6 +35,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.PreparedStatement;
@@ -170,6 +173,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("gemlimit").setExecutor(new Gemlimit());
         getCommand("aufgaben").setExecutor(new AufgabenCMD());
         getCommand("school").setExecutor(new School());
+        getCommand("wz").setExecutor(new Warzone());
 
         getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
         getCommand("testsummon").setExecutor(new TestSummon());
@@ -534,28 +538,37 @@ public class SchoolMode extends JavaPlugin {
         }
     }
     private void startEntityClear(){
-        /*new BukkitRunnable(){
+        new BukkitRunnable(){
             @Override
             public void run() {
                 if(Bukkit.getWorld(WorldManager.dungeon) != null) {
                     if (Bukkit.getWorld(WorldManager.dungeon).getEntities() != null) {
                         for (Entity e : Bukkit.getWorld(WorldManager.dungeon).getEntities()) {
-                            e.remove();
-                        }
-                    }
-                }
-                if(entityclear == 0){
-                    for(World world : Bukkit.getWorlds()) {
-                        if (world.getEntities() != null) {
-                            for (Entity e : world.getEntities()) {
+                            if(!(e instanceof Player)) {
                                 e.remove();
                             }
                         }
                     }
                 }
+                if(entityclear == 0){
+                    for(World world : Bukkit.getWorlds()) {
+                        if(world.getName() != WorldManager.plotworld) {
+                            if (world.getEntities() != null) {
+                                for (Entity e : world.getEntities()) {
+                                    if (!(e instanceof Player)) {
+                                        e.remove();
+                                    }
+                                } 
+                            }
+                        }
+                    }
+                }
                 PartikelManager.locations.clear();
+                for(Player all: Bukkit.getOnlinePlayers()) {
+                    all.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20 * 60 * 20, 1));
+                }
             }
-        }.runTaskTimerAsynchronously(getInstance(), 20*60*10, 20*60*10);*/
+        }.runTaskTimerAsynchronously(getInstance(), 20*60*10, 20*60*10);
     }
     private void setGameRules(){
         Bukkit.setWhitelist(false);

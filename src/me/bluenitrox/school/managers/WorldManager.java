@@ -1,6 +1,8 @@
 package me.bluenitrox.school.managers;
 
+import com.mysql.jdbc.Buffer;
 import me.bluenitrox.school.warzone.CombatAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 
@@ -15,13 +17,14 @@ public class WorldManager {
 
     public static void turnDamageOff(EntityDamageEvent e) {
         if(e.getEntity() instanceof Player) {
-            if (e.getEntity().getWorld().getName().equalsIgnoreCase(mine)) {
-                e.setCancelled(true);
-            } else if (e.getEntity().getWorld().getName().equalsIgnoreCase(spawn)) {
+            if (e.getEntity().getWorld().getName().equalsIgnoreCase(spawn)) {
                 CombatAPI api = new CombatAPI();
-                if (api.getWarzoneByLocation(e.getEntity().getLocation()) == null) {
-                    e.setCancelled(true);
+                if (CombatAPI.playerinwarzone != null) {
+                    if(CombatAPI.playerinwarzone.containsKey((e.getEntity()).getUniqueId())){
+                     return;
+                    }
                 }
+                e.setCancelled(true);
             }
         }
     }

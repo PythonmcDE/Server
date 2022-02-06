@@ -19,7 +19,7 @@ public class Gemlimit implements CommandExecutor {
             return true;
         }
         if(args.length == 0){
-            p.sendMessage(MessageManager.PREFIX + "§7Von deinem Gemlimit ist noch §6§l" + ValuetoString.valueToString(MoneyManager.getGemlimit(p.getUniqueId())) + "§7 übrig!");
+            p.sendMessage(MessageManager.PREFIX + "§7Von deinem Gemlimit sind noch §6§l" + ValuetoString.valueToString(MoneyManager.getGemlimit(p.getUniqueId())) + " Gems§7 übrig!");
         }else {
             p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);

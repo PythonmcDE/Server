@@ -188,7 +188,7 @@ public class CraftAPI {
         clickedInv.setItem(slot2, new ItemBuilder(Material.AIR).build());
 
         MoneyManager.updateMoney(p.getUniqueId(),getPrice(intToString(levelofbooks +1)),true,false);
-        p.setLevel(p.getLevel()-(levelofbooks*10));
+        p.setLevel(p.getLevel()-(levelofbooks*20));
         p.getInventory().addItem(Antidupe.addID(books));
         p.closeInventory();
         p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
@@ -206,7 +206,7 @@ public class CraftAPI {
         clickedInv.setItem(slot2, new ItemBuilder(Material.AIR).build());
 
         MoneyManager.updateMoney(p.getUniqueId(),getPrice(intToString(levelofbooks +1)),true,false);
-        p.setLevel(p.getLevel()-(levelofbooks*10));
+        p.setLevel(p.getLevel()-(levelofbooks*20));
         p.getInventory().addItem(Antidupe.addID(books));
         p.closeInventory();
         p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
@@ -310,7 +310,7 @@ public class CraftAPI {
                     p.closeInventory();
                     p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
                     MoneyManager.updateMoney(p.getUniqueId(), getPrice(intToString(enchantlevel + 1)), true, false);
-                    p.setLevel(p.getLevel() - (enchantlevel * 10));
+                    p.setLevel(p.getLevel() - (enchantlevel * 20));
                 } else {
                     p.closeInventory();
                     p.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Enchant §cnicht §7auf dieses Item machen!");
@@ -339,7 +339,7 @@ public class CraftAPI {
                 p.closeInventory();
                 p.playSound(p.getLocation(), Sound.ANVIL_USE, 1L, 1L);
                 MoneyManager.updateMoney(p.getUniqueId(),getPrice(intToString(enchantlevel)),true,false);
-                p.setLevel(p.getLevel()-(enchantlevel*10));
+                p.setLevel(p.getLevel()-(enchantlevel*20));
             }else {
                 p.closeInventory();
                 p.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Enchant §cnicht §7auf dieses Item machen!");

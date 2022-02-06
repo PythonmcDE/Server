@@ -24,10 +24,12 @@ public class Plotworld implements CommandExecutor {
             }
         }
         if(args.length == 0){
-            DungeonManager dm = new DungeonManager();
-            dm.onQuitDungeon(p);
-            p.teleport(new LocationManager("plotworld").getLocation());
-            AngelminenManager.quitAngelmine(p);
+            if(!CombatAPI.playerinwarzone.containsKey(p.getUniqueId())) {
+                DungeonManager dm = new DungeonManager();
+                dm.onQuitDungeon(p);
+                p.teleport(new LocationManager("plotworld").getLocation());
+                AngelminenManager.quitAngelmine(p);
+            }
         }else {
             p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
         }
