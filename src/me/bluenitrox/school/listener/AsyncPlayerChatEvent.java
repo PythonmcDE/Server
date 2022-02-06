@@ -31,12 +31,8 @@ public class AsyncPlayerChatEvent implements Listener {
         }
 
         String Message = e.getMessage();
-        if (e.getMessage().contains("%")) {
-            e.setCancelled(true);
-            p.sendMessage(MessageManager.PREFIX + "§7Du kannst keine §6%-Zeichen §7schreiben!");
-        }
 
-        if (Message.equals("[item]")) {
+         if(Message.contains("[item]")) {
             final ItemStack is = p.getItemInHand();
             if (!is.getType().equals((Object) Material.AIR)) {
                 final net.minecraft.server.v1_8_R3.ItemStack b = CraftItemStack.asNMSCopy(is);
@@ -55,13 +51,7 @@ public class AsyncPlayerChatEvent implements Listener {
                     e.setCancelled(true);
                 }
             }
-        }else if(Message.contains("[item]")){
-            p.sendMessage(MessageManager.PREFIX + "§7Du kannst §8[item] §7nicht in kombination mit einer Nachricht schreiben!");
-            p.playSound(p.getLocation(), Sound.ANVIL_BREAK, 1L , 1L);
-            e.setCancelled(true);
         }
-
-        e.setFormat("§8[" + getColorByPrestige(e.getPlayer().getUniqueId()) + ExpManager.getLevel(e.getPlayer().getUniqueId()) + "§8]" + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + " " + e.getPlayer().getDisplayName() + " §8» §7" + e.getMessage());
     }
 
     private String getColorByPrestige(UUID uuid){

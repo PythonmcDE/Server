@@ -213,6 +213,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PlayerInteractEntityEvent(), this);
         pm.registerEvents(new PlayerChangedWorldEvent(), this);
         pm.registerEvents(new BlockExplodeEvent(), this);
+        pm.registerEvents(new AsyncPlayerChatEvent(), this);
 
         pm.registerEvents(new AngelListener(), this);
 
