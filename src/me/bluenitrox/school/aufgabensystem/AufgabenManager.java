@@ -33,7 +33,6 @@ public class AufgabenManager {
 
     public static void onComplete(UUID uuid, int task){
         Player p = Bukkit.getPlayer(uuid);
-        TTA_Methods.sendTitle(p, "1", 20, 20, 20, "2", 20, 20, 20);
         Firework.Firework(p);
         p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
         getPrice(p, task);
@@ -45,7 +44,7 @@ public class AufgabenManager {
                 ExpManager.updateXP(p.getUniqueId(), 1000, false);
                 setTask(p.getUniqueId(), 2);
                 TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
-                AufgabenMethods.sendActionbar(p, Aufgaben.TASK_2);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_2);
                 p.sendMessage(MessageManager.PREFIX + "§7Der §6§lSchool Command");
                 p.sendMessage("§b» §7Hier werden dir die §6wichtigsten Befehle §7angezeigt.");
                 break;
@@ -53,7 +52,7 @@ public class AufgabenManager {
                 ExpManager.updateXP(p.getUniqueId(), 1500, false);
                 setTask(p.getUniqueId(), 3);
                 TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 20,20,20, "§7Neue Aufgabe freigeschaltet.", 20, 20, 20);
-                AufgabenMethods.sendActionbar(p, Aufgaben.TASK_3);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_3);
                 p.sendMessage(MessageManager.PREFIX + "§7Das §6§lXp System");
                 p.sendMessage("§b» §7Hier siehst du dein §6Level§7, dein §6Prestige Level §7und deine §6benötigten Xp §7für ein Level-UP.");
                 p.sendMessage("§b» §7Du kannst dich mit §6/prestige §7prestigen, dabei wirst du auf Level 1 zurückgesetzt.");

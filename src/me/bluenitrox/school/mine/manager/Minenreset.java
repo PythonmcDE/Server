@@ -1,27 +1,34 @@
 package me.bluenitrox.school.mine.manager;
 
 import de.Herbystar.TTA.TTA_Methods;
+import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.commands.School;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
+import me.bluenitrox.school.managers.WorldManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Minenreset {
 
     private LinkedList<Material> hashmine;
 
-    public static void fillMineServerStart(){
+    public static void fillMineServerStart() {
         for (int i = 1; i <= MessageManager.MAX_MINE; i++) {
             Minenreset mr = new Minenreset();
             mr.fillMine("mine" + i);
         }
     }
 
-    public void fillMine(String mine){
+    public void fillMine(String mine) {
         hashmine = new LinkedList<>();
         registerHash(mine);
         String temp = "eckpoint1" + mine;
@@ -30,10 +37,10 @@ public class Minenreset {
         Location eckpoint2 = new LocationManager(temp2).getLocation();
         World w = Bukkit.getWorld("FISCHMC");
 
-        if(eckpoint1 == null){
+        if (eckpoint1 == null) {
             return;
         }
-        if(eckpoint2 == null){
+        if (eckpoint2 == null) {
             return;
         }
 
@@ -41,10 +48,10 @@ public class Minenreset {
         int minY = Math.min(eckpoint1.getBlockY(), eckpoint2.getBlockY());
         int minZ = Math.min(eckpoint1.getBlockZ(), eckpoint2.getBlockZ());
         int maxX = Math.max(eckpoint1.getBlockX(), eckpoint2.getBlockX());
-        int maxY = Math.max(eckpoint1.getBlockY(), eckpoint2.getBlockY()) -1;
+        int maxY = Math.max(eckpoint1.getBlockY(), eckpoint2.getBlockY()) - 1;
         int maxZ = Math.max(eckpoint1.getBlockZ(), eckpoint2.getBlockZ());
 
-        for(int x3 = minX; x3 <= maxX; x3++) {
+        for (int x3 = minX; x3 <= maxX; x3++) {
             for (int y3 = minY; y3 <= maxY; y3++) {
                 for (int z3 = minZ; z3 <= maxZ; z3++) {
                     Block block = w.getBlockAt(x3, y3, z3);
@@ -54,9 +61,9 @@ public class Minenreset {
                 }
             }
         }
-        for(Player all: Bukkit.getOnlinePlayers()) {
-            if(all.getWorld().getName().equals("Minen")){
-                if(teleportRequest(all,eckpoint1,eckpoint2,mine)){
+        for (Player all : Bukkit.getOnlinePlayers()) {
+            if (all.getWorld().getName().equals(WorldManager.mine)) {
+                if (teleportRequest(all, eckpoint1, eckpoint2, mine)) {
                     all.teleport(new LocationManager(mine).getLocation());
                     String minen = mine.replace("m", "M");
                     TTA_Methods.sendTitle(all, "§6§lMinenreset", 20, 20, 20, "§8» §7" + minen, 20, 20, 20);

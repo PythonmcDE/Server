@@ -1,5 +1,6 @@
 package me.bluenitrox.school.aufgabensystem;
 
+import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.utils.ItemBuilder;
@@ -32,10 +33,11 @@ public class AufgabenCMD implements CommandExecutor {
                 if(AufgabenManager.getToggle(uuid) == 1) {
                     AufgabenManager.setToggle(uuid, 0);
                     player.sendMessage(MessageManager.PREFIX + "§7Dir werden §awieder §6Aufgaben §7angezeigt.");
-                    AufgabenMethods.updateTaskBar(player);
                 } else {
                     AufgabenManager.setToggle(uuid, 1);
                     player.sendMessage(MessageManager.PREFIX + "§7Dir werden nun §ckeine §6Aufgaben §7mehr angezeigt.");
+                    TTA_Methods.sendActionBar(player, "", 20);
+
                 }
                 break;
             default:

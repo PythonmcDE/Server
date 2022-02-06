@@ -3,7 +3,10 @@ package me.bluenitrox.school;
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.ah.Ah_CMD;
+import me.bluenitrox.school.aufgabensystem.Aufgaben;
 import me.bluenitrox.school.aufgabensystem.AufgabenCMD;
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
+import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
 import me.bluenitrox.school.boost.BoosterAPI;
 import me.bluenitrox.school.boost.BoosterManager;
 import me.bluenitrox.school.crafting.Enchanter;
@@ -97,9 +100,8 @@ public class SchoolMode extends JavaPlugin {
         startMySQL();
         getCurrentDupeID();
         Bukkit.getConsoleSender().sendMessage("§4AntiDupe §4aktivieren... §4(5/8)");
-        startAntiDupe();
-        Bukkit.getConsoleSender().sendMessage("§4AhUpdate §4aktivieren... §4(6/8)");
-        startAhUpdate();
+        startAntiDupeAndActoinbar();
+        Bukkit.getConsoleSender().sendMessage("§4Angelmine §4aktivieren... §4(6/8)");
         startAngelmine();
         Bukkit.getConsoleSender().sendMessage("§4AhAnticrash §4aktivieren.... §4(7/8)");
         startAhAnticrash();
@@ -185,7 +187,6 @@ public class SchoolMode extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/8)");
         Bukkit.getConsoleSender().sendMessage("§4Lade §4Events...");
         //Event register
-
 
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new PlayerQuitListener(), this);
@@ -349,63 +350,19 @@ public class SchoolMode extends JavaPlugin {
             public void run() {
                 Minenreset.fillMineServerStart();
             }
-        }.runTaskLater(getInstance(), 20*3);
+        }.runTaskLater(getInstance(), 20*60);
     }
-    private void startAntiDupe() {
+    private void startAntiDupeAndActoinbar() {
         new BukkitRunnable() {
-
             @Override
             public void run() {
                 Antidupe.ids = new LinkedList<>();
                 for (Player all : Bukkit.getOnlinePlayers()) {
                     Antidupe.checkAllInventorys(all.getInventory(), all);
+
                 }
                 Antidupe.ids.clear();
-            }
-        }.runTaskTimerAsynchronously(this, 20, 20);
-    }
-    private void startScoreboard(){
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if(!StopCommand.alreadystarted) {
-                    if (TimeManager.restartServer()) {
-                        StopCommand.restartServer();
-                    }
-                }
-                for (Player all : Bukkit.getOnlinePlayers()) {
-                    ScoreboardManager.setBoard(Bukkit.getPlayer(all.getUniqueId()));
-                    return;
-                }
-                for(int i = 1; i<= MessageManager.MAX_MINE; i++) {
-                    String mine = String.valueOf(i);
-                    if(BreakBlockEvent.minen != null) {
-                        if(BreakBlockEvent.minen.get(mine) != null) {
-                            if (BreakBlockEvent.minen.get(mine) >= MessageManager.blocksforreset.get("mine" + mine)) {
-                                Minenreset mr = new Minenreset();
-                                mr.fillMine("mine" + mine);
-                                BreakBlockEvent.minen.put(mine, 0);
-                            }
-                        }
-                    }
-                }
-            }
-        }.runTaskTimer(this, 20*10, 20*10);
-    }
-    private void startAngelmine(){
-        new BukkitRunnable(){
 
-            @Override
-            public void run() {
-                CircleSpawner cs = new CircleSpawner();
-                cs.setCircle();
-            }
-        }.runTaskTimer(getInstance(), 20*20, 20*20);
-    }
-    private void startAhUpdate(){
-        new BukkitRunnable() {
-            @Override
-            public void run() {
                 Bukkit.getOnlinePlayers().forEach(all -> {
                     if (all.getOpenInventory() != null) {
                         if (all.getOpenInventory().getTitle().equals(Ah_CMD.GUI_NAME)) {
@@ -513,12 +470,48 @@ public class SchoolMode extends JavaPlugin {
                         }else {
                             CombatAPI.fight.remove(Bukkit.getPlayer(uuid));
                             CombatAPI.fightwarzone.remove(Bukkit.getPlayer(uuid));
+                            AufgabenManager.setTask(uuid, 0);
                         }
                     }
                 }
             }
-        }.runTaskTimerAsynchronously(this,20,20);
+        }.runTaskLaterAsynchronously(this, 20);
     }
+    private void startScoreboard(){
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if(!StopCommand.alreadystarted) {
+                    if (TimeManager.restartServer()) {
+                        StopCommand.restartServer();
+                    }
+                }
+                for(int i = 1; i<= MessageManager.MAX_MINE; i++) {
+                    String mine = String.valueOf(i);
+                    if(BreakBlockEvent.minen != null) {
+                        if(BreakBlockEvent.minen.get(mine) != null) {
+                            if (BreakBlockEvent.minen.get(mine) >= MessageManager.blocksforreset.get("mine" + mine)) {
+                                Minenreset mr = new Minenreset();
+                                mr.fillMine("mine" + mine);
+                                BreakBlockEvent.minen.put(mine, 0);
+                            }
+                        }
+                    }
+                }
+            }
+        }.runTaskTimer(this, 20*10, 20*10);
+    }
+    private void startAngelmine(){
+        new BukkitRunnable(){
+
+            @Override
+            public void run() {
+                CircleSpawner cs = new CircleSpawner();
+                cs.setCircle();
+            }
+        }.runTaskTimer(getInstance(), 20*20, 20*20);
+    }
+
     private void getCurrentDupeID(){
         if(isDupeIDExists()) {
             try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe")) {
@@ -567,6 +560,7 @@ public class SchoolMode extends JavaPlugin {
                 PartikelManager.locations.clear();
                 for(Player all: Bukkit.getOnlinePlayers()) {
                     all.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20 * 60 * 20, 1));
+                    AufgabenMethods.sendActionBar(all, Aufgaben.getTask(all));
                 }
             }
         }.runTaskTimerAsynchronously(getInstance(), 20*60*10, 20*60*10);

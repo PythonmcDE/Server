@@ -1,6 +1,7 @@
 package me.bluenitrox.school.warzone;
 
 import de.Herbystar.TTA.TTA_Methods;
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.WorldManager;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
@@ -37,9 +38,11 @@ public class CombatAPI {
                     Player d = (Player) e.getDamager();
                     if (!fightwarzone.containsKey(p)) {
                         fightwarzone.put(p, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(p.getLocation()))));
+                        AufgabenManager.setTask(p.getUniqueId(), 1);
                     }
                     if (!fightwarzone.containsKey(d)) {
                         fightwarzone.put(d, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(d.getLocation()))));
+                        AufgabenManager.setTask(d.getUniqueId(), 1);
                     }
                     fight.put(p, 25);
                     fight.put(d, 25);
@@ -53,9 +56,11 @@ public class CombatAPI {
                     Player d = (Player) projectile.getShooter();
                     if (!fightwarzone.containsKey(p)) {
                         fightwarzone.put(p, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(p.getLocation()))));
+                        AufgabenManager.setTask(p.getUniqueId(), 1);
                     }
                     if (!fightwarzone.containsKey(d)) {
                         fightwarzone.put(d, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(d.getLocation()))));
+                        AufgabenManager.setTask(d.getUniqueId(), 1);
                     }
                     fight.put(p, 25);
                     fight.put(d, 25);

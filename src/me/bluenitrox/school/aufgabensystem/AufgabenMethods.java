@@ -1,16 +1,21 @@
 package me.bluenitrox.school.aufgabensystem;
 
+import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
-import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import me.bluenitrox.school.commands.School;
+import me.bluenitrox.school.listener.ActionBarMessageEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 public class AufgabenMethods {
+
+    private static String nmsver;
+    private static boolean useOldMethods = false;
 
     public static void onTaskCommand(PlayerCommandPreprocessEvent event) {
         String msg = event.getMessage();
@@ -20,25 +25,93 @@ public class AufgabenMethods {
         }
     }
 
-    public static void updateTaskBar(Player player) {
-        new BukkitRunnable() {
 
-            @Override
-            public void run() {
-                if (SchoolMode.getPlayerToggleTask(player.getUniqueId()) == 0) {
-                    sendActionbar(player, Aufgaben.getTask(player));
-                } else {
-                    this.cancel();
+    /*public static void sendActionbar(final Player player, final String message) {
+        if(AufgabenManager.getToggle(player.getUniqueId()) == 0) {
+            TTA_Methods.sendActionBar(player, message, 20*60*10);
+        }
+    }*/
+
+    public static void sendActionBar(Player player, String message) {
+        nmsver = Bukkit.getServer().getClass().getPackage().getName();
+        nmsver = nmsver.substring(nmsver.lastIndexOf(".") + 1);
+        if (!player.isOnline()) {
+            return; // Player may have logged out
+        }
+
+        // Call the event, if cancelled don't send Action Bar
+        ActionBarMessageEvent actionBarMessageEvent = new ActionBarMessageEvent(player, message);
+        Bukkit.getPluginManager().callEvent(actionBarMessageEvent);
+        if (actionBarMessageEvent.isCancelled())
+            return;
+
+        try {
+            Class<?> craftPlayerClass = Class.forName("org.bukkit.craftbukkit." + nmsver + ".entity.CraftPlayer");
+            Object craftPlayer = craftPlayerClass.cast(player);
+            Object packet;
+            Class<?> packetPlayOutChatClass = Class.forName("net.minecraft.server." + nmsver + ".PacketPlayOutChat");
+            Class<?> packetClass = Class.forName("net.minecraft.server." + nmsver + ".Packet");
+            if (useOldMethods) {
+                Class<?> chatSerializerClass = Class.forName("net.minecraft.server." + nmsver + ".ChatSerializer");
+                Class<?> iChatBaseComponentClass = Class.forName("net.minecraft.server." + nmsver + ".IChatBaseComponent");
+                Method m3 = chatSerializerClass.getDeclaredMethod("a", String.class);
+                Object cbc = iChatBaseComponentClass.cast(m3.invoke(chatSerializerClass, "{\"text\": \"" + message + "\"}"));
+                packet = packetPlayOutChatClass.getConstructor(new Class<?>[]{iChatBaseComponentClass, byte.class}).newInstance(cbc, (byte) 2);
+            } else {
+                Class<?> chatComponentTextClass = Class.forName("net.minecraft.server." + nmsver + ".ChatComponentText");
+                Class<?> iChatBaseComponentClass = Class.forName("net.minecraft.server." + nmsver + ".IChatBaseComponent");
+                try {
+                    Class<?> chatMessageTypeClass = Class.forName("net.minecraft.server." + nmsver + ".ChatMessageType");
+                    Object[] chatMessageTypes = chatMessageTypeClass.getEnumConstants();
+                    Object chatMessageType = null;
+                    for (Object obj : chatMessageTypes) {
+                        if (obj.toString().equals("GAME_INFO")) {
+                            chatMessageType = obj;
+                        }
+                    }
+                    Object chatCompontentText = chatComponentTextClass.getConstructor(new Class<?>[]{String.class}).newInstance(message);
+                    packet = packetPlayOutChatClass.getConstructor(new Class<?>[]{iChatBaseComponentClass, chatMessageTypeClass}).newInstance(chatCompontentText, chatMessageType);
+                } catch (ClassNotFoundException cnfe) {
+                    Object chatCompontentText = chatComponentTextClass.getConstructor(new Class<?>[]{String.class}).newInstance(message);
+                    packet = packetPlayOutChatClass.getConstructor(new Class<?>[]{iChatBaseComponentClass, byte.class}).newInstance(chatCompontentText, (byte) 2);
                 }
             }
-        }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 10, 10);
+            Method craftPlayerHandleMethod = craftPlayerClass.getDeclaredMethod("getHandle");
+            Object craftPlayerHandle = craftPlayerHandleMethod.invoke(craftPlayer);
+            Field playerConnectionField = craftPlayerHandle.getClass().getDeclaredField("playerConnection");
+            Object playerConnection = playerConnectionField.get(craftPlayerHandle);
+            Method sendPacketMethod = playerConnection.getClass().getDeclaredMethod("sendPacket", packetClass);
+            sendPacketMethod.invoke(playerConnection, packet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void sendActionbar(final Player player, final String message) {
-        final IChatBaseComponent iChatBaseComponent = IChatBaseComponent.ChatSerializer
-                .a("{\"text\": \"" + ChatColor.translateAlternateColorCodes('&', message) + "\"}");
-        final PacketPlayOutChat packet = new PacketPlayOutChat(iChatBaseComponent, (byte) 2);
-        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+    public static void sendActionBar(final Player player, final String message, int duration) {
+        sendActionBar(player, message);
+
+        if (duration >= 0) {
+            // Sends empty message at the end of the duration. Allows messages shorter than 3 seconds, ensures precision.
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    sendActionBar(player, "");
+                }
+            }.runTaskLater(SchoolMode.getInstance(), duration + 1);
+        }
+
+        // Re-sends the messages every 3 seconds so it doesn't go away from the player's screen.
+        while (duration > 40) {
+            duration -= 40;
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if(AufgabenManager.getToggle(player.getUniqueId()) == 0) {
+                        sendActionBar(player, message);
+                    }
+                }
+            }.runTaskLater(SchoolMode.getInstance(), (long) duration);
+        }
     }
 
 }
