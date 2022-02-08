@@ -2,11 +2,20 @@ package me.bluenitrox.school.aufgabensystem;
 
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.commands.Mine;
 import me.bluenitrox.school.commands.School;
+import me.bluenitrox.school.commands.Stats;
+import me.bluenitrox.school.features.KitAPI;
+import me.bluenitrox.school.features.KitItems;
+import me.bluenitrox.school.features.StatsAPI;
 import me.bluenitrox.school.listener.ActionBarMessageEvent;
+import me.bluenitrox.school.mine.manager.MinenManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Field;
@@ -16,12 +25,40 @@ public class AufgabenMethods {
 
     private static String nmsver;
     private static boolean useOldMethods = false;
+    StatsAPI statsAPI = new StatsAPI();
 
     public static void onTaskCommand(PlayerCommandPreprocessEvent event) {
         String msg = event.getMessage();
 
         if(msg.equalsIgnoreCase("/school") && AufgabenManager.getTask(event.getPlayer().getUniqueId()) == 1) {
             AufgabenManager.onComplete(event.getPlayer().getUniqueId(), 1);
+        } else if(msg.equalsIgnoreCase("/xp") && AufgabenManager.getTask(event.getPlayer().getUniqueId()) == 2) {
+            AufgabenManager.onComplete(event.getPlayer().getUniqueId(), 2);
+        }
+    }
+
+    public static void onCLick(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if(AufgabenManager.getTask(player.getUniqueId())  == 3) {
+            if (!KitAPI.holz.containsKey(player.getUniqueId())) {
+                if(event.getClickedInventory().getName().equalsIgnoreCase(KitAPI.guiname) && event.getCurrentItem() != null) {
+                    if(event.getCurrentItem().getType() == Material.WOOD_SWORD) {
+                        AufgabenManager.getPrice(player, 3);
+                    }
+                }
+            }
+        } else if(AufgabenManager.getTask(player.getUniqueId())== 4) {
+            if(event.getClickedInventory().getName().equalsIgnoreCase(Mine.guiname) && event.getCurrentItem() != null) {
+                if(event.getCurrentItem().getType() == Material.STONE) {
+                    AufgabenManager.getPrice(player, 4);
+                }
+            }
+        }
+    }
+
+    public void getBlockStats(Player player) {
+        if(SchoolMode.getPlayerBlocks(player.getUniqueId()) >= 50) {
+
         }
     }
 

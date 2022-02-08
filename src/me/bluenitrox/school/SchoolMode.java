@@ -344,14 +344,15 @@ public class SchoolMode extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/8)");
     }
-    private void registerMine(){
+    private void registerMine() {
         new BukkitRunnable(){
             @Override
             public void run() {
                 Minenreset.fillMineServerStart();
             }
-        }.runTaskLater(getInstance(), 20*60);
+        }.runTaskLater(getInstance(), 20);
     }
+
     private void startAntiDupeAndActoinbar() {
         new BukkitRunnable() {
             @Override

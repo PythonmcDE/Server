@@ -4,6 +4,9 @@ import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.utils.ItemBuilder;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -28,6 +31,7 @@ public class AufgabenCMD implements CommandExecutor {
         }
 
         switch (args.length) {
+
 
             case 0:
                 if(AufgabenManager.getToggle(uuid) == 1) {

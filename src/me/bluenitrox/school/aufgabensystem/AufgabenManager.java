@@ -51,12 +51,32 @@ public class AufgabenManager {
             case 2:
                 ExpManager.updateXP(p.getUniqueId(), 1500, false);
                 setTask(p.getUniqueId(), 3);
-                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 20,20,20, "§7Neue Aufgabe freigeschaltet.", 20, 20, 20);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
                 AufgabenMethods.sendActionBar(p, Aufgaben.TASK_3);
-                p.sendMessage(MessageManager.PREFIX + "§7Das §6§lXp System");
+                p.sendMessage(MessageManager.PREFIX + "§7Das §6§lXp-System");
                 p.sendMessage("§b» §7Hier siehst du dein §6Level§7, dein §6Prestige Level §7und deine §6benötigten Xp §7für ein Level-UP.");
                 p.sendMessage("§b» §7Du kannst dich mit §6/prestige §7prestigen, dabei wirst du auf Level 1 zurückgesetzt.");
                 p.sendMessage("§b» §7Damit schaltest du ein §6neues Dungeon §7frei und deine §6Level Farbe §7ändern sich.");
+                break;
+            case 3:
+                ExpManager.updateXP(p.getUniqueId(), 2000, false);
+                setTask(p.getUniqueId(), 4);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_4);
+                p.sendMessage(MessageManager.PREFIX + "§7Das §6§lKit-System");
+                p.sendMessage("§b» §7Wie du siehst haben wir sehr viele Kits, zurzeit hast du nur §6eins§7.");
+                p.sendMessage("§b» §7Doch dies §6ändert §7sich mit der Zeit, du schaltest mit §6Abholungen §7neue Kits frei.");
+                p.sendMessage("§b» §7Wie viel für ein §6neues Kit fehlt§7, siehst du auf dem Kit nach deinem aktuellen.");
+                break;
+            case 4:
+                ExpManager.updateXP(p.getUniqueId(), 2500, false);
+                setTask(p.getUniqueId(), 5);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_5);
+                p.sendMessage(MessageManager.PREFIX + "§7Das §6§lMinen-System");
+                p.sendMessage("§b» §7Dies sind die §6Minen§7, hier wirst du noch viel Zeit verbringen.");
+                p.sendMessage("§b» §7In den Minen kannst du §6XP und Gems §7verdienen.");
+                p.sendMessage("§b» §7Zusätzlich hast du die §6Chance§7 auf §5epische Items§7.");
                 break;
         }
     }

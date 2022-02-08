@@ -1,6 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.ah.AhListener;
+import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
 import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.commands.Kopfgeld;
 import me.bluenitrox.school.commands.Mine;
@@ -32,6 +33,7 @@ public class InventoryClickEvent implements Listener {
         DailyReward dr = new DailyReward();
         Kopfgeld k = new Kopfgeld();
         Angelmine am = new Angelmine();
+        AufgabenMethods.onCLick(e);
 
         if(CaseAPI.caseöffnen != null) {
             if (CaseAPI.caseöffnen.contains(p)) {

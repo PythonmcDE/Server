@@ -23,10 +23,12 @@ public class Minenreset {
 
     public static void fillMineServerStart() {
         for (int i = 1; i <= MessageManager.MAX_MINE; i++) {
+            String mine = "mine" + i;
             Minenreset mr = new Minenreset();
-            mr.fillMine("mine" + i);
+            mr.fillMine(mine);
         }
     }
+
 
     public void fillMine(String mine) {
         hashmine = new LinkedList<>();
