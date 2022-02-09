@@ -21,11 +21,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 public class AufgabenMethods {
 
     private static String nmsver;
     private static boolean useOldMethods = false;
+    private static HashMap<Player, String> messageblock = new HashMap<>();
     StatsAPI statsAPI = new StatsAPI();
 
     public static void onTaskCommand(PlayerCommandPreprocessEvent event) {
@@ -67,9 +69,14 @@ public class AufgabenMethods {
         }
     }
 
+    public void sendTTAActionbar(Player player, String message) {
+        TTA_Methods.sendActionBar(player, message);
+    }
+
     public static void sendActionBar(Player player, String message) {
         nmsver = Bukkit.getServer().getClass().getPackage().getName();
         nmsver = nmsver.substring(nmsver.lastIndexOf(".") + 1);
+        AufgabenManager am = new AufgabenManager();
         if (!player.isOnline()) {
             return; // Player may have logged out
         }
@@ -77,6 +84,23 @@ public class AufgabenMethods {
         // Call the event, if cancelled don't send Action Bar
         ActionBarMessageEvent actionBarMessageEvent = new ActionBarMessageEvent(player, message);
         Bukkit.getPluginManager().callEvent(actionBarMessageEvent);
+
+        if(AufgabenManager.shouldcancle != null){
+            if(AufgabenManager.shouldcancle.contains(player)){
+
+                actionBarMessageEvent.setCancelled(true);
+                messageblock.put(player, am.getCurrentCompleteTaskMessage(player.getUniqueId()));
+                AufgabenManager.shouldcancle.remove(player);
+            }
+        }
+        if(messageblock != null){
+            if(messageblock.containsKey(player)){
+                if(!messageblock.get(player).equalsIgnoreCase(message)){
+                    actionBarMessageEvent.setCancelled(true);
+                }
+            }
+        }
+
         if (actionBarMessageEvent.isCancelled())
             return;
 
@@ -147,6 +171,7 @@ public class AufgabenMethods {
                 }
             }.runTaskLater(SchoolMode.getInstance(), (long) duration);
         }
+        Bukkit.broadcastMessage("exit arg confirmed");
     }
 
 }

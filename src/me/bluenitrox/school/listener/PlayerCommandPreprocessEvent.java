@@ -92,7 +92,7 @@ public class PlayerCommandPreprocessEvent implements Listener {
         normal.add("/?");
         normal.add("/!");
         normal.add("/help");
-        normal.add("/abount");
+        normal.add("/about");
         normal.add("/version");
         normal.add("/ver");
         normal.add("/pl");

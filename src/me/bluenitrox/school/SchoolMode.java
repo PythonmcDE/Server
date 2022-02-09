@@ -124,6 +124,9 @@ public class SchoolMode extends JavaPlugin {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        for(Player all : Bukkit.getOnlinePlayers()) {
+            all.kickPlayer(MessageManager.PREFIX + "§7Der Server startet nun §6neu§7.");
+        }
         ahDisable();
         KopfgeldManager.servershutdown();
         disablePets();
@@ -561,7 +564,7 @@ public class SchoolMode extends JavaPlugin {
                 PartikelManager.locations.clear();
                 for(Player all: Bukkit.getOnlinePlayers()) {
                     all.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20 * 60 * 20, 1));
-                    AufgabenMethods.sendActionBar(all, Aufgaben.getTask(all));
+                    AufgabenMethods.sendActionBar(all, Aufgaben.getTask(all), 20*60*10);
                 }
             }
         }.runTaskTimerAsynchronously(getInstance(), 20*60*10, 20*60*10);

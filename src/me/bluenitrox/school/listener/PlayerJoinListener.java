@@ -25,6 +25,7 @@ public class PlayerJoinListener implements Listener {
         Player p = e.getPlayer();
         PlayerJoinManager.cachPlayerData(p.getUniqueId());
         SchoolMode.playerwason.add(p.getUniqueId());
+        AufgabenMethods methods = new AufgabenMethods();
 
         PlayerJoinManager.updateBelowName(p);
 

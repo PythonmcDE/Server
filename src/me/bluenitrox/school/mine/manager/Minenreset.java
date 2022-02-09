@@ -721,7 +721,6 @@ public class Minenreset {
                 }
             }
         }else if(mine.equals("mine2")) {
-            Bukkit.broadcastMessage("0");
             if (p.getLocation().getBlockX() <= eckpoint1.getBlockX() && p.getLocation().getBlockX() >= eckpoint2.getBlockX()) {
                 Bukkit.broadcastMessage("1");
                 if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
