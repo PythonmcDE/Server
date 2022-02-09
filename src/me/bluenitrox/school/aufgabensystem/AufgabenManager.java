@@ -38,7 +38,6 @@ public class AufgabenManager {
     }
 
     public static void onComplete(UUID uuid, int task){
-        AufgabenMethods methods = new AufgabenMethods();
         Player p = Bukkit.getPlayer(uuid);
         Firework.Firework(p);
         p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
@@ -48,7 +47,6 @@ public class AufgabenManager {
     }
 
     public String getCurrentCompleteTaskMessage(UUID uuid){
-        String returnstring = "";
         int task = getTask(uuid);
         switch (task){
             case 1:
@@ -126,9 +124,17 @@ public class AufgabenManager {
                 TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
                 AufgabenMethods.sendActionBar(p, Aufgaben.TASK_8, 20*60*10);
                 p.sendMessage(MessageManager.PREFIX + "§7Der §6§lClan");
-                p.sendMessage("§b» §7Wie du siehst hast §6Gems dazubekommen§7, diese kannst du immer im §6Scoreboard §7oder über §6/Gems §7ansehen.");
-                p.sendMessage("§b» §6Gems §7sind die Währung auf dem Server, mit denen du deine §6Items Leveln §7kannst, im §6Auktionshaus Items kaufen §7kannst und bei den §6Händlern einkaufen §7kannst.");
-                p.sendMessage("§b» §7Natürlich kannst du auch §6neue Minen §7kaufen, in denen du dann §6mehr Gems §7mit der Zeit verdienst.");
+                p.sendMessage("§b» §7In einem §6Clan §7kannst du mit §6deinen Freunden §7ein mächtiges Team gründen und zu den besten in der Warzone werden.");
+                p.sendMessage("§b» §7Auf der §6Clanbank §7können alle Clanmitglieder Steuerfrei §6Geld §7einzahlen und auszahlen.");
+                break;
+            case 8:
+                ExpManager.updateXP(p.getUniqueId(), 8000, false);
+                setTask(p.getUniqueId(), 9);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_9, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Der §6§lClan");
+                p.sendMessage("§b» §7Im §6Auktionshaus §7kannst du Items kaufen und verkaufen.");
+                p.sendMessage("§b» §7Bei einer §6Transaktion §7erhält der Verkäufer §695% §7des Preises, §65% §7gehen mit den Steuern verloren.");
                 break;
         }
     }
