@@ -78,6 +78,34 @@ public class AufgabenManager {
                 p.sendMessage("§b» §7In den Minen kannst du §6XP und Gems §7verdienen.");
                 p.sendMessage("§b» §7Zusätzlich hast du die §6Chance§7 auf §5epische Items§7.");
                 break;
+            case 5:
+                ExpManager.updateXP(p.getUniqueId(), 3000, false);
+                setTask(p.getUniqueId(), 6);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_6);
+                p.sendMessage(MessageManager.PREFIX + "§7Die ersten §6§lXP");
+                p.sendMessage("§b» §7Für jeden §6Block§7, den du abbaust bekommst du §6ein Xp§7, insofern deine Spitzhacke nicht das Enchant §6§lErfahrung §7besitzt.");
+                break;
+            case 6:
+                ExpManager.updateXP(p.getUniqueId(), 3500, false);
+                setTask(p.getUniqueId(), 7);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_7);
+                p.sendMessage(MessageManager.PREFIX + "§7Das erste §6§lGeld");
+                p.sendMessage("§b» §7Wie du siehst hast §6Gems dazubekommen§7, diese kannst du immer im §6Scoreboard §7oder über §6/Gems §7ansehen.");
+                p.sendMessage("§b» §6Gems §7sind die Währung auf dem Server, mit denen du deine §6Items Leveln §7kannst, im §6Auktionshaus Items kaufen §7kannst und bei den §6Händlern einkaufen §7kannst.");
+                p.sendMessage("§b» §7Natürlich kannst du auch §6neue Minen §7kaufen, in denen du dann §6mehr Gems §7mit der Zeit verdienst.");
+                break;
+            case 7:
+                ExpManager.updateXP(p.getUniqueId(), 4000, false);
+                setTask(p.getUniqueId(), 8);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_7);
+                p.sendMessage(MessageManager.PREFIX + "§7Das erste §6§lGeld");
+                p.sendMessage("§b» §7Wie du siehst hast §6Gems dazubekommen§7, diese kannst du immer im §6Scoreboard §7oder über §6/Gems §7ansehen.");
+                p.sendMessage("§b» §6Gems §7sind die Währung auf dem Server, mit denen du deine §6Items Leveln §7kannst, im §6Auktionshaus Items kaufen §7kannst und bei den §6Händlern einkaufen §7kannst.");
+                p.sendMessage("§b» §7Natürlich kannst du auch §6neue Minen §7kaufen, in denen du dann §6mehr Gems §7mit der Zeit verdienst.");
+                break;
         }
     }
 

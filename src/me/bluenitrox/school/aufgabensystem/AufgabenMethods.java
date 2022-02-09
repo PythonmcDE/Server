@@ -13,6 +13,7 @@ import me.bluenitrox.school.mine.manager.MinenManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerKickEvent;
@@ -56,18 +57,15 @@ public class AufgabenMethods {
         }
     }
 
-    public void getBlockStats(Player player) {
-        if(SchoolMode.getPlayerBlocks(player.getUniqueId()) >= 50) {
+    public void onBlockBreak(BlockBreakEvent event) {
+        Player player = event.getPlayer();
 
+        if(AufgabenManager.getTask(player.getUniqueId()) == 5) {
+            if(SchoolMode.getPlayerBlocks(player.getUniqueId()) >= 50) {
+                AufgabenManager.getPrice(player, 5);
+            }
         }
     }
-
-
-    /*public static void sendActionbar(final Player player, final String message) {
-        if(AufgabenManager.getToggle(player.getUniqueId()) == 0) {
-            TTA_Methods.sendActionBar(player, message, 20*60*10);
-        }
-    }*/
 
     public static void sendActionBar(Player player, String message) {
         nmsver = Bukkit.getServer().getClass().getPackage().getName();

@@ -1,6 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import de.Herbystar.TTA.TTA_Methods;
+import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
 import me.bluenitrox.school.commands.Build;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;
@@ -25,6 +26,7 @@ public class BreakBlockEvent implements Listener {
     public ArrayList<String> allowedWorldToBuild = new ArrayList<>();
 
     public static ConcurrentHashMap<String, Integer> minen = new ConcurrentHashMap<>();
+    AufgabenMethods aufgaben = new AufgabenMethods();
 
     public BreakBlockEvent() {
         allowedWorldToBuild.add("plotworld");
@@ -41,6 +43,7 @@ public class BreakBlockEvent implements Listener {
         if(p.getWorld().getName().equalsIgnoreCase(WorldManager.mine)) {
             if ((PlayerBreakBlockManager.breakBlock(p, e.getBlock().getLocation()))) {
                 addItemToInv(p, e.getBlock());
+                aufgaben.onBlockBreak(e);
                 PlayerBreakBlockManager.updateBlocks(p.getUniqueId(), false);
             } else {
                 e.setCancelled(true);

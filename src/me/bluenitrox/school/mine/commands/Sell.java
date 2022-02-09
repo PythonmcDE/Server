@@ -1,6 +1,7 @@
 package me.bluenitrox.school.mine.commands;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.boost.Moneybooster;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
@@ -17,7 +18,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 public class Sell implements CommandExecutor {
+
+    public HashMap<UUID, Integer> task6 = new HashMap<>();
 
     @Override
     public boolean onCommand(CommandSender cs, Command c, String s, String[] args) {
@@ -49,6 +55,26 @@ public class Sell implements CommandExecutor {
                         int amount = p.getInventory().getItem(i).getAmount();
                         float preis = SellManager.getPriceByMaterial(p.getInventory().getItem(i).getType().toString(), p);
                         preis = preis*amount;
+                        if(AufgabenManager.getTask(p.getUniqueId()) == 6) {
+                            if(p.getInventory().getItem(i).getType() == Material.STONE) {
+                                if(amount >= 50) {
+                                    AufgabenManager.getPrice(p, 6);
+                                } else {
+                                    if(task6 != null) {
+                                        if(task6.containsKey(p.getUniqueId())) {
+                                            int stone = task6.get(p.getUniqueId()) + amount;
+                                            if(stone >= 50) {
+                                                AufgabenManager.getPrice(p, 6);
+                                            } else {
+                                                task6.put(p.getUniqueId(), task6.get(p.getUniqueId()) + stone);
+                                            }
+                                        } else {
+                                            task6.put(p.getUniqueId(), amount);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         if(preis != 0) {
                             if (MoneyManager.updateMoney(p.getUniqueId(), preis, false, true, false)) {
                                 ItemStack air = new ItemStack(Material.AIR);
