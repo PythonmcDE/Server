@@ -1,5 +1,6 @@
 package me.bluenitrox.school.ah;
 
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
@@ -312,6 +313,9 @@ public class AhManager {
                     try(PreparedStatement ps3 = MySQL.getConnection().prepareStatement("DELETE FROM AhItems WHERE id = ?")){
                         ps3.setInt(1, id);
                         ps3.execute();
+                        if(AufgabenManager.getTask(buyer.getUniqueId()) == 8) {
+                            AufgabenManager.onComplete(buyer.getUniqueId(), 8);
+                        }
                         buyer.sendMessage(MessageManager.PREFIX + "§7Dein Kauf war §aerfolgreich §7du findest dein Item unter abgelaufenen Auktionen im §c/ah §7!");
                         MoneyManager.updateMoney(buyer.getUniqueId(), rs.getInt(4), true,false, false);
                         MoneyManager.updateMoney(UUID.fromString(rs.getString(2)),rs.getInt(4), false, false, false);
