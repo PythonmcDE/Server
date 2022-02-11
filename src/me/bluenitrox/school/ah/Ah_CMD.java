@@ -1,5 +1,6 @@
 package me.bluenitrox.school.ah;
 
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PermissionsManager;
@@ -95,6 +96,9 @@ public class Ah_CMD implements CommandExecutor {
                     }
                     Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);
 
+                    if(AufgabenManager.getTask(p.getUniqueId()) == 9){
+                        AufgabenManager.onComplete(p.getUniqueId(), 9);
+                    }
                     AhManager.sellItem(p.getItemInHand(), p, preis, invah);
 
                 } else {
