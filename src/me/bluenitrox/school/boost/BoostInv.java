@@ -14,6 +14,7 @@ public class BoostInv {
     public static String GUI_NAME = "§bBooster";
 
     public static void setBoostContent(Inventory inv, Player p){
+        BoosterAPI api = new BoosterAPI();
         ItemStack glass = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
         ItemStack glass1 = new ItemBuilder(Material.STAINED_GLASS_PANE,(short) 15).setDisplayname(" ").build();
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8§l» §6§lBooster Informationen").setLore("§6§l▶ §6Booster §7können auf unserer §6Website","§6§l▶ §7erworben werden und bringen während ihrer","§6§l▶ §fLaufzeit §7einen §6Vorteil §7 für §aalle Spieler§7!").build();
@@ -26,10 +27,10 @@ public class BoostInv {
         ItemStack angel = new ItemBuilder(Material.FISHING_ROD).setDisplayname("§8§l» §6§lAngel-Booster").setLore("§6§l▶ §7Wenn dieser Booster aktiviert ist, §6bekommen",
                 "§6§l▶ §7alle Spieler §6doppelt so viele Items §7beim Angeln.").build();
 
-        ItemStack chesthave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lChest-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + BoosterAPI.getChestBooster(p.getUniqueId()) + " §6Chest Booster", "§6§l▶ §aKlicke§7, um einen §6Chest Booster §7zu aktivieren!").build();
-        ItemStack xphave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lXP-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + BoosterAPI.getXpBooster(p.getUniqueId()) + " §6XP Booster", "§6§l▶ §aKlicke§7, um einen §6XP Booster §7zu aktivieren!").build();
-        ItemStack gemhave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lGem-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + BoosterAPI.getMoneyBooster(p.getUniqueId()) + " §6Gem Booster", "§6§l▶ §aKlicke§7, um einen §6Gem Booster §7zu aktivieren!").build();
-        ItemStack angelhave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lAngel-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + BoosterAPI.getAngelBooster(p.getUniqueId()) + " §6Angel Booster", "§6§l▶ §aKlicke§7, um einen §6Angel Booster §7zu aktivieren!").build();
+        ItemStack chesthave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lChest-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + api.getBooster(p.getUniqueId(), api.chestBooster) + " §6Chest Booster", "§6§l▶ §aKlicke§7, um einen §6Chest Booster §7zu aktivieren!").build();
+        ItemStack xphave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lXP-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + api.getBooster(p.getUniqueId(), api.xpBooster) + " §6XP Booster", "§6§l▶ §aKlicke§7, um einen §6XP Booster §7zu aktivieren!").build();
+        ItemStack gemhave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lGem-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + api.getBooster(p.getUniqueId(), api.gemBooster) + " §6Gem Booster", "§6§l▶ §aKlicke§7, um einen §6Gem Booster §7zu aktivieren!").build();
+        ItemStack angelhave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lAngel-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + api.getBooster(p.getUniqueId(), api.angelBooster) + " §6Angel Booster", "§6§l▶ §aKlicke§7, um einen §6Angel Booster §7zu aktivieren!").build();
 
         ItemStack chesthavenot = new ItemBuilder(Material.INK_SACK, (short)8).setDisplayname("§8§l» §6§lChest-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §c§l0 §6Chest Booster", "§6§l▶ §7Jetzt erwerben: §fPythonmc.de/booster").build();
         ItemStack xphavenot = new ItemBuilder(Material.INK_SACK, (short)8).setDisplayname("§8§l» §6§lXP-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §c§l0 §6XP Booster", "§6§l▶ §7Jetzt erwerben: §fPythonmc.de/booster").build();
@@ -63,7 +64,7 @@ public class BoostInv {
             inv.setItem(30, xpnoton);
         }
 
-        Moneybooster moneyboost = new Moneybooster();
+        Gembooster moneyboost = new Gembooster();
         if(SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(moneyboost.getName())))) {
             ItemStack gemon = new ItemBuilder(Material.WATCH).setDisplayname("§8§l» §6§lGem-Booster").setLore("§6§l▶ §7Aktuell ist ein §6Gem Booster §7aktiv!","§6§l▶ §7Verbleibende Zeit: §6" + getTimeFromItem(BoosterAPI.boost.get("money")) + " Minuten").build();
             inv.setItem(32, gemon);
@@ -79,25 +80,25 @@ public class BoostInv {
             inv.setItem(34, angelnoton);
         }
 
-        if(BoosterAPI.getChestBooster(p.getUniqueId()) > 0){
+        if(api.getBooster(p.getUniqueId(), api.chestBooster) > 0){
             inv.setItem(19, chesthave);
         }else {
             inv.setItem(19, chesthavenot);
         }
 
-        if(BoosterAPI.getXpBooster(p.getUniqueId()) > 0){
+        if(api.getBooster(p.getUniqueId(), api.xpBooster) > 0){
             inv.setItem(21, xphave);
         }else {
             inv.setItem(21, xphavenot);
         }
 
-        if(BoosterAPI.getMoneyBooster(p.getUniqueId()) > 0){
+        if(api.getBooster(p.getUniqueId(), api.gemBooster) > 0){
             inv.setItem(23, gemhave);
         }else {
             inv.setItem(23, gemhavenot);
         }
 
-        if(BoosterAPI.getAngelBooster(p.getUniqueId()) > 0){
+        if(api.getBooster(p.getUniqueId(), api.angelBooster) > 0){
             inv.setItem(25, angelhave);
         }else {
             inv.setItem(25, angelhavenot);
@@ -106,12 +107,13 @@ public class BoostInv {
     }
 
     public static void inventoryClick(InventoryClickEvent e, Player p){
+        BoosterAPI api = new BoosterAPI();
         if(e.getClickedInventory().getName().equalsIgnoreCase(GUI_NAME) && e.getCurrentItem() != null) {
             e.setCancelled(true);
-            ItemStack chesthave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lChest-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + BoosterAPI.getChestBooster(p.getUniqueId()) + " §6Chest Booster", "§6§l▶ §aKlicke§7, um einen §6Chest Booster §7zu aktivieren!").build();
-            ItemStack xphave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lXP-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + BoosterAPI.getXpBooster(p.getUniqueId()) + " §6XP Booster", "§6§l▶ §aKlicke§7, um einen §6XP Booster §7zu aktivieren!").build();
-            ItemStack gemhave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lGem-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + BoosterAPI.getMoneyBooster(p.getUniqueId()) + " §6Gem Booster", "§6§l▶ §aKlicke§7, um einen §6Gem Booster §7zu aktivieren!").build();
-            ItemStack angelhave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lAngel-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + BoosterAPI.getAngelBooster(p.getUniqueId()) + " §6Angel Booster", "§6§l▶ §aKlicke§7, um einen §6Angel Booster §7zu aktivieren!").build();
+            ItemStack chesthave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lChest-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + api.getBooster(p.getUniqueId(), api.chestBooster) + " §6Chest Booster", "§6§l▶ §aKlicke§7, um einen §6Chest Booster §7zu aktivieren!").build();
+            ItemStack xphave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lXP-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + api.getBooster(p.getUniqueId(), api.xpBooster) + " §6XP Booster", "§6§l▶ §aKlicke§7, um einen §6XP Booster §7zu aktivieren!").build();
+            ItemStack gemhave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lGem-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + api.getBooster(p.getUniqueId(), api.gemBooster) + " §6Gem Booster", "§6§l▶ §aKlicke§7, um einen §6Gem Booster §7zu aktivieren!").build();
+            ItemStack angelhave = new ItemBuilder(Material.INK_SACK, (short)10).setDisplayname("§8§l» §6§lAngel-Booster").setLore("§6§l▶ §7Du besitzt aktuell: §a" + api.getBooster(p.getUniqueId(), api.angelBooster) + " §6Angel Booster", "§6§l▶ §aKlicke§7, um einen §6Angel Booster §7zu aktivieren!").build();
 
             if(e.getCurrentItem() != null){
                 if(e.getCurrentItem().getItemMeta() != null) {

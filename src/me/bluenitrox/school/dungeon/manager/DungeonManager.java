@@ -1,6 +1,7 @@
 package me.bluenitrox.school.dungeon.manager;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.WorldManager;
@@ -16,6 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class DungeonManager {
 
@@ -214,6 +216,14 @@ public class DungeonManager {
                             e.getDrops().clear();
                         }
                         e.getDrops().add(new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
+                    }
+                }
+            }
+            if(e.getEntity().getKiller() != null) {
+                if(e.getEntity().getKiller() instanceof Player) {
+                    UUID uuid = e.getEntity().getKiller().getUniqueId();
+                    if (AufgabenManager.getTask(uuid) == 21) {
+                        AufgabenManager.onComplete(uuid,21);
                     }
                 }
             }

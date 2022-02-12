@@ -6,6 +6,7 @@ import de.pythonmc.clansystem.mysql.NickManager;
 import de.pythonmc.clansystem.systemmanager.SystemManager;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
+import me.bluenitrox.school.boost.BoosterAPI;
 import me.bluenitrox.school.commands.Skill;
 import me.bluenitrox.school.features.SkillAPI;
 import me.bluenitrox.school.features.StatsAPI;
@@ -37,12 +38,16 @@ public class PlayerJoinManager {
     public static void cachPlayerData(UUID uuid) {
         StatsAPI api = new StatsAPI();
         SkillAPI sapi = new SkillAPI();
+        BoosterAPI boosterAPI = new BoosterAPI();
         if(!isTaskUserExists(uuid)) {
             configuratePlayer(uuid);
             configurateKitPlayer(uuid);
             configuratePetPlayer(uuid);
             configurateSkillPlayer(uuid);
             configurateTaskPlayer(uuid);
+        }
+        if(!isBoostUserExists(uuid)) {
+            configurateBoosterPlayer(uuid);
         }
         float money = MoneyManager.getMoneyDatabase(uuid);
         float exp = ExpManager.getExpDatabase(uuid);
@@ -52,6 +57,11 @@ public class PlayerJoinManager {
         int mobs = StatsAPI.getMobDatabase(uuid);
         int task = AufgabenManager.getTaskDatabase(uuid);
         int toggletask = AufgabenManager.getToggleDatabase(uuid);
+        int chestBooster = boosterAPI.getBoosterDatabase(uuid, boosterAPI.chestBooster);
+        int gemBooster = boosterAPI.getBoosterDatabase(uuid, boosterAPI.gemBooster);
+        int xpBooster = boosterAPI.getBoosterDatabase(uuid, boosterAPI.xpBooster);
+        int angelBooster = boosterAPI.getBoosterDatabase(uuid, boosterAPI.angelBooster);
+        int dungeonBooster = boosterAPI.getBoosterDatabase(uuid, boosterAPI.dungeonBooster);
         SchoolMode.setPlayerMoney(uuid, money);
         SchoolMode.playerlevel.put(uuid,ExpManager.getLevelDatabase(uuid));
         SchoolMode.setPlayerExp(uuid, exp);
@@ -64,6 +74,11 @@ public class PlayerJoinManager {
         SchoolMode.setPrestige(uuid, ExpManager.getPrestigeDatabase(uuid));
         SchoolMode.setPlayerTask(uuid, task);
         SchoolMode.setPlayertoggleTask(uuid, toggletask);
+        SchoolMode.setPlayerChestBooster(uuid, chestBooster);
+        SchoolMode.setPlayerGemBooster(uuid, gemBooster);
+        SchoolMode.setPlayerXPBooster(uuid, xpBooster);
+        SchoolMode.setPlayerAngelBooster(uuid, angelBooster);
+        SchoolMode.setPlayerDungeonBooster(uuid, dungeonBooster);
         KopfgeldManager.onTartgetJoin(uuid);
         Skill.cantopenSkill.add(Bukkit.getPlayer(uuid));
         new BukkitRunnable(){
@@ -172,6 +187,20 @@ public class PlayerJoinManager {
         }
     }
 
+    public static void configurateBoosterPlayer(UUID uuid) {
+        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO booster (spieleruuid, xp, gem, dungeon, angel, chest) VALUES (?, ?, ?, ?, ?, ?)")) {
+            ps.setString(1, uuid.toString());
+            ps.setInt(2, 0);
+            ps.setInt(3, 0);
+            ps.setInt(4, 0);
+            ps.setInt(5, 0);
+            ps.setInt(6, 0);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void configurateSkillPlayer(UUID uuid) {
         try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO skills (UUID, skillpunkte, angriff, verteidigung, extraenergie,scharfschütze,mining,handler,alchemist,bonusloot,gluckspilz) VALUES (?, ?, ?, ?, ?,?,?,?,?,?,?)")) {
             ps.setString(1, uuid.toString());
@@ -189,6 +218,18 @@ public class PlayerJoinManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean isBoostUserExists(UUID uuid) {
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT spieleruuid FROM booster WHERE spieleruuid = ?");
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private static boolean isUserExists(UUID uuid) {

@@ -1,6 +1,7 @@
 package me.bluenitrox.school.features;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.Firework;
 import me.bluenitrox.school.utils.ItemBuilder;
@@ -33,6 +34,9 @@ public class CaseAPI {
     public static ArrayList<Player> caseöffnen = new ArrayList<>();
 
     public void openCase(Player p, int cases) {
+        if(AufgabenManager.getTask(p.getUniqueId()) == 17) {
+            AufgabenManager.onComplete(p.getUniqueId(), 17);
+        }
         caseöffnen.add(p);
         clearAllArrays();
         getCasePot(cases, p);

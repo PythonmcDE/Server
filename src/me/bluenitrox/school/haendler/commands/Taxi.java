@@ -2,6 +2,7 @@ package me.bluenitrox.school.haendler.commands;
 
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
@@ -85,6 +86,9 @@ public class Taxi {
                             DungeonManager dm = new DungeonManager();
                             dm.onQuitDungeon(p);
                             teleport(1, p);
+                            if(AufgabenManager.getTask(uuid) == 14) {
+                                AufgabenManager.onComplete(uuid, 14);
+                            }
                         }else{
                             p.sendMessage(MessageManager.NOTMONEY(PlayerJoinManager.language));
                             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
@@ -97,6 +101,9 @@ public class Taxi {
                             DungeonManager dm = new DungeonManager();
                             dm.onQuitDungeon(p);
                             teleport(2, p);
+                            if(AufgabenManager.getTask(uuid) == 14) {
+                                AufgabenManager.onComplete(uuid, 14);
+                            }
                         }else{
                             p.sendMessage(MessageManager.NOTMONEY(PlayerJoinManager.language));
                             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
@@ -109,6 +116,9 @@ public class Taxi {
                             DungeonManager dm = new DungeonManager();
                             dm.onQuitDungeon(p);
                             teleport(3, p);
+                            if(AufgabenManager.getTask(uuid) == 14) {
+                                AufgabenManager.onComplete(uuid, 14);
+                            }
                         }else{
                             p.sendMessage(MessageManager.NOTMONEY(PlayerJoinManager.language));
                             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
@@ -121,6 +131,9 @@ public class Taxi {
                             DungeonManager dm = new DungeonManager();
                             dm.onQuitDungeon(p);
                             teleport(4, p);
+                            if(AufgabenManager.getTask(uuid) == 14) {
+                                AufgabenManager.onComplete(uuid, 14);
+                            }
                         }else{
                             p.sendMessage(MessageManager.NOTMONEY(PlayerJoinManager.language));
                             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);

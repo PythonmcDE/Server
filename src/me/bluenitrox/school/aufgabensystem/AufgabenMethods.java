@@ -39,6 +39,10 @@ public class AufgabenMethods {
             AufgabenManager.onComplete(event.getPlayer().getUniqueId(), 2);
         } else if(msg.equalsIgnoreCase("/clan") && AufgabenManager.getTask(event.getPlayer().getUniqueId()) == 7) {
             AufgabenManager.onComplete(event.getPlayer().getUniqueId(), 7);
+        } else if(msg.equalsIgnoreCase("/plotworld") && AufgabenManager.getTask(event.getPlayer().getUniqueId()) == 11) {
+            AufgabenManager.onComplete(event.getPlayer().getUniqueId(), 11);
+        } else if(msg.equalsIgnoreCase("/stats") && AufgabenManager.getTask(event.getPlayer().getUniqueId()) == 18) {
+            AufgabenManager.onComplete(event.getPlayer().getUniqueId(), 18);
         }
     }
 
@@ -149,31 +153,33 @@ public class AufgabenMethods {
     }
 
     public static void sendActionBar(final Player player, final String message, int duration) {
-        sendActionBar(player, message);
+        if (player != null) {
+            sendActionBar(player, message);
 
-        if (duration >= 0) {
-            // Sends empty message at the end of the duration. Allows messages shorter than 3 seconds, ensures precision.
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    sendActionBar(player, "");
-                }
-            }.runTaskLater(SchoolMode.getInstance(), duration + 1);
-        }
-
-        // Re-sends the messages every 3 seconds so it doesn't go away from the player's screen.
-        while (duration > 40) {
-            duration -= 40;
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    if(AufgabenManager.getToggle(player.getUniqueId()) == 0) {
-                        sendActionBar(player, message);
+            if (duration >= 0) {
+                // Sends empty message at the end of the duration. Allows messages shorter than 3 seconds, ensures precision.
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        sendActionBar(player, "");
                     }
-                }
-            }.runTaskLater(SchoolMode.getInstance(), (long) duration);
+                }.runTaskLater(SchoolMode.getInstance(), duration + 1);
+            }
+
+            // Re-sends the messages every 3 seconds so it doesn't go away from the player's screen.
+            while (duration > 40) {
+                duration -= 40;
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        if (AufgabenManager.getToggle(player.getUniqueId()) == 0) {
+                            sendActionBar(player, message);
+                        }
+                    }
+                }.runTaskLater(SchoolMode.getInstance(), (long) duration);
+            }
+            Bukkit.broadcastMessage("exit arg confirmed");
         }
-        Bukkit.broadcastMessage("exit arg confirmed");
     }
 
 }

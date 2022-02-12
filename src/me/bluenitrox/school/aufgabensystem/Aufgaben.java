@@ -16,16 +16,18 @@ public class Aufgaben {
     public static String TASK_9 = "§8» §aVerkaufe ein Item im /ah";
     public static String TASK_10 = "§8» §aKaufe ein Item bei einem Händler";
     public static String TASK_11 = "§8» §aBesuche die /Plotworld";
-    public static String TASK_12 = "§8» §aKaufe dir ein Plot mit /plot";
-    public static String TASK_13 = "§8» §aFühre erneut den Befehl /Plot aus";
-    public static String TASK_14 = "§8» §aSuche das Taxi";
+    public static String TASK_12 = "§8» §aKaufe dir ein Plot mit /plot"; //TODO
+    public static String TASK_13 = "§8» §aFühre erneut den Befehl /Plot aus"; //TODO
+    public static String TASK_14 = "§8» §aTeleportiere dich beim Taxi in die Wz";
     public static String TASK_15 = "§8» §aTöte einen Spieler in der Warzone";
-    public static String TASK_16 = "§8» §aÖffne eine Kiste in der Warzone";
+    public static String TASK_16 = "§8» §aÖffne eine Kiste in der Warzone"; //TODO
     public static String TASK_17 = "§8» §aÖffne eine Case";
-    public static String TASK_18 = "§8» §aTeleportiere dich beim Angler in die erste Angelmine";
-    public static String TASK_19 = "§8» §aAngel ein Item";
-    public static String TASK_20 = "§8» §aFühre den Befehl /stats aus";
+    public static String TASK_18 = "§8» §aFühre den Befehl /stats aus";
+    public static String TASK_19 = "§8» §aTeleportiere dich beim Angler in eine Angelmine";
+    public static String TASK_20 = "§8» §aAngel ein Item";
     public static String TASK_21 = "§8» §aTöte 10 Monster im Dungeon";
+
+    public static String ALL_DONE = "§aDu hast alle Aufgaben abgeschlossen!";
 
 
     public static String getTask(Player player) {
@@ -72,8 +74,9 @@ public class Aufgaben {
                 return TASK_20;
             case 21:
                 return TASK_21;
+            default:
+                return ALL_DONE;
         }
-        return "§aDu hast alle Aufgaben abgeschlossen!";
     }
 
 }

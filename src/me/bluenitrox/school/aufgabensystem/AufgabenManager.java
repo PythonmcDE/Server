@@ -132,9 +132,120 @@ public class AufgabenManager {
                 setTask(p.getUniqueId(), 9);
                 TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
                 AufgabenMethods.sendActionBar(p, Aufgaben.TASK_9, 20*60*10);
-                p.sendMessage(MessageManager.PREFIX + "§7Der §6§lClan");
+                p.sendMessage(MessageManager.PREFIX + "§7Das §6§lAuktionshaus");
                 p.sendMessage("§b» §7Im §6Auktionshaus §7kannst du Items kaufen und verkaufen.");
                 p.sendMessage("§b» §7Bei einer §6Transaktion §7erhält der Verkäufer §695% §7des Preises, §65% §7gehen mit den Steuern verloren.");
+                break;
+            case 9:
+                ExpManager.updateXP(p.getUniqueId(), 9000, false);
+                setTask(p.getUniqueId(), 10);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_10, 20*60*10);
+                break;
+            case 10:
+                ExpManager.updateXP(p.getUniqueId(), 10000, false);
+                setTask(p.getUniqueId(), 11);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_11, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Die §6§lHändler");
+                p.sendMessage("§b» §7Bei §6Händlern §7kannst du §6Blöcke kaufen§7, deine §6Items §7reparieren, oder auch §6Spawner kaufen§7, womit du in der §6Plotworld Monster §7spawnen kannst.");
+                break;
+            case 11:
+                ExpManager.updateXP(p.getUniqueId(), 11000, false);
+                setTask(p.getUniqueId(), 12);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_12, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Die §6§lPlotworld");
+                p.sendMessage("§b» §7Dies ist die §6Plotworld§7, hier kannst du §6deine Items lagern§7, damit sie nicht verloren gehen.");
+                p.sendMessage("§b» §7Du kannst natürlich auch nur ein §6schönes Plot §7bauen.");
+                break;
+            case 12:
+                ExpManager.updateXP(p.getUniqueId(), 12000, false);
+                setTask(p.getUniqueId(), 13);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_13, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Dein §6§lPlot");
+                p.sendMessage("§b» §7Dies ist nun §6dein Plot§7, bei /plot kannst du §6dein Plot erweitern§7.");
+                break;
+            case 13:
+                ExpManager.updateXP(p.getUniqueId(), 13000, false);
+                setTask(p.getUniqueId(), 14);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_14, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Das §6§lPlotmenu");
+                p.sendMessage("§b» §7In diesem §6Menu §7kannst sehen, wer auf deinem §6Plot bauen §7und §6Kisten öffnen §7kann.");
+                p.sendMessage("§b» §7Außerdem kannst du dein §6Plot §7hier erweitern.");
+                break;
+            case 14:
+                ExpManager.updateXP(p.getUniqueId(), 14000, false);
+                setTask(p.getUniqueId(), 15);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_15, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Das §6§lTaxi");
+                p.sendMessage("§b» §7Dies ist das §6Taxi§7, hiermit kannst du dich in die §6Warzone §7teleportieren.");
+                break;
+            case 15:
+                ExpManager.updateXP(p.getUniqueId(), 15000, false);
+                setTask(p.getUniqueId(), 16);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_16, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Die §6§lWarzone");
+                p.sendMessage("§b» §7Perfekt §6du hast es geschafft§7, nun bist du fast ein §6richtiger PVP Gott§7.");
+                p.sendMessage("§b» §7Wenn du einen §6Spieler tötest§7, bekommst du §6seine Items§7 und erhältst zusätzlich 2 Prozent seines Geldes und 1000 Xp.");
+                break;
+            case 16:
+                ExpManager.updateXP(p.getUniqueId(), 16000, false);
+                setTask(p.getUniqueId(), 17);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_17, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Die §6§lKisten");
+                p.sendMessage("§b» §7Dies sind die §6Kisten§7, alle 15 Minuten spawnen 10 neue, aus diesen §6Kisten §7erhältst du §6„School Xp“§7, §6Cases§7, §6Bücher §7und noch mehr.");
+                p.sendMessage("§b» §7Welche Funktion §6Bücher §7haben, kannst du hier sehen:");
+                p.sendMessage("§b» §7https://pythonmc.de/schoolbücher");
+                break;
+            case 17:
+                ExpManager.updateXP(p.getUniqueId(), 17000, false);
+                setTask(p.getUniqueId(), 18);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_18, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Die §6§lCases");
+                p.sendMessage("§b» §7Es gibt §6mehrere Arten von Cases§7, die §8Gewöhnlichen§7, die §bSeltenen§7, die §5Epischen§7, die §cLegendären§7, die §6Tier Cases §7und die §6Mythischen §7Cases.");
+                p.sendMessage("§b» §7Die Items aus den Cases enthalten eine §6bestimmte Seltenheit§7, welches den §6Wert §7des Items wiederspiegelt.");
+                p.sendMessage("§b» §7Somit sind §cLegendäre Items §7besser als §8Gewöhnliche Items§7.");
+                break;
+            case 18:
+                ExpManager.updateXP(p.getUniqueId(), 18000, false);
+                setTask(p.getUniqueId(), 19);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_19, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Die §6§lStats");
+                p.sendMessage("§b» §7Dies sind die §6Stats§7, hier wird alles gespeichert, was du tust und noch tun wirst.");
+                break;
+            case 19:
+                ExpManager.updateXP(p.getUniqueId(), 19000, false);
+                setTask(p.getUniqueId(), 20);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_20, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Die §6§lAngelminen");
+                p.sendMessage("§b» §7Dies sind die §6Angelminen§7, mit den Items, die hier geangelt werden, können §6mächtige Items §7gecraftet werden, die die §6Haltbarkeit deiner Items §7erhöhen.");
+                p.sendMessage("§b» §7Die geangelten §6Items §7können auch zu einem §6guten Preis §7verkauft werden.");
+                break;
+            case 20:
+                ExpManager.updateXP(p.getUniqueId(), 20000, false);
+                setTask(p.getUniqueId(), 21);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+                AufgabenMethods.sendActionBar(p, Aufgaben.TASK_21, 20*60*10);
+                break;
+            case 21:
+                ExpManager.updateXP(p.getUniqueId(), 21000, false);
+                setTask(p.getUniqueId(), 22);
+                TTA_Methods.sendTitle(p, "§6Aufgabe §aabgeschlossen", 50,50,50, "§7Neue Aufgabe freigeschaltet.", 50, 50, 50);
+               AufgabenMethods.sendActionBar(p, Aufgaben.ALL_DONE, 20*60*10);
+                p.sendMessage(MessageManager.PREFIX + "§7Die §6§lDungeons");
+                p.sendMessage("§b» §7Dies ist das §6Dungeon§7, von ihnen gibt es drei Stück.");
+                p.sendMessage("§b» §7Wenn du hier sterben solltest, behälst du deine §6Items§7.");
+                p.sendMessage("§b» §7Du schaltest weitere §6Dungeons §7frei, indem du dich prestiged.");
+                p.sendMessage("§b» §7Mit den §6Drops §7von den Monster, kannst du mächtige §6Runen §7craften oder §6Item-Erhalt §7craften, womit du deine Items im §6Todesfall schützen §7kannst.");
                 break;
         }
     }

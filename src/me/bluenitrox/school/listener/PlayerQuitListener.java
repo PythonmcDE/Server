@@ -93,6 +93,68 @@ public class PlayerQuitListener implements Listener {
                 ex.printStackTrace();
             }
         }
+        if(SchoolMode.chestBooster.containsKey(p.getUniqueId())){
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE booster SET chest = ? WHERE spieleruuid = ?")) {
+                ps.setInt(1, SchoolMode.getPlayerChestBooster(p.getUniqueId()));
+                ps.setString(2, p.getUniqueId().toString());
+                ps.executeUpdate();
+                ps.close();
+
+                SchoolMode.chestBooster.remove(p.getUniqueId());
+            }catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if(SchoolMode.gemBooster.containsKey(p.getUniqueId())){
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE booster SET gem = ? WHERE spieleruuid = ?")) {
+                ps.setInt(1, SchoolMode.getPlayerGemBooster(p.getUniqueId()));
+                ps.setString(2, p.getUniqueId().toString());
+                ps.executeUpdate();
+                ps.close();
+
+                SchoolMode.gemBooster.remove(p.getUniqueId());
+            }catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if(SchoolMode.xpBooster.containsKey(p.getUniqueId())){
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE booster SET xp = ? WHERE spieleruuid = ?")) {
+                ps.setInt(1, SchoolMode.getPlayerXPBooster(p.getUniqueId()));
+                ps.setString(2, p.getUniqueId().toString());
+                ps.executeUpdate();
+                ps.close();
+
+                SchoolMode.xpBooster.remove(p.getUniqueId());
+            }catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if(SchoolMode.angelBooster.containsKey(p.getUniqueId())){
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE booster SET angel = ? WHERE spieleruuid = ?")) {
+                ps.setInt(1, SchoolMode.getPlayerAngelBooster(p.getUniqueId()));
+                ps.setString(2, p.getUniqueId().toString());
+                ps.executeUpdate();
+                ps.close();
+
+                SchoolMode.angelBooster.remove(p.getUniqueId());
+            }catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if(SchoolMode.dungeonBooster.containsKey(p.getUniqueId())){
+            try(PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE booster SET dungeon = ? WHERE spieleruuid = ?")) {
+                ps.setInt(1, SchoolMode.getPlayerDungeonBooster(p.getUniqueId()));
+                ps.setString(2, p.getUniqueId().toString());
+                ps.executeUpdate();
+                ps.close();
+
+                SchoolMode.dungeonBooster.remove(p.getUniqueId());
+            }catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+
         new BukkitRunnable(){
 
             @Override

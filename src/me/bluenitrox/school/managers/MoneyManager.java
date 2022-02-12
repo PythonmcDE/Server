@@ -1,7 +1,7 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.boost.Moneybooster;
+import me.bluenitrox.school.boost.Gembooster;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -33,7 +33,7 @@ public class MoneyManager {
                     ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
                     return true;
                 } else {
-                    Moneybooster money = new Moneybooster();
+                    Gembooster money = new Gembooster();
                     if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
                         float newAmount = SchoolMode.getPlayerMoney(uuid) + (amount* MessageManager.MONEY_BOOSTER_BOOST);
                         SchoolMode.setPlayerMoney(uuid, newAmount);
@@ -54,7 +54,7 @@ public class MoneyManager {
                     updateGemlimit(uuid,amount, true);
                     return true;
                 } else {
-                    Moneybooster money = new Moneybooster();
+                    Gembooster money = new Gembooster();
                     if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
                         float newAmount = SchoolMode.getPlayerMoney(uuid) + (amount* MessageManager.MONEY_BOOSTER_BOOST);
                         SchoolMode.setPlayerMoney(uuid, newAmount);
@@ -101,7 +101,7 @@ public class MoneyManager {
                     updateGemlimit(uuid,amount, true);
                     return true;
                 } else {
-                    Moneybooster money = new Moneybooster();
+                    Gembooster money = new Gembooster();
                     if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
                         float newAmount = SchoolMode.getPlayerMoney(uuid) + (amount* MessageManager.MONEY_BOOSTER_BOOST);
                         SchoolMode.setPlayerMoney(uuid, newAmount);

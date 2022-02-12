@@ -1,6 +1,7 @@
 package me.bluenitrox.school.mine.angelmine;
 
 import com.sun.xml.internal.ws.wsdl.writer.document.Part;
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.commands.Kopfgeld;
 import me.bluenitrox.school.listener.PlayerInteractEvent;
 import me.bluenitrox.school.utils.ItemBuilder;
@@ -52,6 +53,9 @@ public class AngelListener implements Listener {
             }
             if(doe >= 10) {
                 PartikelManager.locations.remove(line);
+                if(AufgabenManager.getTask(e.getPlayer().getUniqueId()) == 20) {
+                    AufgabenManager.onComplete(e.getPlayer().getUniqueId(), 20);
+                }
             }
         }
     }

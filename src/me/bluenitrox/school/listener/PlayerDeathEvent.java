@@ -1,6 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.enchants.all.Erhalt;
 import me.bluenitrox.school.enchants.sword.Kopfgeld;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
@@ -64,6 +65,9 @@ public class PlayerDeathEvent implements Listener {
                 Schatzmeister.giveInventorySchatzmeister(k, p.getInventory(), p, e);
                 Kopfgeld.giveHead(k, p);
                 playerinv.clear();
+                if(AufgabenManager.getTask(k.getUniqueId()) == 15) {
+                    AufgabenManager.onComplete(k.getUniqueId(), 15);
+                }
             }
         }
         new BukkitRunnable(){

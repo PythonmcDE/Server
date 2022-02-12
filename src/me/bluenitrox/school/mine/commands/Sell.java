@@ -2,7 +2,7 @@ package me.bluenitrox.school.mine.commands;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
-import me.bluenitrox.school.boost.Moneybooster;
+import me.bluenitrox.school.boost.Gembooster;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PermissionsManager;
@@ -90,7 +90,7 @@ public class Sell implements CommandExecutor {
                 p.sendMessage(MessageManager.PREFIX + "§7Du hast §ckeine §7verkaufbaren Items im Inventar");
                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             }else {
-                Moneybooster money = new Moneybooster();
+                Gembooster money = new Gembooster();
                 if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
                     p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1L, 1L);
                     p.sendMessage(MessageManager.PREFIX + "§7Du hast §a+" + ValuetoString.valueToString(alles*2) + " §7bekommen");

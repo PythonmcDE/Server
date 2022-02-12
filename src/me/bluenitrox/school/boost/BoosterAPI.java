@@ -2,22 +2,21 @@ package me.bluenitrox.school.boost;
 
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.managers.MessageManager;
-import me.bluenitrox.school.managers.PermissionsManager;
-import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.managers.*;
+import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.Firework;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.UUID;
 
 public class BoosterAPI implements CommandExecutor {
@@ -26,6 +25,12 @@ public class BoosterAPI implements CommandExecutor {
     public static boolean xp1;
     public static boolean money1;
     public static boolean angel1;
+    public static boolean dungeon1;
+    public String gemBooster = "gem";
+    public String xpBooster = "xp";
+    public String chestBooster = "chest";
+    public String angelBooster = "angel";
+    public String dungeonBooster = "dungeon";
 
 
     @Override
@@ -33,10 +38,11 @@ public class BoosterAPI implements CommandExecutor {
         Player p = (Player) cs;
         if(args.length == 0) {
             p.sendMessage(MessageManager.PREFIX + "§7Hier sind deine Booster:");
-            p.sendMessage(MessageManager.PREFIX + "§d§lXp-Booster: §7" + getXpBooster(p.getUniqueId()));
-            p.sendMessage(MessageManager.PREFIX + "§d§lGem-Booster: §7" + getMoneyBooster(p.getUniqueId()));
-            p.sendMessage(MessageManager.PREFIX + "§d§lChest-Booster: §7" + getChestBooster(p.getUniqueId()));
-            p.sendMessage(MessageManager.PREFIX + "§d§lAngel-Booster: §7" + getAngelBooster(p.getUniqueId()));
+            p.sendMessage(MessageManager.PREFIX + "§d§lXp-Booster: §7" + getBooster(p.getUniqueId(), "xp"));
+            p.sendMessage(MessageManager.PREFIX + "§d§lGem-Booster: §7" + getBooster(p.getUniqueId(), "gem"));
+            p.sendMessage(MessageManager.PREFIX + "§d§lChest-Booster: §7" + getBooster(p.getUniqueId(), "chest"));
+            p.sendMessage(MessageManager.PREFIX + "§d§lAngel-Booster: §7" + getBooster(p.getUniqueId(), "angel"));
+            p.sendMessage(MessageManager.PREFIX + "§d§lAngel-Booster: §7" + getBooster(p.getUniqueId(), "dungeon"));
         }else if(args.length == 1) {
 
             if(args[0].equalsIgnoreCase("help")) {
@@ -50,7 +56,7 @@ public class BoosterAPI implements CommandExecutor {
                 p.sendMessage(MessageManager.PREFIX + "§6[]-----------Booster-----------[]");
             }else if(args[0].equalsIgnoreCase("xp")) {
                 Xpbooster xp = new Xpbooster();
-                if(hasEnoughXpBooster(p.getUniqueId(), 1)) {
+                if(hasEnoughBooster(p.getUniqueId(), xpBooster)) {
                     if(!SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(xp.getName())))) {
 
                         Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + xp.getName() + "§7 für " + xp.getLenth() + " §7Minuten gezündet");
@@ -65,10 +71,15 @@ public class BoosterAPI implements CommandExecutor {
 
                         Firework.Firework(p);
 
+                        /*
+                        TODO update booster status in Mysql for server connectivity
+                         */
+
+
                         boost.put("xp", 3600);
                         xp1 = true;
 
-                        removeXpBooster(p.getUniqueId(), 1);
+                        updateBooster(p.getUniqueId(), xpBooster, 1, true);
                         return true;
                     }else {
                         p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + xp.getName() + " §7aktivieren, da bereits einer aktiv ist!");
@@ -76,9 +87,9 @@ public class BoosterAPI implements CommandExecutor {
                 }else {
                     p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Xp-Booster.");
                 }
-            }else if(args[0].equalsIgnoreCase("money")) {
-                Moneybooster money = new Moneybooster();
-                if(hasEnoughMoneyBooster(p.getUniqueId(), 1)) {
+            }else if(args[0].equalsIgnoreCase("gem")) {
+                Gembooster money = new Gembooster();
+                if(hasEnoughBooster(p.getUniqueId() , gemBooster)) {
                     if(!SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
 
                         Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + money.getName() + "§7 für " + money.getLenth() + " §7Minuten gezündet");
@@ -90,14 +101,14 @@ public class BoosterAPI implements CommandExecutor {
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                         }
 
-                        SchoolMode.getInstance().getBoostermanager().startBoost(new Moneybooster());
+                        SchoolMode.getInstance().getBoostermanager().startBoost(new Gembooster());
 
                         Firework.Firework(p);
 
                         boost.put("money", 3600);
                         money1 = true;
 
-                        removeMoneyBooster(p.getUniqueId(), 1);
+                        updateBooster(p.getUniqueId(), gemBooster, 1, true);
                         return true;
                     }else {
                         p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + money.getName() + " §7aktivieren, da bereits einer aktiv ist!");
@@ -106,11 +117,11 @@ public class BoosterAPI implements CommandExecutor {
                     p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Gem-Booster.");
                 }
             }else if(args[0].equalsIgnoreCase("angel")) {
-                Angelbooster money = new Angelbooster();
-                if(hasEnoughAngelBooster(p.getUniqueId(), 1)) {
-                    if(!SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
+                Angelbooster angelbooster = new Angelbooster();
+                if(hasEnoughBooster(p.getUniqueId(), angelBooster)) {
+                    if(!SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(angelbooster.getName())))) {
 
-                        Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + money.getName() + "§7 für " + money.getLenth() + " §7Minuten gezündet");
+                        Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + angelbooster.getName() + "§7 für " + angelbooster.getLenth() + " §7Minuten gezündet");
 
                         for(Player all : Bukkit.getOnlinePlayers()) {
                             TTA_Methods.sendTitle(all,"§6Angel-Booster",20,20,20 ,"§7von " + p.getDisplayName(),20,20,20);
@@ -126,16 +137,16 @@ public class BoosterAPI implements CommandExecutor {
                         boost.put("angel", 3600);
                         angel1 = true;
 
-                        removeAngelBooster(p.getUniqueId(), 1);
+                        updateBooster(p.getUniqueId(), angelBooster, 1, true);
                         return true;
                     }else {
-                        p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + money.getName() + " §7aktivieren, da bereits einer aktiv ist!");
+                        p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + angelbooster.getName() + " §7aktivieren, da bereits einer aktiv ist!");
                     }
                 }else {
                     p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Angel-Booster.");
                 }
             }else if(args[0].equalsIgnoreCase("chest")) {
-                if(hasEnoughChestBooster(p.getUniqueId(), 1)) {
+                if(hasEnoughBooster(p.getUniqueId(), chestBooster)) {
                     Chestbooster chest = new Chestbooster();
                     Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + chest.getName() + "§7 mit " + chest.getLenth() + " §7Kisten gezündet");
                     for(Player all : Bukkit.getOnlinePlayers()) {
@@ -147,7 +158,7 @@ public class BoosterAPI implements CommandExecutor {
 
                     Firework.Firework(p);
 
-                    removeChestBooster(p.getUniqueId(), 1);
+                    updateBooster(p.getUniqueId(), chestBooster, 1, true);
 
                 }else {
                     p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Chest-Booster.");
@@ -161,7 +172,7 @@ public class BoosterAPI implements CommandExecutor {
                 }else {
                     p.sendMessage(MessageManager.PREFIX + "§bXp-Booster §4aus");
                 }
-                Moneybooster money = new Moneybooster();
+                Gembooster money = new Gembooster();
                 if(SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
                     p.sendMessage(MessageManager.PREFIX + "§bMoney-Booster: §aan");
                 }else {
@@ -183,16 +194,16 @@ public class BoosterAPI implements CommandExecutor {
                     String name = args[2];
                     Integer amount = Integer.valueOf(args[3]);
                     if (name.equalsIgnoreCase("xp")) {
-                        addXpBooster(target.getUniqueId(), amount);
+                        updateBooster(target.getUniqueId(), xpBooster, amount, false);
                         p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bXp-Booster §7bekommen");
-                    } else if (name.equalsIgnoreCase("money")) {
-                        addMoneyBooster(target.getUniqueId(), amount);
+                    } else if (name.equalsIgnoreCase("gem")) {
+                        updateBooster(target.getUniqueId(), gemBooster, amount, false);
                         p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bMoney-Booster §7bekommen");
                     }else if (name.equalsIgnoreCase("chest")) {
-                        addChestBooster(target.getUniqueId(), amount);
+                        updateBooster(target.getUniqueId(), chestBooster, amount, false);
                         p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bChest-Booster §7bekommen");
                     }else if (name.equalsIgnoreCase("angel")) {
-                        addAngelBooster(target.getUniqueId(), amount);
+                        updateBooster(target.getUniqueId(), angelBooster, amount, false);
                         p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bAngel-Booster §7bekommen");
                     } else {
                         p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
@@ -202,16 +213,16 @@ public class BoosterAPI implements CommandExecutor {
                     String name = args[2];
                     Integer amount = Integer.valueOf(args[3]);
                     if (name.equalsIgnoreCase("xp")) {
-                        removeXpBooster(target.getUniqueId(), amount);
+                        updateBooster(target.getUniqueId(), xpBooster, amount, true);
                         p.sendMessage(MessageManager.PREFIX + "§7Du hast §e" + target.getPlayer().getName() + "§a " + amount + "x §bXp-Booster §7removt");
-                    } else if (name.equalsIgnoreCase("money")) {
-                        removeMoneyBooster(target.getUniqueId(), amount);
+                    } else if (name.equalsIgnoreCase("gem")) {
+                        updateBooster(target.getUniqueId(), gemBooster, amount, true);
                         p.sendMessage(MessageManager.PREFIX + "§7Du hast §e" + target.getPlayer().getName() + "§a " + amount + "x §bMoney-Booster §7removt");
                     } else if (name.equalsIgnoreCase("chest")) {
-                        removeChestBooster(target.getUniqueId(), amount);
+                        updateBooster(target.getUniqueId(), chestBooster, amount, true);
                         p.sendMessage(MessageManager.PREFIX + "§7Du hast §e" + target.getPlayer().getName() + "§a " + amount + "x §bChest-Booster §7removt");
                     }else if (name.equalsIgnoreCase("angel")) {
-                        removeAngelBooster(target.getUniqueId(), amount);
+                        updateBooster(target.getUniqueId(), angelBooster, amount, true);
                         p.sendMessage(MessageManager.PREFIX + "§7Du hast §e" + target.getPlayer().getName() + "§a " + amount + "x §bAngel-Booster §7removt");
                     }
                 }
@@ -227,214 +238,142 @@ public class BoosterAPI implements CommandExecutor {
 
     }
 
-   // public static String VERZEICHNISS = "//home//SimpleCloud//static//SchoolMelior-1//plugins//DemonMCBooster";
-    public static String VERZEICHNISS = "plugins//PythonMC";
-
-    public static Integer getXpBooster(UUID uuid) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int xp = cfg.getInt(uuid + ".xpbooster");
-        return xp;
-
-    }
-
-    public static Integer getMoneyBooster(UUID uuid) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".moneybooster");
-        return money;
-
-    }
-
-    public static Integer getChestBooster(UUID uuid) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".chestbooster");
-        return money;
-
-    }
-
-    public static Integer getAngelBooster(UUID uuid) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".angelbooster");
-        return money;
-
-    }
-
-    public static void addXpBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int xp = cfg.getInt(uuid + ".xpbooster");
-        xp = xp + amount;
-        cfg.set(uuid + ".xpbooster", xp);
-        try {
-            cfg.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-
+    public int getBooster(UUID uuid, String booster) {
+        int amount = 0;
+        if(booster.equalsIgnoreCase("chest")) {
+            amount = SchoolMode.getPlayerChestBooster(uuid);
+        } else if(booster.equalsIgnoreCase("xp")) {
+            amount = SchoolMode.getPlayerXPBooster(uuid);
+        } else if(booster.equalsIgnoreCase("gem")) {
+            amount = SchoolMode.getPlayerGemBooster(uuid);
+        } else if(booster.equalsIgnoreCase("angel")) {
+            amount = SchoolMode.getPlayerAngelBooster(uuid);
+        } else if(booster.equalsIgnoreCase("dungeon")) {
+            amount  = SchoolMode.getPlayerXPBooster(uuid);
         }
-
+        return amount;
     }
 
-    public static void addMoneyBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".moneybooster");
-        money = money + amount;
-        cfg.set(uuid + ".moneybooster", money);
-        try {
-            cfg.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-
+    public int getBoosterDatabase(UUID uuid, String booster) {
+        int amount = 0;
+        PreparedStatement preparedStatement;
+        if(booster.equalsIgnoreCase("chest")) {
+            try {
+                preparedStatement = MySQL.getConnection().prepareStatement("SELECT chest FROM booster WHERE spieleruuid = ?");
+                preparedStatement.setString(1, uuid.toString());
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    amount = resultSet.getInt("chest");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } else if(booster.equalsIgnoreCase("xp")) {
+            try {
+                preparedStatement = MySQL.getConnection().prepareStatement("SELECT xp FROM booster WHERE spieleruuid = ?");
+                preparedStatement.setString(1, uuid.toString());
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    amount = resultSet.getInt("xp");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } else if(booster.equalsIgnoreCase("gem")) {
+            try {
+                preparedStatement = MySQL.getConnection().prepareStatement("SELECT gem FROM booster WHERE spieleruuid = ?");
+                preparedStatement.setString(1, uuid.toString());
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    amount = resultSet.getInt("gem");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } else if(booster.equalsIgnoreCase("angel")) {
+            try {
+                preparedStatement = MySQL.getConnection().prepareStatement("SELECT angel FROM booster WHERE spieleruuid = ?");
+                preparedStatement.setString(1, uuid.toString());
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    amount = resultSet.getInt("angel");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } else if(booster.equalsIgnoreCase("dungeon")) {
+            try {
+                preparedStatement = MySQL.getConnection().prepareStatement("SELECT dungeon FROM booster WHERE spieleruuid = ?");
+                preparedStatement.setString(1, uuid.toString());
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    amount = resultSet.getInt("dungeon");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
-
+        return amount;
     }
-
-    public static void addChestBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".chestbooster");
-        money = money + amount;
-        cfg.set(uuid + ".chestbooster", money);
-        try {
-            cfg.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-
+    public void updateBooster(UUID uuid, String booster, int amount, boolean remove) {
+        if(booster.equalsIgnoreCase("gem")) {
+            if (remove) {
+                if (getBooster(uuid, "gem") >= amount) {
+                    int newAmount = getBooster(uuid, "gem") - amount;
+                    SchoolMode.setPlayerGemBooster(uuid, newAmount);
+                }
+            } else {
+                int newAmount = getBooster(uuid, "gem") + amount;
+                SchoolMode.setPlayerGemBooster(uuid, newAmount);
+            }
+        } else if(booster.equalsIgnoreCase("xp")) {
+            if (remove) {
+                if (getBooster(uuid, "xp") >= amount) {
+                    int newAmount = getBooster(uuid, "xp") - amount;
+                    SchoolMode.setPlayerXPBooster(uuid, newAmount);
+                }
+            } else {
+                int newAmount = getBooster(uuid, "xp") + amount;
+                SchoolMode.setPlayerXPBooster(uuid, newAmount);
+            }
+        } else if(booster.equalsIgnoreCase("chest")) {
+            if (remove) {
+                if (getBooster(uuid, "chest") >= amount) {
+                    int newAmount = getBooster(uuid, "chest") - amount;
+                    SchoolMode.setPlayerChestBooster(uuid, newAmount);
+                }
+            } else {
+                int newAmount = getBooster(uuid, "chest") + amount;
+                SchoolMode.setPlayerChestBooster(uuid, newAmount);
+            }
+        } else if(booster.equalsIgnoreCase("angel")) {
+            if (remove) {
+                if (getBooster(uuid, "angel") >= amount) {
+                    int newAmount = getBooster(uuid, "angel") - amount;
+                    SchoolMode.setPlayerAngelBooster(uuid, newAmount);
+                }
+            } else {
+                int newAmount = getBooster(uuid, "angel") + amount;
+                SchoolMode.setPlayerAngelBooster(uuid, newAmount);
+            }
+        } else if(booster.equalsIgnoreCase("dungeon")) {
+            if (remove) {
+                if (getBooster(uuid, "dungeon") >= amount) {
+                    int newAmount = getBooster(uuid, "dungeon") - amount;
+                    SchoolMode.setPlayerDungeonBooster(uuid, newAmount);
+                }
+            } else {
+                int newAmount = getBooster(uuid, "dungeon") + amount;
+                SchoolMode.setPlayerDungeonBooster(uuid, newAmount);
+            }
         }
-
     }
-
-    public static void addAngelBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".angelbooster");
-        money = money + amount;
-        cfg.set(uuid + ".angelbooster", money);
-        try {
-            cfg.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-
-    }
-
-    public void removeXpBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int xp = cfg.getInt(uuid + ".xpbooster");
-        xp = xp - amount;
-        cfg.set(uuid + ".xpbooster", xp);
-        try {
-            cfg.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void removeMoneyBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".moneybooster");
-        money = money - amount;
-        cfg.set(uuid + ".moneybooster", money);
-        try {
-            cfg.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void removeChestBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".chestbooster");
-        money = money - amount;
-        cfg.set(uuid + ".chestbooster", money);
-        try {
-            cfg.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void removeAngelBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".angelbooster");
-        money = money - amount;
-        cfg.set(uuid + ".angelbooster", money);
-        try {
-            cfg.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public boolean hasEnoughXpBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int xp = cfg.getInt(uuid + ".xpbooster");
-        if (xp >= amount) {
+    public boolean hasEnoughBooster(UUID uuid, String booster){
+        if(getBooster(uuid, booster)>= 1) {
             return true;
-        } else
+        }else {
             return false;
-
+        }
     }
 
-    public boolean hasEnoughMoneyBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".moneybooster");
-        if (money >= amount) {
-            return true;
-        } else
-            return false;
-
-    }
-
-    public boolean hasEnoughChestBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".chestbooster");
-        if (money >= amount) {
-            return true;
-        } else
-            return false;
-
-    }
-
-    public boolean hasEnoughAngelBooster(UUID uuid, int amount) {
-        File file = new File(VERZEICHNISS, "booster.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        int money = cfg.getInt(uuid + ".angelbooster");
-        if (money >= amount) {
-            return true;
-        } else
-            return false;
-
-    }
 }

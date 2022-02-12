@@ -1,5 +1,7 @@
 package me.bluenitrox.school.haendler;
 
+import me.bluenitrox.school.aufgabensystem.Aufgaben;
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.features.DailyReward;
 import me.bluenitrox.school.haendler.commands.*;
 import me.bluenitrox.school.managers.MessageManager;
@@ -91,6 +93,9 @@ public class HändlerAPI implements CommandExecutor {
                         if (MoneyManager.getMoney(uuid) >= betrag * 64) {
                             MoneyManager.updateMoney(uuid, betrag * 64, true, false);
                             p.getInventory().addItem(new ItemBuilder(clickeditem, dura).setDisplayname(diplayname).setAmount(64).build());
+                            if(AufgabenManager.getTask(uuid) == 10) {
+                                AufgabenManager.onComplete(uuid, 10);
+                            }
                             p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1L, 1L);
                         } else {
                             p.sendMessage(MessageManager.NOTMONEY(PlayerJoinManager.language));
@@ -112,6 +117,9 @@ public class HändlerAPI implements CommandExecutor {
                                     if (MoneyManager.getMoney(uuid) >= betrag) {
                                         MoneyManager.updateMoney(uuid, betrag, true, false);
                                         p.getInventory().addItem(new ItemBuilder(clickeditem, dura).setDisplayname(diplayname).setAmount(1).build());
+                                        if(AufgabenManager.getTask(uuid) == 10) {
+                                            AufgabenManager.onComplete(uuid, 10);
+                                        }
                                         p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1L, 1L);
                                     } else {
                                         p.sendMessage(MessageManager.NOTMONEY(PlayerJoinManager.language));

@@ -1,5 +1,7 @@
 package me.bluenitrox.school.mysql;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.Bukkit;
 
 import java.sql.Connection;
@@ -15,13 +17,24 @@ public class MySQL {
     public static Connection con;
 
     public static void connect() {
-        if(!isConnected()) {
-            try {
-                con = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useUnicode=yes", username, password);
-                Bukkit.getConsoleSender().sendMessage("§4Verbunden §4mit §4MySQL! (3/8)");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);
+        config.setUsername(username);
+        config.setPassword(password);
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.setMaximumPoolSize(10);
+        HikariDataSource dataSource = new HikariDataSource(config);
+
+        try {
+            con = dataSource.getConnection();
+            Bukkit.getConsoleSender().sendMessage("§4Verbunden §4mit §4MySQL! (3/8)");
+        } catch (SQLException var4) {
+            var4.printStackTrace();
+            System.out.println("[SCOOLPLUGIN] MySQL FEHLER.");
+            return;
         }
     }
 

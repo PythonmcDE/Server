@@ -77,6 +77,11 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Integer> playerkopfgeld = new HashMap<>();
     public static HashMap<UUID, Integer> playertask = new HashMap<>();
     public static HashMap<UUID, Integer> playertoggletask = new HashMap<>();
+    public static HashMap<UUID, Integer> chestBooster = new HashMap<>();
+    public static HashMap<UUID, Integer> gemBooster = new HashMap<>();
+    public static HashMap<UUID, Integer> xpBooster = new HashMap<>();
+    public static HashMap<UUID, Integer> angelBooster = new HashMap<>();
+    public static HashMap<UUID, Integer> dungeonBooster = new HashMap<>();
     public static ArrayList<UUID> playerwason = new ArrayList<>();
     public static HashMap<String,Entity> Pets = new HashMap<>();
     private static final Random r = new Random();
@@ -339,6 +344,13 @@ public class SchoolMode extends JavaPlugin {
         }
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `aufgaben` ( `spieleruuid` CHAR(36) NOT NULL , `aufgabenfortschritt` INT(11) NOT NULL , `toggle` INT(2) NOT NULL)");
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `booster` ( `spieleruuid` CHAR(36) NOT NULL , `xp` INT(11) NOT NULL , `gem` INT(11) NOT NULL, `dungeon` INT(11) NOT NULL, `angel` INT(11) NOT NULL, `chest` INT(11) NOT NULL)");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -681,6 +693,21 @@ public class SchoolMode extends JavaPlugin {
     public static float getPlayerChest(UUID uuid) {
         return playerchest.get(uuid);
     }
+    public static int getPlayerChestBooster(UUID uuid) {
+        return chestBooster.get(uuid);
+    }
+    public static int getPlayerGemBooster(UUID uuid) {
+        return gemBooster.get(uuid);
+    }
+    public static int getPlayerXPBooster(UUID uuid) {
+        return xpBooster.get(uuid);
+    }
+    public static int getPlayerAngelBooster(UUID uuid) {
+        return angelBooster.get(uuid);
+    }
+    public static int getPlayerDungeonBooster(UUID uuid) {
+        return dungeonBooster.get(uuid);
+    }
     public static int getPlayerTask(UUID uuid){
         return playertask.get(uuid);
     }
@@ -709,6 +736,21 @@ public class SchoolMode extends JavaPlugin {
     }
     public static void setPlayerMoney(UUID uuid, float amount) {
         playerMoney.put(uuid, amount);
+    }
+    public static void setPlayerChestBooster(UUID uuid, int amount) {
+        chestBooster.put(uuid, amount);
+    }
+    public static void setPlayerGemBooster(UUID uuid, int amount) {
+        gemBooster.put(uuid, amount);
+    }
+    public static void setPlayerXPBooster(UUID uuid, int amount) {
+        xpBooster.put(uuid, amount);
+    }
+    public static void setPlayerAngelBooster(UUID uuid, int amount) {
+        angelBooster.put(uuid, amount);
+    }
+    public static void setPlayerDungeonBooster(UUID uuid, int amount) {
+        dungeonBooster.put(uuid, amount);
     }
     public static int getRandomInt(int bound){
         Random r = SchoolMode.r;

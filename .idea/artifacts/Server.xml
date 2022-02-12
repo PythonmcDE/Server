@@ -1,9 +1,10 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="Server">
-    <output-path>$PROJECT_DIR$/../../localhost/plugins</output-path>
+    <output-path>$PROJECT_DIR$/out/artifacts/Server</output-path>
     <root id="archive" name="Server.jar">
       <element id="module-output" name="Server" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+      <element id="library" level="project" name="HikariCP-3.4.4" />
     </root>
   </artifact>
 </component>

@@ -1,5 +1,6 @@
 package me.bluenitrox.school.mine.angelmine;
 
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
@@ -312,6 +313,9 @@ public class Angelmine implements CommandExecutor {
                                 }else if(e.getCurrentItem().getItemMeta().getLore().get(0).startsWith("§6§l▶ §7Du besitzt diese")){
                                     if(new LocationManager("Angelmine" + angelmine).getLocation() != null) {
                                         p.teleport(new LocationManager("Angelmine" + angelmine).getLocation());
+                                        if(AufgabenManager.getTask(p.getUniqueId()) == 19) {
+                                            AufgabenManager.onComplete(p.getUniqueId(), 19);
+                                        }
                                         AngelminenManager.joinAngelmine(p, angelmine);
                                     }
                                     p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
