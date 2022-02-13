@@ -6,6 +6,7 @@ import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.features.Pet;
+import me.bluenitrox.school.itemspawner.ItemSpawnerMethods;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
@@ -44,6 +45,8 @@ public class PlayerInteractEvent implements Listener {
             interactAnvil(p, e);
             interactEnchantmentTable(p, e);
         }
+        ItemSpawnerMethods methods = new ItemSpawnerMethods();
+        methods.checkOwner(e);
         disableSpawnInteract(e);
     }
 

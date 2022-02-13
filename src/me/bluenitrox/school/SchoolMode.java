@@ -18,6 +18,8 @@ import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.features.KitAPI;
 import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.haendler.HändlerAPI;
+import me.bluenitrox.school.itemspawner.ItemSpawner;
+import me.bluenitrox.school.itemspawner.ItemSpawnerManager;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.mine.angelmine.*;
@@ -31,6 +33,7 @@ import me.bluenitrox.school.warzone.CombatAPI;
 import me.bluenitrox.school.warzone.Warzone;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -82,6 +85,12 @@ public class SchoolMode extends JavaPlugin {
     public static HashMap<UUID, Integer> xpBooster = new HashMap<>();
     public static HashMap<UUID, Integer> angelBooster = new HashMap<>();
     public static HashMap<UUID, Integer> dungeonBooster = new HashMap<>();
+    public static Map<UUID, Location> kohlespawner = new HashMap<>();
+    public static Map<UUID, Location> goldspawner = new HashMap<>();
+    public static Map<UUID, Location> diaspawner = new HashMap<>();
+    public static Map<UUID, Location> emeraldspawner = new HashMap<>();
+    public static Map<UUID, Location> gapspawner = new HashMap<>();
+    public static Map<UUID, Location> epspawner = new HashMap<>();
     public static ArrayList<UUID> playerwason = new ArrayList<>();
     public static HashMap<String,Entity> Pets = new HashMap<>();
     private static final Random r = new Random();
@@ -191,6 +200,8 @@ public class SchoolMode extends JavaPlugin {
         getCommand("books").setExecutor(new getBooks());
         getCommand("test").setExecutor(new NBTTagtest());
         getCommand("testzwei").setExecutor(new OtherTest());
+
+        getCommand("itemspawner").setExecutor(new ItemSpawner());
         //
         Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/8)");
         Bukkit.getConsoleSender().sendMessage("§4Lade §4Events...");
@@ -752,6 +763,20 @@ public class SchoolMode extends JavaPlugin {
     public static void setPlayerDungeonBooster(UUID uuid, int amount) {
         dungeonBooster.put(uuid, amount);
     }
+    public static void getPlayerKohleSpawner(UUID uuid) {
+        kohlespawner.get(uuid);
+    }
+    public static void getPlayerGoldSpawner(UUID uuid) { goldspawner.get(uuid); }
+    public static void getPlayerDiaSpawner(UUID uuid) { diaspawner.get(uuid); }
+    public static void getPlayerEmeraldSpawner(UUID uuid) { emeraldspawner.get(uuid); }
+    public static void getPlayerGapSpawner(UUID uuid) { gapspawner.get(uuid); }
+    public static void getPlayerEPSpawner(UUID uuid) { epspawner.get(uuid); }
+    public static void setKohlespawner(UUID uuid, Location location) {kohlespawner.put(uuid, location);}
+    public static void setGoldspawner(UUID uuid, Location location) {goldspawner.put(uuid, location);}
+    public static void setDiaspawner(UUID uuid, Location location) {diaspawner.put(uuid, location);}
+    public static void setEmeraldpawner(UUID uuid, Location location) {emeraldspawner.put(uuid, location);}
+    public static void setGappawner(UUID uuid, Location location) {gapspawner.put(uuid, location);}
+    public static void setEppawner(UUID uuid, Location location) {epspawner.put(uuid, location);}
     public static int getRandomInt(int bound){
         Random r = SchoolMode.r;
 
