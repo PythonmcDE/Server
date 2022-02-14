@@ -1,11 +1,15 @@
 package me.bluenitrox.school.features;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.managers.ExpManager;
+import me.bluenitrox.school.managers.LevelManager;
 import me.bluenitrox.school.mysql.MySQL;
+import me.bluenitrox.school.utils.ValuetoString;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.UUID;
 
 public class StatsAPI {
@@ -18,6 +22,13 @@ public class StatsAPI {
     }
     public int getMob(UUID uuid){
         return (int) SchoolMode.getPlayerMob(uuid);
+    }
+
+    public String getPlayerEXP(UUID uuid) {
+        float xp;
+        xp = LevelManager.allXp.get(ExpManager.getLevel(uuid)) + ExpManager.getExp(uuid);
+
+        return ValuetoString.valueToString(xp);
     }
 
     public void updateChest(UUID uuid, float amount, boolean remove) {

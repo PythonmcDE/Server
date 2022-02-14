@@ -53,6 +53,10 @@ public class AufgabenManager {
                 return Aufgaben.TASK_1;
             case 2:
                 return Aufgaben.TASK_2;
+            case 3:
+                return Aufgaben.TASK_3;
+            case 4:
+                return Aufgaben.;
         }
         return "";
         /*

@@ -223,7 +223,7 @@ public class CaseAPI {
         caseitems.registerGewöhnlich();
         caseitems.registerEpisch();
         caseitems.registerSelten();
-        caseitems.registerMysthische();
+        caseitems.registerMythisch();
         caseitems.registerTier();
     }
 
