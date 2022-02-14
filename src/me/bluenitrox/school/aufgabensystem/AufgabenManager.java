@@ -56,7 +56,41 @@ public class AufgabenManager {
             case 3:
                 return Aufgaben.TASK_3;
             case 4:
-                return Aufgaben.;
+                return Aufgaben.TASK_4;
+            case 5:
+                return Aufgaben.TASK_5;
+            case 6:
+                return Aufgaben.TASK_6;
+            case 7:
+                return Aufgaben.TASK_7;
+            case 8:
+                return Aufgaben.TASK_8;
+            case 9:
+                return Aufgaben.TASK_9;
+            case 10:
+                return Aufgaben.TASK_10;
+            case 11:
+                return Aufgaben.TASK_11;
+            case 12:
+                return Aufgaben.TASK_12;
+            case 13:
+                return Aufgaben.TASK_13;
+            case 14:
+                return Aufgaben.TASK_14;
+            case 15:
+                return Aufgaben.TASK_15;
+            case 16:
+                return Aufgaben.TASK_16;
+            case 17:
+                return Aufgaben.TASK_17;
+            case 18:
+                return Aufgaben.TASK_18;
+            case 19:
+                return Aufgaben.TASK_19;
+            case 20:
+                return Aufgaben.TASK_20;
+            case 21:
+                return Aufgaben.TASK_21;
         }
         return "";
         /*

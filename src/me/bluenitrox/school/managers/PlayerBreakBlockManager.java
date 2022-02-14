@@ -1,8 +1,10 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.commands.Build;
 import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mysql.MySQL;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -78,6 +80,7 @@ public class PlayerBreakBlockManager {
     }
 
     public static boolean breakBlock(Player p, Location loc) {
+        itemdestroyed(p);
         if (!manager.updateMinenMap(p, loc)) {
             return false;
         }
@@ -103,14 +106,15 @@ public class PlayerBreakBlockManager {
 
         }
 
-        return true;
 
-        //Schauen ob der Spieler abbauen darf
-        //Blöcke updaten
-        //Rewards und Luckyblocks
-        //SpecialEnchants aktivieren
+        return true;
     }
 
 
+    private static void itemdestroyed(Player p){
+        if(p.getInventory().getItemInHand() != null){
+            Bukkit.broadcastMessage(""+p.getInventory().getItemInHand().getData().getItemType().getMaxDurability());
+        }
+    }
 
 }
