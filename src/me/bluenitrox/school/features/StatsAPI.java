@@ -26,7 +26,7 @@ public class StatsAPI {
 
     public String getPlayerEXP(UUID uuid) {
         float xp;
-        xp = LevelManager.allXp.get(ExpManager.getLevel(uuid)) + ExpManager.getExp(uuid);
+        xp = LevelManager.allXp.get(ExpManager.getLevelDatabase(uuid)) + ExpManager.getExpDatabase(uuid);
 
         return ValuetoString.valueToString(xp);
     }

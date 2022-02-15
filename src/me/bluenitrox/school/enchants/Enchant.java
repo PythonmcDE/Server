@@ -11,7 +11,7 @@ public enum Enchant {
     ENERGIEENTZUG,
     ANTIVENOM,
     WILDEREI,
-    JÄGER,
+    JÄGER, //Hunter umbennen
     ENTDECKER,
 
     TANK,

@@ -50,9 +50,11 @@ public class AufgabenMethods {
         Player player = (Player) event.getWhoClicked();
         if(AufgabenManager.getTask(player.getUniqueId())  == 3) {
             if (!KitAPI.holz.containsKey(player.getUniqueId())) {
-                if(event.getClickedInventory().getName().equalsIgnoreCase(KitAPI.guiname) && event.getCurrentItem() != null) {
-                    if(event.getCurrentItem().getType() == Material.WOOD_SWORD) {
-                        AufgabenManager.getPrice(player, 3);
+                if(event.getClickedInventory() != null) {
+                    if (event.getClickedInventory().getName().equalsIgnoreCase(KitAPI.guiname) && event.getCurrentItem() != null) {
+                        if (event.getCurrentItem().getType() == Material.WOOD_SWORD) {
+                            AufgabenManager.getPrice(player, 3);
+                        }
                     }
                 }
             }
@@ -172,8 +174,10 @@ public class AufgabenMethods {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        if (AufgabenManager.getToggle(player.getUniqueId()) == 0) {
-                            sendActionBar(player, message);
+                        if(SchoolMode.playertoggletask.containsKey(player.getUniqueId())) {
+                            if (AufgabenManager.getToggle(player.getUniqueId()) == 0) {
+                                sendActionBar(player, message);
+                            }
                         }
                     }
                 }.runTaskLater(SchoolMode.getInstance(), (long) duration);

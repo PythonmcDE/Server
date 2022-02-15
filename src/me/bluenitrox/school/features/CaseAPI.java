@@ -256,6 +256,8 @@ public class CaseAPI {
             return 10;
         }else if(name.startsWith("§6")){
             return 1;
+        }else if(name.startsWith("§8")){
+            return 1;
         }else if(name.startsWith("§5")){
             return 10;
         }else if(name.startsWith("§9")){

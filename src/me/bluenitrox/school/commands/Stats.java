@@ -1,12 +1,17 @@
 package me.bluenitrox.school.commands;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.features.StatsAPI;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
+import me.bluenitrox.school.managers.PlayerBreakBlockManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.mine.manager.MinenManager;
+import me.bluenitrox.school.utils.GetDisplayColor;
 import me.bluenitrox.school.utils.UUIDFetcher;
+import me.bluenitrox.school.utils.UUIDFetcherWithName;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,37 +29,63 @@ public class Stats implements CommandExecutor {
             /*
             /stats shows your own stats
             */
-            p.sendMessage("§3[]-=-*-=-[] §cDeine Stats §3[]-=-*-=-[]");
-            p.sendMessage("§6§l▶ §7Kills: " + api.getKillsDatabase(p.getUniqueId()));
-            p.sendMessage("§6§l▶ §7Deaths: " + api.getDeathsDatabase(p.getUniqueId()));
-            p.sendMessage("§6§l▶ §7Aktuelle Mine: " + SchoolMode.getPlayerMine(p.getUniqueId()));
-            p.sendMessage("§6§l▶ §7Aktuelles Level: " + ExpManager.getLevel(p.getUniqueId()));
-            p.sendMessage("§6§l▶ §7Aktuelle XP: " + api.getPlayerEXP(p.getUniqueId()));
-            p.sendMessage("§6§l▶ §7Abgebaute Blöcke: " + SchoolMode.getPlayerBlocks(p.getUniqueId()));
-            p.sendMessage("§6§l▶ §7Geöffnete Cases: " + api.getCase(p.getUniqueId()));
-            p.sendMessage("§6§l▶ §7Geöffnete Kisten: " + api.getChest(p.getUniqueId()));
-            p.sendMessage("§6§l▶ §7Getötete Monster: " + api.getMob(p.getUniqueId()));
-            p.sendMessage("§3[]-=-*-=-[] §cDeine Stats §3[]-=-*-=-[]");
+            String playername;
+            UUID uuid = p.getUniqueId();
+            playername = GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(uuid)) + p.getName();
+            try {
+                p.sendMessage("§a§lPythonMC " + "§b» §7Statistiken von " + playername);
+                p.sendMessage("§b» §7Kills: §6§l" + api.getKillsDatabase(uuid));
+                p.sendMessage("§b» §7Tode: §6§l" + api.getDeathsDatabase(uuid));
+                p.sendMessage("§b» §7Abgebaute Blöcke: §6§l" +  PlayerBreakBlockManager.getBlocksDatabase(uuid));
+                p.sendMessage("§b» §7Geangelte Items: §6§l0");
+                p.sendMessage("§b» §7Getötete Monster: §6§l" + StatsAPI.getMobDatabase(uuid));
+                p.sendMessage("§b» §7Besiegte Bosse: §6§l0");
+                p.sendMessage("§b» §7Geöffnete Kisten: §6§l" + api.getChestsDatabase(uuid));
+                p.sendMessage("§b» §7Geöffnete Cases: §6§l" + api.getCasesDatabase(uuid));
+                p.sendMessage("§b» §7Aktuelles Level: §6§l" + ExpManager.getLevelDatabase(uuid));
+                p.sendMessage("§b» §7Prestige Stufe: §6§l" + ExpManager.getPrestigeDatabase(uuid));
+
+
+                //aussortiert
+                //p.sendMessage("§6§l▶ §7Aktuelle XP: " + api.getPlayerEXP(uuid));
+                //p.sendMessage("§3[]-=-*-=-[] §6Stats von " + playername + " Stats §3[]-=-*-=-[]");
+                //p.sendMessage("§6§l▶ §7Aktuelle Mine: " + MinenManager.getMineDatabase(uuid));
+            }catch (Exception e){
+                p.sendMessage(MessageManager.PREFIX + "§7Dieser Spieler wurde §cnicht §7gefunden.");
+            }
         }else if(args.length == 1){
             /*
             /stats [Spieler] shows stats of other Players
              */
-            String playername = args[0];
+            String playername;
+            UUID uuid;
             try {
-                UUID uuid = UUIDFetcher.getUUID(playername);
-                p.sendMessage("§3[]-=-*-=-[] §c" + playername + " Stats §3[]-=-*-=-[]");
-                p.sendMessage("§6§l▶ §7Kills: " + api.getKillsDatabase(uuid));
-                p.sendMessage("§6§l▶ §7Deaths: " + api.getDeathsDatabase(uuid));
-                p.sendMessage("§6§l▶ §7Aktuelle Mine: " + MinenManager.getMineDatabase(uuid));
-                p.sendMessage("§6§l▶ §7Aktuelles Level: " + ExpManager.getLevelDatabase(uuid));
-                p.sendMessage("§6§l▶ §7Aktuelle XP: " + api.getPlayerEXP(uuid));
-                p.sendMessage("§6§l▶ §7Abgebaute Blöcke: " + SchoolMode.getPlayerBlocks(uuid));
-                p.sendMessage("§6§l▶ §7Geöffnete Cases: " + api.getCase(uuid));
-                p.sendMessage("§6§l▶ §7Geöffnete Kisten: " + api.getChest(uuid));
-                p.sendMessage("§6§l▶ §7Getötete Monster: " + api.getMob(uuid));
-                p.sendMessage("§3[]-=-*-=-[] §c" + playername + " Stats §3[]-=-*-=-[]");
+                uuid = UUIDFetcher.getUUID(args[0]);
+            } catch (Exception e) {
+                p.sendMessage(MessageManager.PREFIX + "§7Dieser Spieler wurde §cnicht §7gefunden.");
+                return true;
+            }
+            playername = GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(uuid)) + UUIDFetcherWithName.getName(uuid);
+            try {
+                p.sendMessage("§a§lPythonMC " + "§b» §7Statistiken von " + playername);
+                p.sendMessage("§b» §7Kills: §6§l" + api.getKillsDatabase(uuid));
+                p.sendMessage("§b» §7Tode: §6§l" + api.getDeathsDatabase(uuid));
+                p.sendMessage("§b» §7Abgebaute Blöcke: §6§l" +  PlayerBreakBlockManager.getBlocksDatabase(uuid));
+                p.sendMessage("§b» §7Geangelte Items: §6§l0");
+                p.sendMessage("§b» §7Getötete Monster: §6§l" + StatsAPI.getMobDatabase(uuid));
+                p.sendMessage("§b» §7Besiegte Bosse: §6§l0");
+                p.sendMessage("§b» §7Geöffnete Kisten: §6§l" + api.getChestsDatabase(uuid));
+                p.sendMessage("§b» §7Geöffnete Cases: §6§l" + api.getCasesDatabase(uuid));
+                p.sendMessage("§b» §7Aktuelles Level: §6§l" + ExpManager.getLevelDatabase(uuid));
+                p.sendMessage("§b» §7Prestige Stufe: §6§l" + ExpManager.getPrestigeDatabase(uuid));
+
+
+                //aussortiert
+                //p.sendMessage("§6§l▶ §7Aktuelle XP: " + api.getPlayerEXP(uuid));
+                //p.sendMessage("§3[]-=-*-=-[] §6Stats von " + playername + " Stats §3[]-=-*-=-[]");
+                //p.sendMessage("§6§l▶ §7Aktuelle Mine: " + MinenManager.getMineDatabase(uuid));
             }catch (Exception e){
-                p.sendMessage(MessageManager.PREFIX + "§7Dieser Spieler wurde §cnicht §7gefunden ");
+                p.sendMessage(MessageManager.PREFIX + "§7Dieser Spieler wurde §cnicht §7gefunden.");
             }
 
         }else {

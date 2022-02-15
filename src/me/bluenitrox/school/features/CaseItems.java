@@ -23,15 +23,15 @@ public class CaseItems {
 
         //Gewöhnliche Daily-Items
         ItemStack g1 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                .setAmount(8).build();
+                .setAmount(8).setDisplayname("§7Diamantblöcke").build();
         ItemStack g2 = new ItemBuilder(Material.EMERALD_BLOCK)
-                .setAmount(8).build();
+                .setAmount(8).setDisplayname("§7Emeraldblöcke").build();
         ItemStack g3 = new ItemBuilder(Material.GOLDEN_APPLE)
-                .setAmount(8).build();
+                .setAmount(8).setDisplayname("§7Goldene Äpfel").build();
         ItemStack g4 = new ItemBuilder(Material.ENDER_PEARL)
-                .setAmount(8).build();
+                .setAmount(8).setDisplayname("§7Enderperlen").build();
         ItemStack g5 = new ItemBuilder(Material.ARROW)
-                .setAmount(8).build();
+                .setAmount(8).setDisplayname("§7Pfeile").build();
         ItemStack g6 = new ItemBuilder(Material.EXP_BOTTLE)
                 .setDisplayname("§6§lSchool XP").setLore("§b» §6§l500 XP").build();
 
@@ -70,30 +70,30 @@ public class CaseItems {
 
         //Seltene Daily-Items
         ItemStack s1 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                .setAmount(16).build();
+                .setAmount(16).setDisplayname("§7Diamantblöcke").build();
         ItemStack s2 = new ItemBuilder(Material.EMERALD_BLOCK)
-                .setAmount(16).build();
+                .setAmount(16).setDisplayname("§7Emeraldblöcke").build();
         ItemStack s3 = new ItemBuilder(Material.GOLDEN_APPLE)
-                .setAmount(16).build();
+                .setAmount(16).setDisplayname("§7Goldene Äpfel").build();
         ItemStack s4 = new ItemBuilder(Material.ENDER_PEARL)
-                .setAmount(16).build();
+                .setAmount(16).setDisplayname("§7Enderperlen").build();
         ItemStack s5 = new ItemBuilder(Material.ARROW)
-                .setAmount(16).build();
+                .setAmount(16).setDisplayname("§7Pfeile").build();
         ItemStack s6 = new ItemBuilder(Material.EXP_BOTTLE)
                 .setDisplayname("§6§lSchool XP").setLore("§b» §6§l2500 XP").build();
 
         ItemStack s7 = new ItemBuilder(Material.CHAINMAIL_HELMET)
                 .setDisplayname("§eGzuz´s Brille")
-                .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, false).addEnchant(Enchantment.DURABILITY, 4, true).build();
+                .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true).addEnchant(Enchantment.DURABILITY, 4, true).build();
         ItemStack s8 = new ItemBuilder(Material.CHAINMAIL_CHESTPLATE)
                 .setDisplayname("§e187 Merch")
-                .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, false).addEnchant(Enchantment.DURABILITY, 4, true).build();
+                .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true).addEnchant(Enchantment.DURABILITY, 4, true).build();
         ItemStack s9 = new ItemBuilder(Material.CHAINMAIL_LEGGINGS)
                 .setDisplayname("§eHigh & Hungry Jogginghose")
-                .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, false).addEnchant(Enchantment.DURABILITY, 4, true).build();
+                .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true).addEnchant(Enchantment.DURABILITY, 4, true).build();
         ItemStack s10 = new ItemBuilder(Material.CHAINMAIL_BOOTS)
                 .setDisplayname("§eHaifischnikez")
-                .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, false).addEnchant(Enchantment.DURABILITY, 4, true).build();
+                .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true).addEnchant(Enchantment.DURABILITY, 4, true).build();
 
         ItemStack s11 = new ItemBuilder(Material.STONE_SWORD)
                 .setDisplayname("§eJibbit")
@@ -117,15 +117,15 @@ public class CaseItems {
 
         //Epische Daily-Items
         ItemStack e1 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                .setAmount(32).build();
+                .setAmount(32).setDisplayname("§7Diamantblöcke").build();
         ItemStack e2 = new ItemBuilder(Material.EMERALD_BLOCK)
-                .setAmount(32).build();
+                .setAmount(32).setDisplayname("§7Emeraldblöcke").build();
         ItemStack e3 = new ItemBuilder(Material.GOLDEN_APPLE)
-                .setAmount(32).build();
+                .setAmount(32).setDisplayname("§7Goldene Äpfel").build();
         ItemStack e4 = new ItemBuilder(Material.ENDER_PEARL)
-                .setAmount(32).build();
+                .setAmount(32).setDisplayname("§7Enderperlen").build();
         ItemStack e5 = new ItemBuilder(Material.ARROW)
-                .setAmount(32).build();
+                .setAmount(32).setDisplayname("§7Pfeile").build();
         ItemStack e6 = new ItemBuilder(Material.EXP_BOTTLE)
                 .setDisplayname("§6§lSchool XP").setLore("§b» §6§l5000 XP").build();
 
@@ -328,15 +328,15 @@ public class CaseItems {
                 .addEnchant(Enchantment.DURABILITY, 3, false).build();
 
         ItemStack itemStack15 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                .setAmount(8).build();
+                .setAmount(8).setDisplayname("§7Diamantblöcke").build();
         ItemStack itemStack16 = new ItemBuilder(Material.EMERALD_BLOCK)
-                .setAmount(8).build();
+                .setAmount(8).setDisplayname("§7Emeraldblöcke").build();
         ItemStack itemStack17 = new ItemBuilder(Material.GOLDEN_APPLE)
-                .setAmount(8).build();
+                .setAmount(8).setDisplayname("§7Goldene Äpfel").build();
         ItemStack itemStack18 = new ItemBuilder(Material.ENDER_PEARL)
-                .setAmount(8).build();
+                .setAmount(8).setDisplayname("§7Enderperlen").build();
         ItemStack itemStack19 = new ItemBuilder(Material.ARROW)
-                .setAmount(8).build();
+                .setAmount(8).setDisplayname("§7Pfeile").build();
         ItemStack itemStack20 = new ItemBuilder(Material.EXP_BOTTLE)
                 .setDisplayname("§6§lSchool XP").setLore("§b» §6§l500 XP").build();
 
@@ -417,15 +417,15 @@ public class CaseItems {
                     .addEnchant(Enchantment.DAMAGE_ALL, 9, true).build();
 
             ItemStack Selten16 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                    .setAmount(16).build();
+                    .setAmount(16).setDisplayname("§7Diamantblöcke").build();
             ItemStack Selten17 = new ItemBuilder(Material.EMERALD_BLOCK)
-                    .setAmount(16).build();
+                    .setAmount(16).setDisplayname("§7Emeraldblöcke").build();
             ItemStack Selten18 = new ItemBuilder(Material.GOLDEN_APPLE)
-                    .setAmount(16).build();
+                    .setAmount(16).setDisplayname("§7Goldene Äpfel").build();
             ItemStack Selten19 = new ItemBuilder(Material.ENDER_PEARL)
-                    .setAmount(16).build();
+                    .setAmount(16).setDisplayname("§7Enderperlen").build();
             ItemStack Selten20 = new ItemBuilder(Material.ARROW)
-                    .setAmount(16).build();
+                    .setAmount(16).setDisplayname("§7Pfeile").build();
             ItemStack Selten21 = new ItemBuilder(Material.EXP_BOTTLE)
                     .setDisplayname("§6§lSchool XP").setLore("§b» §6§l2500 XP").build();
 
@@ -457,29 +457,48 @@ public class CaseItems {
 
             ItemStack Episch1 = new ItemBuilder(Material.DIAMOND_HELMET)
                     .setDisplayname("§5Elfen Helm").setLore("§a§lStacheln I")
-                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, false).addEnchant(Enchantment.DURABILITY, 3, false).build();
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true)
+                    .addEnchant(Enchantment.DURABILITY, 3, false)
+                    .build();
             ItemStack Episch2 = new ItemBuilder(Material.DIAMOND_CHESTPLATE)
-                    .setDisplayname("§5Elfen Brustplatte").setLore("§a§lStacheln I")
-                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, false).addEnchant(Enchantment.DURABILITY, 3, false).build();
+                    .setDisplayname("§5Elfen Brustplatte")
+                    .setLore("§a§lStacheln I")
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true)
+                    .addEnchant(Enchantment.DURABILITY, 3, false)
+                    .build();
             ItemStack Episch3 = new ItemBuilder(Material.DIAMOND_LEGGINGS)
-                    .setDisplayname("§5Elfen Hose").setLore("§a§lStacheln I")
-                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, false).addEnchant(Enchantment.DURABILITY, 3, false).build();
+                    .setDisplayname("§5Elfen Hose")
+                    .setLore("§a§lStacheln I")
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true)
+                    .addEnchant(Enchantment.DURABILITY, 3, false)
+                    .build();
             ItemStack Episch4 = new ItemBuilder(Material.DIAMOND_BOOTS)
-                    .setDisplayname("§5Elfen Schuhe").setLore("§a§lStacheln I")
-                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, false).addEnchant(Enchantment.DURABILITY, 3, false).build();
+                    .setDisplayname("§5Elfen Schuhe")
+                    .setLore("§a§lStacheln I")
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true)
+                    .addEnchant(Enchantment.DURABILITY, 3, false)
+                    .build();
 
             ItemStack Episch5 = new ItemBuilder(Material.IRON_HELMET)
                     .setDisplayname("§5Schattenjäger Helm")
-                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 8, true).build();
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true)
+                    .addEnchant(Enchantment.DURABILITY, 8, true)
+                    .build();
             ItemStack Episch6 = new ItemBuilder(Material.IRON_CHESTPLATE)
                     .setDisplayname("§5Schattenjäger Brustplatte")
-                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 8, true).build();
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true)
+                    .addEnchant(Enchantment.DURABILITY, 8, true)
+                    .build();
             ItemStack Episch7 = new ItemBuilder(Material.IRON_LEGGINGS)
                     .setDisplayname("§5Schattenjäger Hose")
-                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 8, true).build();
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true)
+                    .addEnchant(Enchantment.DURABILITY, 8, true)
+                    .build();
             ItemStack Episch8 = new ItemBuilder(Material.IRON_BOOTS)
                     .setDisplayname("§5Schattenjäger Schuhe")
-                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 8, true).build();
+                    .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true)
+                    .addEnchant(Enchantment.DURABILITY, 8, true)
+                    .build();
 
             ItemStack Episch9 = new ItemBuilder(Material.IRON_SWORD)
                     .setDisplayname("§5Elfenschwert").setLore("§c§lSchatzmeister I")
@@ -510,40 +529,40 @@ public class CaseItems {
                     .addEnchant(Enchantment.DURABILITY, 8, true).addEnchant(Enchantment.LURE, 2, false).build();
 
             ItemStack Episch16 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                    .setAmount(32).build();
+                    .setAmount(32).setDisplayname("§7Diamantblöcke").build();
             ItemStack Episch17 = new ItemBuilder(Material.EMERALD_BLOCK)
-                    .setAmount(32).build();
+                    .setAmount(32).setDisplayname("§7Emeraldblöcke").build();
             ItemStack Episch18 = new ItemBuilder(Material.GOLDEN_APPLE)
-                    .setAmount(32).build();
+                    .setAmount(32).setDisplayname("§7Goldene Äpfel").build();
             ItemStack Episch19 = new ItemBuilder(Material.ENDER_PEARL)
-                    .setAmount(32).build();
+                    .setAmount(32).setDisplayname("§7Enderperlen").build();
             ItemStack Episch20 = new ItemBuilder(Material.ARROW)
-                    .setAmount(32).build();
+                    .setAmount(32).setDisplayname("§7Pfeile").build();
             ItemStack Episch21 = new ItemBuilder(Material.EXP_BOTTLE)
                     .setDisplayname("§6§lSchool XP").setLore("§b» §6§l5000 XP").build();
 
-            selten.add(Episch1);
-            selten.add(Episch2);
-            selten.add(Episch3);
-            selten.add(Episch4);
-            selten.add(Episch5);
-            selten.add(Episch6);
-            selten.add(Episch7);
-            selten.add(Episch8);
-            selten.add(Episch9);
-            selten.add(Episch10);
-            selten.add(Episch11);
-            selten.add(Episch12);
-            selten.add(Episch13);
-            selten.add(Episch14);
-            selten.add(Episch15);
-            selten.add(Episch16);
-            selten.add(Episch17);
-            selten.add(Episch18);
-            selten.add(Episch19);
-            selten.add(Episch20);
-            selten.add(Episch21);
-            selten.add(Episch22);
+            episch.add(Episch1);
+            episch.add(Episch2);
+            episch.add(Episch3);
+            episch.add(Episch4);
+            episch.add(Episch5);
+            episch.add(Episch6);
+            episch.add(Episch7);
+            episch.add(Episch8);
+            episch.add(Episch9);
+            episch.add(Episch10);
+            episch.add(Episch11);
+            episch.add(Episch12);
+            episch.add(Episch13);
+            episch.add(Episch14);
+            episch.add(Episch15);
+            episch.add(Episch16);
+            episch.add(Episch17);
+            episch.add(Episch18);
+            episch.add(Episch19);
+            episch.add(Episch20);
+            episch.add(Episch21);
+            episch.add(Episch22);
 
         }
 
@@ -552,15 +571,15 @@ public class CaseItems {
 
 
 
-            ItemStack Legi1 = new ItemBuilder(Material.DIAMOND_BOOTS)
+            ItemStack Legi1 = new ItemBuilder(Material.DIAMOND_HELMET)
                     .setDisplayname("§8Todesengel Helm").setLore("§a§lStacheln I")
                     .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 3, false)
                     .addEnchant(Enchantment.OXYGEN, 1, false).build();
-            ItemStack Legi2 = new ItemBuilder(Material.DIAMOND_BOOTS)
+            ItemStack Legi2 = new ItemBuilder(Material.DIAMOND_CHESTPLATE)
                     .setDisplayname("§8Todesengel Brustplatte").setLore("§a§lObsidian-Schild I")
                     .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 3, false)
                     .addEnchant(Enchantment.PROTECTION_PROJECTILE, 1, false).build();
-            ItemStack Legi3 = new ItemBuilder(Material.DIAMOND_BOOTS)
+            ItemStack Legi3 = new ItemBuilder(Material.DIAMOND_LEGGINGS)
                     .setDisplayname("§8Todesengel Hose").setLore("§a§lMagieschild I")
                     .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 3, false)
                     .addEnchant(Enchantment.PROTECTION_FIRE, 1, false).build();
@@ -595,38 +614,38 @@ public class CaseItems {
                     .addEnchant(Enchantment.DAMAGE_ALL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).build();
 
             ItemStack Legi11 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                    .setAmount(64).build();
+                    .setAmount(64).setDisplayname("§7Diamantblock").build();
             ItemStack Legi12 = new ItemBuilder(Material.EMERALD_BLOCK)
-                    .setAmount(64).build();
+                    .setAmount(64).setDisplayname("§7Emeraldblock").build();
             ItemStack Legi13 = new ItemBuilder(Material.EXP_BOTTLE)
                     .setDisplayname("§6§lSchool XP").setLore("§b» §6§l12000 XP").build();
 
-            selten.add(Legi1);
-            selten.add(Legi2);
-            selten.add(Legi3);
-            selten.add(Legi4);
-            selten.add(Legi5);
-            selten.add(Legi6);
-            selten.add(Legi7);
-            selten.add(Legi8);
-            selten.add(Legi9);
-            selten.add(Legi10);
-            selten.add(Legi11);
-            selten.add(Legi12);
-            selten.add(Legi13);
+            legendär.add(Legi1);
+            legendär.add(Legi2);
+            legendär.add(Legi3);
+            legendär.add(Legi4);
+            legendär.add(Legi5);
+            legendär.add(Legi6);
+            legendär.add(Legi7);
+            legendär.add(Legi8);
+            legendär.add(Legi9);
+            legendär.add(Legi10);
+            legendär.add(Legi11);
+            legendär.add(Legi12);
+            legendär.add(Legi13);
 
         }
 
         void registerMythisch() {
 
 
-            ItemStack my1 = new ItemBuilder(Material.DIAMOND_BOOTS)
+            ItemStack my1 = new ItemBuilder(Material.DIAMOND_HELMET)
                     .setDisplayname("§6Feuerroter Phönixhelm").setLore("§a§lStacheln III", "§a§lMagieschild IV", "§a§lObsidian-Schild IV")
                     .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 12, true).build();
-            ItemStack my2 = new ItemBuilder(Material.DIAMOND_BOOTS)
+            ItemStack my2 = new ItemBuilder(Material.DIAMOND_CHESTPLATE)
                     .setDisplayname("§6Feuerrote Phönixbrustplatte").setLore("§a§lObsidian-Schild III", "§a§lTank IV", "§a§lHeilzauber IV")
                     .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 12, true).build();
-            ItemStack my3 = new ItemBuilder(Material.DIAMOND_BOOTS)
+            ItemStack my3 = new ItemBuilder(Material.DIAMOND_LEGGINGS)
                     .setDisplayname("§6Feuerrote Phönixhose").setLore("§a§lMagieschild III", "§a§lStacheln IV", "§a§lÜberladung IV")
                     .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 12, true).build();
             ItemStack my4 = new ItemBuilder(Material.DIAMOND_BOOTS)
@@ -634,7 +653,7 @@ public class CaseItems {
                     .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 12, true).build();
 
             ItemStack my5 = new ItemBuilder(Material.SKULL_ITEM)
-                    .setDisplayname("§6Maske des Totenkopf-Zauberers").setLore("§a§lObsidian-Schild III" , "§c§lHeilzauber III")
+                    .setDisplayname("§6Maske des Totenkopf-Zauberers").setLore("§a§lObsidian-Schild III" , "§a§lHeilzauber III")
                     .addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 12, true).addEnchant(Enchantment.DURABILITY, 5, true).build();
 
             ItemStack my6 = new ItemBuilder(Material.DIAMOND_PICKAXE)
