@@ -41,7 +41,6 @@ public class Mine implements CommandExecutor {
                 }
             }
             if(args.length == 0) {
-                //TODO: minen GUI öffnen
                 Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
                 setMinenContent(inv, p.getUniqueId());

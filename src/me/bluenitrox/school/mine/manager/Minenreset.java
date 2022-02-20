@@ -76,6 +76,12 @@ public class Minenreset {
     }
 
     private void registerHash(String mine){
+
+        /*
+        All for-Loops has to be 100 in the second statement!!!
+        for ex.: 95 + 5 ; 90 + 7 + 3
+         */
+
         if(mine.equalsIgnoreCase("mine1")){
             for(int i = 0; i< 95; i++){
                 hashmine.add(Material.STONE);
@@ -665,7 +671,7 @@ public class Minenreset {
             for(int i = 0; i< 5; i++){
                 hashmine.add(Material.EMERALD_BLOCK);
             }
-        } else if(mine.equalsIgnoreCase("mine25")){
+        } else if(mine.equalsIgnoreCase("mine26")){
             for(int i = 0; i< 35; i++){
                 hashmine.add(Material.STONE);
             }
@@ -722,16 +728,13 @@ public class Minenreset {
             }
         }else if(mine.equals("mine2")) {
             if (p.getLocation().getBlockX() <= eckpoint1.getBlockX() && p.getLocation().getBlockX() >= eckpoint2.getBlockX()) {
-                Bukkit.broadcastMessage("1");
                 if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
-                    Bukkit.broadcastMessage("2");
                     if (p.getLocation().getBlockZ() <= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() >= eckpoint2.getBlockZ()) {
-                        Bukkit.broadcastMessage("3");
                         return true;
                     }
                 }
             }
-        }/* TODO HIER DIE FUCKING MINEN FREISCHALTEN SOBALD SIE VERFÜGBAR SIND
+        }
         else if(mine.equals("mine3")) {
             if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
                 if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
@@ -876,14 +879,6 @@ public class Minenreset {
                     }
                 }
             }
-        }else if(mine.equals("mine2")) {
-            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
-                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
-                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
-                        return true;
-                    }
-                }
-            }
         }else if(mine.equals("mine21")) {
             if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
                 if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
@@ -924,8 +919,15 @@ public class Minenreset {
                     }
                 }
             }
-        }*/
+        }else if(mine.equals("mine26")) {
+            if (p.getLocation().getBlockX() >= eckpoint1.getBlockX() && p.getLocation().getBlockX() <= eckpoint2.getBlockX()) {
+                if (p.getLocation().getBlockY() >= eckpoint1.getBlockY() && p.getLocation().getBlockY() <= eckpoint2.getBlockY()) {
+                    if (p.getLocation().getBlockZ() >= eckpoint1.getBlockZ() && p.getLocation().getBlockZ() <= eckpoint2.getBlockZ()) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
-
 }

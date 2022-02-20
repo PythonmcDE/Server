@@ -9,7 +9,6 @@ import me.bluenitrox.school.utils.ValuetoString;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.UUID;
 
 public class StatsAPI {
@@ -24,11 +23,23 @@ public class StatsAPI {
         return (int) SchoolMode.getPlayerMob(uuid);
     }
 
-    public String getPlayerEXP(UUID uuid) {
+    public float getPlayerEXP(UUID uuid) {
         float xp;
-        xp = LevelManager.allXp.get(ExpManager.getLevelDatabase(uuid)) + ExpManager.getExpDatabase(uuid);
+        float levelxp;
+        int level;
+        if(SchoolMode.playerExp.containsKey(uuid)) {
+            levelxp = ExpManager.getExp(uuid);
+        } else {
+            levelxp = ExpManager.getExpDatabase(uuid);
+        }
+        if(SchoolMode.playerlevel.containsKey(uuid)) {
+            level = ExpManager.getLevel(uuid);
+        } else {
+            level = ExpManager.getLevelDatabase(uuid);
+        }
+        xp = LevelManager.allXp.get(level) + levelxp;
 
-        return ValuetoString.valueToString(xp);
+        return xp;
     }
 
     public void updateChest(UUID uuid, float amount, boolean remove) {

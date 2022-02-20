@@ -7,7 +7,9 @@ import me.bluenitrox.school.commands.School;
 import me.bluenitrox.school.features.SkillAPI;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.Firework;
+import me.daarkii.nicksystem.NickAddon;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -111,22 +113,20 @@ public class ExpManager {
         }
         for(int i = 0; i != 50; i++) {
             if (checkLevelUp(getExp(uuid), LevelManager.level.get(SchoolMode.playerlevel.get(uuid)))) {
-                int amountn = amount;
-                for(int j = 2; j <= 20;j++) {
-                    if (amountn >= LevelManager.level.get(SchoolMode.playerlevel.get(uuid))){
-                        amountn -= LevelManager.level.get(SchoolMode.playerlevel.get(uuid));
-                        SchoolMode.playerlevel.put(uuid, SchoolMode.playerlevel.get(uuid) + 1);
-                        Bukkit.getPlayer(uuid).sendMessage(MessageManager.PREFIX + "§7Du bist im §cLevel §7aufgestiegen!");
-                        TTA_Methods.sendTitle(Bukkit.getPlayer(uuid), "§4§kII§r  §6§lLevelup  §4§kII", 20, 20, 20, "§8» §7Level " + getLevel(uuid), 20, 20, 20);
-                        SkillAPI api = new SkillAPI();
-                        api.updateSkillpunkte(uuid, 1, false);
-                        Firework.Firework(Bukkit.getPlayer(uuid));
-                        Firework.Firework(Bukkit.getPlayer(uuid));
-                        Firework.Firework(Bukkit.getPlayer(uuid));
-                        ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
-                    }
+                SchoolMode.setPlayerExp(uuid, getExp(uuid) - LevelManager.level.get(SchoolMode.playerlevel.get(uuid)));
+                SchoolMode.playerlevel.put(uuid, SchoolMode.playerlevel.get(uuid) + 1);
+                Bukkit.getPlayer(uuid).sendMessage(MessageManager.PREFIX + "§7Du bist im §cLevel §7aufgestiegen!");
+                TTA_Methods.sendTitle(Bukkit.getPlayer(uuid), "§4§kII§r  §6§lLevelup  §4§kII", 20, 20, 20, "§8» §7Level " + getLevel(uuid), 20, 20, 20);
+                SkillAPI api = new SkillAPI();
+                api.updateSkillpunkte(uuid, 1, false);
+                Firework.Firework(Bukkit.getPlayer(uuid));
+                Firework.Firework(Bukkit.getPlayer(uuid));
+                Firework.Firework(Bukkit.getPlayer(uuid));
+                ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
+
+                for (Player all : Bukkit.getOnlinePlayers()) {
+                    NickAddon.getInstance().updateNameTags(all);
                 }
-                SchoolMode.setPlayerExp(uuid, amountn);
             }
         }
     }

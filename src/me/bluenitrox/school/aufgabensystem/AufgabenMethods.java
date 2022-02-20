@@ -53,7 +53,7 @@ public class AufgabenMethods {
                 if(event.getClickedInventory() != null) {
                     if (event.getClickedInventory().getName().equalsIgnoreCase(KitAPI.guiname) && event.getCurrentItem() != null) {
                         if (event.getCurrentItem().getType() == Material.WOOD_SWORD) {
-                            AufgabenManager.getPrice(player, 3);
+                            AufgabenManager.onComplete(player.getUniqueId(), 3);
                         }
                     }
                 }
@@ -61,7 +61,7 @@ public class AufgabenMethods {
         } else if(AufgabenManager.getTask(player.getUniqueId())== 4) {
             if(event.getClickedInventory().getName().equalsIgnoreCase(Mine.guiname) && event.getCurrentItem() != null) {
                 if(event.getCurrentItem().getType() == Material.STONE) {
-                    AufgabenManager.getPrice(player, 4);
+                    AufgabenManager.onComplete(player.getUniqueId(), 4);
                 }
             }
         }
@@ -72,7 +72,7 @@ public class AufgabenMethods {
 
         if(AufgabenManager.getTask(player.getUniqueId()) == 5) {
             if(SchoolMode.getPlayerBlocks(player.getUniqueId()) >= 50) {
-                AufgabenManager.getPrice(player, 5);
+                AufgabenManager.onComplete(player.getUniqueId(), 5);
             }
         }
     }
@@ -182,7 +182,6 @@ public class AufgabenMethods {
                     }
                 }.runTaskLater(SchoolMode.getInstance(), (long) duration);
             }
-            Bukkit.broadcastMessage("exit arg confirmed");
         }
     }
 

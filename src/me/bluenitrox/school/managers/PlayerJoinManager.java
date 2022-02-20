@@ -1,9 +1,5 @@
 package me.bluenitrox.school.managers;
 
-import de.pythonmc.clansystem.api.ClanAPI;
-import de.pythonmc.clansystem.listener.PlayerJoinListener;
-import de.pythonmc.clansystem.mysql.NickManager;
-import de.pythonmc.clansystem.systemmanager.SystemManager;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.boost.BoosterAPI;

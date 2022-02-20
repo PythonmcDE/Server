@@ -18,10 +18,10 @@ public class MySQL {
     public static String username;
     public static String password;
 
-    public static DataSource con;
+    private static Connection con;
 
     public static void connect() {
-       /* HikariConfig config = new HikariConfig();
+       HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);
         config.setUsername(username);
         config.setPassword(password);
@@ -38,35 +38,13 @@ public class MySQL {
             var4.printStackTrace();
             System.out.println("[SCOOLPLUGIN] MySQL FEHLER.");
             return;
-        } */
-        if (con == null) {
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            Properties properties = new Properties();
-            properties.setProperty("dataSourceClassName", "com.mysql.jdbc.Driver");
-            properties.setProperty("dataSource.serverName", host);
-            properties.setProperty("dataSource.portNumber", String.valueOf(port));
-            properties.setProperty("dataSource.user", username);
-            properties.setProperty("dataSource.password", password);
-            properties.setProperty("dataSource.databaseName", database);
-
-            HikariConfig hikariConfig = new HikariConfig(properties);
-            hikariConfig.setMaximumPoolSize(10);
-            hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
-            hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
-            hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-            con = new HikariDataSource(hikariConfig);
         }
     }
 
     public static void disconnect() {
         if(isConnected()) {
             try {
-                //con.close();
-                con.getConnection().close();
+                con.close();
                 Bukkit.getConsoleSender().sendMessage("§eVerbindung §7mit §eMySQL §cgeschlossen");
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -78,8 +56,9 @@ public class MySQL {
         return (con == null ? false : true);
     }
 
-    public static Connection getConnection() throws SQLException {
-        return con.getConnection();
+
+    public static Connection getConnection() {
+        return con;
     }
 }
 
