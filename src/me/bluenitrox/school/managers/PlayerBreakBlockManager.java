@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -114,6 +115,10 @@ public class PlayerBreakBlockManager {
     private static void itemdestroyed(Player p){
         if(p.getInventory().getItemInHand() != null){
             Bukkit.broadcastMessage(""+p.getInventory().getItemInHand().getData().getItemType().getMaxDurability());
+            int id = p.getInventory().getItemInHand().getData().getItemType().getMaxDurability();
+            if(p.getInventory().getItemInHand().getItemMeta() != null) {
+
+            }
         }
     }
 

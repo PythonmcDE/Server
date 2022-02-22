@@ -24,7 +24,18 @@ public class MinenPreisManager {
         MINE12("MINE12", MessageManager.MINE_12_PREIS),
         MINE13("MINE13", MessageManager.MINE_13_PREIS),
         MINE14("MINE14", MessageManager.MINE_14_PREIS),
-        MINE15("MINE15", MessageManager.MINE_15_PREIS);
+        MINE15("MINE15", MessageManager.MINE_15_PREIS),
+        MINE16("MINE16", MessageManager.MINE_16_PREIS),
+        MINE17("MINE17", MessageManager.MINE_17_PREIS),
+        MINE18("MINE18", MessageManager.MINE_18_PREIS),
+        MINE19("MINE19", MessageManager.MINE_19_PREIS),
+        MINE20("MINE20", MessageManager.MINE_20_PREIS),
+        MINE21("MINE21", MessageManager.MINE_21_PREIS),
+        MINE22("MINE22", MessageManager.MINE_22_PREIS),
+        MINE23("MINE23", MessageManager.MINE_23_PREIS),
+        MINE24("MINE24", MessageManager.MINE_24_PREIS),
+        MINE25("MINE25", MessageManager.MINE_25_PREIS),
+        MINE26("MINE26", MessageManager.MINE_26_PREIS);
 
         String name;
         float price;
