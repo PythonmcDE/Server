@@ -3,6 +3,7 @@ package me.bluenitrox.school.mine.manager;
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.enchants.pickaxe.Erfahrung;
+import me.bluenitrox.school.enchants.pickaxe.Rausch;
 import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mine.reward.RewardAPI;
@@ -95,6 +96,7 @@ public class MinenManager {
     public boolean updateMinenMap(Player p, Location loc) {
         Block block = loc.getBlock();
         if (isAllowedToMine(block, p)) {
+            Rausch.rausch(p, block.getType());
             String mine = String.valueOf(isAllowedToMineInt(block, p));
             RewardAPI api = new RewardAPI();
             api.checkToAddReward(p);

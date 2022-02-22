@@ -2,6 +2,7 @@ package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.commands.Build;
+import me.bluenitrox.school.enchants.pickaxe.Zorn;
 import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
@@ -81,31 +82,11 @@ public class PlayerBreakBlockManager {
     }
 
     public static boolean breakBlock(Player p, Location loc) {
-        itemdestroyed(p);
         if (!manager.updateMinenMap(p, loc)) {
             return false;
         }
 
-        if(p.getItemInHand() != null && p.getItemInHand().getType() != Material.AIR){
-            if(!p.getItemInHand().getItemMeta().spigot().isUnbreakable()) {
-                if (EnchantmentTarget.TOOL.includes(p.getItemInHand()) || EnchantmentTarget.WEAPON.includes(p.getItemInHand())) {
-                    int damge = p.getItemInHand().getType().getMaxDurability();
-                    if (damge - p.getItemInHand().getDurability() == 0) {
-                        p.setItemInHand(new ItemStack(Material.AIR));
-                        p.playSound(p.getLocation(), Sound.ITEM_BREAK, 1L, 1L);
-                    } else {
-                        if (p.getItemInHand().containsEnchantment(Enchantment.DURABILITY)) {
-                            int zufall = SchoolMode.getRandomInt(SchoolMode.getLevel(p.getItemInHand(), Enchantment.DURABILITY));
-                            if (zufall <= 5) {
-                                p.getItemInHand().setDurability((short) (p.getItemInHand().getDurability() + 1));
-                            }
-                        } else
-                            p.getItemInHand().setDurability((short) (p.getItemInHand().getDurability() + 1));
-                    }
-                }
-            }
-
-        }
+        Zorn.ZornAuslöser(p);
 
 
         return true;

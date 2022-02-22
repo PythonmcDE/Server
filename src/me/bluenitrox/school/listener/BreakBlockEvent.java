@@ -3,11 +3,14 @@ package me.bluenitrox.school.listener;
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
 import me.bluenitrox.school.commands.Build;
+import me.bluenitrox.school.enchants.pickaxe.Duplizierung;
+import me.bluenitrox.school.enchants.pickaxe.Rausch;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.utils.InventoryUtil;
 import me.bluenitrox.school.utils.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -35,6 +38,7 @@ public class BreakBlockEvent implements Listener {
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
+        tooldown(p);
         if(Build.build.contains(p)) {
             return;
         }
@@ -42,7 +46,7 @@ public class BreakBlockEvent implements Listener {
 
         if(p.getWorld().getName().equalsIgnoreCase(WorldManager.mine)) {
             if ((PlayerBreakBlockManager.breakBlock(p, e.getBlock().getLocation()))) {
-                addItemToInv(p, e.getBlock());
+                addItemToInv(p, e.getBlock(), Duplizierung.Dupliauslöser(p));
                 aufgaben.onBlockBreak(e);
                 PlayerBreakBlockManager.updateBlocks(p.getUniqueId(), false);
             } else {
@@ -67,7 +71,7 @@ public class BreakBlockEvent implements Listener {
         placeenderchest(e);
     }
 
-    private void addItemToInv(Player p, Block b){
+    private void addItemToInv(Player p, Block b, int multiplier){
         ItemStack item;
         if(b.getType() == Material.STONE){
             item = new ItemBuilder(Material.STONE).setDisplayname("§7Stein").build();
@@ -110,7 +114,12 @@ public class BreakBlockEvent implements Listener {
         }
         if(!InventoryUtil.isInvFull(p)){
             if(item != null){
-                p.getInventory().addItem(item);
+                if(multiplier == 1) {
+                    p.getInventory().addItem(item);
+                }else if(multiplier == 2){
+                    p.getInventory().addItem(item);
+                    p.getInventory().addItem(item);
+                }
             }
         }else {
             if(item != null){
@@ -127,6 +136,17 @@ public class BreakBlockEvent implements Listener {
             e.setCancelled(true);
             e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             e.getPlayer().sendMessage(MessageManager.PREFIX + "§7Du kannst keine §cEnderkisten §7platzieren!");
+        }
+    }
+    private void tooldown(Player p){
+        ItemStack item = p.getItemInHand();
+        int max = item.getType().getMaxDurability();
+        int uses = item.getDurability();
+        int durability = max-uses;
+        if(p.getItemInHand() != null){
+            if(durability <= 30){
+                Bukkit.broadcastMessage("Your item is nearly dead contact felix if you see this!");
+            }
         }
     }
 }

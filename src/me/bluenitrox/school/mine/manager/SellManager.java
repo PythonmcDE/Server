@@ -1,5 +1,6 @@
 package me.bluenitrox.school.mine.manager;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -48,9 +49,9 @@ public class SellManager {
         }
     }
 
-    public static float getPriceByMaterial(String material, Player p) {
+    public static float getPriceByMaterial(String material) {
         material = material.toUpperCase();
-
+        Bukkit.broadcastMessage(material + " §7u");
         float preis = Preise.getByName(material).price;
 
         return preis;

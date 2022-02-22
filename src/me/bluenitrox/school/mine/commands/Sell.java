@@ -53,7 +53,7 @@ public class Sell implements CommandExecutor {
                 if (p.getInventory().getItem(i) != null) {
                     if (SellManager.Preise.getByName(p.getInventory().getItem(i).getType().toString()) != null) {
                         int amount = p.getInventory().getItem(i).getAmount();
-                        float preis = SellManager.getPriceByMaterial(p.getInventory().getItem(i).getType().toString(), p);
+                        float preis = SellManager.getPriceByMaterial(p.getInventory().getItem(i).getType().toString());
                         preis = preis*amount;
                         if(AufgabenManager.getTask(p.getUniqueId()) == 6) {
                             if(p.getInventory().getItem(i).getType() == Material.STONE) {

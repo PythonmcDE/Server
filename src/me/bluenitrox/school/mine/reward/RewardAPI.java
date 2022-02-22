@@ -1,5 +1,6 @@
 package me.bluenitrox.school.mine.reward;
 
+import me.bluenitrox.school.enchants.pickaxe.Ausgrabung;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.utils.Firework;
 import me.bluenitrox.school.utils.InventoryUtil;
@@ -15,6 +16,23 @@ import java.util.Random;
 public class RewardAPI {
 
     public void checkToAddReward(Player p){
+        if(Ausgrabung.ausgrabung(p)){
+            int chance = 400;
+            int randomnumber = new Random().nextInt(chance);
+
+            int chancehundert = 2000;
+            int randomnumberhundert = new Random().nextInt(chancehundert);
+
+            if(randomnumber == 10){
+                addReward(p, Reward.REDSTONE);
+            }else if(randomnumber == 11){
+                addReward(p, Reward.EMERALD);
+            }else if(randomnumber == 12){
+                addReward(p, Reward.FLUGPULVER);
+            }else if(randomnumberhundert == 10){
+                addReward(p,Reward.REDSTONEBARREN);
+            }
+        }
         int chance = 20000;
         int randomnumber = new Random().nextInt(chance);
 
