@@ -4,7 +4,6 @@
     <root id="archive" name="Server.jar">
       <element id="module-output" name="Server" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
-      <element id="library" level="project" name="HikariCP-3.4.4" />
     </root>
   </artifact>
 </component>

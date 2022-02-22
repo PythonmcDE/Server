@@ -7,8 +7,11 @@ import me.bluenitrox.school.enchants.sword.Kopfgeld;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.features.StatsAPI;
 import me.bluenitrox.school.managers.KopfgeldManager;
+import me.bluenitrox.school.managers.MessageManager;
+import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.utils.ArmorUtil;
+import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -68,6 +71,7 @@ public class PlayerDeathEvent implements Listener {
                 if(AufgabenManager.getTask(k.getUniqueId()) == 15) {
                     AufgabenManager.onComplete(k.getUniqueId(), 15);
                 }
+                warzonedeadmoney(p, k);
             }
         }
         new BukkitRunnable(){
@@ -76,6 +80,15 @@ public class PlayerDeathEvent implements Listener {
                 p.spigot().respawn();
             }
         }.runTaskLater(SchoolMode.getInstance(), 20);
+    }
+
+    private void warzonedeadmoney(Player d, Player killer){
+        float moneyremove = (MoneyManager.getMoney(d.getUniqueId())/10);
+        float addmoney = MoneyManager.getMoney(d.getUniqueId())/50;
+        MoneyManager.updateMoney(d.getUniqueId(), moneyremove, true, false, false);
+        MoneyManager.updateMoney(killer.getUniqueId(), addmoney, false, false, false);
+        d.sendMessage(MessageManager.PREFIX + "§7Dir wurden §6" + ValuetoString.valueToString(moneyremove) + "§7 geklaut!");
+        killer.sendMessage(MessageManager.PREFIX + "§7Du hast §6" + ValuetoString.valueToString(addmoney) + "§7 geklaut!");
     }
 
 }
