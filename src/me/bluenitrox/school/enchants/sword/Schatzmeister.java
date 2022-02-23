@@ -19,6 +19,7 @@ import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 
 import java.io.ByteArrayInputStream;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -151,8 +152,7 @@ public class Schatzmeister {
     }
 
     public static String getItems(int id){
-        try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Items FROM schatzmeister WHERE ID = ?");
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Items FROM schatzmeister WHERE ID = ?")){
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
@@ -166,8 +166,7 @@ public class Schatzmeister {
 
     public static void update(int id, String s) {
         if(!isIDExists(id)) {
-            try {
-                PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO schatzmeister (ID, Items) VALUES (?,?)");
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO schatzmeister (ID, Items) VALUES (?,?)")) {
                 ps.setInt(1, id);
                 ps.setString(2, s);
                 ps.executeUpdate();
@@ -175,8 +174,7 @@ public class Schatzmeister {
                 e.printStackTrace();
             }
         }else {
-            try {
-                PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE schatzmeister SET Items = ? WHERE ID = ?");
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE schatzmeister SET Items = ? WHERE ID = ?")) {
                 ps.setInt(1, id);
                 ps.setString(2, s);
                 ps.executeUpdate();
@@ -188,8 +186,7 @@ public class Schatzmeister {
 
     public static void deleteItems(int id) {
         if(isIDExists(id)) {
-            try {
-                PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE FROM schatzmeister WHERE ID = ?");
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("DELETE FROM schatzmeister WHERE ID = ?")) {
                 ps.setInt(1, id);
                 ps.executeUpdate();
             } catch (Exception e) {
@@ -199,7 +196,7 @@ public class Schatzmeister {
     }
 
     public static boolean isIDExists(int id){
-        try(PreparedStatement ps1 = MySQL.getConnection().prepareStatement("SELECT Items FROM schatzmeister WHERE ID = ?")){
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps1 = connection.prepareStatement("SELECT Items FROM schatzmeister WHERE ID = ?")){
             ps1.setInt(1, id);
             ResultSet rs = ps1.executeQuery();
             return rs.next();

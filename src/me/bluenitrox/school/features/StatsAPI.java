@@ -6,6 +6,7 @@ import me.bluenitrox.school.managers.LevelManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ValuetoString;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -82,7 +83,7 @@ public class StatsAPI {
     public int getKillsDatabase(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT kills FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT kills FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -97,7 +98,7 @@ public class StatsAPI {
     public int getDeathsDatabase(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT deaths FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT deaths FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -112,7 +113,7 @@ public class StatsAPI {
     public int getCasesDatabase(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT cases FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT cases FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -127,7 +128,7 @@ public class StatsAPI {
     public static int getMobDatabase(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT mob FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT mob FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -142,7 +143,7 @@ public class StatsAPI {
     public int getChestsDatabase(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT kills FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT kills FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -163,7 +164,7 @@ public class StatsAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET kills = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET kills = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -179,7 +180,7 @@ public class StatsAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET deaths = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET deaths = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -195,7 +196,7 @@ public class StatsAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET cases = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET cases = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -211,7 +212,7 @@ public class StatsAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET mob = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET mob = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -227,7 +228,7 @@ public class StatsAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET chests = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET chests = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();

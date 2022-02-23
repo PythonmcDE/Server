@@ -16,10 +16,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.*;
 
 public class AhManager {
@@ -56,7 +53,7 @@ public class AhManager {
             int offset = (page - 1) * 36;
             int i = 9;
             int maxpage = getMaxPage();
-            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItems LIMIT 36 OFFSET ?")) {
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM AhItems LIMIT 36 OFFSET ?")) {
                 ps.setInt(1, offset);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -164,7 +161,7 @@ public class AhManager {
         }
         String item = encodeItem(is);
 
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO AhItems (spieleruuid, item, preis, einstelldatum) VALUES (?, ?, ?, ?)")){
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO AhItems (spieleruuid, item, preis, einstelldatum) VALUES (?, ?, ?, ?)")){
             ps.setString(1, p.getUniqueId().toString());
             ps.setString(2, item);
             ps.setInt(3, preis);
@@ -173,7 +170,7 @@ public class AhManager {
             p.sendMessage(MessageManager.PREFIX + "§7Dein Item wurde erfolgreich ins ah gestellt!");
             p.setItemInHand(new ItemBuilder(Material.AIR).build());
 
-            try(PreparedStatement ps2 = MySQL.getConnection().prepareStatement("SELECT id FROM AhItems WHERE spieleruuid = ? ORDER BY id DESC LIMIT 1")){
+            try(Connection connection2 = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps2 = connection2.prepareStatement("SELECT id FROM AhItems WHERE spieleruuid = ? ORDER BY id DESC LIMIT 1")){
                 ps2.setString(1, p.getUniqueId().toString());
                 ResultSet rs = ps2.executeQuery();
                 while (rs.next()){
@@ -209,7 +206,7 @@ public class AhManager {
             int offset = (page - 1) * 36;
             int i = 9;
             int maxpage = getMaxPageofPlayer(p);
-            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItemsAbgelaufen WHERE spieleruuid = ? LIMIT 36 OFFSET ?")) {
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM AhItemsAbgelaufen WHERE spieleruuid = ? LIMIT 36 OFFSET ?")) {
                 ps.setString(1, p.getUniqueId().toString());
                 ps.setInt(2, offset);
                 ResultSet rs = ps.executeQuery();
@@ -253,7 +250,7 @@ public class AhManager {
     }
 
     public static void openBuyInv(int id, Inventory inv, Player p){
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItems WHERE id = ?")){
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM AhItems WHERE id = ?")){
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
@@ -286,7 +283,7 @@ public class AhManager {
     }
 
     public static void buyItem(int id, Player buyer){
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItems WHERE id = ?")){
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM AhItems WHERE id = ?")){
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
@@ -306,11 +303,11 @@ public class AhManager {
                     buyer.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Item §cnicht §7kaufen, da das §aGemlimit §7des Verkäufers voll ist.");
                     return;
                 }
-                try(PreparedStatement ps2 = MySQL.getConnection().prepareStatement("INSERT INTO AhItemsAbgelaufen (spieleruuid, item) VALUES (?,?)")){
+                try(Connection connection1 = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps2 = connection1.prepareStatement("INSERT INTO AhItemsAbgelaufen (spieleruuid, item) VALUES (?,?)")){
                     ps2.setString(1, buyer.getUniqueId().toString());
                     ps2.setString(2, rs.getString(3));
                     ps2.executeUpdate();
-                    try(PreparedStatement ps3 = MySQL.getConnection().prepareStatement("DELETE FROM AhItems WHERE id = ?")){
+                    try(Connection connection2 = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps3 = connection2.prepareStatement("DELETE FROM AhItems WHERE id = ?")){
                         ps3.setInt(1, id);
                         ps3.execute();
                         if(AufgabenManager.getTask(buyer.getUniqueId()) == 8) {
@@ -337,7 +334,7 @@ public class AhManager {
             e.printStackTrace();
         }
 
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE * FROM AhItems WHERE id = ?")){
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("DELETE * FROM AhItems WHERE id = ?")){
             ps.setInt(1, id);
             ps.executeUpdate();
         }catch (SQLException e){
@@ -346,7 +343,7 @@ public class AhManager {
     }
 
     private static int getAllItems(){
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT COUNT(id) AS total FROM AhItems")) {
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT COUNT(id) AS total FROM AhItems")) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 return rs.getInt("total");
@@ -359,7 +356,7 @@ public class AhManager {
     }
 
     private static int getAllItemsofPlayer(Player p){
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT COUNT(id) AS total FROM AhItemsAbgelaufen WHERE spieleruuid = ?")) {
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT COUNT(id) AS total FROM AhItemsAbgelaufen WHERE spieleruuid = ?")) {
             ps.setString(1, p.getUniqueId().toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -386,7 +383,7 @@ public class AhManager {
     }
 
     public static int getAhItems(Player p){
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT COUNT(id) AS total FROM AhItems WHERE spieleruuid = ?")){
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT COUNT(id) AS total FROM AhItems WHERE spieleruuid = ?")){
             ps.setString(1, p.getUniqueId().toString());
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -417,15 +414,15 @@ public class AhManager {
     }
 
     public static void removeItem(int id){
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItems WHERE id = ?")){
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM AhItems WHERE id = ?")){
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                try(PreparedStatement ps2 = MySQL.getConnection().prepareStatement("INSERT INTO AhItemsAbgelaufen (spieleruuid, item) VALUES (?,?)")){
+                try(Connection connection1 = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps2 = connection1.prepareStatement("INSERT INTO AhItemsAbgelaufen (spieleruuid, item) VALUES (?,?)")){
                     ps2.setString(1, rs.getString(2));
                     ps2.setString(2, rs.getString(3));
                     ps2.executeUpdate();
-                    try(PreparedStatement ps3 = MySQL.getConnection().prepareStatement("DELETE FROM AhItems WHERE id = ?")){
+                    try(Connection connection2 = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps3 = connection2.prepareStatement("DELETE FROM AhItems WHERE id = ?")){
                         ps3.setInt(1, id);
                         ps3.execute();
                         for(Player curr : Bukkit.getOnlinePlayers())

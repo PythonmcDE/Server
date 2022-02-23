@@ -8,6 +8,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -156,7 +157,7 @@ public class MoneyManager {
     public static float getMoneyDatabase(UUID uuid) {
         float money = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT money FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT money FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -172,7 +173,7 @@ public class MoneyManager {
     public static float getGemLimitdata(UUID uuid) {
         float money = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT GemLimit FROM DailyReward WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT GemLimit FROM DailyReward WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -194,7 +195,7 @@ public class MoneyManager {
             newAmount = (currMoney + amount);
         }
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET money = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET money = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -212,7 +213,7 @@ public class MoneyManager {
             newAmount = (currMoney + amount);
         }
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE DailyReward SET GemLimit = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE DailyReward SET GemLimit = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();

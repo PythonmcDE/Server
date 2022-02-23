@@ -21,6 +21,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.UUID;
@@ -141,7 +142,7 @@ public class Mine implements CommandExecutor {
                         String eckpoint1 = args[2];
                         String eckpoint2 = args[3];
                         int blockforreset = Integer.parseInt(args[4]);
-                        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO minen (name, eckpoint1, eckpoint2, blocksforreset) VALUES (?, ?, ?, ?)")) {
+                        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO minen (name, eckpoint1, eckpoint2, blocksforreset) VALUES (?, ?, ?, ?)")) {
                             ps.setString(1, name);
                             ps.setString(2, eckpoint1);
                             ps.setString(3, eckpoint2);

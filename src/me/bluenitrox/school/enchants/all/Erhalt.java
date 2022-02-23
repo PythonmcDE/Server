@@ -15,6 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -87,7 +88,7 @@ public class Erhalt extends EnchantAPI {
     }
 
     private static void itemStackinDatabase(UUID uuid, String item){
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO erhaltitems (UUID, item) VALUES (?, ?)")) {
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO erhaltitems (UUID, item) VALUES (?, ?)")) {
             ps.setString(1, uuid.toString());
             ps.setString(2, item);
             ps.executeUpdate();
@@ -97,8 +98,7 @@ public class Erhalt extends EnchantAPI {
     }
 
     public static boolean isUserExists(UUID uuid) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT UUID FROM erhaltitems WHERE UUID = ?");
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT UUID FROM erhaltitems WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();
@@ -108,8 +108,7 @@ public class Erhalt extends EnchantAPI {
         return false;
     }
     public static int isUserExistsFetch(UUID uuid) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT UUID FROM erhaltitems WHERE UUID = ?");
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT UUID FROM erhaltitems WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             int size = 0;
@@ -125,8 +124,7 @@ public class Erhalt extends EnchantAPI {
 
 
     public static void deleteItem(String item) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE FROM erhaltitems WHERE item = ?");
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("DELETE FROM erhaltitems WHERE item = ?")) {
             ps.setString(1, item);
             ps.execute();
         } catch (SQLException e) {
@@ -135,8 +133,7 @@ public class Erhalt extends EnchantAPI {
     }
 
     public static String getItemErhalt(UUID uuid) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT item FROM erhaltitems WHERE UUID = ?");
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT item FROM erhaltitems WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

@@ -14,6 +14,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +29,7 @@ public class MinenManager {
     public static int getMineDatabase(UUID uuid) {
         int mine = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT mine FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT mine FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -69,7 +70,7 @@ public class MinenManager {
             mine = mine + 1;
         }
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET mine = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET mine = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, mine);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -84,7 +85,7 @@ public class MinenManager {
     }
 
     public static void setMineDatabase(UUID uuid, int mine) {
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET mine = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET mine = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, mine);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();

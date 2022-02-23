@@ -4,6 +4,7 @@ import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.entity.Player;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class AngelminenManager {
     public static int getAngelmineDatabase(UUID uuid) {
         int mine = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT angelmine FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT angelmine FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

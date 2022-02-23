@@ -43,6 +43,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -125,7 +126,7 @@ public class SchoolMode extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE antidupe SET dupeid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE antidupe SET dupeid = ?")) {
             ps.setInt(1, Antidupe.nextItemID);
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -254,109 +255,56 @@ public class SchoolMode extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§4Erstelle §4Tabellen...");
         //Tabellen Erstellung
         try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `spielerdaten` ( `spieleruuid` CHAR(36) NOT NULL , `money` FLOAT NOT NULL , `dungeon` INT(11) NOT NULL ,`exp` FLOAT NOT NULL , `mine` INT(11) NOT NULL , `prestige` INT(11) NOT NULL , `kills` INT(11) NOT NULL , `deaths` INT(11) NOT NULL , `cases` INT(11) NOT NULL , `bloecke` INT(11) NOT NULL , `mob` INT(11) NOT NULL ,`chests` INT(11) NOT NULL ,`level` INT(11) NOT NULL ,`angelmine` INT(11) NOT NULL , PRIMARY KEY (`spieleruuid`))");
-            ps.executeUpdate();
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `spielerdaten` ( `spieleruuid` CHAR(36) NOT NULL , `money` FLOAT NOT NULL , `dungeon` INT(11) NOT NULL ,`exp` FLOAT NOT NULL , `mine` INT(11) NOT NULL , `prestige` INT(11) NOT NULL , `kills` INT(11) NOT NULL , `deaths` INT(11) NOT NULL , `cases` INT(11) NOT NULL , `bloecke` INT(11) NOT NULL , `mob` INT(11) NOT NULL ,`chests` INT(11) NOT NULL ,`level` INT(11) NOT NULL ,`angelmine` INT(11) NOT NULL , PRIMARY KEY (`spieleruuid`))");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `kopfgeld` ( `spieleruuid` CHAR(36) NOT NULL , `kopfgeld` INT(11) NOT NULL , PRIMARY KEY (`spieleruuid`))");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `locations` ( `name` VARCHAR(30) NOT NULL , `world` VARCHAR(30) NOT NULL , `x` DOUBLE NOT NULL , `y` DOUBLE NOT NULL , `z` DOUBLE NOT NULL , `yaw` FLOAT NOT NULL , `pitch` FLOAT NOT NULL , PRIMARY KEY (`name`))");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `schatzmeister` (`ID` INT(11) NOT NULL, Items Text , PRIMARY KEY (`ID`))");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `antidupe` ( `dupeid` INT(11) NOT NULL, PRIMARY KEY (`dupeid`))");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `minen` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `name` VARCHAR(6) NOT NULL , `eckpoint1` VARCHAR(30) NOT NULL , `eckpoint2` VARCHAR(30) NOT NULL , `blocksforreset` INT(11) NOT NULL , PRIMARY KEY (`id`))");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS AhItems ( `id` INT(11) NOT NULL AUTO_INCREMENT , `spieleruuid` CHAR(36) NOT NULL , `item` TEXT NOT NULL , `preis` INT(11) NOT NULL , `einstelldatum` TIMESTAMP(6) NOT NULL , PRIMARY KEY (`id`))");) {
+                ps.executeUpdate();
+            }
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `AhItemsAbgelaufen` ( `id` INT(11) NOT NULL AUTO_INCREMENT, `spieleruuid` CHAR(36) NOT NULL , `item` TEXT NOT NULL,  PRIMARY KEY (`id`))");){
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `KitSystem` ( `UUID` CHAR(36) NOT NULL , `Holz` INT(11) NOT NULL , `Stein` INT(11) NOT NULL , `Eisen` INT(11) NOT NULL , `Warzone` INT(11) NOT NULL , `Diamant` INT(11) NOT NULL , `Bergarbeiter` INT(11) NOT NULL , `Goldfinger` INT(11) NOT NULL , `Juwelier` INT NOT NULL , `Banker` INT NOT NULL , `Ninja` INT NOT NULL , `Sensei` INT NOT NULL , `Meister` INT NOT NULL )");) {
+                ps.executeUpdate();
+            }
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `PetSystem` ( `UUID` CHAR(36) NOT NULL , `Benjamin` INT(11) NOT NULL , `Merlin` INT(11) NOT NULL , `Eddy` INT(11) NOT NULL , `Anton` INT(11) NOT NULL , `Helgar` INT(11) NOT NULL , `Farid` INT(11) NOT NULL , `Peter` INT(11) NOT NULL )");){
+                ps.executeUpdate();
+            }
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `DailyReward` ( `UUID` CHAR(36) NOT NULL , `Belohnung` INT(11) NOT NULL , `Erfahrung` INT(11) NOT NULL , `Cases` INT(11) NOT NULL  , `GemLimit` INT(11) NOT NULL )");){
+               ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `skills` ( `UUID` CHAR(36) NOT NULL , `skillpunkte` INT(11) NOT NULL , `angriff` INT(11) NOT NULL , `verteidigung` INT(11) NOT NULL , `extraenergie` INT(11) NOT NULL  , `scharfschütze` INT(11) NOT NULL , `mining` INT(11) NOT NULL, `handler` INT(11) NOT NULL, `alchemist` INT(11) NOT NULL, `bonusloot` INT(11) NOT NULL, `gluckspilz` INT(11) NOT NULL)");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `erhaltitems` ( `UUID` CHAR(36) NOT NULL , `item` TEXT NOT NULL)");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `aufgaben` ( `spieleruuid` CHAR(36) NOT NULL , `aufgabenfortschritt` INT(11) NOT NULL , `toggle` INT(2) NOT NULL)");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `booster` ( `spieleruuid` CHAR(36) NOT NULL , `xp` INT(11) NOT NULL , `gem` INT(11) NOT NULL, `dungeon` INT(11) NOT NULL, `angel` INT(11) NOT NULL, `chest` INT(11) NOT NULL)");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `miningblocksettings` ( `spieleruuid` CHAR(36) NOT NULL , `stone` BOOL, `gravil` BOOL, `coal` BOOL, `brick` BOOL, `iron` BOOL, `quarz` BOOL, `redstone` BOOL, `lapis` BOOL, `prismarin` BOOL, `gold` BOOL, `diamond` BOOL, `netherbrick` BOOL, `emerald` BOOL, `coalblock` BOOL, `redsandstone` BOOL, `quarzblock` BOOL, `ice` BOOL, `netherrack` BOOL, `ironblock` BOOL, `packedice` BOOL, `sealatern` BOOL, `endstone` BOOL, `redstoneblock` BOOL, `lapisblock` BOOL, `goldblock` BOOL, `diamondblock` BOOL, `emeraldblock` BOOL)");) {
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-
-        }
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `kopfgeld` ( `spieleruuid` CHAR(36) NOT NULL , `kopfgeld` INT(11) NOT NULL , PRIMARY KEY (`spieleruuid`))");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `locations` ( `name` VARCHAR(30) NOT NULL , `world` VARCHAR(30) NOT NULL , `x` DOUBLE NOT NULL , `y` DOUBLE NOT NULL , `z` DOUBLE NOT NULL , `yaw` FLOAT NOT NULL , `pitch` FLOAT NOT NULL , PRIMARY KEY (`name`))");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `schatzmeister` (`ID` INT(11) NOT NULL, Items Text , PRIMARY KEY (`ID`))");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `antidupe` ( `dupeid` INT(11) NOT NULL, PRIMARY KEY (`dupeid`))");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `minen` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `name` VARCHAR(6) NOT NULL , `eckpoint1` VARCHAR(30) NOT NULL , `eckpoint2` VARCHAR(30) NOT NULL , `blocksforreset` INT(11) NOT NULL , PRIMARY KEY (`id`))");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS AhItems ( `id` INT(11) NOT NULL AUTO_INCREMENT , `spieleruuid` CHAR(36) NOT NULL , `item` TEXT NOT NULL , `preis` INT(11) NOT NULL , `einstelldatum` TIMESTAMP(6) NOT NULL , PRIMARY KEY (`id`))");
-            ps.executeUpdate();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `AhItemsAbgelaufen` ( `id` INT(11) NOT NULL AUTO_INCREMENT, `spieleruuid` CHAR(36) NOT NULL , `item` TEXT NOT NULL,  PRIMARY KEY (`id`))");
-            ps.executeUpdate();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `KitSystem` ( `UUID` CHAR(36) NOT NULL , `Holz` INT(11) NOT NULL , `Stein` INT(11) NOT NULL , `Eisen` INT(11) NOT NULL , `Warzone` INT(11) NOT NULL , `Diamant` INT(11) NOT NULL , `Bergarbeiter` INT(11) NOT NULL , `Goldfinger` INT(11) NOT NULL , `Juwelier` INT NOT NULL , `Banker` INT NOT NULL , `Ninja` INT NOT NULL , `Sensei` INT NOT NULL , `Meister` INT NOT NULL )");
-            ps.executeUpdate();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `PetSystem` ( `UUID` CHAR(36) NOT NULL , `Benjamin` INT(11) NOT NULL , `Merlin` INT(11) NOT NULL , `Eddy` INT(11) NOT NULL , `Anton` INT(11) NOT NULL , `Helgar` INT(11) NOT NULL , `Farid` INT(11) NOT NULL , `Peter` INT(11) NOT NULL )");
-            ps.executeUpdate();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `DailyReward` ( `UUID` CHAR(36) NOT NULL , `Belohnung` INT(11) NOT NULL , `Erfahrung` INT(11) NOT NULL , `Cases` INT(11) NOT NULL  , `GemLimit` INT(11) NOT NULL )");
-            ps.executeUpdate();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `skills` ( `UUID` CHAR(36) NOT NULL , `skillpunkte` INT(11) NOT NULL , `angriff` INT(11) NOT NULL , `verteidigung` INT(11) NOT NULL , `extraenergie` INT(11) NOT NULL  , `scharfschütze` INT(11) NOT NULL , `mining` INT(11) NOT NULL, `handler` INT(11) NOT NULL, `alchemist` INT(11) NOT NULL, `bonusloot` INT(11) NOT NULL, `gluckspilz` INT(11) NOT NULL)");
-            ps.executeUpdate();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `erhaltitems` ( `UUID` CHAR(36) NOT NULL , `item` TEXT NOT NULL)");
-            ps.executeUpdate();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `aufgaben` ( `spieleruuid` CHAR(36) NOT NULL , `aufgabenfortschritt` INT(11) NOT NULL , `toggle` INT(2) NOT NULL)");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `booster` ( `spieleruuid` CHAR(36) NOT NULL , `xp` INT(11) NOT NULL , `gem` INT(11) NOT NULL, `dungeon` INT(11) NOT NULL, `angel` INT(11) NOT NULL, `chest` INT(11) NOT NULL)");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
         }
 
         Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/8)");
@@ -532,7 +480,7 @@ public class SchoolMode extends JavaPlugin {
 
     private void getCurrentDupeID(){
         if(isDupeIDExists()) {
-            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe")) {
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT dupeid FROM antidupe")) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     Antidupe.nextItemID = rs.getInt("dupeid") + 1;
@@ -541,7 +489,7 @@ public class SchoolMode extends JavaPlugin {
                 e.printStackTrace();
             }
         }else {
-            try (PreparedStatement ps1 = MySQL.getConnection().prepareStatement("INSERT INTO antidupe (dupeid) VALUES (?)")) {
+            try (Connection connection1 = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps1 = connection1.prepareStatement("INSERT INTO antidupe (dupeid) VALUES (?)")) {
                 ps1.setInt(1,1);
                 ps1.executeUpdate();
             } catch (SQLException e){
@@ -599,16 +547,16 @@ public class SchoolMode extends JavaPlugin {
         }
     }
     private void ahDisable(){
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM AhItems")){
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM AhItems")){
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String spieleruuid = rs.getString(2);
                 String item = rs.getString(3);
-                try (PreparedStatement ps2 = MySQL.getConnection().prepareStatement("INSERT INTO AhItemsAbgelaufen (spieleruuid, item) VALUES (?, ?)")) {
+                try (Connection connection1 = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps2 = connection1.prepareStatement("INSERT INTO AhItemsAbgelaufen (spieleruuid, item) VALUES (?, ?)")) {
                     ps2.setString(1, spieleruuid);
                     ps2.setString(2, item);
                     ps2.execute();
-                    try(PreparedStatement ps3 = MySQL.getConnection().prepareStatement("DELETE FROM AhItems WHERE spieleruuid = ?")){
+                    try(Connection connection2 = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps3 = connection2.prepareStatement("DELETE FROM AhItems WHERE spieleruuid = ?")){
                         ps3.setString(1, spieleruuid);
                         ps3.execute();
                     }catch (SQLException e){
@@ -624,8 +572,7 @@ public class SchoolMode extends JavaPlugin {
         }
     }
     private static boolean isDupeIDExists() {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT dupeid FROM antidupe");
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT dupeid FROM antidupe")) {
             ResultSet rs = ps.executeQuery();
             return rs.next();
         } catch (SQLException e) {

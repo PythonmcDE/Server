@@ -4,6 +4,7 @@ import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ public class PetAPI {
     public int getPet(UUID uuid,String pet) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT " + pet +" FROM PetSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT " + pet +" FROM PetSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -30,7 +31,7 @@ public class PetAPI {
     public int getBenjamin(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Benjamin FROM PetSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Benjamin FROM PetSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -46,7 +47,7 @@ public class PetAPI {
     public int getMerlin(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Merlin FROM PetSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Merlin FROM PetSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -62,7 +63,7 @@ public class PetAPI {
     public int getEddy(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Eddy FROM PetSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Eddy FROM PetSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -78,7 +79,7 @@ public class PetAPI {
     public int getAnton(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Anton FROM PetSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Anton FROM PetSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -94,7 +95,7 @@ public class PetAPI {
     public int getHelgar(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Helgar FROM PetSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Helgar FROM PetSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -110,7 +111,7 @@ public class PetAPI {
     public int getFarid(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Farid FROM PetSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Farid FROM PetSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -126,7 +127,7 @@ public class PetAPI {
     public int getPeter(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Peter FROM PetSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Peter FROM PetSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -147,7 +148,7 @@ public class PetAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE PetSystem SET " + pet +" = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE PetSystem SET " + pet +" = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -164,7 +165,7 @@ public class PetAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE PetSystem SET Benjamin = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE PetSystem SET Benjamin = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -181,7 +182,7 @@ public class PetAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE PetSystem SET Merlin = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE PetSystem SET Merlin = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -198,7 +199,7 @@ public class PetAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE PetSystem SET Eddy = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE PetSystem SET Eddy = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -215,7 +216,7 @@ public class PetAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE PetSystem SET Anton = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE PetSystem SET Anton = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -232,7 +233,7 @@ public class PetAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE PetSystem SET Helgar = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE PetSystem SET Helgar = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -249,7 +250,7 @@ public class PetAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE PetSystem SET Farid = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE PetSystem SET Farid = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -266,7 +267,7 @@ public class PetAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE PetSystem SET Peter = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE PetSystem SET Peter = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();

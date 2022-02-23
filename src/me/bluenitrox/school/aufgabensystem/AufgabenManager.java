@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -291,7 +292,7 @@ public class AufgabenManager {
     public static int getTaskDatabase(UUID uuid) {
         int task = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT aufgabenfortschritt FROM aufgaben WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT aufgabenfortschritt FROM aufgaben WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -307,7 +308,7 @@ public class AufgabenManager {
     public static int getToggleDatabase(UUID uuid) {
         int toggle = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT toggle FROM aufgaben WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT toggle FROM aufgaben WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

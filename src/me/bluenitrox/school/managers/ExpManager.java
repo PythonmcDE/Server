@@ -11,6 +11,7 @@ import me.daarkii.nicksystem.NickAddon;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +41,7 @@ public class ExpManager {
     public static float getExpDatabase(UUID uuid) {
         float xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT exp FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT exp FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -56,7 +57,7 @@ public class ExpManager {
     public static int getLevelDatabase(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT level FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT level FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -72,7 +73,7 @@ public class ExpManager {
     public static int getPrestigeDatabase(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT prestige FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT prestige FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -140,7 +141,7 @@ public class ExpManager {
             newAmount = (currMoney + amount);
         }
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET level = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET level = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();

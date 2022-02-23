@@ -8,6 +8,7 @@ import me.bluenitrox.school.features.SkillAPI;
 import me.bluenitrox.school.features.StatsAPI;
 import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.mine.manager.MinenManager;
+import me.bluenitrox.school.mine.manager.MinenSettings;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.*;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,6 +37,8 @@ public class PlayerJoinManager {
         StatsAPI api = new StatsAPI();
         SkillAPI sapi = new SkillAPI();
         BoosterAPI boosterAPI = new BoosterAPI();
+        MinenSettings minenSettings = new MinenSettings();
+        minenSettings.createPlayer(uuid);
         if(!isTaskUserExists(uuid)) {
             configuratePlayer(uuid);
             configurateKitPlayer(uuid);
@@ -101,7 +105,7 @@ public class PlayerJoinManager {
     }
 
     public static void configuratePlayer(UUID uuid) {
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO spielerdaten (spieleruuid, money, dungeon, exp, mine, prestige, kills, deaths, cases, bloecke, mob, chests, level, angelmine) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO spielerdaten (spieleruuid, money, dungeon, exp, mine, prestige, kills, deaths, cases, bloecke, mob, chests, level, angelmine) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)")) {
             ps.setString(1, uuid.toString());
             ps.setFloat(2, 1000);
             ps.setInt(3, 1);
@@ -123,7 +127,7 @@ public class PlayerJoinManager {
     }
 
     public static void configurateKitPlayer(UUID uuid) {
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO KitSystem (UUID, Holz, Stein, Eisen, Warzone, Diamant, Bergarbeiter, Goldfinger, Juwelier, Banker, Ninja, Sensei, Meister) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO KitSystem (UUID, Holz, Stein, Eisen, Warzone, Diamant, Bergarbeiter, Goldfinger, Juwelier, Banker, Ninja, Sensei, Meister) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             ps.setString(1, uuid.toString());
             ps.setInt(2, 0);
             ps.setInt(3, 35);
@@ -144,7 +148,7 @@ public class PlayerJoinManager {
     }
 
     public static void configuratePetPlayer(UUID uuid) {
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO PetSystem (UUID, Benjamin, Merlin, Eddy, Anton, Helgar, Farid, Peter) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO PetSystem (UUID, Benjamin, Merlin, Eddy, Anton, Helgar, Farid, Peter) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
             ps.setString(1, uuid.toString());
             ps.setInt(2, 0);
             ps.setInt(3, 0);
@@ -160,7 +164,7 @@ public class PlayerJoinManager {
     }
 
     public static void configurateRewardPlayer(UUID uuid) {
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO DailyReward (UUID, Belohnung, Erfahrung, Cases, GemLimit) VALUES (?, ?, ?, ?, ?)")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO DailyReward (UUID, Belohnung, Erfahrung, Cases, GemLimit) VALUES (?, ?, ?, ?, ?)")) {
             ps.setString(1, uuid.toString());
             ps.setInt(2, 0);
             ps.setInt(3, 0);
@@ -173,7 +177,7 @@ public class PlayerJoinManager {
     }
 
     public static void configurateTaskPlayer(UUID uuid) {
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO aufgaben (spieleruuid, aufgabenfortschritt, toggle) VALUES (?, ?, ?)")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO aufgaben (spieleruuid, aufgabenfortschritt, toggle) VALUES (?, ?, ?)")) {
             ps.setString(1, uuid.toString());
             ps.setInt(2, 1);
             ps.setInt(3, 0);
@@ -184,7 +188,7 @@ public class PlayerJoinManager {
     }
 
     public static void configurateBoosterPlayer(UUID uuid) {
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO booster (spieleruuid, xp, gem, dungeon, angel, chest) VALUES (?, ?, ?, ?, ?, ?)")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO booster (spieleruuid, xp, gem, dungeon, angel, chest) VALUES (?, ?, ?, ?, ?, ?)")) {
             ps.setString(1, uuid.toString());
             ps.setInt(2, 0);
             ps.setInt(3, 0);
@@ -198,7 +202,7 @@ public class PlayerJoinManager {
     }
 
     public static void configurateSkillPlayer(UUID uuid) {
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO skills (UUID, skillpunkte, angriff, verteidigung, extraenergie,scharfschütze,mining,handler,alchemist,bonusloot,gluckspilz) VALUES (?, ?, ?, ?, ?,?,?,?,?,?,?)")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO skills (UUID, skillpunkte, angriff, verteidigung, extraenergie,scharfschütze,mining,handler,alchemist,bonusloot,gluckspilz) VALUES (?, ?, ?, ?, ?,?,?,?,?,?,?)")) {
             ps.setString(1, uuid.toString());
             ps.setInt(2, 0);
             ps.setInt(3, 0);
@@ -217,8 +221,7 @@ public class PlayerJoinManager {
     }
 
     private static boolean isBoostUserExists(UUID uuid) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT spieleruuid FROM booster WHERE spieleruuid = ?");
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT spieleruuid FROM booster WHERE spieleruuid = ?");){
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();
@@ -229,8 +232,7 @@ public class PlayerJoinManager {
     }
 
     private static boolean isUserExists(UUID uuid) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT spieleruuid FROM spielerdaten WHERE spieleruuid = ?");
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT spieleruuid FROM spielerdaten WHERE spieleruuid = ?");){
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();
@@ -241,8 +243,7 @@ public class PlayerJoinManager {
     }
 
     private static boolean isTaskUserExists(UUID uuid) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT spieleruuid FROM aufgaben WHERE spieleruuid = ?");
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT spieleruuid FROM aufgaben WHERE spieleruuid = ?");){
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();
@@ -254,8 +255,7 @@ public class PlayerJoinManager {
 
 
     private static boolean isKitUserExists(UUID uuid) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT UUID FROM KitSystem WHERE UUID = ?");
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT UUID FROM KitSystem WHERE UUID = ?");){
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();
@@ -266,8 +266,7 @@ public class PlayerJoinManager {
     }
 
     private static boolean isPetUserExists(UUID uuid) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT UUID FROM PetSystem WHERE UUID = ?");
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT UUID FROM PetSystem WHERE UUID = ?");){
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();
@@ -278,8 +277,7 @@ public class PlayerJoinManager {
     }
 
     private static boolean isRewardUserExists(UUID uuid) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT UUID FROM DailyReward WHERE UUID = ?");
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT UUID FROM DailyReward WHERE UUID = ?");){
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();
@@ -290,8 +288,7 @@ public class PlayerJoinManager {
     }
 
     private static boolean isSkillUserExists(UUID uuid) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT UUID FROM skills WHERE UUID = ?");
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT UUID FROM skills WHERE UUID = ?");){
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();

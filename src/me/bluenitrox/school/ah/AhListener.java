@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -80,13 +81,13 @@ public class AhListener implements Listener {
                     int line = e.getCurrentItem().getItemMeta().getLore().size() - 2;
                     String[] stringregex = e.getCurrentItem().getItemMeta().getLore().get(line).split(" ");
                     int id = Integer.parseInt(stringregex[2]);
-                    try (PreparedStatement ps1 = MySQL.getConnection().prepareStatement("SELECT * FROM AhItemsAbgelaufen WHERE id = ?")) {
+                    try (Connection connection1 = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps1 = connection1.prepareStatement("SELECT * FROM AhItemsAbgelaufen WHERE id = ?")) {
                         ps1.setInt(1, id);
                         ResultSet rs = ps1.executeQuery();
 
                         while (rs.next()) {
                             ItemStack item = AhManager.decodeItem(rs.getString(3));
-                            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE FROM AhItemsAbgelaufen WHERE id = ?")) {
+                            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("DELETE FROM AhItemsAbgelaufen WHERE id = ?")) {
                                 ps.setInt(1, id);
                                 ps.execute();
                                 Inventory invah = Bukkit.createInventory(null, 9 * 6, GUI_NAME);

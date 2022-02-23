@@ -14,10 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.LinkedList;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 
 public class Minenreset {
@@ -375,7 +372,7 @@ public class Minenreset {
                 hashmine.add(Material.EMERALD_ORE);
             }
         }else if(mine.equalsIgnoreCase("mine13")){
-            for(int i = 0; i< 71; i++){
+            for(int i = 0; i< 70; i++){
                 hashmine.add(Material.STONE);
             }
             for(int i = 0; i< 2; i++){
@@ -458,7 +455,7 @@ public class Minenreset {
                 hashmine.add(Material.NETHERRACK);
             }
         }else if(mine.equalsIgnoreCase("mine15")){
-            for(int i = 0; i< 67; i++){
+            for(int i = 0; i< 66; i++){
                 hashmine.add(Material.STONE);
             }
             for(int i = 0; i< 2; i++){
@@ -678,7 +675,7 @@ public class Minenreset {
             for(int i = 0; i< 1; i++){
                 hashmine.add(Material.IRON_BLOCK);
             }
-            for(int i = 0; i< 1; i++){
+            for(int i = 0; i< 2; i++){
                 hashmine.add(Material.PACKED_ICE);
             }
         }else if(mine.equalsIgnoreCase("mine20")){
@@ -724,13 +721,13 @@ public class Minenreset {
             for(int i = 0; i< 1; i++){
                 hashmine.add(Material.IRON_BLOCK);
             }
-            for(int i = 0; i< 1; i++){
+            for(int i = 0; i< 2; i++){
                 hashmine.add(Material.PACKED_ICE);
             }
-            for(int i = 0; i< 1; i++){
+            for(int i = 0; i< 2; i++){
                 hashmine.add(Material.SEA_LANTERN);
             }
-        }else if(mine.equalsIgnoreCase("mine21")){
+       }else if(mine.equalsIgnoreCase("mine21")){
             for(int i = 0; i< 65; i++){
                 hashmine.add(Material.STONE);
             }
@@ -923,7 +920,7 @@ public class Minenreset {
             for(int i = 0; i< 1; i++){
                 hashmine.add(Material.LAPIS_BLOCK);
             }
-            for(int i = 0; i< 1; i++){
+            for(int i = 0; i< 2; i++){
                 hashmine.add(Material.GOLD_BLOCK);
             }
         }else if(mine.equalsIgnoreCase("mine25")){
@@ -1018,7 +1015,7 @@ public class Minenreset {
             for(int i = 0; i< 2; i++){
                 hashmine.add(Material.DIAMOND_BLOCK);
             }
-            for(int i = 0; i< 1; i++){
+            for(int i = 0; i< 2; i++){
                 hashmine.add(Material.EMERALD_BLOCK);
             }
         }

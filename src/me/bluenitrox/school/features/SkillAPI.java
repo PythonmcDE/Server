@@ -3,6 +3,7 @@ package me.bluenitrox.school.features;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.mysql.MySQL;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +39,7 @@ public class SkillAPI {
     public int getDatabase(UUID uuid, String skill) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT " + skill +" FROM skills WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT " + skill +" FROM skills WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -61,7 +62,7 @@ public class SkillAPI {
         int xp = 0;
         String skill = "skillpunkte";
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT " + skill +" FROM skills WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT " + skill +" FROM skills WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -110,7 +111,7 @@ public class SkillAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE skills SET " + skill +" = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE skills SET " + skill +" = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();

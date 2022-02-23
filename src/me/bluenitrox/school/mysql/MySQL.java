@@ -18,10 +18,11 @@ public class MySQL {
     public static String username;
     public static String password;
 
-    private static Connection con;
+    private static Connection connection;
+    private static HikariConfig config = new HikariConfig();
+    private static HikariDataSource dataSource;
 
     public static void connect() {
-       HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);
         config.setUsername(username);
         config.setPassword(password);
@@ -29,36 +30,24 @@ public class MySQL {
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         config.setMaximumPoolSize(10);
-        HikariDataSource dataSource = new HikariDataSource(config);
+        dataSource = new HikariDataSource(config);
 
-        try {
-            con = dataSource.getConnection();
-            Bukkit.getConsoleSender().sendMessage("§4Verbunden §4mit §4MySQL! (3/8)");
-        } catch (SQLException var4) {
-            var4.printStackTrace();
-            System.out.println("[SCOOLPLUGIN] MySQL FEHLER.");
-            return;
-        }
     }
 
     public static void disconnect() {
         if(isConnected()) {
-            try {
-                con.close();
-                Bukkit.getConsoleSender().sendMessage("§eVerbindung §7mit §eMySQL §cgeschlossen");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            dataSource.close();
+            Bukkit.getConsoleSender().sendMessage("§eVerbindung §7mit §eMySQL §cgeschlossen");
         }
     }
 
     public static boolean isConnected() {
-        return (con == null ? false : true);
+        return (connection == null ? false : true);
     }
 
 
-    public static Connection getConnection() {
-        return con;
+    public static DataSource getHikariDataSource() {
+        return dataSource;
     }
 }
 

@@ -15,6 +15,7 @@ import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +32,7 @@ public class PlayerBreakBlockManager {
     public static int getBlocksDatabase(UUID uuid) {
         int blocks = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT bloecke FROM spielerdaten WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT bloecke FROM spielerdaten WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -70,7 +71,7 @@ public class PlayerBreakBlockManager {
         }else {
             blocks = blocks + 1;
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE spielerdaten SET bloecke = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET bloecke = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, blocks);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();

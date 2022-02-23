@@ -12,6 +12,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -258,10 +259,9 @@ public class BoosterAPI implements CommandExecutor {
         int amount = 0;
         PreparedStatement preparedStatement;
         if(booster.equalsIgnoreCase("chest")) {
-            try {
-                preparedStatement = MySQL.getConnection().prepareStatement("SELECT chest FROM booster WHERE spieleruuid = ?");
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT chest FROM booster WHERE spieleruuid = ?")) {
+                ps.setString(1, uuid.toString());
+                ResultSet resultSet = ps.executeQuery();
                 while (resultSet.next()) {
                     amount = resultSet.getInt("chest");
                 }
@@ -269,10 +269,9 @@ public class BoosterAPI implements CommandExecutor {
                 throwables.printStackTrace();
             }
         } else if(booster.equalsIgnoreCase("xp")) {
-            try {
-                preparedStatement = MySQL.getConnection().prepareStatement("SELECT xp FROM booster WHERE spieleruuid = ?");
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT xp FROM booster WHERE spieleruuid = ?")) {
+                ps.setString(1, uuid.toString());
+                ResultSet resultSet = ps.executeQuery();
                 while (resultSet.next()) {
                     amount = resultSet.getInt("xp");
                 }
@@ -280,10 +279,9 @@ public class BoosterAPI implements CommandExecutor {
                 throwables.printStackTrace();
             }
         } else if(booster.equalsIgnoreCase("gem")) {
-            try {
-                preparedStatement = MySQL.getConnection().prepareStatement("SELECT gem FROM booster WHERE spieleruuid = ?");
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT gem FROM booster WHERE spieleruuid = ?")) {
+                ps.setString(1, uuid.toString());
+                ResultSet resultSet = ps.executeQuery();
                 while (resultSet.next()) {
                     amount = resultSet.getInt("gem");
                 }
@@ -291,10 +289,9 @@ public class BoosterAPI implements CommandExecutor {
                 throwables.printStackTrace();
             }
         } else if(booster.equalsIgnoreCase("angel")) {
-            try {
-                preparedStatement = MySQL.getConnection().prepareStatement("SELECT angel FROM booster WHERE spieleruuid = ?");
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT angel FROM booster WHERE spieleruuid = ?")) {
+                ps.setString(1, uuid.toString());
+                ResultSet resultSet = ps.executeQuery();
                 while (resultSet.next()) {
                     amount = resultSet.getInt("angel");
                 }
@@ -302,10 +299,9 @@ public class BoosterAPI implements CommandExecutor {
                 throwables.printStackTrace();
             }
         } else if(booster.equalsIgnoreCase("dungeon")) {
-            try {
-                preparedStatement = MySQL.getConnection().prepareStatement("SELECT dungeon FROM booster WHERE spieleruuid = ?");
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT dungeon FROM booster WHERE spieleruuid = ?")) {
+                ps.setString(1, uuid.toString());
+                ResultSet resultSet = ps.executeQuery();
                 while (resultSet.next()) {
                     amount = resultSet.getInt("dungeon");
                 }

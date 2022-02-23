@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class LocationManager {
     public static HashMap<String, Location> locations = new HashMap<>();
 
     public boolean isLocationExists(){
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM locations WHERE name = ?")){
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM locations WHERE name = ?")){
             ps.setString(1, this.name);
             ResultSet rs = ps.executeQuery();
             return rs.next();
@@ -41,7 +42,7 @@ public class LocationManager {
                 pitch = loc.getPitch();
 
         if(isLocationExists()) {
-            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE locations SET world = ?, x = ?, y = ?, z = ?, yaw = ?, pitch = ? WHERE name = ?")) {
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE locations SET world = ?, x = ?, y = ?, z = ?, yaw = ?, pitch = ? WHERE name = ?")) {
                 ps.setString(1, weltname);
                 ps.setDouble(2, x);
                 ps.setDouble(3, y);
@@ -56,7 +57,7 @@ public class LocationManager {
                 p.sendMessage(MessageManager.PREFIX + "§7Die Location konnte §cnicht §7geupdatet werden");
             }
         }else {
-            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO locations (name, world, x, y, z, yaw, pitch) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO locations (name, world, x, y, z, yaw, pitch) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
                 ps.setString(1, this.name);
                 ps.setString(2, weltname);
                 ps.setDouble(3, x);
@@ -88,7 +89,7 @@ public class LocationManager {
 
     public Location getLocationDatabase(){
         if(isLocationExists()){
-            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM locations WHERE name = ?")) {
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM locations WHERE name = ?")) {
                 ps.setString(1, this.name);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()){

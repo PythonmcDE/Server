@@ -13,6 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -514,7 +515,7 @@ public class KitAPI {
     public static int getHolz(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Holz FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Holz FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -529,7 +530,7 @@ public class KitAPI {
     public static int getStein(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Stein FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Stein FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -544,7 +545,7 @@ public class KitAPI {
     public static int getEisen(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Eisen FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Eisen FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -559,7 +560,7 @@ public class KitAPI {
     public static int getWarzone(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Warzone FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Warzone FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -574,7 +575,7 @@ public class KitAPI {
     public static int getDiamant(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Diamant FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Diamant FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -589,7 +590,7 @@ public class KitAPI {
     public static int getBergarbeiter(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Bergarbeiter FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Bergarbeiter FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -604,7 +605,7 @@ public class KitAPI {
     public static int getGoldfinger(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Goldfinger FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Goldfinger FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -619,7 +620,7 @@ public class KitAPI {
     public static int getJuwelier(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Juwelier FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Juwelier FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -634,7 +635,7 @@ public class KitAPI {
     public static int getBanker(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Banker FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Banker FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -649,7 +650,7 @@ public class KitAPI {
     public static int getNinja(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Ninja FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Ninja FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -664,7 +665,7 @@ public class KitAPI {
     public static int getSensei(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Sensei FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Sensei FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -679,7 +680,7 @@ public class KitAPI {
     public static int getMeister(UUID uuid) {
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Meister FROM KitSystem WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Meister FROM KitSystem WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -700,7 +701,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Holz = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Holz = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -716,7 +717,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Stein = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Stein = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -732,7 +733,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Eisen = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Eisen = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -748,7 +749,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Warzone = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Warzone = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -764,7 +765,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Diamant = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Diamant = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -780,7 +781,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Bergarbeiter = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Bergarbeiter = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -796,7 +797,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Goldfinger = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Goldfinger = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -812,7 +813,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Juwelier = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Juwelier = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -828,7 +829,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Banker = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Banker = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -844,7 +845,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Ninja = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Ninja = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -860,7 +861,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Sensei = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Sensei = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -876,7 +877,7 @@ public class KitAPI {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE KitSystem SET Meister = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE KitSystem SET Meister = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();

@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -102,7 +103,7 @@ public class DailyReward {
     private int getBelohnung(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Belohnung FROM DailyReward WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Belohnung FROM DailyReward WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -118,7 +119,7 @@ public class DailyReward {
     private int getErfahrung(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Erfahrung FROM DailyReward WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Erfahrung FROM DailyReward WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -134,7 +135,7 @@ public class DailyReward {
     private int getCase(UUID uuid){
         int xp = 0;
 
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Cases FROM DailyReward WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Cases FROM DailyReward WHERE UUID = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -155,7 +156,7 @@ public class DailyReward {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE DailyReward SET Belohnung = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE DailyReward SET Belohnung = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -172,7 +173,7 @@ public class DailyReward {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE DailyReward SET Erfahrung = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE DailyReward SET Erfahrung = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
@@ -189,7 +190,7 @@ public class DailyReward {
         } else {
             newAmount = (currMoney + amount);
         }
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE DailyReward SET Cases = ? WHERE UUID = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE DailyReward SET Cases = ? WHERE UUID = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();

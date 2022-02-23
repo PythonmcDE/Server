@@ -7,6 +7,7 @@ import me.bluenitrox.school.commands.School;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
+import me.bluenitrox.school.mine.manager.MinenSettings;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ArmorUtil;
 import org.bukkit.GameMode;
@@ -35,7 +36,8 @@ public class PlayerJoinListener implements Listener {
             p.teleport(new LocationManager("spawn").getLocation());
         }
         PlayerRespawnEvent.erhaltItems(p);
-
+        MinenSettings minenSettings = new MinenSettings();
+        minenSettings.setInHashMap(e);
         e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20*60*20, 1));
         new BukkitRunnable(){
             @Override

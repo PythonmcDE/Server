@@ -16,6 +16,7 @@ import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +25,7 @@ import java.util.UUID;
 public class InventoryLoader {
 
     public static boolean isUserExists(UUID uuid){
-        try(PreparedStatement ps1 = MySQL.getConnection().prepareStatement("SELECT Inv FROM datatable WHERE UUID = ?")){
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps1 = connection.prepareStatement("SELECT Inv FROM datatable WHERE UUID = ?")){
             ps1.setString(1, uuid.toString());
             ResultSet rs = ps1.executeQuery();
             return rs.next();
@@ -36,8 +37,7 @@ public class InventoryLoader {
 
     public static void update(UUID uuid, String s) {
         if(!isUserExists(uuid)) {
-            try {
-                PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO datatable (UUID, Inv) VALUES (?,?)");
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO datatable (UUID, Inv) VALUES (?,?)")) {
                 ps.setString(1, uuid.toString());
                 ps.setString(2, s);
                 ps.executeUpdate();
@@ -45,8 +45,7 @@ public class InventoryLoader {
                 e.printStackTrace();
             }
         }else {
-            try {
-                PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE datatable SET Inv = ? WHERE UUID = ?");
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE datatable SET Inv = ? WHERE UUID = ?");){
                 ps.setString(1, uuid.toString());
                 ps.setString(2, s);
                 ps.executeUpdate();
@@ -57,8 +56,7 @@ public class InventoryLoader {
     }
 
     public static String getInv(UUID uuid){
-        try{
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT Inv FROM datatable WHERE UUID = ?");
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT Inv FROM datatable WHERE UUID = ?");){
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
@@ -88,8 +86,7 @@ public class InventoryLoader {
 
     public static void deleteInv(UUID uuid) {
         if(isUserExists(uuid)) {
-            try {
-                PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE Inv FROM datatable WHERE UUID = ?");
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("DELETE Inv FROM datatable WHERE UUID = ?");) {
                 ps.setString(1, uuid.toString());
                 ps.executeUpdate();
             } catch (Exception e) {

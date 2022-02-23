@@ -2,6 +2,7 @@ package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.mysql.MySQL;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -233,7 +234,7 @@ public class MessageManager {
 
     private static HashMap<String, Integer> fillMap() {
         HashMap<String, Integer> blocksforreset = new HashMap<>();
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM minen")) {
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM minen")) {
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 String name = rs.getString("name");

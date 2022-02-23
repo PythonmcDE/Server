@@ -11,6 +11,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,7 +46,7 @@ public class KopfgeldManager {
         if(isUserExists(uuid)) {
             int money = 0;
 
-            try (PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT kopfgeld FROM kopfgeld WHERE spieleruuid = ?")) {
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT kopfgeld FROM kopfgeld WHERE spieleruuid = ?")) {
                 ps.setString(1, uuid.toString());
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -82,7 +83,7 @@ public class KopfgeldManager {
     }
 
     private static void deleteUser(UUID uuid){
-        try(PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE FROM kopfgeld WHERE spieleruuid = ?")){
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("DELETE FROM kopfgeld WHERE spieleruuid = ?")){
             ps.setString(1, uuid.toString());
             ps.execute();
         }catch (SQLException e){
@@ -91,8 +92,7 @@ public class KopfgeldManager {
     }
 
     private static boolean isUserExists(UUID uuid) {
-        try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT spieleruuid FROM kopfgeld WHERE spieleruuid = ?");
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT spieleruuid FROM kopfgeld WHERE spieleruuid = ?")) {
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();
@@ -103,7 +103,7 @@ public class KopfgeldManager {
     }
 
     public static void insertdatabase(UUID uuid, Integer money){
-        try (PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO kopfgeld (spieleruuid, kopfgeld) VALUES (?, ?)")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO kopfgeld (spieleruuid, kopfgeld) VALUES (?, ?)")) {
             ps.setString(1, uuid.toString());
             ps.setInt(2, money);
             ps.executeUpdate();

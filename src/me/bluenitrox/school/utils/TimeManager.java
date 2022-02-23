@@ -4,6 +4,7 @@ import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,7 @@ public class TimeManager {
             new BukkitRunnable(){
                 @Override
                 public void run() {
-                    try(PreparedStatement ps1 = MySQL.getConnection().prepareStatement("DROP TABLE DailyReward")){
+                    try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps1 = connection.prepareStatement("DROP TABLE DailyReward")){
                         ps1.executeUpdate();
                     }catch (SQLException e){
 
