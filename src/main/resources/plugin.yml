@@ -116,6 +116,7 @@ commands:
       - tasks
   school:
   itemspawner:
+  minensettings:
   wz:
     aliases:
       - warzone

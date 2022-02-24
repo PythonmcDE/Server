@@ -22,8 +22,7 @@ public class PlayerQuitListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        MinenSettings minenSettings = new MinenSettings();
-        minenSettings.savePlayer(e);
+        MinenSettings.getMiningSettings().savePlayer(e);
         Player p = e.getPlayer();
         e.setQuitMessage(null);
         updateDatabase(p);

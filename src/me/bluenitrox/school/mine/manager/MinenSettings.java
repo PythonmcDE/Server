@@ -1,7 +1,8 @@
 package me.bluenitrox.school.mine.manager;
 
-import me.bluenitrox.school.mine.manager.data.MinenSettingData;
 import me.bluenitrox.school.mysql.MySQL;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -10,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class MinenSettings {
@@ -17,6 +19,26 @@ public class MinenSettings {
     /*
     Set the database data in HashMaps on Player join
      */
+
+    public MinenSettings() {
+        miningSettings = this;
+    }
+    private HashMap<UUID, HashMap<Material, Boolean>> map = new HashMap<>();
+    private HashMap<Material, Boolean> blocks = new HashMap<>();
+    private static MinenSettings miningSettings;
+
+    public static MinenSettings getMiningSettings() {
+        return miningSettings;
+    }
+
+    public HashMap<UUID, HashMap<Material, Boolean>> getMinenSettings() {
+        return map;
+    }
+
+    public void setBlockSettings(Material material, boolean value) {
+        blocks.put(material, value);
+    }
+
     public void setInHashMap(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
@@ -51,232 +73,77 @@ public class MinenSettings {
         boolean diamondblock;
         boolean emeraldblock;
 
-        /*
-        Select something from Database
-        */
-        try {
-            /*
-            Select stone Items from database
-            */
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT stone FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM miningblocksettings WHERE spieleruuid = ?")) {
+            preparedStatement.setString(1, uuid.toString());
+            try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 if(resultSet.next()) {
                     stone = resultSet.getBoolean("stone");
-                    MinenSettingData.getInstance().setStoneSettings(uuid, stone);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT gravil FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
                     gravil = resultSet.getBoolean("gravil");
-                    MinenSettingData.getInstance().setGravelSettings(uuid, gravil);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT coal FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    coal = resultSet.getBoolean("coal");
-                    MinenSettingData.getInstance().setCoalSettings(uuid, coal);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT brick FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    brick = resultSet.getBoolean("brick");
-                    MinenSettingData.getInstance().setBrickSettings(uuid, brick);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT iron FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    iron = resultSet.getBoolean("iron");
-                    MinenSettingData.getInstance().setIronSettings(uuid, iron);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT quarz FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    quarz = resultSet.getBoolean("quarz");
-                    MinenSettingData.getInstance().setQuarzSettings(uuid, quarz);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT redstone FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    redstone = resultSet.getBoolean("redstone");
-                    MinenSettingData.getInstance().setRedstoneSettings(uuid, redstone);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT lapis FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    lapis = resultSet.getBoolean("lapis");
-                    MinenSettingData.getInstance().setLapisSettings(uuid, lapis);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT prismarin FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    prismarin = resultSet.getBoolean("prismarin");
-                    MinenSettingData.getInstance().setPrismarinSettings(uuid, prismarin);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT gold FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    gold = resultSet.getBoolean("gold");
-                    MinenSettingData.getInstance().setGoldSettings(uuid, gold);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT diamond FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    diamond = resultSet.getBoolean("diamond");
-                    MinenSettingData.getInstance().setDiamondSettings(uuid, diamond);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT netherbrick FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    netherbrick = resultSet.getBoolean("netherbrick");
-                    MinenSettingData.getInstance().setNetherBrickSettings(uuid, netherbrick);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT emerald FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    emerald = resultSet.getBoolean("emerald");
-                    MinenSettingData.getInstance().setEmeraldSettings(uuid, emerald);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT coalblock FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    coalblock = resultSet.getBoolean("coalblock");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, coalblock);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT redsandstone FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    sandstone = resultSet.getBoolean("redsandstone");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, sandstone);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT quarzblock FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    quarzblock = resultSet.getBoolean("quarzblock");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, quarzblock);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT ice FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    ice = resultSet.getBoolean("ice");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, ice);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT netherrack FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    netherrack = resultSet.getBoolean("netherrack");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, netherrack);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT ironblock FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    ironblock = resultSet.getBoolean("ironblock");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, ironblock);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT packedice FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    packedice = resultSet.getBoolean("packedice");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, packedice);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT sealatern FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    sealatern = resultSet.getBoolean("sealatern");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, sealatern);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT endstone FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    endstone = resultSet.getBoolean("endstone");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, endstone);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT redstoneblock FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    redstoneblock = resultSet.getBoolean("redstoneblock");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, redstoneblock);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT lapisblock FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    lapisblock = resultSet.getBoolean("lapisblock");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, lapisblock);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT goldblock FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    goldblock = resultSet.getBoolean("goldblock");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, goldblock);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT diamondblock FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    diamondblock = resultSet.getBoolean("diamondblock");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, diamondblock);
-                }
-            }
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT emeraldblock FROM miningblocksettings WHERE spieleruuid = ?")) {
-                preparedStatement.setString(1, uuid.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()) {
-                    emeraldblock = resultSet.getBoolean("emeraldblock");
-                    MinenSettingData.getInstance().setCoalBlockSettings(uuid, emeraldblock);
+                     coal = resultSet.getBoolean("coal");
+                     brick = resultSet.getBoolean("brick");
+                     iron = resultSet.getBoolean("iron");
+                     quarz = resultSet.getBoolean("quarz");
+                     redstone = resultSet.getBoolean("redstone");
+                     lapis = resultSet.getBoolean("lapis");
+                     prismarin = resultSet.getBoolean("prismarin");
+                     gold = resultSet.getBoolean("gold");
+                     diamond = resultSet.getBoolean("diamond");
+                     netherbrick = resultSet.getBoolean("netherbrick");
+                     emerald = resultSet.getBoolean("emerald");
+                     coalblock = resultSet.getBoolean("coalblock");
+                     sandstone = resultSet.getBoolean("redsandstone");
+                     quarzblock = resultSet.getBoolean("quarzblock");
+                     ice = resultSet.getBoolean("ice");
+                     netherrack = resultSet.getBoolean("netherrack");
+                     ironblock = resultSet.getBoolean("ironblock");
+                     packedice = resultSet.getBoolean("packedice");
+                     sealatern = resultSet.getBoolean("sealatern");
+                     endstone = resultSet.getBoolean("endstone");
+                     redstoneblock = resultSet.getBoolean("redstoneblock");
+                     lapisblock = resultSet.getBoolean("lapisblock");
+                     goldblock = resultSet.getBoolean("goldblock");
+                     diamondblock = resultSet.getBoolean("diamondblock");
+                     emeraldblock = resultSet.getBoolean("emeraldblock");
+                     System.out.println(stone);
+
+                     blocks.put(Material.STONE, stone);
+                     blocks.put(Material.GRAVEL, gravil);
+                     blocks.put(Material.COAL_ORE, coal);
+                     blocks.put(Material.BRICK, brick);
+                     blocks.put(Material.IRON_ORE, iron);
+                     blocks.put(Material.QUARTZ_ORE, quarz);
+                     blocks.put(Material.REDSTONE_ORE, redstone);
+                     blocks.put(Material.LAPIS_ORE, lapis);
+                     blocks.put(Material.PRISMARINE, prismarin);
+                     blocks.put(Material.GOLD_ORE, gold);
+                     blocks.put(Material.DIAMOND_ORE, diamond);
+                     blocks.put(Material.NETHER_BRICK, netherbrick);
+                     blocks.put(Material.EMERALD_ORE, emerald);
+                     blocks.put(Material.COAL_BLOCK, coalblock);
+                     blocks.put(Material.RED_SANDSTONE, sandstone);
+                     blocks.put(Material.QUARTZ_BLOCK, quarzblock);
+                     blocks.put(Material.ICE, ice);
+                     blocks.put(Material.NETHERRACK, netherrack);
+                     blocks.put(Material.IRON_BLOCK, ironblock);
+                     blocks.put(Material.PACKED_ICE, packedice);
+                     blocks.put(Material.SEA_LANTERN, sealatern);
+                     blocks.put(Material.ENDER_STONE, endstone);
+                     blocks.put(Material.REDSTONE_BLOCK, redstoneblock);
+                     blocks.put(Material.LAPIS_BLOCK, lapisblock);
+                     blocks.put(Material.GOLD_BLOCK, goldblock);
+                     blocks.put(Material.DIAMOND_BLOCK, diamondblock);
+                     blocks.put(Material.EMERALD_BLOCK, emeraldblock);
+                     map.put(uuid, blocks);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
+        /*
+        Select something from Database
+        */
     }
 
     /*
@@ -285,201 +152,74 @@ public class MinenSettings {
     public void savePlayer(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
-        MinenSettingData api = MinenSettingData.getInstance();
-            try {
-                if(MinenSettingData.getInstance().stoneSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET stone = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getStoneSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().stoneSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().gravelSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET gravil = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getGravelSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().gravelSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().coalSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET coal = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getCoalSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().coalSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().brickSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET brick = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getBrickSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().brickSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().ironSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET iron = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getIronSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().ironSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().quarzSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET quarz = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getQuarzSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().quarzSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().redstoneSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET redstone = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getRedstoneSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().redstoneSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().lapisSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET lapis = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getLapisSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().lapisSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().prismarinSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET prismarin = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getPrismarinSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().prismarinSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().goldSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET gold = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getGoldSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().goldSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().diamondSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET diamond = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getDiamondSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().diamondSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().netherBrickSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET netherbrick = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getNetherBrickSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().netherBrickSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().emeraldSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET emerald = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getEmeraldeSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().emeraldSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().coalBlockSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET coalblock = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getCoalBlockSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().coalBlockSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().redSandstoneSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET redsandstone = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getRedSandStoneSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().redSandstoneSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().quarzBlockSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET quarzblock = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getQuarzBlockSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().quarzBlockSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().iceSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET ice = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getIceSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().iceSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().netherRackSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET netherrack = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getNetherRackSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().netherRackSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().ironBlockSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET ironblock = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getIronBlockSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().ironBlockSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().packedIceSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET packedice = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getPackedIceSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().packedIceSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().seaLaternSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET sealatern = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getSeaLaternSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().seaLaternSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().endStoneSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET endstone = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getEndStoneSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().endStoneSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().redstoneBlockSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET redstoneblock = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getRedstoneBlockSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().redstoneBlockSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().lapisBlockSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET lapisblock = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getLapisBlockSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().lapisBlockSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().goldBlockSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET goldblock = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getGoldBlockSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().goldBlockSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().diamondBlockSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET diamondblock = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getDiamondBlockSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().diamondBlockSettings.remove(uuid);
-                    }
-                } else if(MinenSettingData.getInstance().emeraldBlockSettings.containsKey(uuid)) {
-                    try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET emeraldblock = ? WHERE spieleruuid = ?")) {
-                        preparedStatement.setBoolean(1, api.getEmeraldBlockSettings(uuid));
-                        preparedStatement.setString(2, uuid.toString());
-                        preparedStatement.executeUpdate();
-                        MinenSettingData.getInstance().emeraldBlockSettings.remove(uuid);
-                    }
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        HashMap<Material, Boolean> blockMap = MinenSettings.getMiningSettings().getMinenSettings().get(uuid);
+
+        boolean stone = blockMap.get(Material.STONE);
+        boolean gravil = blockMap.get(Material.GRAVEL);
+        boolean coal = blockMap.get(Material.COAL_ORE);
+        boolean brick = blockMap.get(Material.BRICK);
+        boolean iron = blockMap.get(Material.IRON_ORE);
+        boolean quarz = blockMap.get(Material.QUARTZ_ORE);
+        boolean redstone = blockMap.get(Material.REDSTONE_ORE);
+        boolean lapis = blockMap.get(Material.LAPIS_ORE);
+        boolean prismarin = blockMap.get(Material.PRISMARINE);
+        boolean gold = blockMap.get(Material.GOLD_ORE);
+        boolean diamond = blockMap.get(Material.DIAMOND_ORE);
+        boolean netherbrick = blockMap.get(Material.NETHER_BRICK);
+        boolean emerald = blockMap.get(Material.EMERALD_ORE);
+        boolean coalblock = blockMap.get(Material.COAL_BLOCK);
+        boolean sandstone = blockMap.get(Material.RED_SANDSTONE);
+        boolean quarzblock = blockMap.get(Material.QUARTZ_BLOCK);
+        boolean ice = blockMap.get(Material.ICE);
+        boolean netherrack = blockMap.get(Material.NETHERRACK);
+        boolean ironblock = blockMap.get(Material.IRON_BLOCK);
+        boolean packedice = blockMap.get(Material.PACKED_ICE);
+        boolean sealatern = blockMap.get(Material.SEA_LANTERN);
+        boolean endstone = blockMap.get(Material.ENDER_STONE);
+        boolean redstoneblock = blockMap.get(Material.REDSTONE_BLOCK);
+        boolean lapisblock = blockMap.get(Material.LAPIS_BLOCK);
+        boolean goldblock = blockMap.get(Material.GOLD_BLOCK);
+        boolean diamondblock = blockMap.get(Material.DIAMOND_BLOCK);
+        boolean emeraldblock = blockMap.get(Material.EMERALD_BLOCK);
+
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET stone = ?, gravil = ?, coal = ?, brick = ?, iron = ?, quarz = ?, redstone = ?, lapis = ?, prismarin = ?, gold = ?, diamond = ?, netherbrick = ?, emerald = ?, coalblock = ?, redsandstone = ?, quarzblock = ?, ice = ?, netherrack = ?, ironblock = ?, packedice = ?, sealatern = ?, endstone = ?, redstoneblock = ?, lapisblock = ?, goldblock = ?, diamondblock = ?, emeraldblock = ? WHERE spieleruuid = ?")) {
+            preparedStatement.setBoolean(1, stone);
+            preparedStatement.setBoolean(2, gravil);
+            preparedStatement.setBoolean(3, coal);
+            preparedStatement.setBoolean(4, brick);
+            preparedStatement.setBoolean(5, iron);
+            preparedStatement.setBoolean(6, quarz);
+            preparedStatement.setBoolean(7, redstone);
+            preparedStatement.setBoolean(8, lapis);
+            preparedStatement.setBoolean(9, prismarin);
+            preparedStatement.setBoolean(10, gold);
+            preparedStatement.setBoolean(11, diamond);
+            preparedStatement.setBoolean(12, netherbrick);
+            preparedStatement.setBoolean(13, emerald);
+            preparedStatement.setBoolean(14, coalblock);
+            preparedStatement.setBoolean(15, sandstone);
+            preparedStatement.setBoolean(16, quarzblock);
+            preparedStatement.setBoolean(17, ice);
+            preparedStatement.setBoolean(18, netherrack);
+            preparedStatement.setBoolean(19, ironblock);
+            preparedStatement.setBoolean(20, packedice);
+            preparedStatement.setBoolean(21, sealatern);
+            preparedStatement.setBoolean(22, endstone);
+            preparedStatement.setBoolean(23, redstoneblock);
+            preparedStatement.setBoolean(24, lapisblock);
+            preparedStatement.setBoolean(25, goldblock);
+            preparedStatement.setBoolean(26, diamondblock);
+            preparedStatement.setBoolean(27, emeraldblock);
+            preparedStatement.setString(28, uuid.toString());
+
+            preparedStatement.executeUpdate();
+
+           blockMap.clear();
+            map.remove(uuid);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
 
     /*

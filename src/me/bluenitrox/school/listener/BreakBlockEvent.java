@@ -9,7 +9,6 @@ import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.mine.manager.MinenSettings;
-import me.bluenitrox.school.mine.manager.data.MinenSettingData;
 import me.bluenitrox.school.utils.InventoryUtil;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -24,6 +23,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -77,165 +77,165 @@ public class BreakBlockEvent implements Listener {
     private void addItemToInv(Player p, Block b, int multiplier){
         ItemStack item;
         UUID uuid = p.getUniqueId();
-        MinenSettingData api = MinenSettingData.getInstance();
+        HashMap<Material, Boolean> value = MinenSettings.getMiningSettings().getMinenSettings().get(uuid);
         if(b.getType() == Material.STONE){
-            if(!api.getStoneSettings(uuid)) {
+            if(value.get(Material.STONE)) {
                 item = new ItemBuilder(Material.STONE).setDisplayname("§7Stein").build();
             } else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.COAL_ORE){
-            if(!api.getCoalSettings(uuid)) {
+            if(value.get(Material.COAL_ORE)) {
                 item = new ItemBuilder(Material.COAL).setDisplayname("§7Kohle").build();
             } else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.IRON_ORE){
-            if(!api.getIronSettings(uuid)) {
+            if(value.get(Material.IRON_ORE)) {
                 item = new ItemBuilder(Material.IRON_INGOT).setDisplayname("§7Eisen").build();
             } else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.GOLD_ORE){
-            if(!api.getGoldSettings(uuid)) {
+            if(value.get(Material.GOLD_ORE)) {
                 item = new ItemBuilder(Material.GOLD_INGOT).setDisplayname("§7Gold").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
-        }else if(b.getType() == Material.DIAMOND){
-            if(!api.getDiamondSettings(uuid)) {
-                item = new ItemBuilder(Material.DIAMOND_ORE).setDisplayname("§7Diamant").build();
+        }else if(b.getType() == Material.DIAMOND_ORE){
+            if(value.get(Material.DIAMOND_ORE)) {
+                item = new ItemBuilder(Material.DIAMOND).setDisplayname("§7Diamant").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
-        }else if(b.getType() == Material.EMERALD){
-            if(!api.getEmeraldeSettings(uuid)) {
-                item = new ItemBuilder(Material.EMERALD_ORE).setDisplayname("§7Smaragd").build();
+        }else if(b.getType() == Material.EMERALD_ORE){
+            if(value.get(Material.EMERALD_ORE)) {
+                item = new ItemBuilder(Material.EMERALD).setDisplayname("§7Smaragd").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.QUARTZ_ORE){
-            if(!api.getQuarzSettings(uuid)) {
+            if(value.get(Material.QUARTZ_ORE)) {
                 item = new ItemBuilder(Material.EMERALD).setDisplayname("§7Quarz").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.COAL_BLOCK){
-            if(!api.getCoalBlockSettings(uuid)) {
+            if(value.get(Material.COAL_BLOCK)) {
                 item = new ItemBuilder(Material.COAL_BLOCK).setDisplayname("§7Kohleblock").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.IRON_BLOCK){
-            if(!api.getIronBlockSettings(uuid)) {
+            if(value.get(Material.IRON_BLOCK)) {
                 item = new ItemBuilder(Material.IRON_BLOCK).setDisplayname("§7Eisenblock").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.GOLD_BLOCK){
-            if(!api.getGoldBlockSettings(uuid)) {
+            if(value.get(Material.GOLD_BLOCK)) {
                 item = new ItemBuilder(Material.GOLD_BLOCK).setDisplayname("§7Goldblock").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.DIAMOND_BLOCK){
-            if(!api.getDiamondBlockSettings(uuid)) {
+            if(value.get(Material.DIAMOND_BLOCK)) {
                 item = new ItemBuilder(Material.DIAMOND_BLOCK).setDisplayname("§7Diamantblock").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.EMERALD_BLOCK){
-            if(!api.getEmeraldBlockSettings(uuid)) {
+            if(value.get(Material.EMERALD_BLOCK)) {
                 item = new ItemBuilder(Material.EMERALD_BLOCK).setDisplayname("§7Smaragdblock").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.REDSTONE_ORE){
-            if(!api.getRedstoneBlockSettings(uuid)) {
+            if(value.get(Material.REDSTONE_ORE)) {
                 item = new ItemBuilder(Material.REDSTONE).setDisplayname("§7Redstone").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.LAPIS_ORE){
-            if(!api.getLapisSettings(uuid)) {
+            if(value.get(Material.LAPIS_ORE)) {
                 item = new ItemBuilder(Material.INK_SACK, (short)4).setDisplayname("§7Lapis").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.LAPIS_BLOCK){
-            if(!api.getLapisBlockSettings(uuid)) {
+            if(value.get(Material.LAPIS_BLOCK)) {
                 item = new ItemBuilder(Material.LAPIS_BLOCK).setDisplayname("§7Lapisblock").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.REDSTONE_BLOCK){
-            if(!api.getRedstoneBlockSettings(uuid)) {
+            if(value.get(Material.REDSTONE_BLOCK)) {
                 item = new ItemBuilder(Material.REDSTONE_BLOCK).setDisplayname("§7Redstoneblock").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.QUARTZ_BLOCK){
-            if(!api.getQuarzBlockSettings(uuid)) {
+            if(value.get(Material.QUARTZ_BLOCK)) {
                 item = new ItemBuilder(Material.QUARTZ_BLOCK).setDisplayname("§7Quarzblock").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.GRAVEL){
-            if(!api.getGravelSettings(uuid)) {
+            if(value.get(Material.GRAVEL)) {
                 item = new ItemBuilder(Material.GRAVEL).setDisplayname("§7Kies").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.BRICK){
-            if(!api.getBrickSettings(uuid)) {
+            if(value.get(Material.BRICK)) {
                 item = new ItemBuilder(Material.BRICK).setDisplayname("§7Ziegel").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.PRISMARINE){
-            if(!api.getPrismarinSettings(uuid)) {
+            if(value.get(Material.PRISMARINE)) {
                  item = new ItemBuilder(Material.PRISMARINE).setDisplayname("§7Prismarin").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.NETHER_BRICK){
-            if(!api.getNetherBrickSettings(uuid)) {
+            if(value.get(Material.NETHER_BRICK)) {
                 item = new ItemBuilder(Material.NETHER_BRICK).setDisplayname("§7Netherziegel").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.RED_SANDSTONE){
-            if(!api.getRedSandStoneSettings(uuid)) {
+            if(value.get(Material.RED_SANDSTONE)) {
                 item = new ItemBuilder(Material.RED_SANDSTONE).setDisplayname("§7roter Sandstein").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         } else if(b.getType() == Material.ICE){
-            if(!api.getIceSettings(uuid)) {
+            if(value.get(Material.ICE)) {
                 item = new ItemBuilder(Material.ICE).setDisplayname("§7Eis").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.NETHERRACK){
-            if(!api.getNetherRackSettings(uuid)) {
+            if(value.get(Material.NETHERRACK)) {
                  item = new ItemBuilder(Material.NETHERRACK).setDisplayname("§7Netherstein").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         } else if(b.getType() == Material.PACKED_ICE){
-            if(!api.getPackedIceSettings(uuid)) {
+            if(value.get(Material.PACKED_ICE)) {
                 item = new ItemBuilder(Material.PACKED_ICE).setDisplayname("§7Packeis").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         } else if(b.getType() == Material.SEA_LANTERN){
-            if(!api.getSeaLaternSettings(uuid)) {
+            if(value.get(Material.SEA_LANTERN)) {
                 item = new ItemBuilder(Material.SEA_LANTERN).setDisplayname("§7Seelaterne").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }
         }else if(b.getType() == Material.ENDER_STONE){
-            if(!api.getEndStoneSettings(uuid)) {
+            if(value.get(Material.ENDER_STONE)) {
                 item = new ItemBuilder(Material.ENDER_STONE).setDisplayname("§7Endstein").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();

@@ -36,14 +36,14 @@ public class Stats implements CommandExecutor {
                 p.sendMessage("§a§lPythonMC " + "§b» §7Statistiken von " + playername);
                 p.sendMessage("§b» §7Kills: §6§l" + api.getKillsDatabase(uuid));
                 p.sendMessage("§b» §7Tode: §6§l" + api.getDeathsDatabase(uuid));
-                p.sendMessage("§b» §7Abgebaute Blöcke: §6§l" +  PlayerBreakBlockManager.getBlocksDatabase(uuid));
+                p.sendMessage("§b» §7Abgebaute Blöcke: §6§l" +  PlayerBreakBlockManager.getBlocks(uuid));
                 p.sendMessage("§b» §7Geangelte Items: §6§l0");
                 p.sendMessage("§b» §7Getötete Monster: §6§l" + StatsAPI.getMobDatabase(uuid));
                 p.sendMessage("§b» §7Besiegte Bosse: §6§l0");
-                p.sendMessage("§b» §7Geöffnete Kisten: §6§l" + api.getChestsDatabase(uuid));
-                p.sendMessage("§b» §7Geöffnete Cases: §6§l" + api.getCasesDatabase(uuid));
-                p.sendMessage("§b» §7Aktuelles Level: §6§l" + ExpManager.getLevelDatabase(uuid));
-                p.sendMessage("§b» §7Prestige Stufe: §6§l" + ExpManager.getPrestigeDatabase(uuid));
+                p.sendMessage("§b» §7Geöffnete Kisten: §6§l" + api.getChest(uuid));
+                p.sendMessage("§b» §7Geöffnete Cases: §6§l" + api.getCase(uuid));
+                p.sendMessage("§b» §7Aktuelles Level: §6§l" + ExpManager.getLevel(uuid));
+                p.sendMessage("§b» §7Prestige Stufe: §6§l" + ExpManager.getPrestige(uuid));
 
 
                 //aussortiert

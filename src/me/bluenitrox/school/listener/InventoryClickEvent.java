@@ -3,10 +3,7 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
 import me.bluenitrox.school.boost.BoostInv;
-import me.bluenitrox.school.commands.Kopfgeld;
-import me.bluenitrox.school.commands.Mine;
-import me.bluenitrox.school.commands.Prestige;
-import me.bluenitrox.school.commands.getBooks;
+import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.dungeon.command.DungeonInventory;
@@ -16,6 +13,7 @@ import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.haendler.commands.Schmied;
 import me.bluenitrox.school.haendler.commands.Taxi;
 import me.bluenitrox.school.mine.angelmine.Angelmine;
+import me.bluenitrox.school.mine.manager.MinenSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,6 +32,8 @@ public class InventoryClickEvent implements Listener {
         Kopfgeld k = new Kopfgeld();
         Angelmine am = new Angelmine();
         AufgabenMethods.onCLick(e);
+        MineSettings settings = new MineSettings();
+        settings.onInventoryClick(e);
 
         if(CaseAPI.caseöffnen != null) {
             if (CaseAPI.caseöffnen.contains(p)) {

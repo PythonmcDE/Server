@@ -36,8 +36,7 @@ public class PlayerJoinListener implements Listener {
             p.teleport(new LocationManager("spawn").getLocation());
         }
         PlayerRespawnEvent.erhaltItems(p);
-        MinenSettings minenSettings = new MinenSettings();
-        minenSettings.setInHashMap(e);
+        MinenSettings.getMiningSettings().setInHashMap(e);
         e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20*60*20, 1));
         new BukkitRunnable(){
             @Override

@@ -187,6 +187,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("aufgaben").setExecutor(new AufgabenCMD());
         getCommand("school").setExecutor(new School());
         getCommand("wz").setExecutor(new Warzone());
+        getCommand("minensettings").setExecutor(new MineSettings());
 
         getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
         getCommand("testsummon").setExecutor(new TestSummon());
