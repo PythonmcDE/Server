@@ -49,6 +49,7 @@ public class Sell implements CommandExecutor {
 
         if (args.length == 0) {
             int alles = 0;
+            int lapispreis = 0;
             for (int i = 0; i <= p.getInventory().getSize(); i++) {
                 if (p.getInventory().getItem(i) != null) {
                     if (SellManager.Preise.getByName(p.getInventory().getItem(i).getType().toString()) != null) {
@@ -84,8 +85,21 @@ public class Sell implements CommandExecutor {
                             }
                         }
                     }
+                    if(p.getInventory().getItem(i) != null) {
+                        if (p.getInventory().getItem(i).getItemMeta() != null) {
+                            if (p.getInventory().getItem(i).getItemMeta().getDisplayName() != null) {
+                                if (p.getInventory().getItem(i).getItemMeta().getDisplayName().equalsIgnoreCase("§7Lapis")) {
+                                    lapispreis += SellManager.pricelapis * p.getInventory().getItem(i).getAmount();
+                                    ItemStack air = new ItemStack(Material.AIR);
+                                    p.getInventory().setItem(i, air);
+                                }
+                            }
+                        }
+                    }
                 }
             }
+            MoneyManager.updateMoney(p.getUniqueId(), lapispreis, false, true, false);
+            alles += lapispreis;
             if(alles == 0) {
                 p.sendMessage(MessageManager.PREFIX + "§7Du hast §ckeine §7verkaufbaren Items im Inventar");
                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
@@ -93,11 +107,11 @@ public class Sell implements CommandExecutor {
                 Gembooster money = new Gembooster();
                 if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
                     p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1L, 1L);
-                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §a+" + ValuetoString.valueToString(alles*2) + " §7bekommen");
+                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §a+" + ValuetoString.valueToString(alles*2) + " Gems §7bekommen");
                     return true;
                 }
                 p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1L, 1L);
-                p.sendMessage(MessageManager.PREFIX + "§7Du hast §a+" + ValuetoString.valueToString(alles) + " §7bekommen");
+                p.sendMessage(MessageManager.PREFIX + "§7Du hast §a+" + ValuetoString.valueToString(alles) + " Gems §7bekommen");
             }
         }
         return false;

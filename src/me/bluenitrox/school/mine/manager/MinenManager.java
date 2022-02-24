@@ -96,9 +96,10 @@ public class MinenManager {
 
     public boolean updateMinenMap(Player p, Location loc) {
         Block block = loc.getBlock();
-        if (isAllowedToMine(block, p)) {
+        Bukkit.broadcastMessage(isAllowedToMineInt(block) + "");
+        if (isAllowedToMineInt(block) <= getMine(p.getUniqueId())) {
             Rausch.rausch(p, block.getType());
-            String mine = String.valueOf(isAllowedToMineInt(block, p));
+            String mine = String.valueOf(isAllowedToMineInt(block));
             RewardAPI api = new RewardAPI();
             api.checkToAddReward(p);
             int amount = Erfahrung.getErfahrungMultiplyer(p);
@@ -111,44 +112,59 @@ public class MinenManager {
             }
             return true;
         }
+        p.sendMessage(MessageManager.PREFIX + "§7Du kannst hier §cnicht §7abbauen, da du diese §6Mine §cnicht§7 besitzt!");
         return false;
     }
 
 
-    private boolean isAllowedToMine(Block block, Player p) {
+    private int isAllowedToMineInt(Block block) {
         for (int i = 1; i <= MessageManager.MAX_MINE; i++) {
-            if (getBlocks(i, block)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private int isAllowedToMineInt(Block block, Player p) {
-        for (int i = 1; i <= MessageManager.MAX_MINE; i++) {
-            if (getBlocks(i, block)) {
+            if (getBlocks(i).contains(block)) {
                 return i;
             }
         }
         return 1;
     }
 
-    public static boolean getBlocks(int i, Block block) {
-        Location from = new LocationManager("eckpoint1mine" + i).getLocation();
-        Location to = new LocationManager("eckpoint2mine" + i).getLocation();
-        double x = block.getX();
-        double y = block.getY();
-        double z = block.getZ();
+    private LinkedList<Location> getBlocks(int mine){
+        LinkedList<Location> locs = getEckPoints("mine" + mine);
+        Location loc1 = locs.get(0);
+        Location loc2 = locs.get(1);
+
+        return getAllLocationsInside(loc1, loc2);
+    }
+
+    private LinkedList<Location> getEckPoints(String mine){
+        Location loc1;
+        Location loc2;
+        LinkedList<Location> templist = new LinkedList<>();
+
+        String temp = "eckpoint1" + mine;
+        String temp2 = "eckpoint2" + mine;
+        loc1 = new LocationManager(temp).getLocation();
+        loc2 = new LocationManager(temp2).getLocation();
+        templist.add(loc1);
+        templist.add(loc2);
+        return templist;
+    }
+
+    private LinkedList<Location> getAllLocationsInside(Location from, Location to){
+
+
+        LinkedList<Location> locs = new LinkedList<>();
+
         double topBlockX = (double) (from.getBlockX() < to.getBlockX() ? to.getBlockX() : from.getBlockX());
         double bottomBlockX = (double) (from.getBlockX() > to.getBlockX() ? to.getBlockX() : from.getBlockX());
         double topBlockY = (double) (from.getBlockY() < to.getBlockY() ? to.getBlockY() : from.getBlockY());
         double bottomBlockY = (double) (from.getBlockY() > to.getBlockY() ? to.getBlockY() : from.getBlockY());
         double topBlockZ = (double) (from.getBlockZ() < to.getBlockZ() ? to.getBlockZ() : from.getBlockZ());
         double bottomBlockZ = (double) (from.getBlockZ() > to.getBlockZ() ? to.getBlockZ() : from.getBlockZ());
-        if (x <= topBlockX && x >= bottomBlockX && y <= topBlockY && y >= bottomBlockY && z <= topBlockZ && z >= bottomBlockZ) {
-            return true;
-        }
-        return false;
+        for(double x = bottomBlockX; x < topBlockX; x++)
+            for(double y = bottomBlockY; y < topBlockY; y++)
+                for(double z = bottomBlockZ; z < topBlockZ; z++)
+                    locs.add(new Location(from.getWorld(), x, y, z));
+        return locs;
+
     }
 }
 

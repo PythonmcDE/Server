@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.UUID;
 
 public class MinenSettings {
@@ -23,8 +24,8 @@ public class MinenSettings {
     public MinenSettings() {
         miningSettings = this;
     }
-    private HashMap<UUID, HashMap<Material, Boolean>> map = new HashMap<>();
-    private HashMap<Material, Boolean> blocks = new HashMap<>();
+    private static HashMap<UUID, HashMap<Material, Boolean>> map = new HashMap<>();
+    private static HashMap<Material, Boolean> blocks;
     private static MinenSettings miningSettings;
 
     public static MinenSettings getMiningSettings() {
@@ -35,43 +36,42 @@ public class MinenSettings {
         return map;
     }
 
-    public void setBlockSettings(Material material, boolean value) {
-        blocks.put(material, value);
-    }
-
     public void setInHashMap(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
+        blocks = new HashMap<>();
+        Random r = new Random(10);
+        Bukkit.broadcastMessage("§" + r.nextInt(10) + " " +blocks.toString());
         /*
         create booleans for all mining items
          */
-        boolean stone;
-        boolean gravil;
-        boolean coal;
-        boolean brick;
-        boolean iron;
-        boolean quarz;
-        boolean redstone;
-        boolean lapis;
-        boolean prismarin;
-        boolean gold;
-        boolean diamond;
-        boolean netherbrick;
-        boolean emerald;
-        boolean coalblock;
-        boolean sandstone;
-        boolean quarzblock;
-        boolean ice;
-        boolean netherrack;
-        boolean ironblock;
-        boolean packedice;
-        boolean sealatern;
-        boolean endstone;
-        boolean redstoneblock;
-        boolean lapisblock;
-        boolean goldblock;
-        boolean diamondblock;
-        boolean emeraldblock;
+            boolean stone;
+            boolean gravil;
+            boolean coal;
+            boolean brick;
+            boolean iron;
+            boolean quarz;
+            boolean redstone;
+            boolean lapis;
+            boolean prismarin;
+            boolean gold;
+            boolean diamond;
+            boolean netherbrick;
+            boolean emerald;
+            boolean coalblock;
+            boolean sandstone;
+            boolean quarzblock;
+            boolean ice;
+            boolean netherrack;
+            boolean ironblock;
+            boolean packedice;
+            boolean sealatern;
+            boolean endstone;
+            boolean redstoneblock;
+            boolean lapisblock;
+            boolean goldblock;
+            boolean diamondblock;
+            boolean emeraldblock;
 
         try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM miningblocksettings WHERE spieleruuid = ?")) {
             preparedStatement.setString(1, uuid.toString());
@@ -133,6 +133,7 @@ public class MinenSettings {
                      blocks.put(Material.GOLD_BLOCK, goldblock);
                      blocks.put(Material.DIAMOND_BLOCK, diamondblock);
                      blocks.put(Material.EMERALD_BLOCK, emeraldblock);
+                     Bukkit.broadcastMessage("§a" + blocks.toString());
                      map.put(uuid, blocks);
                 }
             }
@@ -214,7 +215,6 @@ public class MinenSettings {
 
             preparedStatement.executeUpdate();
 
-           blockMap.clear();
             map.remove(uuid);
         } catch (SQLException e){
             e.printStackTrace();

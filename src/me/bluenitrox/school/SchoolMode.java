@@ -23,6 +23,8 @@ import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.mine.angelmine.*;
 import me.bluenitrox.school.mine.commands.Sell;
 import me.bluenitrox.school.listener.BreakBlockEvent;
+import me.bluenitrox.school.mine.manager.MinenManager;
+import me.bluenitrox.school.mine.manager.MinenSettings;
 import me.bluenitrox.school.mine.manager.Minenreset;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;

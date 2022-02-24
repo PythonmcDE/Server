@@ -275,8 +275,10 @@ public class BreakBlockEvent implements Listener {
         int uses = item.getDurability();
         int durability = max-uses;
         if(p.getItemInHand() != null){
-            if(durability <= 30){
-                Bukkit.broadcastMessage("Your item is nearly dead contact felix if you see this!");
+            if(p.getItemInHand().getType() == Material.DIAMOND_PICKAXE || p.getItemInHand().getType() == Material.IRON_PICKAXE ||p.getItemInHand().getType() == Material.GOLD_PICKAXE ||p.getItemInHand().getType() == Material.STONE_PICKAXE ||p.getItemInHand().getType() == Material.WOOD_PICKAXE) {
+                if (durability <= 30) {
+                    Bukkit.broadcastMessage("Your item is nearly dead contact felix if you see this!");
+                }
             }
         }
     }

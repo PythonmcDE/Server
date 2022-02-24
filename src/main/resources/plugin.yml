@@ -117,6 +117,9 @@ commands:
   school:
   itemspawner:
   minensettings:
+    aliases:
+      - ms
+      - settings
   wz:
     aliases:
       - warzone

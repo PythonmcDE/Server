@@ -58,7 +58,7 @@ public class Minenreset {
                 for (int z3 = minZ; z3 <= maxZ; z3++) {
                     Block block = w.getBlockAt(x3, y3, z3);
 
-                    int r = new Random().nextInt(100);
+                    int r = new Random().nextInt(hashmine.size());
                     block.setType(hashmine.get(r));
                 }
             }

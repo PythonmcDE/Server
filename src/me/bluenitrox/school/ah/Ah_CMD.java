@@ -107,7 +107,7 @@ public class Ah_CMD implements CommandExecutor {
                 }
             } else {
                 p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
-                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L); 
             }
         }else {
             p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
