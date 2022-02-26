@@ -19,5 +19,6 @@ public class PlotInventory {
         Inventory inventory = Bukkit.createInventory(null, 9*3, guiname);
 
         return inventory;
+        //remove this
     }
 }

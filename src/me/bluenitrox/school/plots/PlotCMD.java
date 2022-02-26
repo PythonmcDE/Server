@@ -26,6 +26,7 @@ public class PlotCMD implements CommandExecutor {
             case 1:
                 player.sendMessage(MessageManager.PREFIX + "§7Plot Hilfe");
                 player.sendMessage("§8» §6/plot");
+                //Test
                 player.sendMessage("§8» §6/plot add");
                 player.sendMessage("§8» §6/plot remove");
                 player.sendMessage("§8» §6/plot ");
