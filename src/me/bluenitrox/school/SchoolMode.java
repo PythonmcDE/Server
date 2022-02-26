@@ -28,6 +28,7 @@ import me.bluenitrox.school.mine.manager.MinenSettings;
 import me.bluenitrox.school.mine.manager.Minenreset;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
+import me.bluenitrox.school.plots.PlotCMD;
 import me.bluenitrox.school.utils.*;
 import me.bluenitrox.school.warzone.CombatAPI;
 import me.bluenitrox.school.warzone.Warzone;
@@ -190,6 +191,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("school").setExecutor(new School());
         getCommand("wz").setExecutor(new Warzone());
         getCommand("minensettings").setExecutor(new MineSettings());
+        getCommand("plot").setExecutor(new PlotCMD());
 
         getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
         getCommand("testsummon").setExecutor(new TestSummon());
