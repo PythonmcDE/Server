@@ -267,6 +267,9 @@ public class SchoolMode extends JavaPlugin {
             try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `kopfgeld` ( `spieleruuid` CHAR(36) NOT NULL , `kopfgeld` INT(11) NOT NULL , PRIMARY KEY (`spieleruuid`))");) {
                 ps.executeUpdate();
             }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `plotworld` ( `spieleruuid` CHAR(36) NOT NULL , `trust` CHAR(36) NOT NULL , `ban` CHAR(36) NOT NULL)");) {
+                ps.executeUpdate();
+            }
             try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `locations` ( `name` VARCHAR(30) NOT NULL , `world` VARCHAR(30) NOT NULL , `x` DOUBLE NOT NULL , `y` DOUBLE NOT NULL , `z` DOUBLE NOT NULL , `yaw` FLOAT NOT NULL , `pitch` FLOAT NOT NULL , PRIMARY KEY (`name`))");) {
                 ps.executeUpdate();
             }
@@ -354,7 +357,6 @@ public class SchoolMode extends JavaPlugin {
                     if(BoosterAPI.boost.containsKey("gem")){
                         if(BoosterAPI.boost.get("gem") != 0){
                             BoosterAPI.boost.replace("gem", BoosterAPI.boost.get("gem")-1);
-                            Bukkit.broadcastMessage(BoosterAPI.boost.get("gem") + "");
                         }
                     }else if(BoosterAPI.boost.containsKey("xp")){
                         if(BoosterAPI.boost.get("xp") != 0){
@@ -579,41 +581,33 @@ public class SchoolMode extends JavaPlugin {
     private void disableBooster(){
         if(BoosterAPI.boost != null){
             if(BoosterAPI.boost.containsKey("gem")){
-                if(BoosterAPI.boost.get("gem") != 0){
                     try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE antidupe SET gem = ?")) {
                         ps.setInt(1,BoosterAPI.boost.get("gem"));
                         ps.executeUpdate();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                }
             }else if(BoosterAPI.boost.containsKey("xp")){
-                if(BoosterAPI.boost.get("xp") != 0){
                     try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE antidupe SET xp = ?")) {
                         ps.setInt(1,BoosterAPI.boost.get("xp"));
                         ps.executeUpdate();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                }
             }else if(BoosterAPI.boost.containsKey("dungeon")){
-                if(BoosterAPI.boost.get("dungeon") != 0){
                     try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE antidupe SET dungeon = ?")) {
                         ps.setInt(1,BoosterAPI.boost.get("dungeon"));
                         ps.executeUpdate();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                }
             }else if(BoosterAPI.boost.containsKey("angel")){
-                if(BoosterAPI.boost.get("angel") != 0){
                     try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE antidupe SET angel = ?")) {
                         ps.setInt(1,BoosterAPI.boost.get("angel"));
                         ps.executeUpdate();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                }
             }
         }
     }

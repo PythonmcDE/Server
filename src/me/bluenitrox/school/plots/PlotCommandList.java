@@ -1,4 +1,4 @@
-package me.bluenitrox.school.plot;
+package me.bluenitrox.school.plots;
 
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 

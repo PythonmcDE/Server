@@ -14,6 +14,7 @@ import me.bluenitrox.school.haendler.commands.Schmied;
 import me.bluenitrox.school.haendler.commands.Taxi;
 import me.bluenitrox.school.mine.angelmine.Angelmine;
 import me.bluenitrox.school.mine.manager.MinenSettings;
+import me.bluenitrox.school.plots.PlotInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -53,6 +54,7 @@ public class InventoryClickEvent implements Listener {
                 KitAPI.kitApiClickEvent(e);
                 Schmied.onClickSchmied(e);
                 am.onInventoryClick(e);
+                PlotInventory.inventoryClick(e);
 
                 k.onClick(e);
                 wgr.onClick(e);

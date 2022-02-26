@@ -318,7 +318,7 @@ public class PlayerJoinManager {
         return false;
     }
 
-    private static boolean isUserExists(UUID uuid) {
+    public static boolean isUserExists(UUID uuid) {
         try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT spieleruuid FROM spielerdaten WHERE spieleruuid = ?");){
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();

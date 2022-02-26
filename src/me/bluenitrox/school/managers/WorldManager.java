@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class WorldManager {
 
     public static final String spawn = "FISCHMC";
-    public static final String plotworld = "PlotWelt";
+    public static final String plotworld = "PlotWorld";
     public static final String warzone = "FISCHMC";
     public static final String arena = "Arena";
     public static final String mine = "FISCHMC";

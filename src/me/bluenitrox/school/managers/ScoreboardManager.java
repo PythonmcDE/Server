@@ -33,7 +33,7 @@ public class ScoreboardManager {
         ScoreboardScore a5 = new ScoreboardScore(scoreboard, obj, "§8● §7Nächstes Level");
         ScoreboardScore a12 = new ScoreboardScore(scoreboard, obj, umrechnungToString(p.getUniqueId()));
         ScoreboardScore a6 = new ScoreboardScore(scoreboard, obj, "  ");
-        ScoreboardScore a30 = new ScoreboardScore(scoreboard, obj, "§8● §7Money");
+        ScoreboardScore a30 = new ScoreboardScore(scoreboard, obj, "§8● §7Gems");
         ScoreboardScore a40 = new ScoreboardScore(scoreboard, obj, "   §6" + ValuetoString.valueToString(SchoolMode.getPlayerMoney(p.getUniqueId())));
         ScoreboardScore a41 = new ScoreboardScore(scoreboard, obj, "    ");
         ScoreboardScore a7 = new ScoreboardScore(scoreboard, obj, "§8§m-------------");
