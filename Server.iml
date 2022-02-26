@@ -19,5 +19,6 @@
     <orderEntry type="library" name="HikariCP-3.4.4" level="project" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="libs1" level="project" />
+    <orderEntry type="library" name="libs" level="project" />
   </component>
 </module>

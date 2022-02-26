@@ -229,7 +229,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new PlayerChangedWorldEvent(), this);
         pm.registerEvents(new BlockExplodeEvent(), this);
         pm.registerEvents(new AsyncPlayerChatEvent(), this);
-
+        pm.registerEvents(new FoodLevelChangeEvent(), this);
         pm.registerEvents(new AngelListener(), this);
 
         //
@@ -444,7 +444,7 @@ public class SchoolMode extends JavaPlugin {
                     }
                 }
             }
-        }.runTaskLaterAsynchronously(this, 20);
+        }.runTaskTimerAsynchronously(this, 20, 20);
     }
     private void startScoreboard(){
         new BukkitRunnable() {

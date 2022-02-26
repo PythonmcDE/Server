@@ -41,7 +41,6 @@ public class MinenSettings {
         UUID uuid = player.getUniqueId();
         blocks = new HashMap<>();
         Random r = new Random(10);
-        Bukkit.broadcastMessage("§" + r.nextInt(10) + " " +blocks.toString());
         /*
         create booleans for all mining items
          */
@@ -104,7 +103,6 @@ public class MinenSettings {
                      goldblock = resultSet.getBoolean("goldblock");
                      diamondblock = resultSet.getBoolean("diamondblock");
                      emeraldblock = resultSet.getBoolean("emeraldblock");
-                     System.out.println(stone);
 
                      blocks.put(Material.STONE, stone);
                      blocks.put(Material.GRAVEL, gravil);
@@ -133,7 +131,6 @@ public class MinenSettings {
                      blocks.put(Material.GOLD_BLOCK, goldblock);
                      blocks.put(Material.DIAMOND_BLOCK, diamondblock);
                      blocks.put(Material.EMERALD_BLOCK, emeraldblock);
-                     Bukkit.broadcastMessage("§a" + blocks.toString());
                      map.put(uuid, blocks);
                 }
             }

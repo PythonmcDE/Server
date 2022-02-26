@@ -51,7 +51,6 @@ public class SellManager {
 
     public static float getPriceByMaterial(String material) {
         material = material.toUpperCase();
-        Bukkit.broadcastMessage(material + " §7u");
         float preis = Preise.getByName(material).price;
 
         return preis;
