@@ -11,6 +11,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,23 +28,22 @@ public class BoosterAPI implements CommandExecutor {
     public static boolean money1;
     public static boolean angel1;
     public static boolean dungeon1;
-    public String gemBooster = "gem";
-    public String xpBooster = "xp";
-    public String chestBooster = "chest";
-    public String angelBooster = "angel";
-    public String dungeonBooster = "dungeon";
+    public static String gemBooster = "gem";
+    public static String xpBooster = "xp";
+    public static String chestBooster = "chest";
+    public static String angelBooster = "angel";
+    public static String dungeonBooster = "dungeon";
 
 
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
         Player p = (Player) cs;
         if(args.length == 0) {
-            p.sendMessage(MessageManager.PREFIX + "§7Hier sind deine Booster:");
-            p.sendMessage(MessageManager.PREFIX + "§d§lXp-Booster: §7" + getBooster(p.getUniqueId(), "xp"));
-            p.sendMessage(MessageManager.PREFIX + "§d§lGem-Booster: §7" + getBooster(p.getUniqueId(), "gem"));
-            p.sendMessage(MessageManager.PREFIX + "§d§lChest-Booster: §7" + getBooster(p.getUniqueId(), "chest"));
-            p.sendMessage(MessageManager.PREFIX + "§d§lAngel-Booster: §7" + getBooster(p.getUniqueId(), "angel"));
-            p.sendMessage(MessageManager.PREFIX + "§d§lAngel-Booster: §7" + getBooster(p.getUniqueId(), "dungeon"));
+            Inventory inv = Bukkit.createInventory(null, 9*6, BoostInv.GUI_NAME);
+
+            BoostInv.setBoostContent(inv, p);
+
+            p.openInventory(inv);
         }else if(args.length == 1) {
 
             if(args[0].equalsIgnoreCase("help")) {
@@ -67,6 +67,8 @@ public class BoosterAPI implements CommandExecutor {
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                         }
+                        boost.put("xp", 3600);
+                        xp1 = true;
 
                         SchoolMode.getInstance().getBoostermanager().startBoost(new Xpbooster());
 
@@ -76,9 +78,6 @@ public class BoosterAPI implements CommandExecutor {
                         TODO update booster status in Mysql for server connectivity
                          */
 
-
-                        boost.put("xp", 3600);
-                        xp1 = true;
 
                         updateBooster(p.getUniqueId(), xpBooster, 1, true);
                         return true;
@@ -101,13 +100,11 @@ public class BoosterAPI implements CommandExecutor {
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                         }
-
+                        boost.put("gem", 3600);
+                        money1 = true;
                         SchoolMode.getInstance().getBoostermanager().startBoost(new Gembooster());
 
                         Firework.Firework(p);
-
-                        boost.put("money", 3600);
-                        money1 = true;
 
                         updateBooster(p.getUniqueId(), gemBooster, 1, true);
                         return true;
@@ -130,18 +127,45 @@ public class BoosterAPI implements CommandExecutor {
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                         }
-
+                        boost.put("angel", 3600);
+                        angel1 = true;
                         SchoolMode.getInstance().getBoostermanager().startBoost(new Angelbooster());
 
                         Firework.Firework(p);
 
-                        boost.put("angel", 3600);
-                        angel1 = true;
 
                         updateBooster(p.getUniqueId(), angelBooster, 1, true);
                         return true;
                     }else {
                         p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + angelbooster.getName() + " §7aktivieren, da bereits einer aktiv ist!");
+                    }
+                }else {
+                    p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Angel-Booster.");
+                }
+            }else if(args[0].equalsIgnoreCase("dungeon")) {
+                Dungeonbooster dungeonbooster = new Dungeonbooster();
+                if(hasEnoughBooster(p.getUniqueId(), dungeonBooster)) {
+                    if(!SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(dungeonbooster.getName())))) {
+
+                        Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + dungeonbooster.getName() + "§7 für " + dungeonbooster.getLenth() + " §7Minuten gezündet");
+
+                        for(Player all : Bukkit.getOnlinePlayers()) {
+                            TTA_Methods.sendTitle(all,"§6Dungeon-Booster",20,20,20 ,"§7von " + p.getDisplayName(),20,20,20);
+                            all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
+                            all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
+                            all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
+                        }
+                        boost.put("dungeon", 3600);
+                        dungeon1 = true;
+                        SchoolMode.getInstance().getBoostermanager().startBoost(new Dungeonbooster());
+
+                        Firework.Firework(p);
+
+
+                        updateBooster(p.getUniqueId(), dungeonBooster, 1, true);
+                        return true;
+                    }else {
+                        p.sendMessage(MessageManager.PREFIX + "§7Du kannst keinen §d" + dungeonbooster.getName() + " §7aktivieren, da bereits einer aktiv ist!");
                     }
                 }else {
                     p.sendMessage(MessageManager.PREFIX + "§7Du besitzt keinen Angel-Booster.");
@@ -175,9 +199,9 @@ public class BoosterAPI implements CommandExecutor {
                 }
                 Gembooster money = new Gembooster();
                 if(SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
-                    p.sendMessage(MessageManager.PREFIX + "§bMoney-Booster: §aan");
+                    p.sendMessage(MessageManager.PREFIX + "§bGem-Booster: §aan");
                 }else {
-                    p.sendMessage(MessageManager.PREFIX + "§bMoney-Booster: §4aus");
+                    p.sendMessage(MessageManager.PREFIX + "§bGem-Booster: §4aus");
                 }
                 Angelbooster angel = new Angelbooster();
                 if(SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(angel.getName())))) {
@@ -185,6 +209,13 @@ public class BoosterAPI implements CommandExecutor {
                 }else {
                     p.sendMessage(MessageManager.PREFIX + "§bAngel-Booster: §4aus");
                 }
+                Dungeonbooster dungeon = new Dungeonbooster();
+                if(SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(dungeon.getName())))) {
+                    p.sendMessage(MessageManager.PREFIX + "§bDungeon-Booster: §aan");
+                }else {
+                    p.sendMessage(MessageManager.PREFIX + "§bDungeon-Booster: §4aus");
+                }
+
             }else {
                 p.sendMessage(MessageManager.PREFIX + "§cFalsche Eingabe des Commands. Bitte benutze §6/booster help §c");
             }
@@ -199,14 +230,17 @@ public class BoosterAPI implements CommandExecutor {
                         p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bXp-Booster §7bekommen");
                     } else if (name.equalsIgnoreCase("gem")) {
                         updateBooster(target.getUniqueId(), gemBooster, amount, false);
-                        p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bMoney-Booster §7bekommen");
+                        p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bGem-Booster §7bekommen");
                     }else if (name.equalsIgnoreCase("chest")) {
                         updateBooster(target.getUniqueId(), chestBooster, amount, false);
                         p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bChest-Booster §7bekommen");
                     }else if (name.equalsIgnoreCase("angel")) {
                         updateBooster(target.getUniqueId(), angelBooster, amount, false);
                         p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bAngel-Booster §7bekommen");
-                    } else {
+                    }else if (name.equalsIgnoreCase("dungeon")) {
+                        updateBooster(target.getUniqueId(), dungeonBooster, amount, false);
+                        p.sendMessage(MessageManager.PREFIX + "§7" + target.getPlayer().getName() + " §7hat §a" + amount + "x §bDungeon-Booster §7bekommen");
+                    }  else {
                         p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
                     }
                 } else if (args[0].equalsIgnoreCase("remove")) {
@@ -225,6 +259,9 @@ public class BoosterAPI implements CommandExecutor {
                     }else if (name.equalsIgnoreCase("angel")) {
                         updateBooster(target.getUniqueId(), angelBooster, amount, true);
                         p.sendMessage(MessageManager.PREFIX + "§7Du hast §e" + target.getPlayer().getName() + "§a " + amount + "x §bAngel-Booster §7removt");
+                    }else if (name.equalsIgnoreCase("dungeon")) {
+                        updateBooster(target.getUniqueId(), dungeonBooster, amount, true);
+                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §e" + target.getPlayer().getName() + "§a " + amount + "x §bDungeon-Booster §7removt");
                     }
                 }
 
@@ -250,7 +287,7 @@ public class BoosterAPI implements CommandExecutor {
         } else if(booster.equalsIgnoreCase("angel")) {
             amount = SchoolMode.getPlayerAngelBooster(uuid);
         } else if(booster.equalsIgnoreCase("dungeon")) {
-            amount  = SchoolMode.getPlayerXPBooster(uuid);
+            amount  = SchoolMode.getPlayerDungeonBooster(uuid);
         }
         return amount;
     }

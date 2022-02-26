@@ -14,19 +14,11 @@ import java.util.ArrayList;
 
 public class Skill implements CommandExecutor {
 
-    public static ArrayList<Player> cantopenSkill = new ArrayList<>();
 
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player p = (Player)cs;
         if(args.length == 0){
-            if(cantopenSkill != null){
-                if(cantopenSkill.contains(p)){
-                    p.sendMessage(MessageManager.PREFIX + "§7Deine §3Skillpunkte §7werden gerade noch geladen. Bitte warte einen Moment");
-                    p.playSound(p.getLocation(),  Sound.VILLAGER_NO, 1L , 1L);
-                    return true;
-                }
-            }
             SkillSystem api = new SkillSystem();
             if(!AhManager.openedAH.contains(p)) {
                 AhManager.openedAH.add(p);

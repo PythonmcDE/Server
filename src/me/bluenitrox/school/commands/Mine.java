@@ -650,7 +650,7 @@ public class Mine implements CommandExecutor {
                 "§6§l▶ §7hier zum §6§lTeleportieren§7.").build();
         ItemStack mine251 = new ItemBuilder(Material.EMERALD_BLOCK).addEnchant(Enchantment.ARROW_INFINITE, 10, false).setDisplayname("§8§l» §6§lMine 25").setLore("§6§l▶ §7Du besitzt diese §6§lMine§7, klicke",
                 "§6§l▶ §7hier zum §6§lTeleportieren§7.").build();
-        ItemStack mine261 = new ItemBuilder(Material.OBSIDIAN).addEnchant(Enchantment.ARROW_INFINITE, 10, false).setDisplayname("§8§l» §6§lMine 25").setLore("§6§l▶ §7Du besitzt diese §6§lMine§7, klicke",
+        ItemStack mine261 = new ItemBuilder(Material.OBSIDIAN).addEnchant(Enchantment.ARROW_INFINITE, 10, false).setDisplayname("§8§l» §6§lMine 26").setLore("§6§l▶ §7Du besitzt diese §6§lMine§7, klicke",
                 "§6§l▶ §7hier zum §6§lTeleportieren§7.").build();
 
         ItemStack mine22 = new ItemBuilder(Material.COAL_ORE).setDisplayname("§8§l» §6§lMine 2").setLore("§6§l▶ §aKlicke hier§7, um die Mine zu §6kaufen§7.",
@@ -907,6 +907,8 @@ public class Mine implements CommandExecutor {
         }else {
             inv.setItem(wert+8, mine252);
         }
+
+        wert++;
 
         if(MinenManager.getMine(uuid) >= wert){
             inv.setItem(wert+8, mine261);

@@ -11,9 +11,10 @@ public class Angelbooster extends Boost {
         setLenth(60);
     }
 
+    int time = BoosterAPI.boost.get("angel");
     @Override
     public void onStart() {
-        startTicking();
+        startTicking(time*20);
     }
 
     @Override

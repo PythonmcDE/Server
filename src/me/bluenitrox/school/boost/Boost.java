@@ -26,9 +26,9 @@ public class Boost{
 
     public void onEnd() { }
 
-    public void startTicking() {
+    public void startTicking(int time) {
         SchoolMode.getInstance().getBoostermanager().getAktivboost().add(this);
-        Bukkit.getScheduler().runTaskLaterAsynchronously(SchoolMode.getInstance(), this::onEnd, 20*60*60);
+        Bukkit.getScheduler().runTaskLaterAsynchronously(SchoolMode.getInstance(), this::onEnd, time);
     }
 
 }
