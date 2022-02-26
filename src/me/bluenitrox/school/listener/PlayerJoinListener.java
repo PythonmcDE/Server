@@ -27,8 +27,6 @@ public class PlayerJoinListener implements Listener {
         PlayerJoinManager.cachPlayerData(p.getUniqueId());
         SchoolMode.playerwason.add(p.getUniqueId());
 
-        PlayerJoinManager.updateBelowName(p);
-
         ScoreboardManager.setBoard(p);
         p.setGameMode(GameMode.SURVIVAL);
         e.setJoinMessage(null);

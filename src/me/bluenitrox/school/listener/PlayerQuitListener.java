@@ -63,28 +63,19 @@ public class PlayerQuitListener implements Listener {
             }
         }
         if(SchoolMode.playertask.containsKey(p.getUniqueId()) && SchoolMode.playertoggletask.containsKey(p.getUniqueId())){
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE aufgaben SET aufgabenfortschritt = ? WHERE spieleruuid = ?")) {
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE aufgaben SET aufgabenfortschritt = ?, toggle = ? WHERE spieleruuid = ?")) {
                 ps.setInt(1, SchoolMode.getPlayerTask(p.getUniqueId()));
-                ps.setString(2, p.getUniqueId().toString());
+                ps.setInt(2, SchoolMode.getPlayerToggleTask(p.getUniqueId()));
+                ps.setString(3, p.getUniqueId().toString());
                 ps.executeUpdate();
 
                 SchoolMode.playertask.remove(p.getUniqueId());
-            }catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        if(SchoolMode.playertoggletask.containsKey(p.getUniqueId())){
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE aufgaben SET toggle = ? WHERE spieleruuid = ?")) {
-                ps.setInt(1, SchoolMode.getPlayerToggleTask(p.getUniqueId()));
-                ps.setString(2, p.getUniqueId().toString());
-                ps.executeUpdate();
-
                 SchoolMode.playertoggletask.remove(p.getUniqueId());
             }catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
+
         if(SchoolMode.playergemlimit.containsKey(p.getUniqueId())){
             try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE DailyReward SET GemLimit = ? WHERE UUID = ?")) {
                 ps.setInt(1, SchoolMode.getGemLimit(p.getUniqueId()));
@@ -97,60 +88,20 @@ public class PlayerQuitListener implements Listener {
             }
         }
         if(SchoolMode.chestBooster.containsKey(p.getUniqueId())){
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE booster SET chest = ? WHERE spieleruuid = ?")) {
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE booster SET chest = ?, gem = ?, xp = ?, dungeon = ?, angel = ? WHERE spieleruuid = ?")) {
                 ps.setInt(1, SchoolMode.getPlayerChestBooster(p.getUniqueId()));
-                ps.setString(2, p.getUniqueId().toString());
+                ps.setInt(2, SchoolMode.getPlayerGemBooster(p.getUniqueId()));
+                ps.setInt(3, SchoolMode.getPlayerXPBooster(p.getUniqueId()));
+                ps.setInt(4, SchoolMode.getPlayerDungeonBooster(p.getUniqueId()));
+                ps.setInt(5, SchoolMode.getPlayerAngelBooster(p.getUniqueId()));
+                ps.setString(6, p.getUniqueId().toString());
                 ps.executeUpdate();
                 ps.close();
 
                 SchoolMode.chestBooster.remove(p.getUniqueId());
-            }catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        if(SchoolMode.gemBooster.containsKey(p.getUniqueId())){
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE booster SET gem = ? WHERE spieleruuid = ?")) {
-                ps.setInt(1, SchoolMode.getPlayerGemBooster(p.getUniqueId()));
-                ps.setString(2, p.getUniqueId().toString());
-                ps.executeUpdate();
-                ps.close();
-
                 SchoolMode.gemBooster.remove(p.getUniqueId());
-            }catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        if(SchoolMode.xpBooster.containsKey(p.getUniqueId())){
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE booster SET xp = ? WHERE spieleruuid = ?")) {
-                ps.setInt(1, SchoolMode.getPlayerXPBooster(p.getUniqueId()));
-                ps.setString(2, p.getUniqueId().toString());
-                ps.executeUpdate();
-                ps.close();
-
-                SchoolMode.xpBooster.remove(p.getUniqueId());
-            }catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        if(SchoolMode.angelBooster.containsKey(p.getUniqueId())){
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE booster SET angel = ? WHERE spieleruuid = ?")) {
-                ps.setInt(1, SchoolMode.getPlayerAngelBooster(p.getUniqueId()));
-                ps.setString(2, p.getUniqueId().toString());
-                ps.executeUpdate();
-                ps.close();
-
                 SchoolMode.angelBooster.remove(p.getUniqueId());
-            }catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        if(SchoolMode.dungeonBooster.containsKey(p.getUniqueId())){
-            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE booster SET dungeon = ? WHERE spieleruuid = ?")) {
-                ps.setInt(1, SchoolMode.getPlayerDungeonBooster(p.getUniqueId()));
-                ps.setString(2, p.getUniqueId().toString());
-                ps.executeUpdate();
-                ps.close();
-
+                SchoolMode.xpBooster.remove(p.getUniqueId());
                 SchoolMode.dungeonBooster.remove(p.getUniqueId());
             }catch (SQLException ex) {
                 ex.printStackTrace();

@@ -347,6 +347,26 @@ public class SchoolMode extends JavaPlugin {
                         }
                     }
                 });
+                if(BoosterAPI.boost != null){
+                    if(BoosterAPI.boost.containsKey("gem")){
+                        if(BoosterAPI.boost.get("gem") != 0){
+                            BoosterAPI.boost.replace("gem", BoosterAPI.boost.get("gem")-1);
+                            Bukkit.broadcastMessage(BoosterAPI.boost.get("gem") + "");
+                        }
+                    }else if(BoosterAPI.boost.containsKey("xp")){
+                        if(BoosterAPI.boost.get("xp") != 0){
+                            BoosterAPI.boost.replace("xp", BoosterAPI.boost.get("xp")-1);
+                        }
+                    }else if(BoosterAPI.boost.containsKey("dungeon")){
+                        if(BoosterAPI.boost.get("dungeon") != 0){
+                            BoosterAPI.boost.replace("dungeon", BoosterAPI.boost.get("dungeon")-1);
+                        }
+                    }else if(BoosterAPI.boost.containsKey("angel")){
+                        if(BoosterAPI.boost.get("angel") != 0){
+                            BoosterAPI.boost.replace("angel", BoosterAPI.boost.get("angel")-1);
+                        }
+                    }
+                }
                 for(UUID uuid : playerwason){
                     if(KitAPI.holz.containsKey(uuid)){
                         if(KitAPI.holz.get(uuid) > 1){

@@ -34,9 +34,6 @@ public class PlayerJoinManager {
 
 
     public static void cachPlayerData(UUID uuid) {
-        StatsAPI api = new StatsAPI();
-        SkillAPI sapi = new SkillAPI();
-        BoosterAPI boosterAPI = new BoosterAPI();
         MinenSettings minenSettings = new MinenSettings();
         minenSettings.createPlayer(uuid);
         if(!isTaskUserExists(uuid)) {
@@ -49,37 +46,101 @@ public class PlayerJoinManager {
         if(!isBoostUserExists(uuid)) {
             configurateBoosterPlayer(uuid);
         }
-        float money = MoneyManager.getMoneyDatabase(uuid);
-        float exp = ExpManager.getExpDatabase(uuid);
-        int mine = MinenManager.getMineDatabase(uuid);
-        int angelmine = AngelminenManager.getAngelmineDatabase(uuid);
-        int blocks = PlayerBreakBlockManager.getBlocksDatabase(uuid);
-        int mobs = StatsAPI.getMobDatabase(uuid);
-        int task = AufgabenManager.getTaskDatabase(uuid);
-        int toggletask = AufgabenManager.getToggleDatabase(uuid);
-        int chestBooster = boosterAPI.getBoosterDatabase(uuid, boosterAPI.chestBooster);
-        int gemBooster = boosterAPI.getBoosterDatabase(uuid, boosterAPI.gemBooster);
-        int xpBooster = boosterAPI.getBoosterDatabase(uuid, boosterAPI.xpBooster);
-        int angelBooster = boosterAPI.getBoosterDatabase(uuid, boosterAPI.angelBooster);
-        int dungeonBooster = boosterAPI.getBoosterDatabase(uuid, boosterAPI.dungeonBooster);
+        /*
+        important values money etc.
+         */
+
+        float money = 0;
+        float exp = 0;
+        int level = 0;
+        int mine = 0;
+        int angelmine = 0;
+        int blocks = 0;
+        int mobs = 0;
+        int cases = 0;
+        int chests = 0;
+        int prestige = 0;
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM spielerdaten WHERE spieleruuid = ?")) {
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                money = rs.getFloat("money");
+                exp = rs.getFloat("exp");
+                level = rs.getInt("level");
+                mine = rs.getInt("mine");
+                angelmine = rs.getInt("angelmine");
+                blocks = rs.getInt("bloecke");
+                mobs = rs.getInt("mob");
+                cases = rs.getInt("cases");
+                chests = rs.getInt("chests");
+                prestige = rs.getInt("prestige");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         SchoolMode.setPlayerMoney(uuid, money);
-        SchoolMode.playerlevel.put(uuid,ExpManager.getLevelDatabase(uuid));
+        SchoolMode.playerlevel.put(uuid,level);
         SchoolMode.setPlayerExp(uuid, exp);
         SchoolMode.setPlayerMine(uuid, mine);
         SchoolMode.setPlayerAngelmine(uuid,angelmine);
         SchoolMode.setPlayerBlocks(uuid, blocks);
-        SchoolMode.setPlayerCase(uuid,api.getCasesDatabase(uuid));
-        SchoolMode.setPlayerChest(uuid, api.getChestsDatabase(uuid));
+        SchoolMode.setPlayerCase(uuid,cases);
+        SchoolMode.setPlayerChest(uuid, chests);
         SchoolMode.setPlayerMob(uuid,mobs);
-        SchoolMode.setPrestige(uuid, ExpManager.getPrestigeDatabase(uuid));
-        SchoolMode.setPlayerTask(uuid, task);
-        SchoolMode.setPlayertoggleTask(uuid, toggletask);
+        SchoolMode.setPrestige(uuid, prestige);
+        KopfgeldManager.onTartgetJoin(uuid);
+
+        /*
+        booster system
+         */
+
+        int chestBooster = 0;
+        int gemBooster = 0;
+        int xpBooster = 0;
+        int angelBooster = 0;
+        int dungeonBooster = 0;
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM booster WHERE spieleruuid = ?")) {
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                chestBooster = rs.getInt("chest");
+                gemBooster = rs.getInt("gem");
+                xpBooster = rs.getInt("xp");
+                angelBooster = rs.getInt("angel");
+                dungeonBooster = rs.getInt("dungeon");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         SchoolMode.setPlayerChestBooster(uuid, chestBooster);
         SchoolMode.setPlayerGemBooster(uuid, gemBooster);
         SchoolMode.setPlayerXPBooster(uuid, xpBooster);
         SchoolMode.setPlayerAngelBooster(uuid, angelBooster);
         SchoolMode.setPlayerDungeonBooster(uuid, dungeonBooster);
-        KopfgeldManager.onTartgetJoin(uuid);
+
+        /*
+        task system
+         */
+
+        int task = 0;
+        int toggletask = 0;
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM aufgaben WHERE spieleruuid = ?")) {
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                task = rs.getInt("aufgabenfortschritt");
+                toggletask = rs.getInt("toggle");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        SchoolMode.setPlayerTask(uuid, task);
+        SchoolMode.setPlayertoggleTask(uuid, toggletask);
+
+        /*
+        Skill system
+         */
 
         int skillpunkte = 0;
         int angriff = 0;
@@ -324,7 +385,5 @@ public class PlayerJoinManager {
         return false;
     }
 
-    public static void updateBelowName(Player p){
 
-    }
 }
