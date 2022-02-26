@@ -35,7 +35,7 @@ public class PlayerQuitListener implements Listener {
     }
 
     private void updateDatabase(Player p){
-        if(SchoolMode.playerMoney.containsKey(p.getUniqueId()) && SchoolMode.playerExp.containsKey(p.getUniqueId()) && SchoolMode.playerMine.containsKey(p.getUniqueId()) && SchoolMode.playerBlocks.containsKey(p.getUniqueId()) && SchoolMode.playerlevel.containsKey(p.getUniqueId()) && SchoolMode.playercase.containsKey(p.getUniqueId()) && SchoolMode.playerangelmine.containsKey(p.getUniqueId())) {
+        if(SchoolMode.playerMoney.containsKey(p.getUniqueId())) {
             try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET money = ?, exp = ?, mine = ?, bloecke = ?, level = ?, chests = ?, cases = ?,mob = ?, prestige = ?, angelmine = ? WHERE spieleruuid = ?")) {
                 ps.setFloat(1, SchoolMode.getPlayerMoney(p.getUniqueId()));
                 ps.setFloat(2, SchoolMode.getPlayerExp(p.getUniqueId()));
@@ -156,43 +156,35 @@ public class PlayerQuitListener implements Listener {
                 ex.printStackTrace();
             }
         }
+        if(SchoolMode.playerskillpunkte.containsKey(p.getUniqueId())){
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE skills SET skillpunkte = ?, angriff = ?, verteidigung = ?, extraenergie = ?, scharfschütze = ?, mining = ?, handler = ?, alchemist = ?, bonusloot = ?, gluckspilz = ? WHERE UUID = ?")) {
+                ps.setInt(1, SchoolMode.playerskillpunkte.get(p.getUniqueId()));
+                ps.setInt(2, SchoolMode.playerangriff.get(p.getUniqueId()));
+                ps.setInt(3, SchoolMode.playerverteidigung.get(p.getUniqueId()));
+                ps.setInt(4, SchoolMode.playerextraenergie.get(p.getUniqueId()));
+                ps.setInt(5, SchoolMode.playerscharfschütze.get(p.getUniqueId()));
+                ps.setInt(6, SchoolMode.playermining.get(p.getUniqueId()));
+                ps.setInt(7, SchoolMode.playerhandler.get(p.getUniqueId()));
+                ps.setInt(8, SchoolMode.playeralchemist.get(p.getUniqueId()));
+                ps.setInt(9, SchoolMode.playerbonusloot.get(p.getUniqueId()));
+                ps.setInt(10, SchoolMode.playergluckspilz.get(p.getUniqueId()));
+                ps.setString(11, p.getUniqueId().toString());
+                ps.executeUpdate();
 
-
-        new BukkitRunnable(){
-
-            @Override
-            public void run() {
-                if(SchoolMode.playerskillpunkte.containsKey(p.getUniqueId())&&SchoolMode.playerangriff.containsKey(p.getUniqueId())&&SchoolMode.playerverteidigung.containsKey(p.getUniqueId())&&SchoolMode.playerextraenergie.containsKey(p.getUniqueId())&&SchoolMode.playerscharfschütze.containsKey(p.getUniqueId())&&SchoolMode.playermining.containsKey(p.getUniqueId())&&SchoolMode.playerhandler.containsKey(p.getUniqueId())&&SchoolMode.playeralchemist.containsKey(p.getUniqueId())){
-                    try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE skills SET skillpunkte = ?, angriff = ?, verteidigung = ?, extraenergie = ?, scharfschütze = ?, mining = ?, handler = ?, alchemist = ?, bonusloot = ?, gluckspilz = ? WHERE UUID = ?")) {
-                        ps.setInt(1, SchoolMode.playerskillpunkte.get(p.getUniqueId()));
-                        ps.setInt(2, SchoolMode.playerangriff.get(p.getUniqueId()));
-                        ps.setInt(3, SchoolMode.playerverteidigung.get(p.getUniqueId()));
-                        ps.setInt(4, SchoolMode.playerextraenergie.get(p.getUniqueId()));
-                        ps.setInt(5, SchoolMode.playerscharfschütze.get(p.getUniqueId()));
-                        ps.setInt(6, SchoolMode.playermining.get(p.getUniqueId()));
-                        ps.setInt(7, SchoolMode.playerhandler.get(p.getUniqueId()));
-                        ps.setInt(8, SchoolMode.playeralchemist.get(p.getUniqueId()));
-                        ps.setInt(9, SchoolMode.playerbonusloot.get(p.getUniqueId()));
-                        ps.setInt(10, SchoolMode.playergluckspilz.get(p.getUniqueId()));
-                        ps.setString(11, p.getUniqueId().toString());
-                        ps.executeUpdate();
-
-                        SchoolMode.playerskillpunkte.remove(p.getUniqueId());
-                        SchoolMode.playerangriff.remove(p.getUniqueId());
-                        SchoolMode.playerverteidigung.remove(p.getUniqueId());
-                        SchoolMode.playerextraenergie.remove(p.getUniqueId());
-                        SchoolMode.playerscharfschütze.remove(p.getUniqueId());
-                        SchoolMode.playermining.remove(p.getUniqueId());
-                        SchoolMode.playerhandler.remove(p.getUniqueId());
-                        SchoolMode.playeralchemist.remove(p.getUniqueId());
-                        SchoolMode.playerbonusloot.remove(p.getUniqueId());
-                        SchoolMode.playergluckspilz.remove(p.getUniqueId());
-                    }catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
-                }
+                SchoolMode.playerskillpunkte.remove(p.getUniqueId());
+                SchoolMode.playerangriff.remove(p.getUniqueId());
+                SchoolMode.playerverteidigung.remove(p.getUniqueId());
+                SchoolMode.playerextraenergie.remove(p.getUniqueId());
+                SchoolMode.playerscharfschütze.remove(p.getUniqueId());
+                SchoolMode.playermining.remove(p.getUniqueId());
+                SchoolMode.playerhandler.remove(p.getUniqueId());
+                SchoolMode.playeralchemist.remove(p.getUniqueId());
+                SchoolMode.playerbonusloot.remove(p.getUniqueId());
+                SchoolMode.playergluckspilz.remove(p.getUniqueId());
+            }catch (SQLException ex) {
+                ex.printStackTrace();
             }
-        }.runTaskLater(SchoolMode.getInstance(), 20*10);
+        }
     }
 
     private void removeAhItems(Player e){

@@ -80,24 +80,50 @@ public class PlayerJoinManager {
         SchoolMode.setPlayerAngelBooster(uuid, angelBooster);
         SchoolMode.setPlayerDungeonBooster(uuid, dungeonBooster);
         KopfgeldManager.onTartgetJoin(uuid);
-        Skill.cantopenSkill.add(Bukkit.getPlayer(uuid));
-        new BukkitRunnable(){
 
-            @Override
-            public void run() {
-                SchoolMode.playerskillpunkte.put(uuid, sapi.getSkillpunkteDatabase(uuid));
-                SchoolMode.playerangriff.put(uuid, sapi.getDatabase(uuid, "angriff"));
-                SchoolMode.playerverteidigung.put(uuid, sapi.getDatabase(uuid, "verteidigung"));
-                SchoolMode.playerextraenergie.put(uuid, sapi.getDatabase(uuid, "extraenergie"));
-                SchoolMode.playerscharfschütze.put(uuid, sapi.getDatabase(uuid, "scharfschütze"));
-                SchoolMode.playermining.put(uuid, sapi.getDatabase(uuid, "mining"));
-                SchoolMode.playerhandler.put(uuid, sapi.getDatabase(uuid, "handler"));
-                SchoolMode.playeralchemist.put(uuid, sapi.getDatabase(uuid, "alchemist"));
-                SchoolMode.playerbonusloot.put(uuid, sapi.getDatabase(uuid, "bonusloot"));
-                SchoolMode.playergluckspilz.put(uuid, sapi.getDatabase(uuid, "gluckspilz"));
-                Skill.cantopenSkill.remove(Bukkit.getPlayer(uuid));
+        int skillpunkte = 0;
+        int angriff = 0;
+        int verteidigung = 0;
+        int extraenergie = 0;
+        int scharfschütze = 0;
+        int mining = 0;
+        int handler = 0;
+        int alchemist = 0;
+        int bonusloot = 0;
+        int gluckspilz = 0;
+
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM skills WHERE UUID = ?")) {
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                skillpunkte = rs.getInt("skillpunkte");
+                angriff = rs.getInt("angriff");
+                verteidigung = rs.getInt("verteidigung");
+                extraenergie = rs.getInt("extraenergie");
+                scharfschütze = rs.getInt("scharfschütze");
+                mining = rs.getInt("mining");
+                handler = rs.getInt("handler");
+                alchemist = rs.getInt("alchemist");
+                bonusloot = rs.getInt("bonusloot");
+                gluckspilz = rs.getInt("gluckspilz");
             }
-        }.runTaskLater(SchoolMode.getInstance(), 20*10);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        SchoolMode.playerskillpunkte.put(uuid, skillpunkte);
+        SchoolMode.playerangriff.put(uuid, angriff);
+        SchoolMode.playerverteidigung.put(uuid, verteidigung);
+        SchoolMode.playerextraenergie.put(uuid, extraenergie);
+        SchoolMode.playerscharfschütze.put(uuid, scharfschütze);
+        SchoolMode.playermining.put(uuid, mining);
+        SchoolMode.playerhandler.put(uuid, handler);
+        SchoolMode.playeralchemist.put(uuid, alchemist);
+        SchoolMode.playerbonusloot.put(uuid, bonusloot);
+        SchoolMode.playergluckspilz.put(uuid, gluckspilz);
+
+
+
         if(!isRewardUserExists(uuid)){
             configurateRewardPlayer(uuid);
         }
