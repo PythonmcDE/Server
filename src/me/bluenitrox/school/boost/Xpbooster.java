@@ -11,9 +11,10 @@ public class Xpbooster extends Boost{
         setLenth(60);
     }
 
+    int time = BoosterAPI.boost.get("xp");
     @Override
     public void onStart() {
-        startTicking();
+        startTicking(time*20);
     }
     @Override
     public void onEnd() {

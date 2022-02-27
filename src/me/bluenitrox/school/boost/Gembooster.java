@@ -11,9 +11,10 @@ public class Gembooster extends Boost {
         setLenth(60);
     }
 
+    int time = BoosterAPI.boost.get("gem");
     @Override
     public void onStart() {
-        startTicking();
+        startTicking(time*20);
     }
 
     @Override

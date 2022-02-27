@@ -11,9 +11,10 @@ public class Dungeonbooster extends Boost {
         setLenth(60);
     }
 
+    int time = BoosterAPI.boost.get("dungeon");
     @Override
     public void onStart() {
-        startTicking();
+        startTicking(time*20);
     }
 
     @Override

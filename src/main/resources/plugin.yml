@@ -119,7 +119,7 @@ commands:
   minensettings:
     aliases:
       - ms
-      - settings
+  plot:
   wz:
     aliases:
       - warzone
