@@ -2,6 +2,8 @@ package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.features.PetAPI;
+import me.bluenitrox.school.haendler.NPCAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -11,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerInteractEntityEvent implements Listener {
+
 
     @EventHandler
     public void onInteract(final PlayerInteractAtEntityEvent e){

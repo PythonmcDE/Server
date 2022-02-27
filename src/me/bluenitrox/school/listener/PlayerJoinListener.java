@@ -3,13 +3,17 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.aufgabensystem.Aufgaben;
 import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
+import me.bluenitrox.school.commands.NBTTagtest;
 import me.bluenitrox.school.commands.School;
+import me.bluenitrox.school.haendler.NPCAPI;
+import me.bluenitrox.school.haendler.PacketReader;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
 import me.bluenitrox.school.mine.manager.MinenSettings;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ArmorUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +23,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+
 public class PlayerJoinListener implements Listener {
 
     @EventHandler
@@ -26,6 +33,17 @@ public class PlayerJoinListener implements Listener {
         Player p = e.getPlayer();
         PlayerJoinManager.cachPlayerData(p.getUniqueId());
         SchoolMode.playerwason.add(p.getUniqueId());
+
+        PacketReader pr = new PacketReader(e.getPlayer());
+        pr.inject();
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                NPCAPI.destroyAllNPCS();
+                NPCAPI.summonAllNPCS();
+            }
+        }.runTaskLater(SchoolMode.getInstance(), 20);
 
         ScoreboardManager.setBoard(p);
         p.setGameMode(GameMode.SURVIVAL);

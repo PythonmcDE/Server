@@ -6,6 +6,7 @@ import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.features.Pet;
+import me.bluenitrox.school.haendler.NPCAPI;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;

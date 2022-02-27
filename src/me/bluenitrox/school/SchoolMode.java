@@ -1,5 +1,6 @@
 package me.bluenitrox.school;
 
+import com.mojang.authlib.GameProfile;
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.ah.Ah_CMD;
@@ -17,6 +18,7 @@ import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.features.KitAPI;
 import me.bluenitrox.school.features.Pet;
 import me.bluenitrox.school.haendler.HändlerAPI;
+import me.bluenitrox.school.haendler.NPCAPI;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.mine.angelmine.*;
@@ -38,6 +40,7 @@ import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -123,6 +126,7 @@ public class SchoolMode extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§4Befülle alle Minen... §4(8/8)");
         DiscordWebhook.setHook("SchoolAlive-1 wurde gestartet!");
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
+        startNPC();
     }
 
     @Override
@@ -561,6 +565,16 @@ public class SchoolMode extends JavaPlugin {
         }
 
     }
+
+    private void startNPC(){
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                NPCAPI.summonAllNPCS();
+            }
+        }.runTaskLater(getInstance(), 20*5);
+    }
+
 
     private void disablePets(){
         for(String name : Pets.keySet()){

@@ -26,8 +26,7 @@ public class DailyReward {
 
     public String guiname = "§8» §6Daily-Reward";
 
-    public void onCommand(CommandSender cs, Command cmd, String s, String[] args) {
-        Player p = (Player)cs;
+    public void onOpeninv(Player p) {
         UUID uuid = p.getUniqueId();
         Inventory inv = Bukkit.createInventory(null,9*6,guiname);
 

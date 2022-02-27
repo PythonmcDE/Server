@@ -63,8 +63,6 @@ public class HändlerAPI implements CommandExecutor {
                     Techniker.onCommand(cs, cmd, s, args);
                 } else if (args[0].equalsIgnoreCase("Jäger")) {
                     Jäger.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("dailyreward")) {
-                    dr.onCommand(cs, cmd, s, args);
                 } else if (args[0].equalsIgnoreCase("taxi")) {
                     Taxi.onCommand(cs, cmd, s, args);
                 }
