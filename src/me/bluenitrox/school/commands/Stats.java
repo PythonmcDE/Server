@@ -58,10 +58,8 @@ public class Stats implements CommandExecutor {
             /stats [Spieler] shows stats of other Players
              */
             String playername;
-            UUID uuid;
-            try {
-                uuid = UUIDFetcher.getUUID(args[0]);
-            } catch (Exception e) {
+            UUID uuid = UUIDFetcher.getUUID(args[0]);
+            if(uuid == null) {
                 p.sendMessage(MessageManager.PREFIX + "§7Dieser Spieler wurde §cnicht §7gefunden.");
                 return true;
             }

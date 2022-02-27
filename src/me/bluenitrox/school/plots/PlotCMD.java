@@ -1,10 +1,12 @@
 package me.bluenitrox.school.plots;
 
 import me.bluenitrox.school.commands.Build;
+import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.WorldManager;
+import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.utils.UUIDFetcher;
 import me.bluenitrox.school.utils.UUIDFetcherWithName;
 import org.apache.logging.log4j.core.net.Priority;
@@ -36,9 +38,13 @@ public class PlotCMD implements CommandExecutor {
                     player.sendMessage(MessageManager.PREFIX + "§7Plot Hilfe");
                     player.sendMessage("§8» §6/plot");
                     //Test
-                    player.sendMessage("§8» §6/plot add");
-                    player.sendMessage("§8» §6/plot remove");
-                    player.sendMessage("§8» §6/plot ");
+                    player.sendMessage("§8» §6/plot info");
+                    player.sendMessage("§8» §6/plot home [Player]");
+                    player.sendMessage("§8» §6/plot add <Player>");
+                    player.sendMessage("§8» §6/plot remove <Player>");
+                    player.sendMessage("§8» §6/plot ban <Player>");
+                    player.sendMessage("§8» §6/plot unban <Player>");
+                    player.sendMessage("§8» §6/plot kick <Player>");
                     break;
                 case "info":
                     player.performCommand("plots info");
@@ -46,6 +52,10 @@ public class PlotCMD implements CommandExecutor {
                 case "home":
                     player.performCommand("plots h");
                     player.playSound(player.getLocation(), Sound.NOTE_BASS, 1L, 1L);
+                    player.sendMessage(MessageManager.PREFIX + "§7Du hast dich zu deinem Plot §3teleportiert§7!");
+                    DungeonManager dm = new DungeonManager();
+                    dm.onQuitDungeon(player);
+                    AngelminenManager.quitAngelmine(player);
                     break;
             }
         } else if (args.length == 2) {
@@ -136,6 +146,9 @@ public class PlotCMD implements CommandExecutor {
                         player.performCommand("plots h " + args[1]);
                         player.sendMessage(MessageManager.PREFIX + "§7Du bist nun auf dem Plot von §6" + args[1]);
                         player.playSound(player.getLocation(), Sound.NOTE_BASS, 1L, 1L);
+                        DungeonManager dm = new DungeonManager();
+                        dm.onQuitDungeon(player);
+                        AngelminenManager.quitAngelmine(player);
                     }
                     break;
             }

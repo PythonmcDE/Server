@@ -3,6 +3,7 @@ package me.bluenitrox.school.commands;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.utils.GetDisplayColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,7 +23,7 @@ public class TK implements CommandExecutor {
                     t.setVelocity(t.getVelocity().setX(0.5D));
                     t.setVelocity(t.getVelocity().setZ(0.5D));
                     t.setVelocity(t.getVelocity().setY(0.5D));
-                    p.sendMessage(MessageManager.PREFIX + "§7Das Knockback von " + t.getDisplayName() + "§7 wurde getestet!");
+                    p.sendMessage(MessageManager.PREFIX + "§7Das Knockback von " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(t.getUniqueId())) + "§7 wurde getestet!");
 
                 }else {
                     p.sendMessage(MessageManager.NOPERMISSIONS(PlayerJoinManager.language));

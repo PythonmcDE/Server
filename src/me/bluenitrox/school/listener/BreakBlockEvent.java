@@ -68,6 +68,9 @@ public class BreakBlockEvent implements Listener {
         if(Build.build.contains(p)){
             return;
         }
+        if(e.getBlock().getWorld().getName().equalsIgnoreCase(WorldManager.plotworld)){
+            return;
+        }
         if (!allowedWorldToBuild.contains(p.getLocation().getWorld().getName())) {
             e.setCancelled(true);
         }

@@ -313,6 +313,7 @@ public class Angelmine implements CommandExecutor {
                                 }else if(e.getCurrentItem().getItemMeta().getLore().get(0).startsWith("§6§l▶ §7Du besitzt diese")){
                                     if(new LocationManager("Angelmine" + angelmine).getLocation() != null) {
                                         p.teleport(new LocationManager("Angelmine" + angelmine).getLocation());
+                                        AngelminenManager.quitAngelmine(p);
                                         if(AufgabenManager.getTask(p.getUniqueId()) == 19) {
                                             AufgabenManager.onComplete(p.getUniqueId(), 19);
                                         }

@@ -1,11 +1,14 @@
 package me.bluenitrox.school.crafting;
 
 import me.bluenitrox.school.managers.EnchantManager;
+import me.bluenitrox.school.managers.MessageManager;
+import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.KopfUtil;
 import me.bluenitrox.school.utils.NBTTags;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -49,7 +52,62 @@ public class WerkbankGUIRegister {
     public void onClick(final InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         if (e.getClickedInventory() != null) {
-            if (e.getClickedInventory().getName().equalsIgnoreCase(guinamewerkbank)) {
+            if(e.getClickedInventory().getName().equalsIgnoreCase(guiname)) {
+                ItemStack runeeins = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune I").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune I", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+                ItemStack runezwei = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune II").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune II", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+                ItemStack runedrei = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune III").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune III", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+                ItemStack runevier = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune IV").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune IV", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+                ItemStack runefünf = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune V").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune V", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+                ItemStack runesechs = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune VI").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune VI", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+                ItemStack runesieben = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune VII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune VII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+                ItemStack runeacht = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune VIII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune VIII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+                ItemStack runeneun = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune IX").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune IX", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+                ItemStack runezehn = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune X").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune X", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
+
+                ItemStack erhalteins = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt I").setLore("§f§lErhalt I", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+                ItemStack erhaltzwei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt II").setLore("§f§lErhalt II", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+                ItemStack erhaltdrei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt III").setLore("§f§lErhalt III", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+                ItemStack erhaltvier = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IV").setLore("§f§lErhalt IV", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+                ItemStack erhaltfünf = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt V").setLore("§f§lErhalt V", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+                ItemStack erhaltsechs = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VI").setLore("§f§lErhalt VI", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+                ItemStack erhaltsieben = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VII").setLore("§f§lErhalt VII", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+                ItemStack erhaltacht = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VIII").setLore("§f§lErhalt VIII", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+                ItemStack erhaltneun = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IX").setLore("§f§lErhalt IX", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+                ItemStack erhaltzehn = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt X").setLore("§f§lErhalt X", " ","§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um ein Tool", "§6§l▶ §7oder Rüstungsteil §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+
+                ItemStack smaradtApple = new ItemBuilder(Material.GOLDEN_APPLE).setDisplayname("§aSmaragdapfel").setLore("§8» §6Regeneration III §8- §75 Sekunden", "§8» §6Absorption II §8- §72 Minuten").build("isInInv");
+                ItemStack redstoneApple = new ItemBuilder(Material.APPLE).setDisplayname("§cRedstoneapfel").setLore("§8» §6Regeneration II §8- §712 Sekunden", "§8» §6Schnelligkeit II §8- §72 Minuten").build("isInInv");
+                ItemStack flugtrank = new ItemBuilder(Material.POTION, (short) 2).setDisplayname("§9Flugtrank").setLore("§6§l▶ §6Dieser Trank §7erlaubt es dir", "§6§l▶ §7für §645 Minuten §6§lfliegen §7zu können.").build("isInInv");
+                ItemStack redstoneapple2 = new ItemBuilder(Material.APPLE).setDisplayname("§4Verzauberter Redstoneapfel").setLore("§8» §6Regeneration IV §8- §720 Sekunden", "§8» §6Schnelligkeit II §8- §73Minuten").build("isInInv");
+
+                ItemStack tarantulahelm = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§6Kopf der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Tank + "III", EnchantManager.Magieschild + "III").build("isInInv");
+                ItemStack tarantulachest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Haariger Körper der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Eis + "III", EnchantManager.Überladung + "III").build("isInInv");
+                ItemStack tarantulaleggins = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§6Spinnenbeine der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Stacheln + "III", EnchantManager.Widerstand + "III").build("isInInv");
+
+                if(e.getCurrentItem() != null){
+                    if(e.getCurrentItem().getItemMeta()!= null){
+                        if(e.getCurrentItem().getItemMeta().getDisplayName() != null){
+                            if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runeeins.getItemMeta().getDisplayName())){
+                                if(hasItem(Material.RAW_FISH, p, 176, "§7Roher Fisch")){
+                                    if(hasItem(Material.RAW_FISH, p, 108, "§7Roher Lachs")){
+                                        p.getInventory().addItem(Antidupe.addID(runeeins));
+                                        p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                        removeItem(Material.RAW_FISH, p, 176, "§7Roher Fisch");
+                                        removeItem(Material.RAW_FISH, p, 108, "§7Roher Lachs");
+                                        p.closeInventory();
+                                        return;
+                                    }
+                                }
+                            }
+
+
+                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                            p.closeInventory();
+                        }
+                    }
+                }
+            }else if (e.getClickedInventory().getName().equalsIgnoreCase(guinamewerkbank)) {
                 e.setCancelled(true);
                 if(e.getCurrentItem() != null) {
                     if (e.getCurrentItem().getItemMeta() != null) {
@@ -159,6 +217,50 @@ public class WerkbankGUIRegister {
                     p.openInventory(rezeptMenuSeite1());
                 }
             }
+        }
+    }
+
+    private void removeItem(Material item, Player p, Integer amount, String displayname){
+        for(int i = 0; i< p.getInventory().getSize(); i++){
+            if(p.getInventory().getItem(i)!= null){
+                if(p.getInventory().getItem(i).getType() == item){
+                    if(p.getInventory().getItem(i).getItemMeta() != null) {
+                        if (p.getInventory().getItem(i).getItemMeta().getDisplayName() != null) {
+                            if (p.getInventory().getItem(i).getItemMeta().getDisplayName().equalsIgnoreCase(displayname)) {
+                                if (amount >= p.getInventory().getItem(i).getAmount()) {
+                                    amount -= p.getInventory().getItem(i).getMaxStackSize();
+                                    p.getInventory().setItem(i, new ItemBuilder(Material.AIR).build());
+                                } else {
+                                    p.getInventory().getItem(i).setAmount(p.getInventory().getItem(i).getAmount() - amount);
+                                    amount = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean hasItem(Material item, Player p, Integer amount, String displayname){
+        int amountitems = 0;
+        for(int i = 0; i< p.getInventory().getSize(); i++){
+            if(p.getInventory().getItem(i) != null) {
+                if (p.getInventory().getItem(i).getType() == item) {
+                    if (p.getInventory().getItem(i).getItemMeta() != null) {
+                        if (p.getInventory().getItem(i).getItemMeta().getDisplayName() != null) {
+                            if (p.getInventory().getItem(i).getItemMeta().getDisplayName().equalsIgnoreCase(displayname)) {
+                                amountitems += p.getInventory().getItem(i).getAmount();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if(amountitems >= amount){
+            return true;
+        }else {
+            return false;
         }
     }
 

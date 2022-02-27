@@ -1,10 +1,14 @@
 package me.bluenitrox.school.boost;
 
 import de.Herbystar.TTA.TTA_Methods;
+import eu.thesimplecloud.api.CloudAPI;
+import eu.thesimplecloud.api.player.ICloudPlayer;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.Firework;
+import me.bluenitrox.school.utils.GetDisplayColor;
+import me.bluenitrox.school.utils.NameFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -60,9 +64,9 @@ public class BoosterAPI implements CommandExecutor {
                 if(hasEnoughBooster(p.getUniqueId(), xpBooster)) {
                     if(!SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(xp.getName())))) {
 
-                        Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + xp.getName() + "§7 für " + xp.getLenth() + " §7Minuten gezündet");
+                        Bukkit.broadcastMessage(MessageManager.PREFIX + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + "§7 hat einen: " + xp.getName() + "§7 für " + xp.getLenth() + " §7Minuten gezündet");
                         for(Player all : Bukkit.getOnlinePlayers()) {
-                            TTA_Methods.sendTitle(all,"§6XP-Booster",20,20,20 ,"§7von " + p.getDisplayName(),20,20,20);
+                            TTA_Methods.sendTitle(all,"§6XP-Booster",20,20,20 ,"§7von " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())),20,20,20);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
@@ -92,10 +96,10 @@ public class BoosterAPI implements CommandExecutor {
                 if(hasEnoughBooster(p.getUniqueId() , gemBooster)) {
                     if(!SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
 
-                        Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + money.getName() + "§7 für " + money.getLenth() + " §7Minuten gezündet");
+                        Bukkit.broadcastMessage(MessageManager.PREFIX + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + "§7 hat einen: " + money.getName() + "§7 für " + money.getLenth() + " §7Minuten gezündet");
 
                         for(Player all : Bukkit.getOnlinePlayers()) {
-                            TTA_Methods.sendTitle(all,"§6Gem-Booster",20,20,20 ,"§7von " + p.getDisplayName(),20,20,20);
+                            TTA_Methods.sendTitle(all,"§6Gem-Booster",20,20,20 ,"§7von " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())),20,20,20);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
@@ -119,10 +123,10 @@ public class BoosterAPI implements CommandExecutor {
                 if(hasEnoughBooster(p.getUniqueId(), angelBooster)) {
                     if(!SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(angelbooster.getName())))) {
 
-                        Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + angelbooster.getName() + "§7 für " + angelbooster.getLenth() + " §7Minuten gezündet");
+                        Bukkit.broadcastMessage(MessageManager.PREFIX + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + "§7 hat einen: " + angelbooster.getName() + "§7 für " + angelbooster.getLenth() + " §7Minuten gezündet");
 
                         for(Player all : Bukkit.getOnlinePlayers()) {
-                            TTA_Methods.sendTitle(all,"§6Angel-Booster",20,20,20 ,"§7von " + p.getDisplayName(),20,20,20);
+                            TTA_Methods.sendTitle(all,"§6Angel-Booster",20,20,20 ,"§7von " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())),20,20,20);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
@@ -147,10 +151,10 @@ public class BoosterAPI implements CommandExecutor {
                 if(hasEnoughBooster(p.getUniqueId(), dungeonBooster)) {
                     if(!SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(dungeonbooster.getName())))) {
 
-                        Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + dungeonbooster.getName() + "§7 für " + dungeonbooster.getLenth() + " §7Minuten gezündet");
+                        Bukkit.broadcastMessage(MessageManager.PREFIX + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + "§7 hat einen: " + dungeonbooster.getName() + "§7 für " + dungeonbooster.getLenth() + " §7Minuten gezündet");
 
                         for(Player all : Bukkit.getOnlinePlayers()) {
-                            TTA_Methods.sendTitle(all,"§6Dungeon-Booster",20,20,20 ,"§7von " + p.getDisplayName(),20,20,20);
+                            TTA_Methods.sendTitle(all,"§6Dungeon-Booster",20,20,20 ,"§7von " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())),20,20,20);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                             all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
@@ -173,9 +177,9 @@ public class BoosterAPI implements CommandExecutor {
             }else if(args[0].equalsIgnoreCase("chest")) {
                 if(hasEnoughBooster(p.getUniqueId(), chestBooster)) {
                     Chestbooster chest = new Chestbooster();
-                    Bukkit.broadcastMessage(MessageManager.PREFIX + p.getDisplayName() + "§7 hat einen: " + chest.getName() + "§7 mit " + chest.getLenth() + " §7Kisten gezündet");
+                    Bukkit.broadcastMessage(MessageManager.PREFIX + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + "§7 hat einen: " + chest.getName() + "§7 mit " + chest.getLenth() + " §7Kisten gezündet");
                     for(Player all : Bukkit.getOnlinePlayers()) {
-                        TTA_Methods.sendTitle(all,"§6Chest-Booster",20,20,20 ,"§7von " + p.getDisplayName(),20,20,20);
+                        TTA_Methods.sendTitle(all,"§6Chest-Booster",20,20,20 ,"§7von " + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())),20,20,20);
                         all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                         all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);
                         all.playSound(all.getLocation(), Sound.AMBIENCE_THUNDER, 1L , 1L);

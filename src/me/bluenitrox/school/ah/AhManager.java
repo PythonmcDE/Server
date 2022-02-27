@@ -1,11 +1,14 @@
 package me.bluenitrox.school.ah;
 
+import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ItemBuilder;
+import me.bluenitrox.school.utils.NameFetcher;
+import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -59,10 +62,10 @@ public class AhManager {
                         lore.addAll(imnn);
                     }
                     lore.add("§8§m------------------");
-                    lore.add("§6» §7Verkäufer: §a" + Bukkit.getOfflinePlayer(UUID.fromString(rs.getString(2))).getName());
-                    lore.add("§6» §7Preis: " + enCode(rs.getInt(4)));
-                    lore.add("§6» §7Verbleibende Zeit: " + itm.getTimeFromItem(rs.getInt(1)));
-                    lore.add("§6» §7ItemID: " + rs.getInt(1));
+                    lore.add("§b» §6Verkäufer: §a" + NameFetcher.getName(UUID.fromString(rs.getString(2))));
+                    lore.add("§b» §6Preis: " + ValuetoString.valueToString(rs.getInt(4)));
+                    lore.add("§b» §6Verbleibende Zeit: " + itm.getTimeFromItem(rs.getInt(1)));
+                    lore.add("§b» §6ItemID: " + rs.getInt(1));
                     lore.add("§8§m------------------");
                     imn.setLore(lore);
                     item.setItemMeta(imn);
@@ -91,36 +94,6 @@ public class AhManager {
 
 
 
-    }
-
-    public static String enCode(Integer i){
-        String[] price = i.toString().split("");
-        if(i >= 1000000 && i < 10000000){
-            return price[0] +"," + price[1] + price[2] +" Mio";
-        }else if(i >= 10000000 && i < 100000000){
-            return price[0] + price[1] +"," + price[2] + price[3] +" Mio";
-        }else if(i >= 100000000){
-            return price[0] + price[1] + price[2] +"," + price[3] + price[4] + " Mio";
-        }else if(i >= 1000000000){
-            return price[0] + "," + price[1] + price[2] +" Mrd";
-        }else {
-            return i + "";
-        }
-    }
-
-    public static String enCodeLong(Long i){
-        String[] price = i.toString().split("");
-        if(i >= 1000000 && i < 10000000){
-            return price[0] +"," + price[1] + price[2] +" Mio";
-        }else if(i >= 10000000 && i < 100000000){
-            return price[0] + price[1] +"," + price[2] + price[3] +" Mio";
-        }else if(i >= 100000000){
-            return price[0] + price[1] + price[2] +"," + price[3] + price[4] + " Mio";
-        }else if(i >= 1000000000){
-            return price[0] + "," + price[1] + price[2] +" Mrd";
-        }else {
-            return i + "";
-        }
     }
 
     public static void sellItem(ItemStack is, Player p, int preis, Inventory inv){
@@ -211,7 +184,7 @@ public class AhManager {
                         lore.addAll(imnn);
                     }
                     lore.add("§8§m------------------");
-                    lore.add("§6» §7ItemID: " + rs.getInt(1));
+                    lore.add("§b» §6ItemID: " + rs.getInt(1));
                     lore.add("§8§m------------------");
                     imn.setLore(lore);
                     item.setItemMeta(imn);
@@ -250,9 +223,9 @@ public class AhManager {
                     lore.addAll(imnn);
                 }
                 lore.add("§8§m------------------");
-                lore.add("§6» §7Verkäufer: §a" + Bukkit.getOfflinePlayer(UUID.fromString(rs.getString(2))).getName());
-                lore.add("§6» §7Preis: " + enCode(rs.getInt(4)));
-                lore.add("§6» §7ItemID: " + rs.getInt(1));
+                lore.add("§b» §6Verkäufer: §a" + NameFetcher.getName(UUID.fromString(rs.getString(2))));
+                lore.add("§b» §6Preis: " + ValuetoString.valueToString(rs.getInt(4)));
+                lore.add("§b» §6ItemID: " + rs.getInt(1));
                 lore.add("§8§m------------------");
                 imn.setLore(lore);
                 item.setItemMeta(imn);

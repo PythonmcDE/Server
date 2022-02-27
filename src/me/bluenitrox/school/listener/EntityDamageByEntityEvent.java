@@ -27,6 +27,9 @@ public class EntityDamageByEntityEvent implements Listener {
             combat.onhitCombat(e);
         }
         if(e.getEntity().getWorld().getName().equalsIgnoreCase(WorldManager.plotworld)){
+            if(e.getEntity() instanceof Player && e.getDamager() instanceof Player){
+                e.setCancelled(true);
+            }
             ehd.onEntityHit(e);
         }
         if(e.getEntity() instanceof Player && e.getDamager() instanceof Player){
