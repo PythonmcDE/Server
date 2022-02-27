@@ -2,6 +2,7 @@ package me.bluenitrox.school.haendler;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import me.bluenitrox.school.managers.LocationManager;
@@ -33,18 +34,20 @@ import com.mojang.authlib.properties.Property;
 
 public class NPCAPI extends Reflections {
 
-    public static NPCAPI dailyreward = null;
+    public static NPCAPI dailyreward = new NPCAPI("§6§lDailyReward", new LocationManager("NPCDailyreward").getLocation());
+    public static NPCAPI Taxi = new NPCAPI("§6§lTaxi", new LocationManager("NPCTaxi").getLocation());
     public static LinkedList<Integer> entityids = new LinkedList<>();
 
     public static void summonAllNPCS(){
-        dailyreward = new NPCAPI("§6§lDailyReward", new LocationManager("NPCDailyreward").getLocation());
         dailyreward.rmvFromTablist();
         dailyreward.spawn();
+        Taxi.rmvFromTablist();
+        Taxi.spawn();
     }
 
     public static void destroyAllNPCS() {
-        dailyreward = new NPCAPI("§6§lDailyReward", new LocationManager("NPCDailyreward").getLocation());
         dailyreward.destroy();
+        Taxi.destroy();
     }
 
 
@@ -54,15 +57,16 @@ public class NPCAPI extends Reflections {
 
 
     public NPCAPI(String name,Location location){
-        entityID = (int)Math.ceil(Math.random() * 1000) + 2000;
+        Random r = new Random();
+        entityID = r.nextInt(1400000000);
         gameprofile = new GameProfile(UUID.randomUUID(), name);
         changeSkin();
         this.location = location.clone();
     }
 
     public void changeSkin(){
-        String value = "eyJ0aW1lc3RhbXAiOjE0NDI4MzY1MTU1NzksInByb2ZpbGVJZCI6IjkwZWQ3YWY0NmU4YzRkNTQ4MjRkZTc0YzI1MTljNjU1IiwicHJvZmlsZU5hbWUiOiJDb25DcmFmdGVyIiwic2lnbmF0dXJlUmVxdWlyZWQiOnRydWUsInRleHR1cmVzIjp7IlNLSU4iOnsidXJsIjoiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8xMWNlZDMzMjNmYjczMmFjMTc3MTc5Yjg5NWQ5YzJmNjFjNzczZWYxNTVlYmQ1Y2M4YzM5NTZiZjlhMDlkMTIifX19";
-        String signature = "tFGNBQNpxNGvD27SN7fqh3LqNinjJJFidcdF8LTRHOdoMNXcE5ezN172BnDlRsExspE9X4z7FPglqh/b9jrLFDfQrdqX3dGm1cKjYbvOXL9BO2WIOEJLTDCgUQJC4/n/3PZHEG2mVADc4v125MFYMfjzkznkA6zbs7w6z8f7pny9eCWNXPOQklstcdc1h/LvflnR+E4TUuxCf0jVsdT5AZsUYIsJa6fvr0+vItUXUdQ3pps0zthObPEnBdLYMtNY3G6ZLGVKcSGa/KRK2D/k69fmu/uTKbjAWtniFB/sdO0VNhLuvyr/PcZVXB78l1SfBR88ZMiW6XSaVqNnSP+MEfRkxgkJWUG+aiRRLE8G5083EQ8vhIle5GxzK68ZR48IrEX/JwFjALslCLXAGR05KrtuTD3xyq2Nut12GCaooBEhb46sipWLq4AXI9IpJORLOW8+GvY+FcDwMqXYN94juDQtbJGCQo8PX670YjbmVx7+IeFjLJJTZotemXu1wiQmDmtAAmug4U5jgMYIJryXMitD7r5pEop/cw42JbCO2u0b5NB7sI/mr4OhBKEesyC5usiARzuk6e/4aJUvwQ9nsiXfeYxZz8L/mh6e8YPJMyhVkFtblbt/4jPe0bs3xSUXO9XrDyhy9INC0jlLT22QjNzrDkD8aiGAopVvfnTTAug=";
+        String value = "ewogICJ0aW1lc3RhbXAiIDogMTY0NTk5OTc1MDM1NSwKICAicHJvZmlsZUlkIiA6ICJiNmVlNGYwNTc2ZTk0ZTI5YTYxODYxYzI4YTNiNGNhMCIsCiAgInByb2ZpbGVOYW1lIiA6ICIxQmx1ZU5pdHJveCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8xOGQ5Njg2ZDAwYzdkZDBjZTJmZTQzNTM0NWNjMTA0ZjYyYTFhMWJlMjIzNjhlNjgxY2YxN2U5ZTZhOGQ0NDZjIgogICAgfQogIH0KfQ==";
+        String signature = "Xr1vwlhrxprXyjop1d+X1h3KKYfK9mgZVK0cEQaujD3z5yDJV/VDSFpOZvERnzgfLNxwtrD8KDH4N/jRgeOgW0/NY3pbZoNiY2zlO9Gpo4z/jhDoKGxnLmM0G779jZP9oyNE1f4w+vk/P18Fw2zuOtz6SP0sEmRFEY9B8+MGnBY9E4uEAlWf2J3GAAcf/TlX6XZFw42SC33jqYtlGO2wWKXbEuJ3mImawJvi/dVpCuQoQ/mpasICjTsxApHlGx/5Okx9d4gvPjumZclgrmzZPEF8CLS0LW8Q2mADIkpmBaw0p3pR+RL43AfZykX0cDiK9FtjBUbdKr1c03EKn+c+wf72aLLLwPBdHDxDdixJeLmJZVK5BWGBjSnpOEdYd7NvAEj3IHWNmmjXXsDjB7ZdQPcGDo8ewQhgOW4wsq9UZDDbAbFkg4LHuZ7W+2GP0Ocp1vnVhQBIvmaZWMSkN+pMazrIlgOOw9Js2I46Y+dQHgEpqV/jikNFhtuTiGdJp7OygC56KKupOzqMi2ID/jA03ornIbp9qRz5vGTyol7wqN5ueheQsc1q0QJkV6Al363hRoXQj7J6GjR6xE3Vhc1ezotShLUraR6sgyAhB1YUhgcQS74gLt6kJPcbu3GPq6+ojI//8rs8hmAfcoIeq4e3pgnEbCLO7gdHpTOCaVjlBqQ=/b9jrLFDfQrdqX3dGm1cKjYbvOXL9BO2WIOEJLTDCgUQJC4/n/3PZHEG2mVADc4v125MFYMfjzkznkA6zbs7w6z8f7pny9eCWNXPOQklstcdc1h/LvflnR+E4TUuxCf0jVsdT5AZsUYIsJa6fvr0+vItUXUdQ3pps0zthObPEnBdLYMtNY3G6ZLGVKcSGa/KRK2D/k69fmu/uTKbjAWtniFB/sdO0VNhLuvyr/PcZVXB78l1SfBR88ZMiW6XSaVqNnSP+MEfRkxgkJWUG+aiRRLE8G5083EQ8vhIle5GxzK68ZR48IrEX/JwFjALslCLXAGR05KrtuTD3xyq2Nut12GCaooBEhb46sipWLq4AXI9IpJORLOW8+GvY+FcDwMqXYN94juDQtbJGCQo8PX670YjbmVx7+IeFjLJJTZotemXu1wiQmDmtAAmug4U5jgMYIJryXMitD7r5pEop/cw42JbCO2u0b5NB7sI/mr4OhBKEesyC5usiARzuk6e/4aJUvwQ9nsiXfeYxZz8L/mh6e8YPJMyhVkFtblbt/4jPe0bs3xSUXO9XrDyhy9INC0jlLT22QjNzrDkD8aiGAopVvfnTTAug=";
         gameprofile.getProperties().put("textures", new Property("textures", value, signature));
     }
 

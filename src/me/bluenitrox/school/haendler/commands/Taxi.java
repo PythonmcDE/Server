@@ -32,12 +32,8 @@ public class Taxi {
     private static int kostenwz3 = 30000;
     private static int kostenwzrandom = 10000;
 
-    public static void onCommand(CommandSender cs, Command cmd, String s, String[] args) {
-        Player p = (Player)cs;
-        if(cs == null){
-            cs.sendMessage(MessageManager.NOPLAYER);
-            return;
-        }
+    public static void onInteract(Player p) {
+
         Inventory inv = Bukkit.createInventory(null, 9*5, GUI_NAME);
 
         ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
