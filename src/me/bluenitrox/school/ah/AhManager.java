@@ -21,17 +21,10 @@ import java.util.*;
 
 public class AhManager {
     public static int ahtaskid;
-    public static ArrayList<Player> openedAH = new ArrayList<>();
 
     public static void openAh(Inventory inv, int page, Player p){
-        if(!openedAH.contains(p)) {
-            setAhContent(inv, page, p);
-            p.openInventory(inv);
-            openedAH.add(p);
-        }else {
-            p.sendMessage(MessageManager.PREFIX + "§7Du musst etwas warten bis du das Auktionshaus wieder öffnen kannst!");
-            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-        }
+        setAhContent(inv, page, p);
+        p.openInventory(inv);
     }
 
     public static void setAhContent(Inventory inv, int page, Player p){
@@ -188,8 +181,6 @@ public class AhManager {
     }
 
     public static void openabgelaufeneundgekaufteAuktionen(Player p, int page, Inventory inv) {
-        if (!openedAH.contains(p)) {
-            openedAH.add(p);
             ItemStack is = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 0).setDisplayname(" ").build();
             ItemStack chest = new ItemBuilder(Material.CHEST).setDisplayname("§7Abgelaufene §6Auktionen§7/§6Gekaufte §7Auktionen").setLore("§b» §7Klicke um deine §6Abgelaufenen/Gekauften Auktionen §7zu bekommen!").build();
             ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§6§lAuktionshaus").setLore("§b» §7Hier kannst du Items §akaufen ", "§b» §7oder auch selber §cverkaufen§7!", "§b» §7Deine Seite:§a " + page).build();
@@ -243,10 +234,6 @@ public class AhManager {
                 e.printStackTrace();
 
             }
-        } else {
-            p.sendMessage(MessageManager.PREFIX + "§7Du musst etwas warten bis du das Auktionshaus wieder öffnen kannst!");
-            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-        }
     }
 
     public static void openBuyInv(int id, Inventory inv, Player p){

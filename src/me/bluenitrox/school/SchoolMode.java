@@ -113,7 +113,6 @@ public class SchoolMode extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§4Angelmine §4aktivieren... §4(6/8)");
         startAngelmine();
         Bukkit.getConsoleSender().sendMessage("§4AhAnticrash §4aktivieren.... §4(7/8)");
-        startAhAnticrash();
         startEntityClear();
         setBoostermanager(new BoosterManager());
         LevelManager.registerLevel();
@@ -121,7 +120,6 @@ public class SchoolMode extends JavaPlugin {
         setGameRules();
         startScoreboard();;
         Bukkit.getConsoleSender().sendMessage("§4Befülle alle Minen... §4(8/8)");
-        registerMine();
         DiscordWebhook.setHook("SchoolAlive-1 wurde gestartet!");
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
     }
@@ -238,15 +236,6 @@ public class SchoolMode extends JavaPlugin {
         CraftAPI.registerEnchants();
     }
 
-    private void startAhAnticrash(){
-        new BukkitRunnable(){
-            @Override
-            public void run() {
-               AhManager.openedAH.clear();
-                Pet.openCooldown.clear();
-            }
-        }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*5, 20*5);
-    }
     private void startMySQL() {
         Bukkit.getConsoleSender().sendMessage("§4Verbinde zu §4MySQL..");
         //MySQL Verbindung
@@ -312,7 +301,7 @@ public class SchoolMode extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage("§4Tabellen §4erstellt! (4/8)");
     }
-    private void registerMine() {
+    public static void registerMine() {
         new BukkitRunnable(){
             @Override
             public void run() {

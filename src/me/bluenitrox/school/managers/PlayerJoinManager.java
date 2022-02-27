@@ -1,3 +1,4 @@
+
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;

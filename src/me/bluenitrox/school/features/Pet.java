@@ -26,23 +26,15 @@ import java.util.UUID;
 public class Pet {
 
     public String guiname = "§6§lHaustiere";
-    public static ArrayList<Player> openCooldown = new ArrayList<>();
     public static ArrayList<Player> petremoved = new ArrayList<>();
 
     public Pet(){
     }
 
     public void openPetInventory(Player p){
-        if(!openCooldown.contains(p)) {
-            Inventory inv = Bukkit.createInventory(null, 9 * 6, guiname);
-
-            setPetContent(inv, p);
-
-            p.openInventory(inv);
-            openCooldown.add(p);
-        }else {
-            p.sendMessage(MessageManager.PREFIX + "§7Warte einen Augenblick bis du das §aPet-Menü §7wieder öffnen kannst.");
-        }
+        Inventory inv = Bukkit.createInventory(null, 9 * 6, guiname);
+        setPetContent(inv, p);
+        p.openInventory(inv);
     }
 
     public void petClickEventInventory(final InventoryClickEvent e){

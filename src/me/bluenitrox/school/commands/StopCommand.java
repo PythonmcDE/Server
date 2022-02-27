@@ -6,6 +6,7 @@ import eu.thesimplecloud.api.player.ICloudPlayer;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.utils.NameFetcher;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -104,6 +105,8 @@ public class StopCommand implements CommandExecutor {
                                                             all.playSound(all.getLocation(), Sound.NOTE_BASS, 1L, 1L);
                                                             TTA_Methods.sendTitle(all, "§6§lServerneustart", 20, 20, 20, "§8» §7in 5 Sekunden", 20, 20, 20);
                                                         }
+                                                        SchoolMode.registerMine();
+                                                        Bukkit.broadcastMessage("minenreset");
                                                         new BukkitRunnable(){
                                                             @Override
                                                             public void run() {
@@ -142,7 +145,7 @@ public class StopCommand implements CommandExecutor {
                                                                                             CombatAPI.fightwarzone.clear();
                                                                                         }
                                                                                         for(Player all: Bukkit.getOnlinePlayers()) {
-                                                                                            ICloudPlayer player = CloudAPI.getInstance().getCloudPlayerManager().getCachedCloudPlayer(all.getName());
+                                                                                            ICloudPlayer player = CloudAPI.getInstance().getCloudPlayerManager().getCachedCloudPlayer(NameFetcher.getName(all.getUniqueId()));
                                                                                             player.connect(CloudAPI.getInstance().getCloudServiceManager().getCloudServiceByName("Lobby-1"));
                                                                                         }
                                                                                         new BukkitRunnable(){

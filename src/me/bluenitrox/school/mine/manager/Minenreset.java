@@ -23,7 +23,8 @@ public class Minenreset {
 
     public static void fillMineServerStart() {
         for (int i = 1; i <= MessageManager.MAX_MINE; i++) {
-            String mine = "mine" + i;
+            int finalI = i;
+            String mine = "mine" + finalI;
             Minenreset mr = new Minenreset();
             mr.fillMine(mine);
         }

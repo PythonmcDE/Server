@@ -20,12 +20,7 @@ public class Skill implements CommandExecutor {
         Player p = (Player)cs;
         if(args.length == 0){
             SkillSystem api = new SkillSystem();
-            if(!AhManager.openedAH.contains(p)) {
-                AhManager.openedAH.add(p);
-                p.openInventory(api.openSkillInv(p));
-            }else {
-                p.sendMessage(MessageManager.PREFIX + "§7Warte einen §6Augenblick§7, bis du das §6Skill-Menü §7wieder öffnen kannst.");
-            }
+            p.openInventory(api.openSkillInv(p));
         }else {
             p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
         }

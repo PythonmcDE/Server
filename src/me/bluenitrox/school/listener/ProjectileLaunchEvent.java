@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 public class ProjectileLaunchEvent implements Listener {
 
     @EventHandler
-    public void onLounch(final org.bukkit.event.entity.ProjectileLaunchEvent e){
+    public void onLaunch(final org.bukkit.event.entity.ProjectileLaunchEvent e){
         if(e.getEntityType() == EntityType.ARROW){
             return;
         }
