@@ -29,6 +29,7 @@ public enum Enchant {
     DUPLIZIERUNG,
     ERFAHRUNG,
     AUSGRABUNG,
+    KÄFIG,
 
     GROßERFANG,
     FISCHERGLÜCK,

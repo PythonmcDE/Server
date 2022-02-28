@@ -1,7 +1,11 @@
 package me.bluenitrox.school.listener;
 
+import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.boost.Xpbooster;
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
+import me.bluenitrox.school.enchants.sword.Wilderei;
 import me.bluenitrox.school.features.StatsAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,6 +21,15 @@ public class EntityDeathEvent implements Listener {
             StatsAPI api = new StatsAPI();
 
             api.updateMob(killer.getUniqueId(), 1, false);
+            Xpbooster xp = new Xpbooster();
+            if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(xp.getName())))) {
+
+                float exp = (e.getDroppedExp() * Wilderei.getEXPMultipyer(e.getEntity().getKiller()))*2;
+                e.getEntity().getKiller().setExp(e.getEntity().getKiller().getExp() + exp);
+            }else {
+                float exp = (e.getDroppedExp() * Wilderei.getEXPMultipyer(e.getEntity().getKiller()));
+                e.getEntity().getKiller().setExp(e.getEntity().getKiller().getExp() + exp);
+            }
         }
         DungeonManager.entityDeathItemAdd(e);
     }

@@ -121,9 +121,11 @@ public class getBooks implements CommandExecutor {
 
                     ItemStack is1 = new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§8» §6§lMagisches Buch").setLore(EnchantManager.Erhalt + "I").build();
                     ItemStack is2 = new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§8» §6§lMagisches Buch").setLore(EnchantManager.Rune + "I").build();
+                    ItemStack is3 = new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§8» §6§lMagisches Buch").setLore(EnchantManager.Käfig + "I").build();
 
                     inv.setItem(9,is1);
                     inv.setItem(10,is2);
+                    inv.setItem(10,is3);
 
                     p.openInventory(inv);
                 }

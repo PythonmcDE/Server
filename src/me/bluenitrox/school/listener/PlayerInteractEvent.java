@@ -3,6 +3,7 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.enchants.CraftAPI;
+import me.bluenitrox.school.enchants.pickaxe.Laser;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.features.Pet;
@@ -12,6 +13,7 @@ import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.warzone.CombatAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -28,6 +30,7 @@ public class PlayerInteractEvent implements Listener {
         Pet pet = new Pet();
 
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            Laser.shootLaser(p);
             if (p.getItemInHand() != null) {
                 if (p.getItemInHand().getItemMeta() != null) {
                     if(p.getItemInHand().getItemMeta().getDisplayName() != null) {

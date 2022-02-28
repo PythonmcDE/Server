@@ -51,6 +51,7 @@ public class EnchantManager {
     public static final String Feuerwerk = "§9§lFeuerwerk ";
     public static final String Fesseln = "§9§lFesseln ";
     public static final String Elektrisiert = "§9§lElektrisiert ";
+    public static final String Käfig = "§9§lKäfig ";
 
     /*
      *

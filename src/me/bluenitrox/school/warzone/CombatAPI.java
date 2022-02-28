@@ -2,6 +2,7 @@ package me.bluenitrox.school.warzone;
 
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
+import me.bluenitrox.school.enchants.bow.Käfig;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.WorldManager;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
@@ -38,16 +39,15 @@ public class CombatAPI {
                     Player d = (Player) e.getDamager();
                     if (!fightwarzone.containsKey(p)) {
                         fightwarzone.put(p, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(p.getLocation()))));
-                        AufgabenManager.setTask(p.getUniqueId(), 1);
+                        AufgabenManager.setToggle(p.getUniqueId(), 1);
                     }
                     if (!fightwarzone.containsKey(d)) {
                         fightwarzone.put(d, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(d.getLocation()))));
-                        AufgabenManager.setTask(d.getUniqueId(), 1);
+                        AufgabenManager.setToggle(d.getUniqueId(), 1);
                     }
                     fight.put(p, 25);
                     fight.put(d, 25);
-                    updateTimeBar(p);
-                    updateTimeBar(d);
+                    updateTimeBar();
                 }
             }else if(e.getDamager() instanceof Projectile && e.getEntity() instanceof Player){
                 if (getWarzoneByLocation(e.getEntity().getLocation()) != null) {
@@ -56,16 +56,15 @@ public class CombatAPI {
                     Player d = (Player) projectile.getShooter();
                     if (!fightwarzone.containsKey(p)) {
                         fightwarzone.put(p, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(p.getLocation()))));
-                        AufgabenManager.setTask(p.getUniqueId(), 1);
+                        AufgabenManager.setToggle(p.getUniqueId(), 1);
                     }
                     if (!fightwarzone.containsKey(d)) {
                         fightwarzone.put(d, Integer.parseInt(Objects.requireNonNull(getWarzoneByLocation(d.getLocation()))));
-                        AufgabenManager.setTask(d.getUniqueId(), 1);
+                        AufgabenManager.setToggle(d.getUniqueId(), 1);
                     }
                     fight.put(p, 25);
                     fight.put(d, 25);
-                    updateTimeBar(p);
-                    updateTimeBar(d);
+                    updateTimeBar();
                 }
             }
         }
@@ -200,9 +199,9 @@ public class CombatAPI {
 
     }
 
-    public static void updateTimeBar(Player p){
-        final String msg = "§8« §c§lIm Kampf §7- §6§l" + fight.get(p) +" Sekunden §8»";
+    public static void updateTimeBar(){
         Bukkit.getOnlinePlayers().forEach(players ->{
+            final String msg = "§8« §c§lIm Kampf §7- §6§l" + fight.get(players) +" Sekunden §8»";
             if(fight.containsKey(players)) {
                 sendActionbar(players, msg);
             }

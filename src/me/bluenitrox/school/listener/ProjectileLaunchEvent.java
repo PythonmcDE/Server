@@ -12,7 +12,7 @@ public class ProjectileLaunchEvent implements Listener {
         if(e.getEntityType() == EntityType.ARROW){
             return;
         }
-        if(e.getEntityType() == EntityType.EGG || e.getEntityType() == EntityType.SNOWBALL){
+        if(e.getEntityType() == EntityType.EGG){
             e.setCancelled(true);
             return;
         }

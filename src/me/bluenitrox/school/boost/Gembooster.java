@@ -20,7 +20,7 @@ public class Gembooster extends Boost {
     @Override
     public void onEnd() {
         Bukkit.getOnlinePlayers().forEach(players ->{
-            players.sendMessage(MessageManager.PREFIX + "§cDer" + getName() + " §cist nun vorbei");
+            players.sendMessage(MessageManager.PREFIX + "§cDer " + getName() + " §cist nun vorbei");
             BoosterAPI.money1 = false;
         });
         SchoolMode.getInstance().getBoostermanager().getAktivboost().remove(this);

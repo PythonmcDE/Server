@@ -113,6 +113,7 @@ public class SchoolMode extends JavaPlugin {
         getCurrentDupeID();
         Bukkit.getConsoleSender().sendMessage("§4AntiDupe §4aktivieren... §4(5/8)");
         startAntiDupeAndActoinbar();
+        startKit();
         Bukkit.getConsoleSender().sendMessage("§4Angelmine §4aktivieren... §4(6/8)");
         startAngelmine();
         Bukkit.getConsoleSender().sendMessage("§4AhAnticrash §4aktivieren.... §4(7/8)");
@@ -236,6 +237,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new AsyncPlayerChatEvent(), this);
         pm.registerEvents(new FoodLevelChangeEvent(), this);
         pm.registerEvents(new AngelListener(), this);
+        pm.registerEvents(new ProjectileHitEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/8)");
@@ -346,6 +348,25 @@ public class SchoolMode extends JavaPlugin {
                         }
                     }
                 });
+                for(UUID uuid : playerwason){
+                    if(CombatAPI.fight.containsKey(Bukkit.getPlayer(uuid))){
+                        if(CombatAPI.fight.get(Bukkit.getPlayer(uuid)) > 1){
+                            CombatAPI.fight.put(Bukkit.getPlayer(uuid),CombatAPI.fight.get(Bukkit.getPlayer(uuid))-1);
+                            CombatAPI.updateTimeBar();
+                        }else {
+                            CombatAPI.fight.remove(Bukkit.getPlayer(uuid));
+                            CombatAPI.fightwarzone.remove(Bukkit.getPlayer(uuid));
+                            AufgabenManager.setToggle(uuid, 0);
+                        }
+                    }
+                }
+            }
+        }.runTaskTimerAsynchronously(this, 20, 20);
+    }
+    private void startKit() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
                 if(BoosterAPI.boost != null){
                     if(BoosterAPI.boost.containsKey("gem")){
                         if(BoosterAPI.boost.get("gem") != 0){
@@ -365,99 +386,89 @@ public class SchoolMode extends JavaPlugin {
                         }
                     }
                 }
-                for(UUID uuid : playerwason){
-                    if(KitAPI.holz.containsKey(uuid)){
-                        if(KitAPI.holz.get(uuid) > 1){
-                            KitAPI.holz.put(uuid,KitAPI.holz.get(uuid)-1);
-                        }else {
+                for (UUID uuid : playerwason) {
+                    if (KitAPI.holz.containsKey(uuid)) {
+                        if (KitAPI.holz.get(uuid) > 1) {
+                            KitAPI.holz.put(uuid, KitAPI.holz.get(uuid) - 1);
+                        } else {
                             KitAPI.holz.remove(uuid);
                         }
                     }
-                    if(KitAPI.stein.containsKey(uuid)){
-                        if(KitAPI.stein.get(uuid) > 1){
-                            KitAPI.stein.put(uuid,KitAPI.stein.get(uuid)-1);
-                        }else {
+                    if (KitAPI.stein.containsKey(uuid)) {
+                        if (KitAPI.stein.get(uuid) > 1) {
+                            KitAPI.stein.put(uuid, KitAPI.stein.get(uuid) - 1);
+                        } else {
                             KitAPI.stein.remove(uuid);
                         }
                     }
-                    if(KitAPI.eisen.containsKey(uuid)){
-                        if(KitAPI.eisen.get(uuid) > 1){
-                            KitAPI.eisen.put(uuid,KitAPI.eisen.get(uuid)-1);
-                        }else {
+                    if (KitAPI.eisen.containsKey(uuid)) {
+                        if (KitAPI.eisen.get(uuid) > 1) {
+                            KitAPI.eisen.put(uuid, KitAPI.eisen.get(uuid) - 1);
+                        } else {
                             KitAPI.eisen.remove(uuid);
                         }
                     }
-                    if(KitAPI.warzone.containsKey(uuid)){
-                        if(KitAPI.warzone.get(uuid) > 1){
-                            KitAPI.warzone.put(uuid,KitAPI.warzone.get(uuid)-1);
-                        }else {
+                    if (KitAPI.warzone.containsKey(uuid)) {
+                        if (KitAPI.warzone.get(uuid) > 1) {
+                            KitAPI.warzone.put(uuid, KitAPI.warzone.get(uuid) - 1);
+                        } else {
                             KitAPI.warzone.remove(uuid);
                         }
                     }
-                    if(KitAPI.diamant.containsKey(uuid)){
-                        if(KitAPI.diamant.get(uuid) > 1){
-                            KitAPI.diamant.put(uuid,KitAPI.diamant.get(uuid)-1);
-                        }else {
+                    if (KitAPI.diamant.containsKey(uuid)) {
+                        if (KitAPI.diamant.get(uuid) > 1) {
+                            KitAPI.diamant.put(uuid, KitAPI.diamant.get(uuid) - 1);
+                        } else {
                             KitAPI.diamant.remove(uuid);
                         }
                     }
-                    if(KitAPI.bergarbeiter.containsKey(uuid)){
-                        if(KitAPI.bergarbeiter.get(uuid) > 1){
-                            KitAPI.bergarbeiter.put(uuid,KitAPI.bergarbeiter.get(uuid)-1);
-                        }else {
+                    if (KitAPI.bergarbeiter.containsKey(uuid)) {
+                        if (KitAPI.bergarbeiter.get(uuid) > 1) {
+                            KitAPI.bergarbeiter.put(uuid, KitAPI.bergarbeiter.get(uuid) - 1);
+                        } else {
                             KitAPI.bergarbeiter.remove(uuid);
                         }
                     }
-                    if(KitAPI.goldfinger.containsKey(uuid)){
-                        if(KitAPI.goldfinger.get(uuid) > 1){
-                            KitAPI.goldfinger.put(uuid,KitAPI.goldfinger.get(uuid)-1);
-                        }else {
+                    if (KitAPI.goldfinger.containsKey(uuid)) {
+                        if (KitAPI.goldfinger.get(uuid) > 1) {
+                            KitAPI.goldfinger.put(uuid, KitAPI.goldfinger.get(uuid) - 1);
+                        } else {
                             KitAPI.goldfinger.remove(uuid);
                         }
                     }
-                    if(KitAPI.juwelier.containsKey(uuid)){
-                        if(KitAPI.juwelier.get(uuid) > 1){
-                            KitAPI.juwelier.put(uuid,KitAPI.juwelier.get(uuid)-1);
-                        }else {
+                    if (KitAPI.juwelier.containsKey(uuid)) {
+                        if (KitAPI.juwelier.get(uuid) > 1) {
+                            KitAPI.juwelier.put(uuid, KitAPI.juwelier.get(uuid) - 1);
+                        } else {
                             KitAPI.juwelier.remove(uuid);
                         }
                     }
-                    if(KitAPI.banker.containsKey(uuid)){
-                        if(KitAPI.banker.get(uuid) > 1){
-                            KitAPI.banker.put(uuid,KitAPI.banker.get(uuid)-1);
-                        }else {
+                    if (KitAPI.banker.containsKey(uuid)) {
+                        if (KitAPI.banker.get(uuid) > 1) {
+                            KitAPI.banker.put(uuid, KitAPI.banker.get(uuid) - 1);
+                        } else {
                             KitAPI.banker.remove(uuid);
                         }
                     }
-                    if(KitAPI.ninja.containsKey(uuid)){
-                        if(KitAPI.ninja.get(uuid) > 1){
-                            KitAPI.ninja.put(uuid,KitAPI.ninja.get(uuid)-1);
-                        }else {
+                    if (KitAPI.ninja.containsKey(uuid)) {
+                        if (KitAPI.ninja.get(uuid) > 1) {
+                            KitAPI.ninja.put(uuid, KitAPI.ninja.get(uuid) - 1);
+                        } else {
                             KitAPI.ninja.remove(uuid);
                         }
                     }
-                    if(KitAPI.sensei.containsKey(uuid)){
-                        if(KitAPI.sensei.get(uuid) > 1){
-                            KitAPI.sensei.put(uuid,KitAPI.sensei.get(uuid)-1);
-                        }else {
+                    if (KitAPI.sensei.containsKey(uuid)) {
+                        if (KitAPI.sensei.get(uuid) > 1) {
+                            KitAPI.sensei.put(uuid, KitAPI.sensei.get(uuid) - 1);
+                        } else {
                             KitAPI.sensei.remove(uuid);
                         }
                     }
-                    if(KitAPI.meister.containsKey(uuid)){
-                        if(KitAPI.meister.get(uuid) > 1){
-                            KitAPI.meister.put(uuid,KitAPI.meister.get(uuid)-1);
-                        }else {
+                    if (KitAPI.meister.containsKey(uuid)) {
+                        if (KitAPI.meister.get(uuid) > 1) {
+                            KitAPI.meister.put(uuid, KitAPI.meister.get(uuid) - 1);
+                        } else {
                             KitAPI.meister.remove(uuid);
-                        }
-                    }
-                    if(CombatAPI.fight.containsKey(Bukkit.getPlayer(uuid))){
-                        if(CombatAPI.fight.get(Bukkit.getPlayer(uuid)) > 1){
-                            CombatAPI.fight.put(Bukkit.getPlayer(uuid),CombatAPI.fight.get(Bukkit.getPlayer(uuid))-1);
-                            CombatAPI.updateTimeBar(Bukkit.getPlayer(uuid));
-                        }else {
-                            CombatAPI.fight.remove(Bukkit.getPlayer(uuid));
-                            CombatAPI.fightwarzone.remove(Bukkit.getPlayer(uuid));
-                            AufgabenManager.setTask(uuid, 0);
                         }
                     }
                 }

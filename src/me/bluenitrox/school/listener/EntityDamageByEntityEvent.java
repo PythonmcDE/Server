@@ -8,6 +8,7 @@ import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.utils.ArmorUtil;
 import me.bluenitrox.school.utils.EntityHitDelay;
 import me.bluenitrox.school.warzone.CombatAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -129,6 +130,7 @@ public class EntityDamageByEntityEvent implements Listener {
             Fesseln.fesselnAuslösen((Player) projectile.getShooter(),(Player)e.getEntity());
             Tod.todAuslösen((Player) projectile.getShooter(),(Player)e.getEntity());
             Strahlen.strahlenAuslösen((Player) projectile.getShooter(),(Player)e.getEntity());
+            Käfig.activateKäfig((Player) projectile.getShooter(), (Player) e.getEntity());
         }
     }
 

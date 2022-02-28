@@ -134,6 +134,7 @@ public class CraftAPI {
         bow.add(EnchantManager.Tod);
         bow.add(EnchantManager.Strahlen);
         bow.add(EnchantManager.Feuerwerk);
+        bow.add(EnchantManager.Käfig);
 
         pickaxe.add(EnchantManager.Rausch);
         pickaxe.add(EnchantManager.Laser);
@@ -605,6 +606,8 @@ public class CraftAPI {
                     return EnchantManager.Erhalt;
                 }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Rune)){
                     return EnchantManager.Rune;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Käfig)){
+                    return EnchantManager.Käfig;
                 }
             }
         }
