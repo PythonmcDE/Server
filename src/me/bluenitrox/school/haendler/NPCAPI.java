@@ -33,6 +33,7 @@ import org.bukkit.entity.Player;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class NPCAPI extends Reflections {
@@ -59,65 +60,87 @@ public class NPCAPI extends Reflections {
 
     public static LinkedList<Integer> entityids = new LinkedList<>();
 
-    public static void summonAllNPCS(){
-        dailyreward.rmvFromTablist();
-        dailyreward.spawn();
-        Taxi.rmvFromTablist();
-        Taxi.spawn();
-        Schmied.rmvFromTablist();
-        Schmied.spawn();
-        Koch.rmvFromTablist();
-        Koch.spawn();
-        Abenteurer.rmvFromTablist();
-        Abenteurer.spawn();
-        Bauarbeiter.rmvFromTablist();
-        Bauarbeiter.spawn();
-        Bergmann.rmvFromTablist();
-        Bergmann.spawn();
-        Förster.rmvFromTablist();
-        Förster.spawn();
-        Gärtner.rmvFromTablist();
-        Gärtner.spawn();
-        Landwirt.rmvFromTablist();
-        Landwirt.spawn();
-        Künstlerin.rmvFromTablist();
-        Künstlerin.spawn();
-        Magier.rmvFromTablist();
-        Magier.spawn();
-        Techniker.rmvFromTablist();
-        Techniker.spawn();
-        Jäger.rmvFromTablist();
-        Jäger.spawn();
-        Dungeon.rmvFromTablist();
-        Dungeon.spawn();
-        Mine.rmvFromTablist();
-        Mine.spawn();
-        Angelmine.rmvFromTablist();
-        Angelmine.spawn();
+    public static void setJoinNPC(PlayerJoinEvent e){
+        PacketReader pr = new PacketReader(e.getPlayer());
+        pr.inject();
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                summonAllNPCS(e.getPlayer());
+            }
+        }.runTaskLater(SchoolMode.getInstance(), 40);
     }
 
-    public static void destroyAllNPCS() {
-        dailyreward.destroy();
-        Taxi.destroy();
-        Schmied.destroy();
-        Koch.destroy();
-        Abenteurer.destroy();
-        Bauarbeiter.destroy();
-        Bergmann.destroy();
-        Förster.destroy();
-        Gärtner.destroy();
-        Landwirt.destroy();
-        Künstlerin.destroy();
-        Magier.destroy();
-        Techniker.destroy();
-        Jäger.destroy();
-        Dungeon.destroy();
-        Mine.destroy();
-        Angelmine.destroy();
+    public static void updateNPCs(Player player){
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                NPCAPI.summonAllNPCS(player);
+            }
+        }.runTaskLater(SchoolMode.getInstance(), 40);
+    }
+
+    public static void summonAllNPCS(Player player){
+        dailyreward.rmvFromTablist();
+        dailyreward.spawn(player);
+        Taxi.rmvFromTablist();
+        Taxi.spawn(player);
+        Schmied.rmvFromTablist();
+        Schmied.spawn(player);
+        Koch.rmvFromTablist();
+        Koch.spawn(player);
+        Abenteurer.rmvFromTablist();
+        Abenteurer.spawn(player);
+        Bauarbeiter.rmvFromTablist();
+        Bauarbeiter.spawn(player);
+        Bergmann.rmvFromTablist();
+        Bergmann.spawn(player);
+        Förster.rmvFromTablist();
+        Förster.spawn(player);
+        Gärtner.rmvFromTablist();
+        Gärtner.spawn(player);
+        Landwirt.rmvFromTablist();
+        Landwirt.spawn(player);
+        Künstlerin.rmvFromTablist();
+        Künstlerin.spawn(player);
+        Magier.rmvFromTablist();
+        Magier.spawn(player);
+        Techniker.rmvFromTablist();
+        Techniker.spawn(player);
+        Jäger.rmvFromTablist();
+        Jäger.spawn(player);
+        Dungeon.rmvFromTablist();
+        Dungeon.spawn(player);
+        Mine.rmvFromTablist();
+        Mine.spawn(player);
+        Angelmine.rmvFromTablist();
+        Angelmine.spawn(player);
+    }
+
+    public static void destroyAllNPCS(Player player) {
+        dailyreward.destroy(player);
+        Taxi.destroy(player);
+        Schmied.destroy(player);
+        Koch.destroy(player);
+        Abenteurer.destroy(player);
+        Bauarbeiter.destroy(player);
+        Bergmann.destroy(player);
+        Förster.destroy(player);
+        Gärtner.destroy(player);
+        Landwirt.destroy(player);
+        Künstlerin.destroy(player);
+        Magier.destroy(player);
+        Techniker.destroy(player);
+        Jäger.destroy(player);
+        Dungeon.destroy(player);
+        Mine.destroy(player);
+        Angelmine.destroy(player);
     }
 
 
     private int entityID;
+    private Player localplayer;
     private Location location;
     private GameProfile gameprofile;
 
@@ -139,14 +162,14 @@ public class NPCAPI extends Reflections {
         PacketPlayOutAnimation packet = new PacketPlayOutAnimation();
         setValue(packet, "a", entityID);
         setValue(packet, "b", (byte)animation);
-        sendPacket(packet);
+        sendPacket(packet, localplayer);
     }
 
     public void status(int status){
         PacketPlayOutEntityStatus packet = new PacketPlayOutEntityStatus();
         setValue(packet, "a", entityID);
         setValue(packet, "b", (byte)status);
-        sendPacket(packet);
+        sendPacket(packet, localplayer);
     }
 
     public void equip(int slot,ItemStack itemstack){
@@ -154,7 +177,7 @@ public class NPCAPI extends Reflections {
         setValue(packet, "a", entityID);
         setValue(packet, "b", slot);
         setValue(packet, "c", itemstack);
-        sendPacket(packet);
+        sendPacket(packet, localplayer);
     }
 
     public void sleep(boolean state){
@@ -168,7 +191,7 @@ public class NPCAPI extends Reflections {
                 pl.sendBlockChange(bedLocation, Material.BED_BLOCK, (byte)0);
             }
 
-            sendPacket(packet);
+            sendPacket(packet, localplayer);
             teleport(location.clone().add(0,0.3,0));
         }else{
             animation(2);
@@ -176,8 +199,10 @@ public class NPCAPI extends Reflections {
         }
     }
 
-    public void spawn(){
+    public void spawn(Player player){
         PacketPlayOutNamedEntitySpawn packet = new PacketPlayOutNamedEntitySpawn();
+
+        localplayer = player;
 
         entityids.add(entityID);
         setValue(packet, "a", entityID);
@@ -193,7 +218,7 @@ public class NPCAPI extends Reflections {
         w.a(10,(byte)127);
         setValue(packet, "i", w);
         addToTablist();
-        sendPacket(packet);
+        sendPacket(packet, localplayer);
         headRotation(location.getYaw(), location.getPitch());
     }
 
@@ -206,7 +231,7 @@ public class NPCAPI extends Reflections {
         setValue(packet, "e", getFixRotation(location.getYaw()));
         setValue(packet, "f", getFixRotation(location.getPitch()));
 
-        sendPacket(packet);
+        sendPacket(packet, localplayer);
         headRotation(location.getYaw(), location.getPitch());
         this.location = location.clone();
     }
@@ -218,14 +243,14 @@ public class NPCAPI extends Reflections {
         setValue(packetHead, "b", getFixRotation(yaw));
 
 
-        sendPacket(packet);
-        sendPacket(packetHead);
+        sendPacket(packet, localplayer);
+        sendPacket(packetHead, localplayer);
     }
 
-    public void destroy(){
+    public void destroy(Player player){
         PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(new int[] {entityID});
         rmvFromTablist();
-        sendPacket(packet);
+        sendPacket(packet, player);
     }
 
     public void addToTablist(){
@@ -238,7 +263,7 @@ public class NPCAPI extends Reflections {
         setValue(packet, "a", PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER);
         setValue(packet, "b", players);
 
-        sendPacket(packet);
+        sendPacket(packet, localplayer);
     }
 
     public void rmvFromTablist(){
@@ -255,7 +280,7 @@ public class NPCAPI extends Reflections {
         new BukkitRunnable() {
             @Override
             public void run() {
-                sendPacket(packet);
+                sendPacket(packet, localplayer);
             }
         }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20*2);
     }

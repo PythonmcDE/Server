@@ -34,19 +34,7 @@ public class PlayerJoinListener implements Listener {
         PlayerJoinManager.cachPlayerData(p.getUniqueId());
         SchoolMode.playerwason.add(p.getUniqueId());
 
-        PacketReader pr = new PacketReader(e.getPlayer());
-        pr.inject();
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if(Bukkit.getOnlinePlayers().size() > 1) {
-                    Bukkit.broadcastMessage("größer 1");
-                    NPCAPI.destroyAllNPCS();
-                }
-                NPCAPI.summonAllNPCS();
-            }
-        }.runTaskLater(SchoolMode.getInstance(), 20);
+        NPCAPI.setJoinNPC(e);
 
         ScoreboardManager.setBoard(p);
         p.setGameMode(GameMode.SURVIVAL);

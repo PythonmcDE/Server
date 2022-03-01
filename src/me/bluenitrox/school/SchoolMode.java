@@ -1,6 +1,5 @@
 package me.bluenitrox.school;
 
-import com.mojang.authlib.GameProfile;
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.ah.Ah_CMD;
@@ -16,16 +15,12 @@ import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.features.KitAPI;
-import me.bluenitrox.school.features.Pet;
-import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.haendler.NPCAPI;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.mine.angelmine.*;
 import me.bluenitrox.school.mine.commands.Sell;
 import me.bluenitrox.school.listener.BreakBlockEvent;
-import me.bluenitrox.school.mine.manager.MinenManager;
-import me.bluenitrox.school.mine.manager.MinenSettings;
 import me.bluenitrox.school.mine.manager.Minenreset;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
@@ -35,12 +30,10 @@ import me.bluenitrox.school.warzone.CombatAPI;
 import me.bluenitrox.school.warzone.Warzone;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -127,7 +120,6 @@ public class SchoolMode extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§4Befülle alle Minen... §4(8/8)");
         DiscordWebhook.setHook("SchoolAlive-1 wurde gestartet!");
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
-        startNPC();
     }
 
     @Override
@@ -237,7 +229,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new FoodLevelChangeEvent(), this);
         pm.registerEvents(new AngelListener(), this);
         pm.registerEvents(new ProjectileHitEvent(), this);
-        pm.registerEvents(new WorldChangeEvent(), this);
+        pm.registerEvents(new PlayerTeleportListener(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/8)");
@@ -564,6 +556,12 @@ public class SchoolMode extends JavaPlugin {
                     all.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20 * 60 * 20, 1));
                     AufgabenMethods.sendActionBar(all, Aufgaben.getTask(all), 20*60*10);
                 }
+                for(Player all: Bukkit.getOnlinePlayers()) {
+                    if (Bukkit.getOnlinePlayers().size() > 1) {
+                        NPCAPI.destroyAllNPCS(all);
+                        NPCAPI.summonAllNPCS(all);
+                    }
+                }
             }
         }.runTaskTimer(getInstance(), 20*60*10, 20*60*10);
     }
@@ -575,15 +573,6 @@ public class SchoolMode extends JavaPlugin {
             world.setDifficulty(Difficulty.NORMAL);
         }
 
-    }
-
-    private void startNPC(){
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                NPCAPI.summonAllNPCS();
-            }
-        }.runTaskLater(getInstance(), 20*5);
     }
 
 

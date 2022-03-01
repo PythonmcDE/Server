@@ -35,7 +35,6 @@ public class SellManager {
         DIAMOND_BLOCK("DIAMOND_BLOCK",7200),
         EMERALD_BLOCK("EMERALD_BLOCK",9000);
 
-
         String type;
         float price;
 

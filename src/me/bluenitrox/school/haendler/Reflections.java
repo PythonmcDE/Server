@@ -35,10 +35,4 @@ public class Reflections {
         ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
     }
 
-    public void sendPacket(Packet<?> packet) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            sendPacket(packet, player);
-        }
-    }
-
 }
