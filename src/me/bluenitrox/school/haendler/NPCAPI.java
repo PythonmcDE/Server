@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.commands.School;
 import me.bluenitrox.school.managers.LocationManager;
 import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.DataWatcher;
@@ -31,11 +33,30 @@ import org.bukkit.entity.Player;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class NPCAPI extends Reflections {
 
-    public static NPCAPI dailyreward = new NPCAPI("§6§lDailyReward", new LocationManager("NPCDailyreward").getLocation());
-    public static NPCAPI Taxi = new NPCAPI("§6§lTaxi", new LocationManager("NPCTaxi").getLocation());
+    public static NPCSkins skins = new NPCSkins();
+    public static NPCAPI dailyreward = new NPCAPI("§6§lDailyReward", new LocationManager("NPCDailyreward").getLocation(), skins.VALUE_DAILYREWARD, skins.SIGNATURE_DAILYREWARD);
+    public static NPCAPI Taxi = new NPCAPI("§6§lTaxi", new LocationManager("NPCTaxi").getLocation(), skins.VALUE_TAXI, skins.SIGNATURE_TAXI);
+    public static NPCAPI Schmied = new NPCAPI("§6§lSchmied", new LocationManager("NPCSchmied").getLocation(), skins.VALUE_SCHMIED, skins.SIGNATURE_SCHMIED);
+    public static NPCAPI Koch = new NPCAPI("§6§lKoch", new LocationManager("NPCKoch").getLocation(), skins.VALUE_KOCH, skins.SIGNATURE_KOCH);
+    public static NPCAPI Abenteurer = new NPCAPI("§6§lAbenteurer", new LocationManager("NPCAbenteurer").getLocation(), skins.VALUE_ABENTEURER, skins.SIGNATURE_ABENTEURER);
+    public static NPCAPI Bauarbeiter = new NPCAPI("§6§lBauarbeiter", new LocationManager("NPCBauarbeiter").getLocation(), skins.VALUE_BAUARBEITER, skins.SIGNATURE_BAUARBEITER);
+    public static NPCAPI Bergmann = new NPCAPI("§6§lBergmann", new LocationManager("NPCBergmann").getLocation(), skins.VALUE_BERGMANN, skins.SIGNATURE_BERGMANN);
+    public static NPCAPI Förster = new NPCAPI("§6§lFörster", new LocationManager("NPCFörster").getLocation(), skins.VALUE_FÖRSTER, skins.SIGNATURE_FÖRSTER);
+    public static NPCAPI Gärtner = new NPCAPI("§6§lGärtner", new LocationManager("NPCGärtner").getLocation(), skins.VALUE_GÄRTNER, skins.SIGNATURE_GÄRTNER);
+    public static NPCAPI Landwirt = new NPCAPI("§6§lLandwirt", new LocationManager("NPCLandwirt").getLocation(), skins.VALUE_LANDWIRT, skins.SIGNATURE_LANDWIRT);
+    public static NPCAPI Künstlerin = new NPCAPI("§6§lKünstlerin", new LocationManager("NPCKünstlerin").getLocation(), skins.VALUE_KÜNSTLERIN, skins.SIGNATURE_KÜNSTLERIN);
+    public static NPCAPI Magier = new NPCAPI("§6§lMagier", new LocationManager("NPCMagier").getLocation(), skins.VALUE_MAGIER, skins.SIGNATURE_MAGIER);
+    public static NPCAPI Techniker = new NPCAPI("§6§lTechniker", new LocationManager("NPCTechniker").getLocation(), skins.VALUE_TECHNIKER, skins.SIGNATURE_TECHNIKER);
+    public static NPCAPI Jäger = new NPCAPI("§6§lJäger", new LocationManager("NPCJäger").getLocation(), skins.VALUE_JÄGER, skins.SIGNATURE_JÄGER);
+    public static NPCAPI Dungeon = new NPCAPI("§6§lDungeon", new LocationManager("NPCDungeon").getLocation(), skins.VALUE_DUNGEON, skins.SIGNATURE_DUNGEON);
+    public static NPCAPI Mine = new NPCAPI("§6§lMinenhändler", new LocationManager("NPCMine").getLocation(), skins.VALUE_MINE, skins.SIGNATURE_MINE);
+    public static NPCAPI Angelmine = new NPCAPI("§6§lFischer", new LocationManager("NPCAngelmine").getLocation(), skins.VALUE_ANGELMINE, skins.SIGNATURE_ANGELMINE);
+
+
     public static LinkedList<Integer> entityids = new LinkedList<>();
 
     public static void summonAllNPCS(){
@@ -43,11 +64,56 @@ public class NPCAPI extends Reflections {
         dailyreward.spawn();
         Taxi.rmvFromTablist();
         Taxi.spawn();
+        Schmied.rmvFromTablist();
+        Schmied.spawn();
+        Koch.rmvFromTablist();
+        Koch.spawn();
+        Abenteurer.rmvFromTablist();
+        Abenteurer.spawn();
+        Bauarbeiter.rmvFromTablist();
+        Bauarbeiter.spawn();
+        Bergmann.rmvFromTablist();
+        Bergmann.spawn();
+        Förster.rmvFromTablist();
+        Förster.spawn();
+        Gärtner.rmvFromTablist();
+        Gärtner.spawn();
+        Landwirt.rmvFromTablist();
+        Landwirt.spawn();
+        Künstlerin.rmvFromTablist();
+        Künstlerin.spawn();
+        Magier.rmvFromTablist();
+        Magier.spawn();
+        Techniker.rmvFromTablist();
+        Techniker.spawn();
+        Jäger.rmvFromTablist();
+        Jäger.spawn();
+        Dungeon.rmvFromTablist();
+        Dungeon.spawn();
+        Mine.rmvFromTablist();
+        Mine.spawn();
+        Angelmine.rmvFromTablist();
+        Angelmine.spawn();
     }
 
     public static void destroyAllNPCS() {
         dailyreward.destroy();
         Taxi.destroy();
+        Schmied.destroy();
+        Koch.destroy();
+        Abenteurer.destroy();
+        Bauarbeiter.destroy();
+        Bergmann.destroy();
+        Förster.destroy();
+        Gärtner.destroy();
+        Landwirt.destroy();
+        Künstlerin.destroy();
+        Magier.destroy();
+        Techniker.destroy();
+        Jäger.destroy();
+        Dungeon.destroy();
+        Mine.destroy();
+        Angelmine.destroy();
     }
 
 
@@ -56,17 +122,15 @@ public class NPCAPI extends Reflections {
     private GameProfile gameprofile;
 
 
-    public NPCAPI(String name,Location location){
+    public NPCAPI(String name,Location location, String value, String signature){
         Random r = new Random();
         entityID = r.nextInt(1400000000);
         gameprofile = new GameProfile(UUID.randomUUID(), name);
-        changeSkin();
+        changeSkin(value, signature);
         this.location = location.clone();
     }
 
-    public void changeSkin(){
-        String value = "ewogICJ0aW1lc3RhbXAiIDogMTY0NTk5OTc1MDM1NSwKICAicHJvZmlsZUlkIiA6ICJiNmVlNGYwNTc2ZTk0ZTI5YTYxODYxYzI4YTNiNGNhMCIsCiAgInByb2ZpbGVOYW1lIiA6ICIxQmx1ZU5pdHJveCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8xOGQ5Njg2ZDAwYzdkZDBjZTJmZTQzNTM0NWNjMTA0ZjYyYTFhMWJlMjIzNjhlNjgxY2YxN2U5ZTZhOGQ0NDZjIgogICAgfQogIH0KfQ==";
-        String signature = "Xr1vwlhrxprXyjop1d+X1h3KKYfK9mgZVK0cEQaujD3z5yDJV/VDSFpOZvERnzgfLNxwtrD8KDH4N/jRgeOgW0/NY3pbZoNiY2zlO9Gpo4z/jhDoKGxnLmM0G779jZP9oyNE1f4w+vk/P18Fw2zuOtz6SP0sEmRFEY9B8+MGnBY9E4uEAlWf2J3GAAcf/TlX6XZFw42SC33jqYtlGO2wWKXbEuJ3mImawJvi/dVpCuQoQ/mpasICjTsxApHlGx/5Okx9d4gvPjumZclgrmzZPEF8CLS0LW8Q2mADIkpmBaw0p3pR+RL43AfZykX0cDiK9FtjBUbdKr1c03EKn+c+wf72aLLLwPBdHDxDdixJeLmJZVK5BWGBjSnpOEdYd7NvAEj3IHWNmmjXXsDjB7ZdQPcGDo8ewQhgOW4wsq9UZDDbAbFkg4LHuZ7W+2GP0Ocp1vnVhQBIvmaZWMSkN+pMazrIlgOOw9Js2I46Y+dQHgEpqV/jikNFhtuTiGdJp7OygC56KKupOzqMi2ID/jA03ornIbp9qRz5vGTyol7wqN5ueheQsc1q0QJkV6Al363hRoXQj7J6GjR6xE3Vhc1ezotShLUraR6sgyAhB1YUhgcQS74gLt6kJPcbu3GPq6+ojI//8rs8hmAfcoIeq4e3pgnEbCLO7gdHpTOCaVjlBqQ=/b9jrLFDfQrdqX3dGm1cKjYbvOXL9BO2WIOEJLTDCgUQJC4/n/3PZHEG2mVADc4v125MFYMfjzkznkA6zbs7w6z8f7pny9eCWNXPOQklstcdc1h/LvflnR+E4TUuxCf0jVsdT5AZsUYIsJa6fvr0+vItUXUdQ3pps0zthObPEnBdLYMtNY3G6ZLGVKcSGa/KRK2D/k69fmu/uTKbjAWtniFB/sdO0VNhLuvyr/PcZVXB78l1SfBR88ZMiW6XSaVqNnSP+MEfRkxgkJWUG+aiRRLE8G5083EQ8vhIle5GxzK68ZR48IrEX/JwFjALslCLXAGR05KrtuTD3xyq2Nut12GCaooBEhb46sipWLq4AXI9IpJORLOW8+GvY+FcDwMqXYN94juDQtbJGCQo8PX670YjbmVx7+IeFjLJJTZotemXu1wiQmDmtAAmug4U5jgMYIJryXMitD7r5pEop/cw42JbCO2u0b5NB7sI/mr4OhBKEesyC5usiARzuk6e/4aJUvwQ9nsiXfeYxZz8L/mh6e8YPJMyhVkFtblbt/4jPe0bs3xSUXO9XrDyhy9INC0jlLT22QjNzrDkD8aiGAopVvfnTTAug=";
+    public void changeSkin(String value, String signature){
         gameprofile.getProperties().put("textures", new Property("textures", value, signature));
     }
 
@@ -187,7 +251,13 @@ public class NPCAPI extends Reflections {
         setValue(packet, "a", PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER);
         setValue(packet, "b", players);
 
-        sendPacket(packet);
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                sendPacket(packet);
+            }
+        }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20*2);
     }
 
     public int getFixLocation(double pos){

@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 public class Bergmann {
     public static String GUI_NAME = "§e§lHändler §8: §7§lBergmann";
 
-    public static void onCommand(CommandSender cs, Command cmd, String s, String[] args) {
+    public static void onCommand(Player cs) {
         Player p = (Player)cs;
         if(cs == null){
             cs.sendMessage(MessageManager.NOPLAYER);

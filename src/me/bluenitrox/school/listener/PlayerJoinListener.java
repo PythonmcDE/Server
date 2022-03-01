@@ -40,7 +40,10 @@ public class PlayerJoinListener implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                NPCAPI.destroyAllNPCS();
+                if(Bukkit.getOnlinePlayers().size() > 1) {
+                    Bukkit.broadcastMessage("größer 1");
+                    NPCAPI.destroyAllNPCS();
+                }
                 NPCAPI.summonAllNPCS();
             }
         }.runTaskLater(SchoolMode.getInstance(), 20);

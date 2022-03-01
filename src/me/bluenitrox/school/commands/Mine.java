@@ -595,7 +595,7 @@ public class Mine implements CommandExecutor {
         }
     }
 
-    private void setMinenContent(Inventory inv, UUID uuid){
+    public static void setMinenContent(Inventory inv, UUID uuid){
         ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
         ItemStack picke = new ItemBuilder(Material.IRON_PICKAXE).setDisplayname("§8§l» §6§lMinen").setLore("§6§l▶ §7Schalte hier neue §6§lMinen §7frei, um somit",
                 "§6§l▶ mehr Gems §7zu verdienen.").build();

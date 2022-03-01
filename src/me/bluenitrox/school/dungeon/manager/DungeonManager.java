@@ -31,7 +31,7 @@ public class DungeonManager {
         p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in die §6Dungeonwelt §7teleportiert.");
         p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
         shouldMonsterSpawn = true;
-        startMonsterSpawn();
+        //startMonsterSpawn();
         p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20*60*60, 1));
     }
 

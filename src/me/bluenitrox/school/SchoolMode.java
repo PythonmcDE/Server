@@ -176,7 +176,6 @@ public class SchoolMode extends JavaPlugin {
         getCommand("clear").setExecutor(new Clear());
         getCommand("tk").setExecutor(new TK());
         getCommand("vanish").setExecutor(new Vanish());
-        getCommand("händler").setExecutor(new HändlerAPI());
         getCommand("tp").setExecutor(new Tp());
         getCommand("tphere").setExecutor(new Tphere());
         getCommand("skill").setExecutor(new Skill());
@@ -238,6 +237,7 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new FoodLevelChangeEvent(), this);
         pm.registerEvents(new AngelListener(), this);
         pm.registerEvents(new ProjectileHitEvent(), this);
+        pm.registerEvents(new WorldChangeEvent(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/8)");
@@ -565,7 +565,7 @@ public class SchoolMode extends JavaPlugin {
                     AufgabenMethods.sendActionBar(all, Aufgaben.getTask(all), 20*60*10);
                 }
             }
-        }.runTaskTimerAsynchronously(getInstance(), 20*60*10, 20*60*10);
+        }.runTaskTimer(getInstance(), 20*60*10, 20*60*10);
     }
     private void setGameRules(){
         Bukkit.setWhitelist(false);

@@ -23,7 +23,7 @@ public class Money implements CommandExecutor {
         Player p = (Player)cs;
         if(args.length == 0){
             // /money
-            p.sendMessage(MessageManager.KONTOSTAND(PlayerJoinManager.language) + SchoolMode.getPlayerMoneyString(p.getUniqueId()) + "$");
+            p.sendMessage(MessageManager.KONTOSTAND(PlayerJoinManager.language) + SchoolMode.getPlayerMoneyString(p.getUniqueId()) + " Gems");
             return false;
         }else if(args.length == 1){
             // /money <Spielername>
@@ -31,7 +31,7 @@ public class Money implements CommandExecutor {
                 try {
                     Player t = Bukkit.getPlayer(args[0]);
                     if(t != null) {
-                        p.sendMessage(MessageManager.KONTOSTANDOFOTHER + NameFetcher.getName(t.getUniqueId()) + "§7 beträgt: §6§l" + SchoolMode.getPlayerMoneyString(t.getUniqueId()) + "$");
+                        p.sendMessage(MessageManager.KONTOSTANDOFOTHER + NameFetcher.getName(t.getUniqueId()) + "§7 beträgt: §6§l" + SchoolMode.getPlayerMoneyString(t.getUniqueId()) + " Gems");
                     }else {
                         p.sendMessage(MessageManager.KONTOSTANDOFOTHER + NameFetcher.getName(UUIDFetcher.getUUID(args[0])) + "§7 beträgt: §6§l" + ValuetoString.valueToString(MoneyManager.getMoneyDatabase(UUIDFetcher.getUUID(args[0]))) + "$");
                     }
@@ -40,7 +40,7 @@ public class Money implements CommandExecutor {
                     p.sendMessage(MessageManager.ERROR);
                 }
             }else {
-                p.sendMessage(MessageManager.KONTOSTAND(PlayerJoinManager.language) + SchoolMode.getPlayerMoneyString(p.getUniqueId()) + "$");
+                p.sendMessage(MessageManager.KONTOSTAND(PlayerJoinManager.language) + SchoolMode.getPlayerMoneyString(p.getUniqueId()) + " Gems");
             }
             return false;
         }else if(args.length == 3){

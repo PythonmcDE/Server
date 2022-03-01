@@ -21,54 +21,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
-public class HändlerAPI implements CommandExecutor {
+public class HändlerAPI {
 
-
-    @Override
-    public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
-        Player p = (Player) cs;
-        DailyReward dr = new DailyReward();
-
-        if(CombatAPI.fight != null) {
-            if (CombatAPI.fight.containsKey(p)) {
-                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                p.sendMessage(MessageManager.CANTDOINFIGHT);
-                return true;
-            }
-        }
-
-        if (args.length == 1) {
-            if (p.hasPermission(PermissionsManager.NPCS)) {
-                if (args[0].equalsIgnoreCase("schmied")) {
-                    Schmied.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("koch")) {
-                    Koch.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("abenteurer")) {
-                    Abenteurer.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("bauarbeiter")) {
-                    Bauarbeiter.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("bergmann")) {
-                    Bergmann.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("Förster")) {
-                    Förster.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("Gärtner")) {
-                    Gärtner.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("Landwirt")) {
-                    Landwirt.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("künstlerin")) {
-                    Künstlerin.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("Magier")) {
-                    Magier.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("techniker")) {
-                    Techniker.onCommand(cs, cmd, s, args);
-                } else if (args[0].equalsIgnoreCase("Jäger")) {
-                    Jäger.onCommand(cs, cmd, s, args);
-                }
-            }
-        }
-
-        return false;
-    }
 
     public void onClickHändler(final InventoryClickEvent e) {
         if (e.getClickedInventory().getName().startsWith("§e§lHändler §8: §7§l")) {
@@ -135,6 +89,13 @@ public class HändlerAPI implements CommandExecutor {
                                     short dura = e.getCurrentItem().getDurability();
 
                                     String[] moneysell = e.getCurrentItem().getItemMeta().getLore().get(1).split(" ");
+
+                                    if(!e.getCurrentItem().getItemMeta().getLore().get(1).startsWith("§8» §7Verkaufen:§6")){
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.sendMessage(MessageManager.PREFIX + "§7Das Item kannst du §cnicht §7verkaufen!");
+                                        p.closeInventory();
+                                        return;
+                                    }
 
                                     int betrag = Integer.parseInt(moneysell[2]);
 

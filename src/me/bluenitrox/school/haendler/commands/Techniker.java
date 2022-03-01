@@ -15,7 +15,7 @@ public class Techniker {
 
     public static String GUI_NAME = "§e§lHändler §8: §7§lTechniker";
 
-    public static void onCommand(CommandSender cs, Command cmd, String s, String[] args) {
+    public static void onCommand(Player cs) {
         Player p = (Player)cs;
         if(cs == null){
             cs.sendMessage(MessageManager.NOPLAYER);

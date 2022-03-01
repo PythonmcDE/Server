@@ -28,7 +28,7 @@ import java.util.UUID;
 
 public class Angelmine implements CommandExecutor {
 
-    private String guiname = "§6§lAngelminen";
+    public static String guiname = "§6§lAngelminen";
 
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
@@ -46,7 +46,7 @@ public class Angelmine implements CommandExecutor {
         return false;
     }
 
-    private void setInventoryContent(Inventory inv, Player p){
+    public static void setInventoryContent(Inventory inv, Player p){
         UUID uuid = p.getUniqueId();
         ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
         ItemStack angel = new ItemBuilder(Material.FISHING_ROD).setDisplayname("§8§l» §c§lAngelminen").setLore("§6§l▶ §7Schalte hier neue §6§lAngelminen §7frei, um bessere",
