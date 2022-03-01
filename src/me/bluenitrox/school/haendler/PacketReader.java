@@ -19,6 +19,7 @@ import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.mine.angelmine.Angelmine;
 import me.bluenitrox.school.mine.angelmine.AngelminenManager;
+import me.bluenitrox.school.mine.commands.Sell;
 import net.minecraft.server.v1_8_R3.Packet;
 
 import org.bukkit.Bukkit;
@@ -72,6 +73,16 @@ public class PacketReader {
                     Taxi.onInteract(player);
                     interacted(player);
                     return;
+                }
+            }
+            for (int i = 0; i < NPCAPI.minenNpcs.size(); i++) {
+                NPCAPI npcapi = NPCAPI.minenNpcs.get(i);
+                if(npcapi.getEntityID() == id){
+                    if(getValue(packet, "action").toString().equalsIgnoreCase("INTERACT")){
+                        Sell.onInterAct(player);
+                        interacted(player);
+                        return;
+                    }
                 }
             }
             if(NPCAPI.Jäger.getEntityID() == id){

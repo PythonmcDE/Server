@@ -10,7 +10,8 @@ import java.util.HashMap;
 
 public class MessageManager {
 
-    public static final String PREFIX = "§a§lPythonMC §8» ";
+    //public static final String PREFIX = "§a§lPythonMC §8» ";
+    public static final String PREFIX = "§8» ";
     public static final String ERROR = PREFIX + "§7Es ist ein §cFehler §7aufgetreten! Bitte Versuche es erneut";
     public static final String NOPLAYER = PREFIX + "§7Dazu musst du ein §cSpieler §7sein";
     public static final String KONTOSTANDOFOTHER = PREFIX + "§7Der Kontostand des Spielers §e";

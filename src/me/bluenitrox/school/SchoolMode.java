@@ -120,6 +120,16 @@ public class SchoolMode extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§4Befülle alle Minen... §4(8/8)");
         DiscordWebhook.setHook("SchoolAlive-1 wurde gestartet!");
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
+        startNPCS();
+    }
+
+    private void startNPCS(){
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                NPCAPI.setMinenhändlerNPC();
+            }
+        }.runTaskLater(getInstance(), 20*5);
     }
 
     @Override

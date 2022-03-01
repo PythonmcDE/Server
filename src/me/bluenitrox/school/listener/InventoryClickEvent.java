@@ -34,7 +34,6 @@ public class InventoryClickEvent implements Listener {
         Angelmine am = new Angelmine();
         AufgabenMethods.onCLick(e);
         MineSettings settings = new MineSettings();
-        settings.onInventoryClick(e);
 
         if(CaseAPI.caseöffnen != null) {
             if (CaseAPI.caseöffnen.contains(p)) {
@@ -45,6 +44,7 @@ public class InventoryClickEvent implements Listener {
         if(e.getClickedInventory() != null) {
             if (e.getClickedInventory().getName() != null) {
                 try {
+                settings.onInventoryClick(e);
                 Prestige.onClick(e);
                 craft.onClick(e);
                 SkillSystem.onClick(e);
