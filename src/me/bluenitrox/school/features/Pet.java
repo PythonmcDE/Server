@@ -29,6 +29,7 @@ public class Pet {
     public static ArrayList<Player> petremoved = new ArrayList<>();
 
     public Pet(){
+
     }
 
     public void openPetInventory(Player p){
