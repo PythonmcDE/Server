@@ -94,14 +94,4 @@ public class PlayerBreakBlockManager {
     }
 
 
-    private static void itemdestroyed(Player p){
-        if(p.getInventory().getItemInHand() != null){
-            Bukkit.broadcastMessage(""+p.getInventory().getItemInHand().getData().getItemType().getMaxDurability());
-            int id = p.getInventory().getItemInHand().getData().getItemType().getMaxDurability();
-            if(p.getInventory().getItemInHand().getItemMeta() != null) {
-
-            }
-        }
-    }
-
 }

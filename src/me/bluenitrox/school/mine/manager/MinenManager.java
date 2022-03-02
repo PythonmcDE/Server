@@ -167,7 +167,7 @@ public class MinenManager {
 
     }*/
 
-    public boolean isAllowedtoMine(Player p, Location block){
+    public static boolean isAllowedtoMine(Player p, Location block){
         /*if(p.hasPermission(PermissionsManager.BREAK_IN_ALL_MINES)){
             return true;
         }*/
@@ -191,21 +191,25 @@ public class MinenManager {
         return false;
     }
 
+    public static void updateMinenMapTrue(Location block, Player p, String mine){
+        Rausch.rausch(p, block.getBlock().getType());
+        RewardAPI api = new RewardAPI();
+        api.checkToAddReward(p);
+        int amount = Erfahrung.getErfahrungMultiplyer(p);
+        ExpManager.updateXP(p.getUniqueId(), amount, false);
+        BreakBlockEvent.minen.put(mine, BreakBlockEvent.minen.getOrDefault(mine, 0) + 1);
+        double abgebauteBloeckeInProzent = 0.0252 * BreakBlockEvent.minen.getOrDefault(mine, 0);
+        abgebauteBloeckeInProzent = ValuetoString.round(abgebauteBloeckeInProzent, 2);
+        if (String.valueOf(abgebauteBloeckeInProzent).length() <= 5) {
+            TTA_Methods.sendActionBar(p, "§8» §6" + abgebauteBloeckeInProzent + "% §7der Mine ist abgebaut");
+        }
+    }
+
     public boolean updateMinenMap(Player p, Location block){
         String mine = getMineByLocation(block);
         if(mine != null) {
             if (isAllowedtoMine(p, block)) {
-                Rausch.rausch(p, block.getBlock().getType());
-                RewardAPI api = new RewardAPI();
-                api.checkToAddReward(p);
-                int amount = Erfahrung.getErfahrungMultiplyer(p);
-                ExpManager.updateXP(p.getUniqueId(), amount, false);
-                BreakBlockEvent.minen.put(mine, BreakBlockEvent.minen.getOrDefault(mine, 0) + 1);
-                double abgebauteBloeckeInProzent = 0.0252 * BreakBlockEvent.minen.getOrDefault(mine, 0);
-                abgebauteBloeckeInProzent = ValuetoString.round(abgebauteBloeckeInProzent, 2);
-                if (String.valueOf(abgebauteBloeckeInProzent).length() <= 5) {
-                    TTA_Methods.sendActionBar(p, "§8» §6" + abgebauteBloeckeInProzent + "% §7der Mine ist abgebaut");
-                }
+                updateMinenMapTrue(block,p,mine);
                 return true;
             }else {
                 p.sendMessage(MessageManager.PREFIX + "§7In dieser §6Mine §7kannst du §cnoch nicht §7abbauen");
@@ -214,7 +218,7 @@ public class MinenManager {
         return false;
     }
 
-    public String getMineByLocation(Location loc) {
+    public static String getMineByLocation(Location loc) {
         for (int i = 1; i <= MessageManager.MAX_MINE; i++) {
             String curr = String.valueOf(i);
             if (getBlocks(curr).contains(loc)) {
@@ -224,7 +228,7 @@ public class MinenManager {
         return null;
     }
 
-    public List<Location> getBlocks(String mine){
+    public static List<Location> getBlocks(String mine){
         List<Location> locs = getEckPoints("mine" + mine);
         Location loc1 = locs.get(0);
         Location loc2 = locs.get(1);
@@ -232,7 +236,7 @@ public class MinenManager {
         return getAllLocationsInside(loc1, loc2);
     }
 
-    public List<Location> getEckPoints(String mine){
+    public static List<Location> getEckPoints(String mine){
         Location loc1;
         Location loc2;
         List<Location> templist = new ArrayList<>();
@@ -246,7 +250,7 @@ public class MinenManager {
         return templist;
     }
 
-    public List<Location> getAllLocationsInside(Location loc1, Location loc2){
+    public static List<Location> getAllLocationsInside(Location loc1, Location loc2){
         int yTop = 0;
         int yBottom = 0;
         int xTop = 0;

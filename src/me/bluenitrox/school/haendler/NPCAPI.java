@@ -61,15 +61,20 @@ public class NPCAPI extends Reflections {
     public static LinkedList<Integer> entityids = new LinkedList<>();
 
     public static void setJoinNPC(PlayerJoinEvent e){
-        PacketReader pr = new PacketReader(e.getPlayer());
-        pr.inject();
-
         new BukkitRunnable() {
             @Override
             public void run() {
-                summonAllNPCS(e.getPlayer());
+                PacketReader pr = new PacketReader(e.getPlayer());
+                pr.inject();
+
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        summonAllNPCS(e.getPlayer());
+                    }
+                }.runTaskLater(SchoolMode.getInstance(), 40);
             }
-        }.runTaskLater(SchoolMode.getInstance(), 40);
+        }.runTaskAsynchronously(SchoolMode.getInstance());
     }
 
     public static void updateNPCs(Player player){
@@ -78,7 +83,7 @@ public class NPCAPI extends Reflections {
             public void run() {
                 NPCAPI.summonAllNPCS(player);
             }
-        }.runTaskLater(SchoolMode.getInstance(), 40);
+        }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 40);
     }
 
     public static void summonAllNPCS(Player player){

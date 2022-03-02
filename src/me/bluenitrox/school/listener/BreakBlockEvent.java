@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class BreakBlockEvent implements Listener {
 
-    public ArrayList<String> allowedWorldToBuild = new ArrayList<>();
+    public static ArrayList<String> allowedWorldToBuild = new ArrayList<>();
 
     public static ConcurrentHashMap<String, Integer> minen = new ConcurrentHashMap<>();
     AufgabenMethods aufgaben = new AufgabenMethods();
@@ -77,7 +77,7 @@ public class BreakBlockEvent implements Listener {
         placeenderchest(e);
     }
 
-    private void addItemToInv(Player p, Block b, int multiplier){
+    public static void addItemToInv(Player p, Block b, int multiplier){
         ItemStack item;
         UUID uuid = p.getUniqueId();
         HashMap<Material, Boolean> value = MinenSettings.getMiningSettings().getMinenSettings().get(uuid);

@@ -22,45 +22,27 @@ public class Laser extends EnchantAPI {
             if(shoot.contains(player)){
                 return;
             }
+            shoot.add(player);
+            player.launchProjectile(Snowball.class);
             if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 1){
-                player.launchProjectile(Snowball.class);
-                shoot.add(player);
                 timer(30, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 2){
-                player.launchProjectile(Snowball.class);
-                shoot.add(player);
                 timer(27, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 3){
-                player.launchProjectile(Snowball.class);
-                shoot.add(player);
                 timer(24, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 4){
-                player.launchProjectile(Snowball.class);
-                shoot.add(player);
                 timer(21, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 5){
-                player.launchProjectile(Snowball.class);
-                shoot.add(player);
                 timer(18, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 6){
-                player.launchProjectile(Snowball.class);
-                shoot.add(player);
                 timer(15, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 7){
-                player.launchProjectile(Snowball.class);
-                shoot.add(player);
                 timer(12, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 8){
-                player.launchProjectile(Snowball.class);
-                shoot.add(player);
                 timer(9, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 9){
-                player.launchProjectile(Snowball.class);
-                shoot.add(player);
                 timer(6, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 10){
-                player.launchProjectile(Snowball.class);
-                shoot.add(player);
                 timer(3, player);
             }
         }
