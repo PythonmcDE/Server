@@ -12,138 +12,150 @@ import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.LinkedList;
-import java.util.UUID;
+import java.util.*;
 
 public class DungeonManager {
 
-    public static LinkedList<Player> playerindungeon = new LinkedList<>();
-    public boolean shouldMonsterSpawn = false;
-    private int Maxpoints = 1;
-    private int Maxdungeon = 1;
+    public static HashMap<Player, Integer> playerdungeon = new HashMap<>();
+    private static int Maxpoints = 40;
 
     public void onJoinDungeon(Player p){
-        playerindungeon.add(p);
         p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in die §6Dungeonwelt §7teleportiert.");
         p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
-        shouldMonsterSpawn = true;
-        //startMonsterSpawn();
         p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20*60*60, 1));
     }
 
     public void onQuitDungeon(Player p){
-        if(playerindungeon != null){
-            playerindungeon.remove(p);
-        }
-        if(playerindungeon == null){
-            shouldMonsterSpawn = false;
-        }
-        p.removePotionEffect(PotionEffectType.NIGHT_VISION);
+        playerdungeon.remove(p);
     }
 
-    public void startMonsterSpawn(){
+    public static void startMonsterSpawn(int dungeon, Player player){
         /*
         Example Point: spawn1dungeon2
          */
+        playerdungeon.put(player, dungeon);
         new BukkitRunnable() {
             @Override
             public void run() {
-                if(shouldMonsterSpawn){
-                    if(new LocationManager("spawn1dungeon1").getLocation() != null) {
-                        for (int i2 = 1; i2 <= Maxpoints; i2++) {
-                            for (int i = 1; i <= Maxdungeon; i++) {
-                                spawnMonster(new LocationManager("spawn" + i2 + "dungeon" + i).getLocation(), i);
+                if (playerdungeon.containsKey(player)) {
+                    if (new LocationManager("spawn1dungeon1").getLocation() != null) {
+                        for (int i2 = 1; i2 <= 5; i2++) {
+                            Random r = new Random();
+                            int z = r.nextInt(Maxpoints +1);
+                            if(z != 0) {
+                                spawnMonster(new LocationManager("spawn" + z + "dungeon" + dungeon).getLocation(), dungeon);
                             }
                         }
                     }
+                } else {
+                    this.cancel();
                 }
             }
-        }.runTaskTimer(SchoolMode.getInstance(), 20*25, 20*25);
+        }.runTaskTimer(SchoolMode.getInstance(), 20*20, 20*20);
     }
 
-    private void spawnMonster(Location loc, int dungeon) {
+    private static void spawnMonster(Location loc, int dungeon) {
         if(loc == null){
             return;
         }
+        Random r = new Random();
+        int z = r.nextInt(3);
         if (dungeon == 1) {
-            LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
-            entity.setCustomName("§fZombie §8(§7Level §61§8)");
-            entity.setCustomNameVisible(true);
-            if (entity.getEquipment() != null) {
-                entity.getEquipment().clear();
+            switch (z){
+                case 0:
+                    LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
+                    entity.setCustomName("§fZombie §8(§7Level §61§8)");
+                    entity.setCustomNameVisible(true);
+                    entity.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
+                    entity.getEquipment().setChestplate(new ItemBuilder(Material.AIR).build());
+                    entity.getEquipment().setLeggings(new ItemBuilder(Material.AIR).build());
+                    entity.getEquipment().setBoots(new ItemBuilder(Material.AIR).build());
+                    entity.getEquipment().setItemInHand(new ItemBuilder(Material.IRON_SWORD).build());
+                    break;
+                case 1:
+                    LivingEntity entity2 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
+                    entity2.setCustomName("§fSkelett §8(§7Level §61§8)");
+                    entity2.setCustomNameVisible(true);
+                    entity2.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
+                    entity2.getEquipment().setChestplate(new ItemBuilder(Material.AIR).build());
+                    entity2.getEquipment().setLeggings(new ItemBuilder(Material.AIR).build());
+                    entity2.getEquipment().setBoots(new ItemBuilder(Material.AIR).build());
+                    entity2.getEquipment().setItemInHand(new ItemBuilder(Material.IRON_SWORD).build());
+                    break;
+                case 2:
+                    LivingEntity entity3 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SPIDER);
+                    entity3.setCustomName("§fSpinne §8(§7Level §61§8)");
+                    entity3.setCustomNameVisible(true);
+                    break;
             }
-            entity.getEquipment().setItemInHand(new ItemBuilder(Material.IRON_SWORD).build());
+        }else if (dungeon == 2) {
+            switch (z){
+                case 0:
+                    //Zombie
+                    LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
+                    entity.setCustomName("§fZombie §8(§7Level §65§8)");
+                    entity.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
+                    entity.getEquipment().setBoots(new ItemBuilder(Material.AIR).build());
+                    entity.getEquipment().setItemInHand(new ItemBuilder(Material.IRON_SWORD).addEnchant(Enchantment.DAMAGE_ALL, 4, false).build());
+                    entity.getEquipment().setChestplate(new ItemBuilder(Material.CHAINMAIL_CHESTPLATE).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false).build());
+                    entity.getEquipment().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false).build());
 
-            LivingEntity entity2 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
-            entity2.setCustomName("§fSkelett §8(§7Level §61§8)");
-            entity2.setCustomNameVisible(true);
-            if (entity2.getEquipment() != null) {
-                entity2.getEquipment().clear();
+                    break;
+                case 1:
+                    //Skelett
+                    LivingEntity entity2 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
+                    entity2.setCustomName("§fSkelett §8(§7Level §65§8)");
+                    entity2.setCustomNameVisible(true);
+                    entity2.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
+                    entity2.getEquipment().setChestplate(new ItemBuilder(Material.AIR).build());
+                    entity2.getEquipment().setLeggings(new ItemBuilder(Material.AIR).build());
+                    entity2.getEquipment().setBoots(new ItemBuilder(Material.AIR).build());
+                    entity2.getEquipment().setItemInHand(new ItemBuilder(Material.BOW).addEnchant(Enchantment.ARROW_DAMAGE, 5, false).build());
+
+                    break;
+                case 2:
+                    //Hexe
+                    LivingEntity entity3 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.WITCH);
+                    entity3.setCustomName("§fHexe §8(§7Level §65§8)");
+                    entity3.setCustomNameVisible(true);
+                    break;
             }
-            entity2.getEquipment().setItemInHand(new ItemBuilder(Material.IRON_SWORD).build());
-
-            LivingEntity entity3 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SPIDER);
-            entity3.setCustomName("§fSpinne §8(§7Level §61§8)");
-            entity3.setCustomNameVisible(true);
-        } else if (dungeon == 2) {
-            //Zombie
-            LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
-            entity.setCustomName("§fZombie §8(§7Level §65§8)");
-            entity.setCustomNameVisible(true);
-            if (entity.getEquipment() != null) {
-                entity.getEquipment().clear();
-            }
-            entity.getEquipment().setItemInHand(new ItemBuilder(Material.IRON_SWORD).addEnchant(Enchantment.DAMAGE_ALL, 4, false).build());
-            entity.getEquipment().setChestplate(new ItemBuilder(Material.CHAINMAIL_CHESTPLATE).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false).build());
-            entity.getEquipment().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, false).build());
-
-            //Skelett
-            LivingEntity entity2 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
-            entity2.setCustomName("§fSkelett §8(§7Level §65§8)");
-            entity2.setCustomNameVisible(true);
-            if (entity2.getEquipment() != null) {
-                entity2.getEquipment().clear();
-            }
-            entity2.getEquipment().setItemInHand(new ItemBuilder(Material.BOW).addEnchant(Enchantment.ARROW_DAMAGE, 5, false).build());
-
-            //Hexe
-            LivingEntity entity3 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.WITCH);
-            entity3.setCustomName("§fHexe §8(§7Level §65§8)");
-            entity3.setCustomNameVisible(true);
         } else if (dungeon == 3) {
-            //Blaze
-            LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.BLAZE);
-            entity.setCustomName("§fLohe §8(§7Level §610§8)");
-            entity.setCustomNameVisible(true);
-
-
-            //Zombiepig
-            LivingEntity entity2 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.PIG_ZOMBIE);
-            entity2.setCustomName("§fZombie-Pigman §8(§7Level §610§8)");
-            entity2.setCustomNameVisible(true);
-            if (entity2.getEquipment() != null) {
-                entity2.getEquipment().clear();
+            switch (z){
+                case 1:
+                    //Skelett
+                    LivingEntity entity3 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
+                    entity3.setCustomName("§fSkelett §8(§7Level §610§8)");
+                    entity3.setCustomNameVisible(true);
+                    entity3.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
+                    entity3.getEquipment().setBoots(new ItemBuilder(Material.AIR).build());
+                    entity3.getEquipment().setItemInHand(new ItemBuilder(Material.STONE_SWORD).addEnchant(Enchantment.DAMAGE_ALL, 6, true).build());
+                    entity3.getEquipment().setChestplate(new ItemBuilder(Material.CHAINMAIL_CHESTPLATE).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false).build());
+                    entity3.getEquipment().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false).build());
+                    break;
+                case 2:
+                    //Zombiepig
+                    LivingEntity entity2 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.PIG_ZOMBIE);
+                    entity2.setCustomName("§fZombie-Pigman §8(§7Level §610§8)");
+                    entity2.setCustomNameVisible(true);
+                    entity2.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
+                    entity2.getEquipment().setBoots(new ItemBuilder(Material.AIR).build());
+                    entity2.getEquipment().setItemInHand(new ItemBuilder(Material.GOLD_SWORD).addEnchant(Enchantment.DAMAGE_ALL, 6, true).build());
+                    entity2.getEquipment().setChestplate(new ItemBuilder(Material.GOLD_CHESTPLATE).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false).build());
+                    entity2.getEquipment().setLeggings(new ItemBuilder(Material.GOLD_CHESTPLATE).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false).build());
+                    break;
+                case 0:
+                    //Blaze
+                    LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.BLAZE);
+                    entity.setCustomName("§fLohe §8(§7Level §610§8)");
+                    entity.setCustomNameVisible(true);
+                    break;
             }
-            entity2.getEquipment().setItemInHand(new ItemBuilder(Material.GOLD_SWORD).addEnchant(Enchantment.DAMAGE_ALL, 6, true).build());
-            entity2.getEquipment().setChestplate(new ItemBuilder(Material.GOLD_CHESTPLATE).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false).build());
-            entity2.getEquipment().setLeggings(new ItemBuilder(Material.GOLD_CHESTPLATE).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false).build());
-
-
-            //Skelett
-            LivingEntity entity3 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
-            entity3.setCustomName("§fSkelett §8(§7Level §610§8)");
-            entity3.setCustomNameVisible(true);
-            if (entity3.getEquipment() != null) {
-                entity3.getEquipment().clear();
-            }
-            entity3.getEquipment().setItemInHand(new ItemBuilder(Material.STONE_SWORD).addEnchant(Enchantment.DAMAGE_ALL, 6, true).build());
-            entity3.getEquipment().setChestplate(new ItemBuilder(Material.CHAINMAIL_CHESTPLATE).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false).build());
-            entity3.getEquipment().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS).addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false).build());
-
         }
     }
 

@@ -1,5 +1,6 @@
 package me.bluenitrox.school.dungeon.command;
 
+import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
@@ -96,6 +97,7 @@ public class DungeonInventory implements CommandExecutor {
                 if(e.getCurrentItem().getType() == Material.BONE){
                     if(new LocationManager("dungeon1spawn").getLocation() != null) {
                         p.teleport(new LocationManager("dungeon1spawn").getLocation());
+                        DungeonManager.startMonsterSpawn(1, p);
                         AngelminenManager.quitAngelmine(p);
                     }
                     p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in §6Dungeon 1 §7teleportiert.");
@@ -103,6 +105,7 @@ public class DungeonInventory implements CommandExecutor {
                 }else if(e.getCurrentItem().getType() == Material.ROTTEN_FLESH){
                     if(new LocationManager("dungeon2spawn").getLocation() != null) {
                         p.teleport(new LocationManager("dungeon2spawn").getLocation());
+                        DungeonManager.startMonsterSpawn(2, p);
                         AngelminenManager.quitAngelmine(p);
                     }
                     p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in §6Dungeon 2 §7teleportiert.");
@@ -110,6 +113,7 @@ public class DungeonInventory implements CommandExecutor {
                 }else if(e.getCurrentItem().getType() == Material.SPIDER_EYE){
                     if(new LocationManager("dungeon3spawn").getLocation() != null) {
                         p.teleport(new LocationManager("dungeon3spawn").getLocation());
+                        DungeonManager.startMonsterSpawn(3, p);
                         AngelminenManager.quitAngelmine(p);
                     }
                     p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in §6Dungeon 3 §7teleportiert.");

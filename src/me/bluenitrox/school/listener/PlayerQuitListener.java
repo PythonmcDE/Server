@@ -2,6 +2,7 @@ package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.ah.AhManager;
+import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.mine.manager.MinenSettings;
 import me.bluenitrox.school.mysql.MySQL;
@@ -24,6 +25,7 @@ public class PlayerQuitListener implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         MinenSettings.getMiningSettings().savePlayer(e);
         Player p = e.getPlayer();
+        DungeonManager dm = new DungeonManager();
         e.setQuitMessage(null);
         updateDatabase(p);
         removeAhItems(e.getPlayer());
@@ -31,6 +33,7 @@ public class PlayerQuitListener implements Listener {
             SchoolMode.Pets.get(p.getName()).remove();
         }
         CombatAPI.onQuit(p);
+        dm.onQuitDungeon(p);
         AngelminenManager.quitAngelmine(p);
     }
 

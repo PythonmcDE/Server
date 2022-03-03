@@ -56,8 +56,7 @@ public class NPCAPI extends Reflections {
     public static NPCAPI Dungeon = new NPCAPI("§6§lDungeon", new LocationManager("NPCDungeon").getLocation(), skins.VALUE_DUNGEON, skins.SIGNATURE_DUNGEON);
     public static NPCAPI Mine = new NPCAPI("§6§lMinenhändler", new LocationManager("NPCMine").getLocation(), skins.VALUE_MINE, skins.SIGNATURE_MINE);
     public static NPCAPI Angelmine = new NPCAPI("§6§lFischer", new LocationManager("NPCAngelmine").getLocation(), skins.VALUE_ANGELMINE, skins.SIGNATURE_ANGELMINE);
-
-
+    public static NPCAPI Minensettings = new NPCAPI("§6§lSettings", new LocationManager("NPCMinensettings").getLocation(), skins.VALUE_MINE, skins.SIGNATURE_MINE);
 
 
     public static LinkedList<Integer> entityids = new LinkedList<>();
@@ -131,6 +130,8 @@ public class NPCAPI extends Reflections {
         Mine.spawn(player);
         Angelmine.rmvFromTablist();
         Angelmine.spawn(player);
+        Minensettings.rmvFromTablist();
+        Minensettings.spawn(player);
 
         for (int i = 0; i < minenNpcs.size(); i++) {
             NPCAPI npc = minenNpcs.get(i);
@@ -157,6 +158,7 @@ public class NPCAPI extends Reflections {
         Dungeon.destroy(player);
         Mine.destroy(player);
         Angelmine.destroy(player);
+        Minensettings.destroy(player);
 
         for (int i = 0; i < minenNpcs.size(); i++) {
             minenNpcs.get(i).destroy(player);

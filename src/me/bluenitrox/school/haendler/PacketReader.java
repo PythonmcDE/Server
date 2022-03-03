@@ -198,6 +198,13 @@ public class PacketReader {
                     return;
                 }
             }
+            if(NPCAPI.Minensettings.getEntityID() == id){
+                if(getValue(packet, "action").toString().equalsIgnoreCase("INTERACT")){
+                    player.performCommand("minensettings");
+                    interacted(player);
+                    return;
+                }
+            }
         }
     }
     private void interacted(Player player){
