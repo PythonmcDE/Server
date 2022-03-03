@@ -110,6 +110,7 @@ commands:
     aliases:
       - gl
   aufgaben:
+  createnpc:
     aliases:
       - task
       - tasks
