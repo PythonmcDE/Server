@@ -114,13 +114,13 @@ public class SchoolMode extends JavaPlugin {
         setBoostermanager(new BoosterManager());
         LevelManager.registerLevel();
         LevelManager.registerALLXP();
-        setGameRules();
         startScoreboard();;
         boosterenable();
         Bukkit.getConsoleSender().sendMessage("§4Befülle alle Minen... §4(8/8)");
         DiscordWebhook.setHook("SchoolAlive-1 wurde gestartet!");
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
         startNPCS();
+        setGameRules();
     }
 
     private void startNPCS(){
@@ -239,7 +239,6 @@ public class SchoolMode extends JavaPlugin {
         pm.registerEvents(new FoodLevelChangeEvent(), this);
         pm.registerEvents(new AngelListener(), this);
         pm.registerEvents(new ProjectileHitEvent(), this);
-        pm.registerEvents(new PlayerTeleportListener(), this);
 
         //
         Bukkit.getConsoleSender().sendMessage("§4Events §4Registriert! (2/8)");
@@ -576,13 +575,17 @@ public class SchoolMode extends JavaPlugin {
         }.runTaskTimer(getInstance(), 20*60*10, 20*60*10);
     }
     private void setGameRules(){
-        Bukkit.setWhitelist(false);
-        for(World world : Bukkit.getWorlds()){
-            world.setGameRuleValue("doTileDrops", "false");
-            world.setGameRuleValue("doDaylightCycle","false");
-            world.setDifficulty(Difficulty.NORMAL);
-        }
-
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                Bukkit.setWhitelist(false);
+                for(World world : Bukkit.getWorlds()){
+                    world.setGameRuleValue("doTileDrops", "false");
+                    world.setGameRuleValue("doDaylightCycle","false");
+                    world.setDifficulty(Difficulty.NORMAL);
+                }
+            }
+        }.runTaskLater(getInstance(), 20*10);
     }
 
 

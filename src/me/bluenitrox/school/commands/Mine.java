@@ -1,6 +1,7 @@
 package me.bluenitrox.school.commands;
 
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
+import me.bluenitrox.school.haendler.NPCAPI;
 import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.mine.manager.MinenManager;

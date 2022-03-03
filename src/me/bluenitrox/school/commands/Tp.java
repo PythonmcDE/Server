@@ -1,5 +1,6 @@
 package me.bluenitrox.school.commands;
 
+import me.bluenitrox.school.haendler.NPCAPI;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
