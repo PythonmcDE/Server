@@ -61,6 +61,7 @@ public class NPCAPI extends Reflections {
 
     public static LinkedList<Integer> entityids = new LinkedList<>();
     public static LinkedList<NPCAPI> minenNpcs = new LinkedList<>();
+    public static LinkedList<NPCAPI> angelNpcs = new LinkedList<>();
 
     public static void setJoinNPC(PlayerJoinEvent e){
         new BukkitRunnable() {
@@ -83,6 +84,13 @@ public class NPCAPI extends Reflections {
         for(int i = 1; i <= 26; i++) {
             NPCAPI Minenhändler = new NPCAPI("§6§lMinenhändler", new LocationManager("NPCInMine" + i).getLocation(), skins.VALUE_MINE, skins.SIGNATURE_MINE);
             minenNpcs.add(Minenhändler);
+        }
+    }
+
+    public static void setAngelMinenhändlerNPC() {
+        for(int i = 1; i <= 26; i++) {
+            NPCAPI Angelminer = new NPCAPI("§6§lAngeler", new LocationManager("AngelNPC" + i).getLocation(), skins.VALUE_ANGELMINE, skins.SIGNATURE_ANGELMINE);
+            angelNpcs.add(Angelminer);
         }
     }
 
@@ -138,6 +146,12 @@ public class NPCAPI extends Reflections {
             npc.rmvFromTablist();
             npc.spawn(player);
         }
+
+        for (int i = 0; i < angelNpcs.size(); i++) {
+            NPCAPI npc = angelNpcs.get(i);
+            npc.rmvFromTablist();
+            npc.spawn(player);
+        }
     }
 
     public static void destroyAllNPCS(Player player) {
@@ -162,6 +176,9 @@ public class NPCAPI extends Reflections {
 
         for (int i = 0; i < minenNpcs.size(); i++) {
             minenNpcs.get(i).destroy(player);
+        }
+        for (int i = 0; i < angelNpcs.size(); i++) {
+            angelNpcs.get(i).destroy(player);
         }
     }
 

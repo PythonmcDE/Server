@@ -128,6 +128,7 @@ public class SchoolMode extends JavaPlugin {
             @Override
             public void run() {
                 NPCAPI.setMinenhändlerNPC();
+                NPCAPI.setAngelMinenhändlerNPC();
             }
         }.runTaskLater(getInstance(), 20*5);
     }
