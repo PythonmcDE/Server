@@ -56,6 +56,7 @@ public class Sell implements CommandExecutor {
                             }
                         }
                     }
+
                     if(preis != 0) {
                         if (MoneyManager.updateMoney(p.getUniqueId(), preis, false, true, false)) {
                             ItemStack air = new ItemStack(Material.AIR);
