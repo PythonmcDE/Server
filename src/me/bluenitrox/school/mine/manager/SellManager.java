@@ -7,14 +7,14 @@ import java.util.Arrays;
 
 public class SellManager {
     public static int pricelapis = 500;
+    public static int priceredstone = 450;
     public enum Preise {
         STONE("STONE", 30),
         GRAVEL("GRAVEL", 60),
         COAL("COAL",120),
-        BRICK_BLOCK("BRICK_BLOCK",200),
+        BRICK("BRICK",200),
         IRON_INGOT("IRON_INGOT", 250),
         QUARZ("QUARZ", 350),
-        REDSTONE("REDSTONE",450),
         PRISMARINE("PRISMARINE",600),
         GOLD_INGOT("GOLD_INGOT", 600),
         DIAMOND("DIAMOND",800),
@@ -28,12 +28,13 @@ public class SellManager {
         IRON_BLOCK("IRON_BLOCK",2250),
         PACKED_ICE("PACKED_ICE",2800),
         SEA_LANTERN("SEA_LANTERN",3200),
-        END_STONE("END_STONE",3800),
+        ENDER_STONE("ENDER_STONE",3800),
         REDSTONE_BLOCK("REDSTONE_BLOCK",4050),
         LAPIS_BLOCK("LAPIS_BLOCK",4500),
         GOLD_BLOCK("GOLD_BLOCK",5400),
         DIAMOND_BLOCK("DIAMOND_BLOCK",7200),
         EMERALD_BLOCK("EMERALD_BLOCK",9000);
+
 
         String type;
         float price;

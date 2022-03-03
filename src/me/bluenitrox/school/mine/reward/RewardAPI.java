@@ -17,10 +17,10 @@ public class RewardAPI {
 
     public void checkToAddReward(Player p){
         if(Ausgrabung.ausgrabung(p)){
-            int chance = 400;
+            int chance = 1000;
             int randomnumber = new Random().nextInt(chance);
 
-            int chancehundert = 2000;
+            int chancehundert = 5000;
             int randomnumberhundert = new Random().nextInt(chancehundert);
 
             if(randomnumber == 10){

@@ -92,6 +92,10 @@ public class Sell implements CommandExecutor {
                                     lapispreis += SellManager.pricelapis * p.getInventory().getItem(i).getAmount();
                                     ItemStack air = new ItemStack(Material.AIR);
                                     p.getInventory().setItem(i, air);
+                                }else if (p.getInventory().getItem(i).getItemMeta().getDisplayName().equalsIgnoreCase("§7Redstone")) {
+                                    lapispreis += SellManager.priceredstone * p.getInventory().getItem(i).getAmount();
+                                    ItemStack air = new ItemStack(Material.AIR);
+                                    p.getInventory().setItem(i, air);
                                 }
                             }
                         }
