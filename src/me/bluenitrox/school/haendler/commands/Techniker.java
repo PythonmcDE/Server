@@ -26,7 +26,7 @@ public class Techniker {
         ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lHändler").setLore("§6§l▶ §7Bei §9§lHändlern §7kannst du bestimmt", "§6§l▶ Items §aerwerben §7oder auch §averkaufen§7.").build();
 
-        ItemStack nr1 = new ItemBuilder(Material.REDSTONE).setDisplayname("§7Redstone").setLore("§8» §7Kaufen:§6 1750 Gems", "§8» §7Verkaufen:§6 350 Gems").build();
+        ItemStack nr1 = new ItemBuilder(Material.REDSTONE).setDisplayname("§7Redstone").setLore("§8» §7Kaufen:§6 1200 Gems", "§8» §7Verkaufen:§6 450 Gems").build();
         ItemStack nr2 = new ItemBuilder(Material.DISPENSER).setDisplayname("§7Werfer").setLore("§8» §7Kaufen:§6 1000 Gems").build();
         ItemStack nr3 = new ItemBuilder(Material.PISTON_BASE).setDisplayname("§7Kolben").setLore("§8» §7Kaufen:§6 1000 Gems").build();
         ItemStack nr4 = new ItemBuilder(Material.DROPPER).setDisplayname("§7Spender").setLore("§8» §7Kaufen:§6 1500 Gems").build();

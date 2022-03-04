@@ -129,6 +129,7 @@ public class DungeonManager {
             switch (z){
                 case 1:
                     //Skelett
+                    //TODO am besten zu Witherskelett ändern
                     LivingEntity entity3 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
                     entity3.setCustomName("§fSkelett §8(§7Level §610§8)");
                     entity3.setCustomNameVisible(true);

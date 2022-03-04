@@ -25,6 +25,7 @@ public class Jäger {
         ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lHändler").setLore("§6§l▶ §7Bei §9§lHändlern §7kannst du bestimmt", "§6§l▶ Items §aerwerben §7oder auch §averkaufen§7.").build();
 
+        //TODO Nach Dungeon Items Preise ändern
         ItemStack nr1 = new ItemBuilder(Material.RABBIT_FOOT).setDisplayname("§7Hasenpfote").setLore("§8» §7Kaufen:§6 600 Gems", "§8» §7Verkaufen:§6 100 Gems").build();
         ItemStack nr2 = new ItemBuilder(Material.RABBIT_HIDE).setDisplayname("§7Kaninchenfell").setLore("§8» §7Kaufen:§6 600 Gems", "§8» §7Verkaufen:§6 100 Gems").build();
         ItemStack nr3 = new ItemBuilder(Material.FEATHER).setDisplayname("§7Feder").setLore("§8» §7Kaufen:§6 1200 Gems", "§8» §7Verkaufen:§6 200 Gems").build();

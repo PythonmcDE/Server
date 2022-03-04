@@ -88,8 +88,8 @@ public class NPCAPI extends Reflections {
     }
 
     public static void setAngelMinenhändlerNPC() {
-        for(int i = 1; i <= 26; i++) {
-            NPCAPI Angelminer = new NPCAPI("§6§lAngeler", new LocationManager("AngelNPC" + i).getLocation(), skins.VALUE_ANGELMINE, skins.SIGNATURE_ANGELMINE);
+        for(int i = 1; i <= 10; i++) {
+            NPCAPI Angelminer = new NPCAPI("§6§lAngler", new LocationManager("AngelNPC" + i).getLocation(), skins.VALUE_ANGELMINE, skins.SIGNATURE_ANGELMINE);
             angelNpcs.add(Angelminer);
         }
     }

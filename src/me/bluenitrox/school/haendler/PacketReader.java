@@ -85,6 +85,16 @@ public class PacketReader {
                     }
                 }
             }
+            for (int i = 0; i < NPCAPI.angelNpcs.size(); i++) {
+                NPCAPI npcapi = NPCAPI.angelNpcs.get(i);
+                if(npcapi.getEntityID() == id){
+                    if(getValue(packet, "action").toString().equalsIgnoreCase("INTERACT")){
+                        Sell.onInterAct(player);
+                        interacted(player);
+                        return;
+                    }
+                }
+            }
             if(NPCAPI.Jäger.getEntityID() == id){
                 if(getValue(packet, "action").toString().equalsIgnoreCase("INTERACT")){
                     Jäger.onInteract(player);

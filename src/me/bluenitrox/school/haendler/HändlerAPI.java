@@ -93,7 +93,6 @@ public class HändlerAPI {
                                     if(!e.getCurrentItem().getItemMeta().getLore().get(1).startsWith("§8» §7Verkaufen:§6")){
                                         p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                                         p.sendMessage(MessageManager.PREFIX + "§7Das Item kannst du §cnicht §7verkaufen!");
-                                        p.closeInventory();
                                         return;
                                     }
 
@@ -118,7 +117,6 @@ public class HändlerAPI {
                                     }
                                     p.sendMessage(MessageManager.PREFIX + "§7Du hast §ckeins §7dieser Items.");
                                     p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                                    p.closeInventory();
                                 }
                             }
                         }

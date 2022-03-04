@@ -41,7 +41,7 @@ public class Landwirt {
         ItemStack nr14 = new ItemBuilder(Material.DIRT).setDisplayname("§7Erde").setLore("§8» §7Kaufen:§6 50 Gems").build();
         ItemStack nr15 = new ItemBuilder(Material.CACTUS).setDisplayname("§7Kaktus").setLore("§8» §7Kaufen:§6 1000 Gems", "§8» §7Verkaufen:§6 200 Gems").build();
         ItemStack nr16 = new ItemBuilder(Material.MELON_BLOCK).setDisplayname("§7Melonenblock").setLore("§8» §7Kaufen:§6 3000 Gems", "§8» §7Verkaufen:§6 600 Gems").build();
-        ItemStack nr17 = new ItemBuilder(Material.PUMPKIN).setDisplayname("§7Melonenblock").setLore("§8» §7Kaufen:§6 3000 Gems", "§8» §7Verkaufen:§6 600 Gems").build();
+        ItemStack nr17 = new ItemBuilder(Material.PUMPKIN).setDisplayname("§7Kürbis").setLore("§8» §7Kaufen:§6 3000 Gems", "§8» §7Verkaufen:§6 600 Gems").build();
 
         for(int i = 0; i<= 8; i++){
             inv.setItem(i, glas);

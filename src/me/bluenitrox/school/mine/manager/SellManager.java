@@ -15,6 +15,7 @@ public class SellManager {
         BRICK("BRICK",200),
         IRON_INGOT("IRON_INGOT", 250),
         QUARZ("QUARZ", 350),
+        REDSTONE("REDSTONE", 450),
         PRISMARINE("PRISMARINE",600),
         GOLD_INGOT("GOLD_INGOT", 600),
         DIAMOND("DIAMOND",800),

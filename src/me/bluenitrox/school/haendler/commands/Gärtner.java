@@ -40,7 +40,6 @@ public class Gärtner {
         ItemStack flieder = new ItemBuilder(Material.DOUBLE_PLANT, (short) 1).setDisplayname("§7Flieder").setLore("§8» §7Kaufen:§6 50 Gems").build();
         ItemStack pfingstrose = new ItemBuilder(Material.DOUBLE_PLANT, (short) 5).setDisplayname("§7Pfingstrose").setLore("§8» §7Kaufen:§6 50 Gems").build();
         ItemStack rosenstrauch = new ItemBuilder(Material.DOUBLE_PLANT, (short) 4).setDisplayname("§7Rosenstrauch").setLore("§8» §7Kaufen:§6 50 Gems").build();
-        ItemStack ranken = new ItemBuilder(Material.VINE).setDisplayname("§7Ranken").setLore("§8» §7Kaufen:§6 100 Gems").build();
         ItemStack deadbush = new ItemBuilder(Material.DEAD_BUSH).setDisplayname("§7Toter Busch").setLore("§8» §7Kaufen:§6 100 Gems").build();
         ItemStack schwarzsapling = new ItemBuilder(Material.SAPLING, (short) 5).setDisplayname("§7Schwarzeichensetzling").setLore("§8» §7Kaufen:§6 100 Gems").build();
         ItemStack akaziensapling = new ItemBuilder(Material.SAPLING, (short) 4).setDisplayname("§7Akaziensetzling").setLore("§8» §7Kaufen:§6 100 Gems").build();
@@ -73,14 +72,13 @@ public class Gärtner {
         inv.setItem(22,flieder);
         inv.setItem(23,pfingstrose);
         inv.setItem(24,rosenstrauch);
-        inv.setItem(25,ranken);
-        inv.setItem(26,deadbush);
-        inv.setItem(27,schwarzsapling);
-        inv.setItem(28,akaziensapling);
-        inv.setItem(29,tropensapling);
-        inv.setItem(30,birkensapling);
-        inv.setItem(31,fichtensapling);
-        inv.setItem(32,eichensapling);
+        inv.setItem(25,deadbush);
+        inv.setItem(26,schwarzsapling);
+        inv.setItem(27,akaziensapling);
+        inv.setItem(28,tropensapling);
+        inv.setItem(29,birkensapling);
+        inv.setItem(30,fichtensapling);
+        inv.setItem(31,eichensapling);
 
         p.openInventory(inv);
 

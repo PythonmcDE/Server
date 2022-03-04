@@ -80,14 +80,12 @@ public class WerkbankGUIRegister {
                 ItemStack flugtrank = new ItemBuilder(Material.POTION, (short) 2).setDisplayname("§9Flugtrank").setLore("§6§l▶ §6Dieser Trank §7erlaubt es dir", "§6§l▶ §7für §645 Minuten §6§lfliegen §7zu können.").build("isInInv");
                 ItemStack redstoneapple2 = new ItemBuilder(Material.APPLE).setDisplayname("§4Verzauberter Redstoneapfel").setLore("§8» §6Regeneration IV §8- §720 Sekunden", "§8» §6Schnelligkeit II §8- §73Minuten").build("isInInv");
 
-                ItemStack tarantulahelm = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§6Kopf der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Tank + "III", EnchantManager.Magieschild + "III").build("isInInv");
-                ItemStack tarantulachest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Haariger Körper der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Eis + "III", EnchantManager.Überladung + "III").build("isInInv");
-                ItemStack tarantulaleggins = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§6Spinnenbeine der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Stacheln + "III", EnchantManager.Widerstand + "III").build("isInInv");
-
                 if(e.getCurrentItem() != null){
                     if(e.getCurrentItem().getItemMeta()!= null){
                         if(e.getCurrentItem().getItemMeta().getDisplayName() != null){
-                            if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runeeins.getItemMeta().getDisplayName())){
+                            if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(paper.getItemMeta().getDisplayName())) {
+                                p.openInventory(rezeptMenuSeite1());
+                            } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runeeins.getItemMeta().getDisplayName())){
                                 if(hasItem(Material.RAW_FISH, p, 176, "§7Roher Fisch")){
                                     if(hasItem(Material.RAW_FISH, p, 108, "§7Roher Lachs")){
                                         p.getInventory().addItem(Antidupe.addID(runeeins));
@@ -95,15 +93,17 @@ public class WerkbankGUIRegister {
                                         removeItem(Material.RAW_FISH, p, 176, "§7Roher Fisch");
                                         removeItem(Material.RAW_FISH, p, 108, "§7Roher Lachs");
                                         p.closeInventory();
-                                        return;
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
                                     }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
                                 }
                             }
-
-
-                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
-                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                            p.closeInventory();
                         }
                     }
                 }
@@ -121,7 +121,8 @@ public class WerkbankGUIRegister {
                         }
                     }
                 }
-            } else if (e.getClickedInventory().getName().equalsIgnoreCase(guinamerecepies) && e.getCurrentItem() != null) {
+            } else if (e.getClickedInventory().getName().equalsIgnoreCase(guinamerecepies)) {
+                if(e.getCurrentItem() == null) return;
                 e.setCancelled(true);
                 if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune I")) {
                     p.openInventory(runeEins());
@@ -143,14 +144,6 @@ public class WerkbankGUIRegister {
                     p.openInventory(runeNeun());
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §c§lItem-Rune X")) {
                     p.openInventory(runeZehn());
-                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Nächste Seite")) {
-                    if (e.getClickedInventory().getItem(9).getType() != Material.DIAMOND_BOOTS) {
-                        p.openInventory(rezeptMenuSeite2());
-                    }
-                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Vorherige Seite")) {
-                    if (e.getClickedInventory().getItem(9).getType() == Material.DIAMOND_BOOTS) {
-                        p.openInventory(rezeptMenuSeite1());
-                    }
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt I")) {
                     p.openInventory(ErhaltEins());
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt II")) {
@@ -171,15 +164,7 @@ public class WerkbankGUIRegister {
                     p.openInventory(ErhaltNeun());
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §3§lItem-Erhalt X")) {
                     p.openInventory(ErhaltZehn());
-                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haariger Körper der Tarantula")) {
-                    p.openInventory(BrustplattedesTarantula());
-                }else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Kopf der Tarantula")) {
-                    p.openInventory(HelmdesTarantula());
-                }else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Spinnenbeine der Tarantula")) {
-                    p.openInventory(HosedesTarantula());
-                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Schuhe der Tarantula")) {
-                    p.openInventory(SchuhedesTarantula());
-                }  else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aSmaragdapfel")) {
+                }   else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aSmaragdapfel")) {
                     p.openInventory(VerzauberterGrün());
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cRedstoneapfel")) {
                     p.openInventory(VerzauberterApfelRot());
@@ -187,24 +172,8 @@ public class WerkbankGUIRegister {
                     p.openInventory(FlugTrank());
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§4Verzauberter Redstoneapfel")) {
                     p.openInventory(VerzauberterApfelRotR());
-                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Harnisch des Feuerspeiers")) {
-                    p.openInventory(HarnishdesFeuerspeiers());
-                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Helm des Feuerspeiers")) {
-                    p.openInventory(HelmdesFeuerspeiers());
                 }
-                else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Beinschutz des Feuerspeiers")) {
-                    p.openInventory(HosedesFeuerspeiers());
-                }else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Stiefel des Feuerspeiers")) {
-                    p.openInventory(SchuhedesFeuerspeiers());
-                }else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Brustplatte eines Giganten")) {
-                    p.openInventory(BrustplattedesGiganten());
-                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Helm eines Giganten")) {
-                    p.openInventory(HelmdesGiganten());
-                }else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Hose eines Giganten")) {
-                    p.openInventory(HosedesGiganten());
-                }else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Schuhe eines Giganten")) {
-                    p.openInventory(SchuhedesGiganten());
-                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Normale Werkbank")) {
+                else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §7Normale Werkbank")) {
                     Inventory inv = Bukkit.createInventory(null, InventoryType.WORKBENCH, guinamewerkbank);
                     p.openInventory(inv);
                 }
@@ -287,7 +256,7 @@ public class WerkbankGUIRegister {
         Inventory inv = Bukkit.createInventory(null, 9*6, guinamerecepies);
 
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lCrafting-Rezepte").setLore("§6§l▶ §7Hier werden dir alle §6§lbesonderen Rezepte", "§6§l▶ §aangezeigt §7und wie du sie §fcraften kannst§7.").build();
-        ItemStack paper = new ItemBuilder(Material.PAPER).setDisplayname("§8» §7Seite §61&8/&62").build();
+        ItemStack paper = new ItemBuilder(Material.PAPER).setDisplayname("§8» §7Seite §61&8/&61").build();
         ItemStack runeeins = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune I").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune I", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
         ItemStack runezwei = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune II").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune II", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
         ItemStack runedrei = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune III").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune III", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
@@ -315,9 +284,6 @@ public class WerkbankGUIRegister {
         ItemStack flugtrank = new ItemBuilder(Material.POTION, (short) 2).setDisplayname("§9Flugtrank").setLore("§6§l▶ §6Dieser Trank §7erlaubt es dir", "§6§l▶ §7für §645 Minuten §6§lfliegen §7zu können.").build("isInInv");
         ItemStack redstoneapple2 = new ItemBuilder(Material.APPLE).setDisplayname("§4Verzauberter Redstoneapfel").setLore("§8» §6Regeneration IV §8- §720 Sekunden", "§8» §6Schnelligkeit II §8- §73Minuten").build("isInInv");
 
-        ItemStack tarantulahelm = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§6Kopf der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Tank + "III", EnchantManager.Magieschild + "III").build("isInInv");
-        ItemStack tarantulachest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Haariger Körper der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Eis + "III", EnchantManager.Überladung + "III").build("isInInv");
-        ItemStack tarantulaleggins = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§6Spinnenbeine der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Stacheln + "III", EnchantManager.Widerstand + "III").build("isInInv");
 
 
         for(int i = 0; i <= 8; i++){
@@ -353,19 +319,16 @@ public class WerkbankGUIRegister {
         inv.setItem(30,redstoneApple);
         inv.setItem(31,flugtrank);
         inv.setItem(32,redstoneapple2);
-        inv.setItem(33,tarantulahelm);
-        inv.setItem(34,tarantulachest);
-        inv.setItem(35,tarantulaleggins);
 
         inv.setItem(4, sign);
         inv.setItem(49, paper);
-        inv.setItem(48, KopfUtil.createSkull("lgndryFelix", "§8» §7Vorherige Seite"));
-        inv.setItem(50, KopfUtil.createSkull("DerWahreNitrox", "§8» §7Nächste Seite"));
+        //inv.setItem(48, KopfUtil.createSkull("lgndryFelix", "§8» §7Vorherige Seite"));
+        //inv.setItem(50, KopfUtil.createSkull("DerWahreNitrox", "§8» §7Nächste Seite"));
 
         return inv;
     }
 
-    public Inventory rezeptMenuSeite2(){
+    /*public Inventory rezeptMenuSeite2(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guinamerecepies);
 
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lCrafting-Rezepte").setLore("§6§l▶ §7Hier werden dir alle §6§lbesonderen Rezepte", "§6§l▶ §aangezeigt §7und wie du sie §fcraften kannst§7.").build();
@@ -409,7 +372,7 @@ public class WerkbankGUIRegister {
         inv.setItem(50, KopfUtil.createSkull("DerWahreNitrox", "§8» §7Nächste Seite"));
 
         return inv;
-    }
+    } */
 
     public Inventory runeEins(){
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
@@ -1463,7 +1426,7 @@ public class WerkbankGUIRegister {
 
         ItemStack erhaltAcht = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VIII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VIII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
         ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-        ItemStack wolle = new ItemBuilder(Material.INK_SACK, (short)7).setDisplayname("§aHeiße Lohenglut").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack wolle = new ItemBuilder(Material.GRASS, (short)1).setDisplayname("§aMagische Kräuter").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
         ItemStack erhaltSieben = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         for(int i = 0; i <= 8; i++){
@@ -1575,15 +1538,15 @@ public class WerkbankGUIRegister {
 
         return inv;
     }
-    public Inventory ErhaltZehn(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
+    public Inventory ErhaltZehn() {
+        Inventory inv = Bukkit.createInventory(null, 9 * 6, guiname);
 
-        ItemStack erhaltZehn = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt X").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt X", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
-        ItemStack erhaltNeun = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IX").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IX", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack erhaltZehn = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt X").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt X", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools", "§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
+        ItemStack erhaltNeun = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IX").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IX", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools", "§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
         ItemStack nugget = new ItemBuilder(Material.GOLD_NUGGET).setDisplayname("§aGoldener Klumpen").setAmount(64).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
         ItemStack wither = new ItemBuilder(Material.SKULL_ITEM, (short) 1).setDisplayname("§aVerkohlter Skelettschädel").setAmount(64).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
-        for(int i = 0; i <= 8; i++){
+        for (int i = 0; i <= 8; i++) {
             inv.setItem(i, glas);
         }
         inv.setItem(9, glasblack);
@@ -1600,893 +1563,37 @@ public class WerkbankGUIRegister {
         inv.setItem(35, glasblack);
         inv.setItem(36, glas);
         inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
+        for (int i = 43; i <= 53; i++) {
             inv.setItem(i, glas);
         }
-        inv.setItem(45,paper);
+        inv.setItem(45, paper);
         inv.setItem(53, craftingTable);
 
-        inv.setItem(21,nugget);
-        inv.setItem(22,nugget);
-        inv.setItem(23,nugget);
+        inv.setItem(21, nugget);
+        inv.setItem(22, nugget);
+        inv.setItem(23, nugget);
 
-        inv.setItem(21+9,nugget);
-        inv.setItem(22+9,nugget);
-        inv.setItem(23+9,nugget);
+        inv.setItem(21 + 9, nugget);
+        inv.setItem(22 + 9, nugget);
+        inv.setItem(23 + 9, nugget);
 
-        inv.setItem(21+9+9,nugget);
-        inv.setItem(22+9+9,nugget);
-        inv.setItem(23+9+9,nugget);
+        inv.setItem(21 + 9 + 9, nugget);
+        inv.setItem(22 + 9 + 9, nugget);
+        inv.setItem(23 + 9 + 9, nugget);
 
-        for(int i = 11 ; i<=15; i++){
+        for (int i = 11; i <= 15; i++) {
             inv.setItem(i, wither);
         }
 
         inv.setItem(20, wither);
-        inv.setItem(20+9, wither);
-        inv.setItem(20+9+9, wither);
+        inv.setItem(20 + 9, wither);
+        inv.setItem(20 + 9 + 9, wither);
 
         inv.setItem(24, wither);
-        inv.setItem(24+9, wither);
-        inv.setItem(24+9+9, wither);
+        inv.setItem(24 + 9, wither);
+        inv.setItem(24 + 9 + 9, wither);
         inv.setItem(4, sign);
         inv.setItem(31, erhaltNeun);
-
-        return inv;
-    }
-
-    public Inventory HelmdesFeuerspeiers(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack ei = new ItemBuilder(Material.DRAGON_EGG).setDisplayname("§c§lEi des Feuerspeiers").setLore("§6§l▶ §7Dieses §6§lEi §7wurde von dem §6mächtigen", "§6§l▶ Feuerspeier §7fallen gelassen, es kann nur von", "§6§l▶ §7einem §6wahren §6§lKrieger §7getragen werden.").build("isInInv");
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§6Helm des Feuerspeiers").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true).addEnchant(Enchantment.DURABILITY, 1, false).setLore(EnchantManager.ObsidianSchild + "II", EnchantManager.Widerstand + "II").build("isInInv");
-        ItemStack wither = new ItemBuilder(Material.SKULL_ITEM, (short) 1).setDisplayname("§aVerkohlter Skelettschädel").setAmount(48).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(5);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,ei);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,ei);
-        inv.setItem(29,mumienkopf);
-
-        inv.setItem(30,mumienkopf);
-        inv.setItem(31,mumienkopf);
-        inv.setItem(32,mumienkopf);
-        inv.setItem(33,mumienkopf);
-        inv.setItem(38,mumienkopf);
-
-        inv.setItem(39,ei);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,ei);
-        inv.setItem(42,mumienkopf);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, wither);
-        }
-
-        inv.setItem(20, wither);
-        inv.setItem(20+9, wither);
-        inv.setItem(20+9+9, wither);
-
-        inv.setItem(24, wither);
-        inv.setItem(24+9, wither);
-        inv.setItem(24+9+9, wither);
-        inv.setItem(4, sign);
-        inv.setItem(31, ei);
-
-        return inv;
-    }
-
-    public Inventory HarnishdesFeuerspeiers(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack ei = new ItemBuilder(Material.DRAGON_EGG).setDisplayname("§c§lEi des Feuerspeiers").setLore("§6§l▶ §7Dieses §6§lEi §7wurde von dem §6mächtigen", "§6§l▶ Feuerspeier §7fallen gelassen, es kann nur von", "§6§l▶ §7einem §6wahren §6§lKrieger §7getragen werden.").build("isInInv");
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Harnish des Feuerspeiers").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true).addEnchant(Enchantment.DURABILITY, 1, false).setLore("§a§lEis II", "§a§lStacheln II").build("isInInv");
-        ItemStack wither = new ItemBuilder(Material.SKULL_ITEM, (short) 1).setDisplayname("§aVerkohlter Skelettschädel").setAmount(48).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(5);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,ei);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,ei);
-        inv.setItem(29,mumienkopf);
-
-        inv.setItem(30,mumienkopf);
-        inv.setItem(31,mumienkopf);
-        inv.setItem(32,mumienkopf);
-        inv.setItem(33,mumienkopf);
-        inv.setItem(38,mumienkopf);
-
-        inv.setItem(39,ei);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,ei);
-        inv.setItem(42,mumienkopf);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, wither);
-        }
-
-        inv.setItem(20, wither);
-        inv.setItem(20+9, wither);
-        inv.setItem(20+9+9, wither);
-
-        inv.setItem(24, wither);
-        inv.setItem(24+9, wither);
-        inv.setItem(24+9+9, wither);
-        inv.setItem(4, sign);
-        inv.setItem(31, ei);
-
-        return inv;
-    }
-
-    public Inventory HosedesFeuerspeiers(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack ei = new ItemBuilder(Material.DRAGON_EGG).setDisplayname("§c§lEi des Feuerspeiers").setLore("§6§l▶ §7Dieses §6§lEi §7wurde von dem §6mächtigen", "§6§l▶ Feuerspeier §7fallen gelassen, es kann nur von", "§6§l▶ §7einem §6wahren §6§lKrieger §7getragen werden.").build("isInInv");
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§6Beinschutz des Feuerspeiers").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true).addEnchant(Enchantment.DURABILITY, 1, false).setLore(EnchantManager.Überladung + "II", EnchantManager.Heilzauber + "II").build("isInInv");
-        ItemStack wither = new ItemBuilder(Material.SKULL_ITEM, (short) 1).setDisplayname("§aVerkohlter Skelettschädel").setAmount(48).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(5);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,ei);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,ei);
-        inv.setItem(29,mumienkopf);
-
-        inv.setItem(30,mumienkopf);
-        inv.setItem(31,mumienkopf);
-        inv.setItem(32,mumienkopf);
-        inv.setItem(33,mumienkopf);
-        inv.setItem(38,mumienkopf);
-
-        inv.setItem(39,ei);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,ei);
-        inv.setItem(42,mumienkopf);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, wither);
-        }
-
-        inv.setItem(20, wither);
-        inv.setItem(20+9, wither);
-        inv.setItem(20+9+9, wither);
-
-        inv.setItem(24, wither);
-        inv.setItem(24+9, wither);
-        inv.setItem(24+9+9, wither);
-        inv.setItem(4, sign);
-        inv.setItem(31, ei);
-
-        return inv;
-    }
-
-    public Inventory SchuhedesFeuerspeiers(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack ei = new ItemBuilder(Material.DRAGON_EGG).setDisplayname("§c§lEi des Feuerspeiers").setLore("§6§l▶ §7Dieses §6§lEi §7wurde von dem §6mächtigen", "§6§l▶ Feuerspeier §7fallen gelassen, es kann nur von", "§6§l▶ §7einem §6wahren §6§lKrieger §7getragen werden.").build("isInInv");
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§6Stiefel des Feuerspeiers").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 8, true).addEnchant(Enchantment.DURABILITY, 1, false).setLore(EnchantManager.Tank + "II", EnchantManager.Magieschild + "II").build("isInInv");
-        ItemStack wither = new ItemBuilder(Material.SKULL_ITEM, (short) 1).setDisplayname("§aVerkohlter Skelettschädel").setAmount(48).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(5);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,ei);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,ei);
-        inv.setItem(29,mumienkopf);
-
-        inv.setItem(30,mumienkopf);
-        inv.setItem(31,mumienkopf);
-        inv.setItem(32,mumienkopf);
-        inv.setItem(33,mumienkopf);
-        inv.setItem(38,mumienkopf);
-
-        inv.setItem(39,ei);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,ei);
-        inv.setItem(42,mumienkopf);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, wither);
-        }
-
-        inv.setItem(20, wither);
-        inv.setItem(20+9, wither);
-        inv.setItem(20+9+9, wither);
-
-        inv.setItem(24, wither);
-        inv.setItem(24+9, wither);
-        inv.setItem(24+9+9, wither);
-        inv.setItem(4, sign);
-        inv.setItem(31, ei);
-
-        return inv;
-    }
-
-    public Inventory HelmdesGiganten(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§6Helm eines Giganten").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lWiderstand IV", "§a§lÜberladung IV").build("isInInv");
-        ItemStack rabbit = new ItemBuilder(Material.RABBIT_HIDE).setDisplayname("§cHaut eines Giganten").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §7Dieses §6§lHautstück §7wurde einem §6§lGiganten", "§6§l▶ §7entnommen, es ist beinahe §6undurchdringlich §7und", "§6§l▶ §6§lschützt §7daher nicht nur vor der §7§lKälte§7.").build("isInInv");
-        ItemStack helm = new ItemBuilder(Material.DIAMOND_HELMET).build("isInInv");
-        ItemStack zombie = new ItemBuilder(Material.SKULL_ITEM, (short) 2).setDisplayname("§aGammeliger Zombiekopf").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(3);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,rabbit);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,rabbit);
-
-        inv.setItem(29,mumienkopf);
-        inv.setItem(30,helm);
-        inv.setItem(31,mumienkopf);
-
-        inv.setItem(39,rabbit);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,rabbit);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, zombie);
-        }
-
-        inv.setItem(20, zombie);
-        inv.setItem(20+9, zombie);
-        inv.setItem(20+9+9, zombie);
-
-        inv.setItem(24, zombie);
-        inv.setItem(24+9, zombie);
-        inv.setItem(24+9+9, zombie);
-        inv.setItem(4, sign);
-        inv.setItem(32, helm);
-
-        return inv;
-    }
-
-    public Inventory BrustplattedesGiganten(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Brustplatte eines Giganten").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lEis IV", "§a§lTank IV").build("isInInv");
-        ItemStack rabbit = new ItemBuilder(Material.RABBIT_HIDE).setDisplayname("§cHaut eines Giganten").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §7Dieses §6§lHautstück §7wurde einem §6§lGiganten", "§6§l▶ §7entnommen, es ist beinahe §6undurchdringlich §7und", "§6§l▶ §6§lschützt §7daher nicht nur vor der §7§lKälte§7.").build("isInInv");
-        ItemStack chest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).build("isInInv");
-        ItemStack zombie = new ItemBuilder(Material.SKULL_ITEM, (short) 2).setDisplayname("§aGammeliger Zombiekopf").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(3);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,rabbit);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,rabbit);
-
-        inv.setItem(29,mumienkopf);
-        inv.setItem(30,chest);
-        inv.setItem(31,mumienkopf);
-
-        inv.setItem(39,rabbit);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,rabbit);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, zombie);
-        }
-
-        inv.setItem(20, zombie);
-        inv.setItem(20+9, zombie);
-        inv.setItem(20+9+9, zombie);
-
-        inv.setItem(24, zombie);
-        inv.setItem(24+9, zombie);
-        inv.setItem(24+9+9, zombie);
-        inv.setItem(4, sign);
-        inv.setItem(32, chest);
-
-        return inv;
-    }
-
-    public Inventory HosedesGiganten(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§6Hose eines Giganten").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lStacheln IV", "§a§lObsidian-Schild IV").build("isInInv");
-        ItemStack rabbit = new ItemBuilder(Material.RABBIT_HIDE).setDisplayname("§cHaut eines Giganten").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §7Dieses §6§lHautstück §7wurde einem §6§lGiganten", "§6§l▶ §7entnommen, es ist beinahe §6undurchdringlich §7und", "§6§l▶ §6§lschützt §7daher nicht nur vor der §7§lKälte§7.").build("isInInv");
-        ItemStack hose = new ItemBuilder(Material.DIAMOND_LEGGINGS).build("isInInv");
-        ItemStack zombie = new ItemBuilder(Material.SKULL_ITEM, (short) 2).setDisplayname("§aGammeliger Zombiekopf").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(3);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,rabbit);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,rabbit);
-
-        inv.setItem(29,mumienkopf);
-        inv.setItem(30,hose);
-        inv.setItem(31,mumienkopf);
-
-        inv.setItem(39,rabbit);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,rabbit);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, zombie);
-        }
-
-        inv.setItem(20, zombie);
-        inv.setItem(20+9, zombie);
-        inv.setItem(20+9+9, zombie);
-
-        inv.setItem(24, zombie);
-        inv.setItem(24+9, zombie);
-        inv.setItem(24+9+9, zombie);
-        inv.setItem(4, sign);
-        inv.setItem(32, hose);
-
-        return inv;
-    }
-
-    public Inventory SchuhedesGiganten(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Schuhe eines Giganten").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 7, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lMagieschild IV", "§a§lHeilzauber IV").build("isInInv");
-        ItemStack rabbit = new ItemBuilder(Material.RABBIT_HIDE).setDisplayname("§cHaut eines Giganten").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §7Dieses §6§lHautstück §7wurde einem §6§lGiganten", "§6§l▶ §7entnommen, es ist beinahe §6undurchdringlich §7und", "§6§l▶ §6§lschützt §7daher nicht nur vor der §7§lKälte§7.").build("isInInv");
-        ItemStack schuhe = new ItemBuilder(Material.DIAMOND_CHESTPLATE).build("isInInv");
-        ItemStack zombie = new ItemBuilder(Material.SKULL_ITEM, (short) 2).setDisplayname("§aGammeliger Zombiekopf").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(3);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,rabbit);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,rabbit);
-
-        inv.setItem(29,mumienkopf);
-        inv.setItem(30,schuhe);
-        inv.setItem(31,mumienkopf);
-
-        inv.setItem(39,rabbit);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,rabbit);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, zombie);
-        }
-
-        inv.setItem(20, zombie);
-        inv.setItem(20+9, zombie);
-        inv.setItem(20+9+9, zombie);
-
-        inv.setItem(24, zombie);
-        inv.setItem(24+9, zombie);
-        inv.setItem(24+9+9, zombie);
-        inv.setItem(4, sign);
-        inv.setItem(32, schuhe);
-
-        return inv;
-    }
-
-    public Inventory HelmdesTarantula(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_HELMET).setDisplayname("§6§6Kopf der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lTank III", "§a§lMagieschild III").build("isInInv");
-        ItemStack helm = new ItemBuilder(Material.DIAMOND_HELMET).build("isInInv");
-        ItemStack zombiehaut = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombiehaut").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack geisterkopf = KopfUtil.createSkull("Buludag", "§cGeisterkopf");
-        ItemMeta geisterMeta = geisterkopf.getItemMeta();
-        geisterMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        geisterkopf.setItemMeta(geisterMeta);
-        NBTTags nbt = new NBTTags(geisterkopf);
-        nbt.setNBTTag("invsafeid", "isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(3);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-        // ItemStack auge = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,geisterkopf);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,geisterkopf);
-
-        inv.setItem(29,mumienkopf);
-        inv.setItem(30,helm);
-        inv.setItem(32,helm);
-        inv.setItem(31,mumienkopf);
-
-        inv.setItem(39,geisterkopf);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,geisterkopf);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, zombiehaut);
-        }
-
-        inv.setItem(20, zombiehaut);
-        inv.setItem(20+9, zombiehaut);
-        inv.setItem(20+9+9, zombiehaut);
-
-        inv.setItem(24, zombiehaut);
-        inv.setItem(24+9, zombiehaut);
-        inv.setItem(24+9+9, zombiehaut);
-        inv.setItem(4, sign);
-
-        return inv;
-    }
-
-    public Inventory BrustplattedesTarantula(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDisplayname("§6Haariger Körper der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lEis III", "§a§lÜberladung III").build("isInInv");
-        ItemStack chest = new ItemBuilder(Material.DIAMOND_CHESTPLATE).build("isInInv");
-        ItemStack zombiehaut = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombiehaut").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack geisterkopf = KopfUtil.createSkull("Buludag", "§cGeisterkopf");
-        ItemMeta geisterMeta = geisterkopf.getItemMeta();
-        geisterMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        geisterkopf.setItemMeta(geisterMeta);
-        NBTTags nbt = new NBTTags(geisterkopf);
-        nbt.setNBTTag("invsafeid", "isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(3);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-        // ItemStack auge = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,geisterkopf);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,geisterkopf);
-
-        inv.setItem(29,mumienkopf);
-        inv.setItem(30,chest);
-        inv.setItem(32,chest);
-        inv.setItem(31,mumienkopf);
-
-        inv.setItem(39,geisterkopf);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,geisterkopf);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, zombiehaut);
-        }
-
-        inv.setItem(20, zombiehaut);
-        inv.setItem(20+9, zombiehaut);
-        inv.setItem(20+9+9, zombiehaut);
-
-        inv.setItem(24, zombiehaut);
-        inv.setItem(24+9, zombiehaut);
-        inv.setItem(24+9+9, zombiehaut);
-        inv.setItem(4, sign);
-
-        return inv;
-    }
-
-    public Inventory HosedesTarantula(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_LEGGINGS).setDisplayname("§6Spinnenbeine der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lStacheln III", "§a§lWiderstand III").build("isInInv");
-        ItemStack hose = new ItemBuilder(Material.DIAMOND_LEGGINGS).build("isInInv");
-        ItemStack zombiehaut = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombiehaut").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack geisterkopf = KopfUtil.createSkull("Buludag", "§cGeisterkopf");
-        ItemMeta geisterMeta = geisterkopf.getItemMeta();
-        geisterMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        geisterkopf.setItemMeta(geisterMeta);
-        NBTTags nbt = new NBTTags(geisterkopf);
-        nbt.setNBTTag("invsafeid", "isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(3);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-        // ItemStack auge = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,geisterkopf);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,geisterkopf);
-
-        inv.setItem(29,mumienkopf);
-        inv.setItem(30,hose);
-        inv.setItem(32,hose);
-        inv.setItem(31,mumienkopf);
-
-        inv.setItem(39,geisterkopf);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,geisterkopf);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, zombiehaut);
-        }
-
-        inv.setItem(20, zombiehaut);
-        inv.setItem(20+9, zombiehaut);
-        inv.setItem(20+9+9, zombiehaut);
-
-        inv.setItem(24, zombiehaut);
-        inv.setItem(24+9, zombiehaut);
-        inv.setItem(24+9+9, zombiehaut);
-        inv.setItem(4, sign);
-
-        return inv;
-    }
-
-    public Inventory SchuhedesTarantula(){
-        Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
-
-        ItemStack Final = new ItemBuilder(Material.DIAMOND_BOOTS).setDisplayname("§6Schuhe der Tarantula").addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).setLore("§a§lObsidian-Schild III", "§a§lHeilzauber III").build("isInInv");
-        ItemStack boots = new ItemBuilder(Material.DIAMOND_BOOTS).build("isInInv");
-        ItemStack zombiehaut = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombiehaut").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        ItemStack geisterkopf = KopfUtil.createSkull("Buludag", "§cGeisterkopf");
-        ItemMeta geisterMeta = geisterkopf.getItemMeta();
-        geisterMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        geisterkopf.setItemMeta(geisterMeta);
-        NBTTags nbt = new NBTTags(geisterkopf);
-        nbt.setNBTTag("invsafeid", "isInInv");
-
-        ItemStack mumienkopf = KopfUtil.createSkull("7ban_bxdmemes", "§6Mumienkopf");
-        ItemMeta mumienMeta = mumienkopf.getItemMeta();
-        mumienkopf.setAmount(3);
-        mumienMeta.setLore(Arrays.asList("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7."));
-        mumienkopf.setItemMeta(mumienMeta);
-        NBTTags nbt2 = new NBTTags(mumienkopf);
-        nbt2.setNBTTag("invsafeid", "isInInv");
-        // ItemStack auge = new ItemBuilder(Material.FERMENTED_SPIDER_EYE).setDisplayname("§cAuge der Tarantula").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-
-        for(int i = 0; i <= 8; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(9, glasblack);
-        inv.setItem(10, glas);
-        inv.setItem(16, glas);
-        inv.setItem(17, glasblack);
-        inv.setItem(18, glasblack);
-        inv.setItem(19, glas);
-        inv.setItem(25, glas);
-        inv.setItem(26, Final);
-        inv.setItem(27, glasblack);
-        inv.setItem(28, glas);
-        inv.setItem(34, glas);
-        inv.setItem(35, glasblack);
-        inv.setItem(36, glas);
-        inv.setItem(37, glas);
-        for(int i = 43; i<= 53; i++){
-            inv.setItem(i, glas);
-        }
-        inv.setItem(45,paper);
-        inv.setItem(53, craftingTable);
-
-        inv.setItem(21,geisterkopf);
-        inv.setItem(22,mumienkopf);
-        inv.setItem(23,geisterkopf);
-
-        inv.setItem(29,mumienkopf);
-        inv.setItem(30,boots);
-        inv.setItem(32,boots);
-        inv.setItem(31,mumienkopf);
-
-        inv.setItem(39,geisterkopf);
-        inv.setItem(40,mumienkopf);
-        inv.setItem(41,geisterkopf);
-
-        for(int i = 11 ; i<=15; i++){
-            inv.setItem(i, zombiehaut);
-        }
-
-        inv.setItem(20, zombiehaut);
-        inv.setItem(20+9, zombiehaut);
-        inv.setItem(20+9+9, zombiehaut);
-
-        inv.setItem(24, zombiehaut);
-        inv.setItem(24+9, zombiehaut);
-        inv.setItem(24+9+9, zombiehaut);
-        inv.setItem(4, sign);
 
         return inv;
     }

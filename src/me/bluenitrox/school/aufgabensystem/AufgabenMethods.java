@@ -59,6 +59,7 @@ public class AufgabenMethods {
                 }
             }
         } else if(AufgabenManager.getTask(player.getUniqueId())== 4) {
+            if(event.getClickedInventory() == null) return;
             if(event.getClickedInventory().getName().equalsIgnoreCase(Mine.guiname) && event.getCurrentItem() != null) {
                 if(event.getCurrentItem().getType() == Material.STONE) {
                     AufgabenManager.onComplete(player.getUniqueId(), 4);

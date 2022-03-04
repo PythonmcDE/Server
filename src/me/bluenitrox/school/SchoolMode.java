@@ -11,6 +11,7 @@ import me.bluenitrox.school.boost.*;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.dungeon.command.Dungeon;
 import me.bluenitrox.school.dungeon.command.DungeonInventory;
+import me.bluenitrox.school.dungeon.runen.GetRunenCMD;
 import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
@@ -198,6 +199,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("wz").setExecutor(new Warzone());
         getCommand("minensettings").setExecutor(new MineSettings());
         getCommand("plot").setExecutor(new PlotCMD());
+        getCommand("getRunen").setExecutor(new GetRunenCMD());
 
         getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
         getCommand("testsummon").setExecutor(new TestSummon());

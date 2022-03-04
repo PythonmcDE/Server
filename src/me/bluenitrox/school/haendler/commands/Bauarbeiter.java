@@ -31,24 +31,24 @@ public class Bauarbeiter {
         ItemStack amboss = new ItemBuilder(Material.ANVIL).setDisplayname("§7Amboss").setLore("§8» §7Kaufen:§6 8000 Gems").build();
         ItemStack enchanter = new ItemBuilder(Material.ENCHANTMENT_TABLE).setDisplayname("§7Zaubertisch").setLore("§8» §7Kaufen:§6 8000 Gems").build();
         ItemStack braustahnd = new ItemBuilder(Material.BREWING_STAND_ITEM).setDisplayname("§7Braustand").setLore("§8» §7Kaufen:§6 8000 Gems").build();
-        ItemStack sand = new ItemBuilder(Material.SAND).setDisplayname("§7Sand").setLore("§8» §7Kaufen:§6 100 Gems", "§8» §7Verkaufen:§6 20 Gems").build();
-        ItemStack redsand = new ItemBuilder(Material.SAND,(short)1).setDisplayname("§7Roter Sand").setLore("§8» §7Kaufen:§6 100 Gems", "§8» §7Verkaufen:§6 20 Gems").build();
-        ItemStack kies = new ItemBuilder(Material.GRAVEL).setDisplayname("§7Kies").setLore("§8» §7Kaufen:§6 100 Gems", "§8» §7Verkaufen:§6 20 Gems").build();
+        ItemStack sand = new ItemBuilder(Material.SAND).setDisplayname("§7Sand").setLore("§8» §7Kaufen:§6 300 Gems", "§8» §7Verkaufen:§6 20 Gems").build();
+        ItemStack redsand = new ItemBuilder(Material.SAND,(short)1).setDisplayname("§7Roter Sand").setLore("§8» §7Kaufen:§6 300 Gems", "§8» §7Verkaufen:§6 20 Gems").build();
+        ItemStack kies = new ItemBuilder(Material.GRAVEL).setDisplayname("§7Kies").setLore("§8» §7Kaufen:§6 180 Gems", "§8» §7Verkaufen:§6 60 Gems").build();
         ItemStack bruchstein = new ItemBuilder(Material.COBBLESTONE).setDisplayname("§7Bruchstein").setLore("§8» §7Kaufen:§6 100 Gems", "§8» §7Verkaufen:§6 20 Gems").build();
         ItemStack andesit = new ItemBuilder(Material.STONE, (short)5).setDisplayname("§7Andesit").setLore("§8» §7Kaufen:§6 100 Gems", "§8» §7Verkaufen:§6 20 Gems").build();
         ItemStack diorit = new ItemBuilder(Material.STONE, (short)3).setDisplayname("§7Diorit").setLore("§8» §7Kaufen:§6 100 Gems", "§8» §7Verkaufen:§6 20 Gems").build();
         ItemStack granit = new ItemBuilder(Material.STONE, (short)1).setDisplayname("§7Granit").setLore("§8» §7Kaufen:§6 100 Gems", "§8» §7Verkaufen:§6 20 Gems").build();
-        ItemStack ziegelstein = new ItemBuilder(Material.BRICK).setDisplayname("§7Ziegelstein").setLore("§8» §7Kaufen:§6 100 Gems", "§8» §7Verkaufen:§6 20 Gems").build();
+        ItemStack ziegelstein = new ItemBuilder(Material.BRICK).setDisplayname("§7Ziegelstein").setLore("§8» §7Kaufen:§6 500 Gems", "§8» §7Verkaufen:§6 200 Gems").build();
         ItemStack obsidian = new ItemBuilder(Material.OBSIDIAN).setDisplayname("§7Obsidian").setLore("§8» §7Kaufen:§6 1000 Gems").build();
         ItemStack ton = new ItemBuilder(Material.CLAY).setDisplayname("§7Ton").setLore("§8» §7Kaufen:§6 100 Gems").build();
-        ItemStack endstone = new ItemBuilder(Material.ENDER_STONE).setDisplayname("§7Endstein").setLore("§8» §7Kaufen:§6 200 Gems").build();
-        ItemStack prismarin = new ItemBuilder(Material.PRISMARINE).setDisplayname("§7Prismarin").setLore("§8» §7Kaufen:§6 100 Gems").build();
-        ItemStack prismarinziegel = new ItemBuilder(Material.PRISMARINE, (short)1).setDisplayname("§7Prismarinziegel").setLore("§8» §7Kaufen:§6 100 Gems").build();
-        ItemStack prismarindunkel = new ItemBuilder(Material.PRISMARINE, (short)2).setDisplayname("§7Dunkler Prismarin").setLore("§8» §7Kaufen:§6 100 Gems").build();
-        ItemStack schnee = new ItemBuilder(Material.SNOW).setDisplayname("§7Schnee").setLore("§8» §7Kaufen:§6 100 Gems").build();
-        ItemStack eis = new ItemBuilder(Material.ICE).setDisplayname("§7Eis").setLore("§8» §7Kaufen:§6 100 Gems").build();
-        ItemStack packeis = new ItemBuilder(Material.PACKED_ICE).setDisplayname("§7Packeis").setLore("§8» §7Kaufen:§6 200 Gems").build();
-        ItemStack seelaterne = new ItemBuilder(Material.SEA_LANTERN).setDisplayname("§7Seelaterne").setLore("§8» §7Kaufen:§6 4000 Gems").build();
+        ItemStack endstone = new ItemBuilder(Material.ENDER_STONE).setDisplayname("§7Endstein").setLore("§8» §7Kaufen:§6 8200 Gems", "§8» §7Verkaufen:§6 3800 Gems").build();
+        ItemStack prismarin = new ItemBuilder(Material.PRISMARINE).setDisplayname("§7Prismarin").setLore("§8» §7Kaufen:§6 1500 Gems", "§8» §7Verkaufen:§6 600 Gems").build();
+        ItemStack prismarinziegel = new ItemBuilder(Material.PRISMARINE, (short)1).setDisplayname("§7Prismarinziegel").setLore("§8» §7Kaufen:§6 1000 Gems").build();
+        ItemStack prismarindunkel = new ItemBuilder(Material.PRISMARINE, (short)2).setDisplayname("§7Dunkler Prismarin").setLore("§8» §7Kaufen:§6 1000 Gems").build();
+        ItemStack schnee = new ItemBuilder(Material.SNOW).setDisplayname("§7Schnee").setLore("§8» §7Kaufen:§6 1000 Gems").build();
+        ItemStack eis = new ItemBuilder(Material.ICE).setDisplayname("§7Eis").setLore("§8» §7Kaufen:§6 3250 Gems", "§8» §7Verkaufen:§6 1500 Gems").build();
+        ItemStack packeis = new ItemBuilder(Material.PACKED_ICE).setDisplayname("§7Packeis").setLore("§8» §7Kaufen:§6 6000 Gems", "§8» §7Verkaufen:§6 2800 Gems").build();
+        ItemStack seelaterne = new ItemBuilder(Material.SEA_LANTERN).setDisplayname("§7Seelaterne").setLore("§8» §7Kaufen:§6 6800 Gems", "§8» §7Verkaufen:§6 3200 Gems").build();
 
         for(int i = 0; i<= 8; i++){
             inv.setItem(i, glas);
