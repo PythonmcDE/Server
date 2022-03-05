@@ -81,6 +81,7 @@ public class WerkbankGUIRegister {
                 ItemStack redstoneapple2 = new ItemBuilder(Material.APPLE).setDisplayname("§4Verzauberter Redstoneapfel").setLore("§8» §6Regeneration IV §8- §720 Sekunden", "§8» §6Schnelligkeit II §8- §73Minuten").build("isInInv");
 
                 if(e.getCurrentItem() != null){
+                    e.setCancelled(true);
                     if(e.getCurrentItem().getItemMeta()!= null){
                         if(e.getCurrentItem().getItemMeta().getDisplayName() != null){
                             if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(paper.getItemMeta().getDisplayName())) {

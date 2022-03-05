@@ -28,6 +28,9 @@ public class EntityDamageByEntityEvent implements Listener {
         In Dungeon
          */
         if(DungeonManager.isInDungeon((Player) e.getEntity())){
+            if(e.getDamager() instanceof Player && e.getEntity() instanceof Player){
+                e.setCancelled(true);
+            }
             return;
         }
         if(e.getEntity().getWorld().getName().equalsIgnoreCase(WorldManager.warzone)){

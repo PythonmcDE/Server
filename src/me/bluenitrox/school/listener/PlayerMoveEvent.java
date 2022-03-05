@@ -11,8 +11,8 @@ public class PlayerMoveEvent implements Listener {
     @EventHandler
     public void onMove(final org.bukkit.event.player.PlayerMoveEvent e){
         Pet pet = new Pet();
-        CombatAPI api = new CombatAPI();
         pet.movePetEvent(e.getPlayer());
+        CombatAPI api = new CombatAPI();
         Tank.setTankForAll(e.getPlayer());
         api.joinwarzone(e);
     }

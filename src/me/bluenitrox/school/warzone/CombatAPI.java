@@ -88,13 +88,12 @@ public class CombatAPI {
                         e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1L, 1L);
                     }
                 }
-            }else {
-                if(playerinwarzone != null) {
-                    if (playerinwarzone.containsKey(e.getPlayer().getUniqueId())) {
-                        playerinwarzone.remove(e.getPlayer().getUniqueId());
-                        Bukkit.broadcastMessage("wz leave");
-                        Bukkit.broadcastMessage(getWarzoneByLocation(e.getPlayer().getLocation()));
-                    }
+            }else if(playerinwarzone != null) {
+                if (playerinwarzone.containsKey(e.getPlayer().getUniqueId())) {
+                    playerinwarzone.remove(e.getPlayer().getUniqueId());
+                    Bukkit.broadcastMessage("wz leave");
+                    Bukkit.broadcastMessage(getWarzoneByLocation(e.getPlayer().getLocation()));
+                    return;
                 }
             }
             if(fight != null){
@@ -130,8 +129,10 @@ public class CombatAPI {
             loc.setX(Math.round(loc.getX()));
             loc.setZ(Math.round(loc.getZ()));
             loc.setY(Math.round(loc.getY()));
-            if (getBlocks(curr).contains(loc)) {
-                return curr;
+            if(getBlocks(curr) != null) {
+                if (getBlocks(curr).contains(loc)) {
+                    return curr;
+                }
             }
         }
         return null;
@@ -141,6 +142,11 @@ public class CombatAPI {
         LinkedList<Location> locs = getEckPoints("warzone" + warzone);
         Location loc1 = locs.get(0);
         Location loc2 = locs.get(1);
+        if(loc1 == null){
+            return null;
+        }else if(loc2 == null){
+            return null;
+        }
 
         return getAllLocationsInside(loc1, loc2);
     }
@@ -167,6 +173,12 @@ public class CombatAPI {
         int zTop = 0;
         int zBottom = 0;
 
+        if(loc1 == null){
+            return null;
+        }
+        if(loc2 == null){
+            return null;
+        }
         LinkedList<Location> locs = new LinkedList<>();
 
         if(loc1.getBlockY() >= loc2.getBlockY()) {
