@@ -1,5 +1,6 @@
 package me.bluenitrox.school.features;
 
+import me.bluenitrox.school.dungeon.runen.RunenFuctions;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.mysql.MySQL;
@@ -241,7 +242,11 @@ public class KitAPI {
                     if(getStein(uuid) > 0) {
                         updateStein(uuid, 1, true);
                     }
-                    holz.put(uuid,60L);
+                    if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                        holz.put(uuid, 30L);
+                    }else {
+                        holz.put(uuid, 60L);
+                    }
                     return;
                 }
             }else if(e.getCurrentItem().getType() == Material.STONE_SWORD){
@@ -258,7 +263,11 @@ public class KitAPI {
                         if(getEisen(uuid) > 0) {
                             updateEisen(uuid, 1, true);
                         }
-                        stein.put(uuid,120L);
+                        if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                            stein.put(uuid, 60L);
+                        }else {
+                            stein.put(uuid, 120L);
+                        }
                         return;
                     }
                 }else {
@@ -281,7 +290,11 @@ public class KitAPI {
                         if(getWarzone(uuid) > 0) {
                             updateWarzone(uuid, 1, true);
                         }
-                        eisen.put(uuid,180L);
+                        if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                            eisen.put(uuid, (180L)/2);
+                        }else {
+                            eisen.put(uuid, 180L);
+                        }
                         return;
                     }
                 }else {
@@ -304,7 +317,11 @@ public class KitAPI {
                         if(getDiamant(uuid) > 0) {
                             updateDiamant(uuid, 1, true);
                         }
-                        warzone.put(uuid, 15*60L);
+                        if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                            warzone.put(uuid, (15 * 60L)/2);
+                        }else {
+                            warzone.put(uuid, 15 * 60L);
+                        }
                         return;
                     }
                 }else {
@@ -324,7 +341,11 @@ public class KitAPI {
                         p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                         p.closeInventory();
                         items.addDiamantItems(p);
-                        diamant.put(uuid,60*30L);
+                        if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                            diamant.put(uuid, (60 * 30L)/2);
+                        }else {
+                            diamant.put(uuid, 60*30L);
+                        }
                         return;
                     }
                 }else {
@@ -347,7 +368,11 @@ public class KitAPI {
                             updateGoldfinger(uuid, 1, true);
                         }
                         items.addBergarbeiterItems(p);
-                        bergarbeiter.put(uuid,60*60*1L);
+                        if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                            bergarbeiter.put(uuid, (60 * 60 * 1L)/2);
+                        }else {
+                            bergarbeiter.put(uuid, 60*60L);
+                        }
                         return;
                     }
                 }else if(MoneyManager.getMoney(uuid) >= 1000000) {
@@ -378,7 +403,11 @@ public class KitAPI {
                         if(getJuwelier(uuid) > 0) {
                             updateJuwelier(uuid, 1, true);
                         }
-                        goldfinger.put(uuid, 60*60*2L);
+                        if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                            goldfinger.put(uuid, 60 * 60 * 1L);
+                        }else {
+                            goldfinger.put(uuid,60*60*2L);
+                        }
                         return;
                     }
                 }else {
@@ -401,7 +430,11 @@ public class KitAPI {
                         if(getBanker(uuid) > 0) {
                             updateBanker(uuid, 1, true);
                         }
-                        juwelier.put(uuid, 60*60*3L);
+                        if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                            juwelier.put(uuid, (60 * 60 * 3L)/2);
+                        }else {
+                            juwelier.put(uuid, 60*60*3L);
+                        }
                         return;
                     }
                 }else {
@@ -421,7 +454,11 @@ public class KitAPI {
                         p.playSound(p.getLocation(), Sound.LEVEL_UP, 1L, 1L);
                         p.closeInventory();
                         items.addBänkerItems(p);
-                        banker.put(uuid,60*60*6L);
+                        if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                            banker.put(uuid, 60 * 60 * 3L);
+                        }else {
+                            banker.put(uuid, 60*60*6L);
+                        }
 
                         return;
                     }
@@ -445,7 +482,11 @@ public class KitAPI {
                             updateNinja(uuid, 1, true);
                         }
                         items.addNinjaItems(p);
-                        ninja.put(uuid,60*60*1L);
+                        if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                            ninja.put(uuid, (60 * 60 * 1L)/2);
+                        }else {
+                            ninja.put(uuid, 60*60L);
+                        }
                         return;
                     }
                 }else if(MoneyManager.getMoney(uuid) >= 5000000) {
@@ -476,7 +517,11 @@ public class KitAPI {
                             updateSensei(uuid, 1, true);
                         }
                         items.addSenseiItems(p);
-                        sensei.put(uuid,60*60*3L);
+                        if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                            sensei.put(uuid, (60 * 60 * 3L)/2);
+                        }else {
+                            sensei.put(uuid, 60*60*3L);
+                        }
                         return;
                     }
                 }else {
@@ -499,7 +544,11 @@ public class KitAPI {
                             updateMeister(uuid, 1, true);
                         }
                         items.addMeisterItems(p);
-                        meister.put(uuid, 60*60*6L);
+                        if(RunenFuctions.speedUpRune(p.getUniqueId())) {
+                            meister.put(uuid, 60 * 60 * 3L);
+                        }else {
+                            meister.put(uuid, 60 * 60 * 6L);
+                        }
                         return;
                     }
                 }else {

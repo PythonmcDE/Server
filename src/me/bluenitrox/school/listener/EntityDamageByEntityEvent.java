@@ -1,6 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
+import me.bluenitrox.school.dungeon.runen.RunenFuctions;
 import me.bluenitrox.school.enchants.armor.*;
 import me.bluenitrox.school.enchants.bow.*;
 import me.bluenitrox.school.enchants.sword.*;
@@ -30,6 +31,13 @@ public class EntityDamageByEntityEvent implements Listener {
         if(DungeonManager.isInDungeon((Player) e.getEntity())){
             if(e.getDamager() instanceof Player && e.getEntity() instanceof Player){
                 e.setCancelled(true);
+            }
+            if(e.getDamager() instanceof  Player){
+                if(RunenFuctions.runejagd != null){
+                    if(RunenFuctions.runejagd.contains(((Player) e.getDamager()).getPlayer().getUniqueId())){
+                        e.setDamage(e.getDamage()*2);
+                    }
+                }
             }
             return;
         }
