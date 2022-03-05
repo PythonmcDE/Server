@@ -38,7 +38,7 @@ public class RunenUtils {
                         ItemStack rune = head.getItem();
                         ItemMeta runenMeta = rune.getItemMeta();
                         runenMeta.setDisplayName("§fRune der Beschleunigung");
-                        runenMeta.setLore(Arrays.asList("§6▶ §7Rechtsklicke dieses §eItem§7, damit sich sämtliche", "§6▶ §7deiner §fKit-Cooldowns §7für §6einen Tag §ahalbieren§7."));
+                        runenMeta.setLore(Arrays.asList("§6▶ §7Rechtsklicke dieses §eItem§7, damit sich sämtliche", "§6▶ §7deiner §fKit-Cooldowns§7, ab jetzt, §7bis zum §6nächsten Serverrestart §ahalbieren§7."));
                         rune.setItemMeta(runenMeta);
                         typeRune = rune;
                     }
@@ -68,7 +68,7 @@ public class RunenUtils {
                         ItemStack rune = head.getItem();
                         ItemMeta runenMeta = rune.getItemMeta();
                         runenMeta.setDisplayName("§2Rune der Weisheit");
-                        runenMeta.setLore(Arrays.asList("§6▶ §7Rechtsklicke dieses §eItem§7, um §65 Minuten §7lang", "§6▶ §7pro §6geöffneter Kiste §7ein §azusätzliches", "§6▶ §6§lMagisches Buch §7dazu zu erhalten."));
+                        runenMeta.setLore(Arrays.asList("§6▶ §7Rechtsklicke dieses §eItem§7, um §615 Minuten §7lang", "§6▶ §7pro §6geöffneter Kiste §7ein §azusätzliches", "§6▶ §6§lMagisches Buch §7dazu zu erhalten."));
                         rune.setItemMeta(runenMeta);
                         typeRune = rune;
                     }
@@ -121,8 +121,7 @@ public class RunenUtils {
     /**
      *
      * @param url skin url from{@link RunenHeads} prefix + skinid
-     * @param name
-     * @return
+     * @return the skull Item
      */
     public ItemStack createSkull(String url, String name) {
 

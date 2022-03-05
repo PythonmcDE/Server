@@ -77,7 +77,7 @@ public class WerkbankGUIRegister {
 
                 ItemStack smaradtApple = new ItemBuilder(Material.GOLDEN_APPLE).setDisplayname("§aSmaragdapfel").setLore("§8» §6Regeneration III §8- §75 Sekunden", "§8» §6Absorption II §8- §72 Minuten").build("isInInv");
                 ItemStack redstoneApple = new ItemBuilder(Material.APPLE).setDisplayname("§cRedstoneapfel").setLore("§8» §6Regeneration II §8- §712 Sekunden", "§8» §6Schnelligkeit II §8- §72 Minuten").build("isInInv");
-                ItemStack flugtrank = new ItemBuilder(Material.POTION, (short) 2).setDisplayname("§9Flugtrank").setLore("§6§l▶ §6Dieser Trank §7erlaubt es dir", "§6§l▶ §7für §645 Minuten §6§lfliegen §7zu können.").build("isInInv");
+                ItemStack flugtrank = new ItemBuilder(Material.POTION).setDisplayname("§9§lFlugtrank").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §6Dieser Trank §7erlaubt es dir", "§6§l▶ §7für §645 Minuten §6§lfliegen §7zu können.").build("isInInv");
                 ItemStack redstoneapple2 = new ItemBuilder(Material.APPLE).setDisplayname("§4Verzauberter Redstoneapfel").setLore("§8» §6Regeneration IV §8- §720 Sekunden", "§8» §6Schnelligkeit II §8- §73Minuten").build("isInInv");
 
                 if(e.getCurrentItem() != null){
@@ -86,6 +86,9 @@ public class WerkbankGUIRegister {
                         if(e.getCurrentItem().getItemMeta().getDisplayName() != null){
                             if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(paper.getItemMeta().getDisplayName())) {
                                 p.openInventory(rezeptMenuSeite1());
+                                /*
+                                Item-Rune 1-10
+                                 */
                             } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runeeins.getItemMeta().getDisplayName())){
                                 if(hasItem(Material.RAW_FISH, p, 176, "§7Roher Fisch")){
                                     if(hasItem(Material.RAW_FISH, p, 108, "§7Roher Lachs")){
@@ -93,6 +96,646 @@ public class WerkbankGUIRegister {
                                         p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
                                         removeItem(Material.RAW_FISH, p, 176, "§7Roher Fisch");
                                         removeItem(Material.RAW_FISH, p, 108, "§7Roher Lachs");
+                                        p.closeInventory();
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runezwei.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.INK_SACK, p, 66, "§7Tintenbeutel")){
+                                    if(hasItem(Material.RAW_FISH, p, 96, "§7Kugelfisch")){
+                                        if(hasItem(Material.PRISMARINE_CRYSTALS, p, 1, runeeins.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(runezwei));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.INK_SACK, p, 66, "§7Tintenbeutel");
+                                            removeItem(Material.RAW_FISH, p, 96, "§7Kugelfisch");
+                                            removeItem(Material.PRISMARINE_CRYSTALS, p, 1, runeeins.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runedrei.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.INK_SACK, p, 132, "§7Tintenbeutel")){
+                                    if(hasItem(Material.RAW_FISH, p, 64, "§7Clownfisch")){
+                                        if(hasItem(Material.PRISMARINE_CRYSTALS, p, 1, runezwei.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(runedrei));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.INK_SACK, p, 132, "§7Tintenbeutel");
+                                            removeItem(Material.RAW_FISH, p, 64, "§7Clownfisch");
+                                            removeItem(Material.PRISMARINE_CRYSTALS, p, 1, runezwei.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runevier.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.VINE, p, 88, "§7Alge")){
+                                    if(hasItem(Material.RAW_FISH, p, 128, "§7Clownfisch")){
+                                        if(hasItem(Material.PRISMARINE_CRYSTALS, p, 1, runedrei.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(runevier));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.INK_SACK, p, 88, "§7Alge");
+                                            removeItem(Material.RAW_FISH, p, 128, "§7Clownfisch");
+                                            removeItem(Material.PRISMARINE_CRYSTALS, p, 1, runedrei.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runefünf.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.VINE, p, 176, "§7Alge")){
+                                    if(hasItem(Material.EYE_OF_ENDER, p, 64, "§7Wächterauge")){
+                                        if(hasItem(Material.PRISMARINE_CRYSTALS, p, 1, runevier.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(runefünf));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.INK_SACK, p, 176, "§7Alge");
+                                            removeItem(Material.EYE_OF_ENDER, p, 64, "§7Wächterauge");
+                                            removeItem(Material.PRISMARINE_CRYSTALS, p, 1, runevier.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runesechs.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.WATER_LILY, p, 88, "§7Seerose")){
+                                    if(hasItem(Material.EYE_OF_ENDER, p, 128, "§7Wächterauge")){
+                                        if(hasItem(Material.PRISMARINE_CRYSTALS, p, 1, runefünf.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(runesechs));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.WATER_LILY, p, 88, "§7Seerose");
+                                            removeItem(Material.EYE_OF_ENDER, p, 128, "§7Wächterauge");
+                                            removeItem(Material.PRISMARINE_CRYSTALS, p, 1, runefünf.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runesieben.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.WATER_LILY, p, 264, "§7Seerose")){
+                                    if(hasItem(Material.SKULL_ITEM, p, 32, "§bGroßer Fisch")){
+                                        if(hasItem(Material.PRISMARINE_CRYSTALS, p, 1, runesechs.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(runesieben));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.WATER_LILY, p, 264, "§7Seerose");
+                                            removeItem(Material.SKULL_ITEM, p, 32, "§bGroßer Fisch");
+                                            removeItem(Material.PRISMARINE_CRYSTALS, p, 1, runesechs.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runeacht.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.WATER_LILY, p, 528, "§7Seerose")){
+                                    if(hasItem(Material.SKULL_ITEM, p, 64, "§bGroßer Fisch")){
+                                        if(hasItem(Material.PRISMARINE_CRYSTALS, p, 1, runesieben.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(runeacht));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.WATER_LILY, p, 528, "§7Seerose");
+                                            removeItem(Material.SKULL_ITEM, p, 64, "§bGroßer Fisch");
+                                            removeItem(Material.PRISMARINE_CRYSTALS, p, 1, runesieben.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runeneun.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.ENDER_CHEST, p, 88, "§bSchatzkiste")){
+                                    if(hasItem(Material.SKULL_ITEM, p, 128, "§bGroßer Fisch")){
+                                        if(hasItem(Material.PRISMARINE_CRYSTALS, p, 1, runeacht.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(runeneun));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.ENDER_CHEST, p, 88, "§bSchatzkiste");
+                                            removeItem(Material.SKULL_ITEM, p, 128, "§bGroßer Fisch");
+                                            removeItem(Material.PRISMARINE_CRYSTALS, p, 1, runeacht.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(runezehn.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.ENDER_CHEST, p, 176, "§bSchatzkiste")){
+                                    if(hasItem(Material.SKULL_ITEM, p, 256, "§bGroßer Fisch")){
+                                        if(hasItem(Material.PRISMARINE_CRYSTALS, p, 1, runeneun.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(runezehn));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.ENDER_CHEST, p, 176, "§bSchatzkiste");
+                                            removeItem(Material.SKULL_ITEM, p, 256, "§bGroßer Fisch");
+                                            removeItem(Material.PRISMARINE_CRYSTALS, p, 1, runeneun.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            /*
+                            Item-Erhalt 1-10
+                             */
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(erhalteins.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.ROTTEN_FLESH, p, 88, "§aZombiehaut")){
+                                    if(hasItem(Material.FLINT, p, 72, "§aAbgebrochene Pfeilspitze")){
+                                        p.getInventory().addItem(Antidupe.addID(erhalteins));
+                                        p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                        removeItem(Material.ROTTEN_FLESH, p, 88, "§aZombiehaut");
+                                        removeItem(Material.FLINT, p, 72, "§aAbgebrochene Pfeilspitze");
+                                        p.closeInventory();
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(erhaltzwei.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.ROTTEN_FLESH, p, 176, "§aZombiehaut")){
+                                    if(hasItem(Material.FLINT, p, 128, "§aAbgebrochene Pfeilspitze")){
+                                        if(hasItem(Material.NETHER_STAR, p, 1, erhalteins.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(erhaltzwei));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.ROTTEN_FLESH, p, 176, "§aZombiehaut");
+                                            removeItem(Material.FLINT, p, 128, "§aAbgebrochene Pfeilspitze");
+                                            removeItem(Material.NETHER_STAR, p, 1, erhalteins.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(erhaltdrei.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.ROTTEN_FLESH, p, 352, "§aZombiehaut")){
+                                    if(hasItem(Material.SPIDER_EYE, p, 128, "§aSpinnenfuß")){
+                                        if(hasItem(Material.NETHER_STAR, p, 1, erhaltzwei.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(erhaltdrei));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.ROTTEN_FLESH, p, 352, "§aZombiehaut");
+                                            removeItem(Material.SPIDER_EYE, p, 128, "§aSpinnenfuß");
+                                            removeItem(Material.NETHER_STAR, p, 1, erhaltzwei.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(erhaltvier.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.FLINT, p, 352, "§aAbgebrochene Pfeilspitze")){
+                                    if(hasItem(Material.SPIDER_EYE, p, 256, "§aSpinnenfuß")){
+                                        if(hasItem(Material.NETHER_STAR, p, 1, erhaltdrei.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(erhaltvier));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.FLINT, p, 352, "§aAbgebrochene Pfeilspitze");
+                                            removeItem(Material.SPIDER_EYE, p, 256, "§aSpinnenfuß");
+                                            removeItem(Material.NETHER_STAR, p, 1, erhaltdrei.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(erhaltfünf.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.SPIDER_EYE, p, 352, "§aSpinnenfuß")){
+                                    if(hasItem(Material.SKULL_ITEM, p, 64, "§aGammeliger Zombiekopf")){
+                                        if(hasItem(Material.NETHER_STAR, p, 1, erhaltvier.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(erhaltfünf));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.SPIDER_EYE, p, 352, "§aSpinnenfuß");
+                                            removeItem(Material.SKULL_ITEM, p, 64, "§aGammeliger Zombiekopf");
+                                            removeItem(Material.NETHER_STAR, p, 1, erhaltvier.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(erhaltsechs.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.SKULL_ITEM, p, 176, "§aGammeliger Zombiekopf")){
+                                    if(hasItem(Material.SKULL_ITEM, p, 128, "§aZerbrechlicher Skelettschädel")){
+                                        if(hasItem(Material.NETHER_STAR, p, 1, erhaltfünf.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(erhaltsechs));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.SKULL_ITEM, p, 176, "§aGammeliger Zombiekopf");
+                                            removeItem(Material.SKULL_ITEM, p, 128, "§aZerbrechlicher Skelettschädel");
+                                            removeItem(Material.NETHER_STAR, p, 1, erhaltfünf.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(erhaltsieben.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.SKULL_ITEM, p, 352, "§aGammeliger Zombiekopf")){
+                                    if(hasItem(Material.SKULL_ITEM, p, 256, "§aZerbrechlicher Skelettschädel")){
+                                        if(hasItem(Material.NETHER_STAR, p, 1, erhaltsechs.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(erhaltsieben));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.SKULL_ITEM, p, 352, "§aGammeliger Zombiekopf");
+                                            removeItem(Material.SKULL_ITEM, p, 256, "§aZerbrechlicher Skelettschädel");
+                                            removeItem(Material.NETHER_STAR, p, 1, erhaltsechs.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(erhaltacht.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.getMaterial(31), p, 352, "§aMagische Kräuter")){
+                                    if(hasItem(Material.BLAZE_POWDER, p, 256, "§aHeiße Lohenglut")){
+                                        if(hasItem(Material.NETHER_STAR, p, 1, erhaltsieben.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(erhaltacht));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.getMaterial(31), p, 352, "§aMagische Kräuter");
+                                            removeItem(Material.BLAZE_POWDER, p, 256, "§aHeiße Lohenglut");
+                                            removeItem(Material.NETHER_STAR, p, 1, erhaltsieben.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(erhaltneun.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.SKULL_ITEM, p, 352, "§aVerkohlter Skelettschädel")){
+                                    if(hasItem(Material.GOLD_NUGGET, p, 256, "§aGoldener Klumpen")){
+                                        if(hasItem(Material.NETHER_STAR, p, 1, erhaltacht.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(erhaltneun));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.SKULL_ITEM, p, 352, "§aVerkohlter Skelettschädel");
+                                            removeItem(Material.GOLD_NUGGET, p, 256, "§aGoldener Klumpen");
+                                            removeItem(Material.NETHER_STAR, p, 1, erhaltacht.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(erhaltzehn.getItemMeta().getDisplayName())){
+                                //First Slot: 11
+                                //Second Item: 8
+                                //third Item: 3
+                                if(hasItem(Material.SKULL_ITEM, p, 704, "§aVerkohlter Skelettschädel")){
+                                    if(hasItem(Material.GOLD_NUGGET, p, 512, "§aGoldener Klumpen")){
+                                        if(hasItem(Material.NETHER_STAR, p, 1, erhaltneun.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(erhaltzehn));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.SKULL_ITEM, p, 704, "§aVerkohlter Skelettschädel");
+                                            removeItem(Material.GOLD_NUGGET, p, 512, "§aGoldener Klumpen");
+                                            removeItem(Material.NETHER_STAR, p, 1, erhaltneun.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            /*
+                            Smaragdapfel
+                             */
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(smaradtApple.getItemMeta().getDisplayName())){
+                                if(hasItem(Material.EMERALD_BLOCK, p, 176)) {
+                                    if(hasItem(Material.GLOWSTONE_DUST, p, 8, "§aSmaragd Staub")) {
+                                        if(hasItem(Material.APPLE, p, 1)) {
+                                            p.getInventory().addItem(Antidupe.addID(smaradtApple));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.EMERALD_BLOCK, p, 176);
+                                            removeItem(Material.GLOWSTONE_DUST, p, 8, "§aSmaragd Staub");
+                                            removeItem(Material.APPLE, p, 1);
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            /*
+                            Redstoneäpfel
+                             */
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(redstoneApple.getItemMeta().getDisplayName())){
+                                if(hasItem(Material.REDSTONE_BLOCK, p, 176)) {
+                                    if(hasItem(Material.REDSTONE, p, 9, "§cRedstone Staub")) {
+                                            p.getInventory().addItem(Antidupe.addID(redstoneApple));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.REDSTONE_BLOCK, p, 176);
+                                            removeItem(Material.REDSTONE, p, 9, "§cRedstone Staub");
+                                            p.closeInventory();
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            /*
+                            Verzauberter Redstoneapfel
+                             */
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(redstoneapple2.getItemMeta().getDisplayName())){
+                                if(hasItem(Material.REDSTONE_BLOCK, p, 704)) {
+                                    if(hasItem(Material.NETHER_BRICK_ITEM, p, 8, "§4Gepresster Redstonebarren")) {
+                                        if(hasItem(Material.APPLE, p, 1, redstoneApple.getItemMeta().getDisplayName())) {
+                                            p.getInventory().addItem(Antidupe.addID(redstoneapple2));
+                                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                            removeItem(Material.REDSTONE_BLOCK, p, 176);
+                                            removeItem(Material.NETHER_BRICK_ITEM, p, 8, "§4Gepresster Redstonebarren");
+                                            removeItem(Material.APPLE, p, 1, redstoneApple.getItemMeta().getDisplayName());
+                                            p.closeInventory();
+                                        } else {
+                                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                            p.closeInventory();
+                                        }
+                                    } else {
+                                        p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                        p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                        p.closeInventory();
+                                    }
+                                } else {
+                                    p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
+                                    p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                    p.closeInventory();
+                                }
+                            }
+                            /*
+                            Flugtrank
+                             */
+                            else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(flugtrank.getItemMeta().getDisplayName())){
+                                if(hasItem(Material.SUGAR, p, 14, "§7Flugpulver")) {
+                                    if(hasItem(Material.GLASS_BOTTLE, p, 6)) {
+                                        p.getInventory().addItem(Antidupe.addID(flugtrank));
+                                        p.playSound(p.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                                        removeItem(Material.SUGAR, p, 14, "§7Flugpulver");
+                                        removeItem(Material.GLASS_BOTTLE, p, 6);
                                         p.closeInventory();
                                     } else {
                                         p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug Items um das herzustellen!");
@@ -212,6 +855,22 @@ public class WerkbankGUIRegister {
         }
     }
 
+    private void removeItem(Material item, Player p, Integer amount){
+        for(int i = 0; i< p.getInventory().getSize(); i++){
+            if(p.getInventory().getItem(i)!= null) {
+                if (p.getInventory().getItem(i).getType() == item) {
+                    if (amount >= p.getInventory().getItem(i).getAmount()) {
+                        amount -= p.getInventory().getItem(i).getMaxStackSize();
+                        p.getInventory().setItem(i, new ItemBuilder(Material.AIR).build());
+                    } else {
+                        p.getInventory().getItem(i).setAmount(p.getInventory().getItem(i).getAmount() - amount);
+                        amount = 0;
+                    }
+                }
+            }
+        }
+    }
+
     private boolean hasItem(Material item, Player p, Integer amount, String displayname){
         int amountitems = 0;
         for(int i = 0; i< p.getInventory().getSize(); i++){
@@ -224,6 +883,22 @@ public class WerkbankGUIRegister {
                             }
                         }
                     }
+                }
+            }
+        }
+        if(amountitems >= amount){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    private boolean hasItem(Material item, Player p, Integer amount){
+        int amountitems = 0;
+        for(int i = 0; i< p.getInventory().getSize(); i++){
+            if(p.getInventory().getItem(i) != null) {
+                if (p.getInventory().getItem(i).getType() == item) {
+                    amountitems += p.getInventory().getItem(i).getAmount();
                 }
             }
         }
@@ -500,7 +1175,7 @@ public class WerkbankGUIRegister {
         ItemStack runedrei = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune III").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune III", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
         ItemStack clown = new ItemBuilder(Material.RAW_FISH,(short)2).setDisplayname("§7Clownfisch").setAmount(8).build("isInInv");
         ItemStack runezwei = new ItemBuilder(Material.PRISMARINE_CRYSTALS).setDisplayname("§8» §c§lItem-Rune II").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lRune II", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §7mit mehr §6§lHaltbarkeit §7zu versehen.").build("isInInv");
-        ItemStack tintenbeutel = new ItemBuilder(Material.RAW_FISH,(short)0).setDisplayname("§7Tintenbeutel").setAmount(12).build("isInInv");
+        ItemStack tintenbeutel = new ItemBuilder(Material.INK_SACK).setDisplayname("§7Tintenbeutel").setAmount(12).build("isInInv");
 
         for(int i = 0; i <= 8; i++){
             inv.setItem(i, glas);
@@ -1126,7 +1801,7 @@ public class WerkbankGUIRegister {
 
         ItemStack erhaltdrei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt III").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt III", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.SPIDER_EYE).setDisplayname("§aSpinnenfuß").setAmount(16).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
         ItemStack zombiehaut = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombiehaut").setAmount(32).setLore
                 ("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.")
                 .build("isInInv");
@@ -1189,7 +1864,7 @@ public class WerkbankGUIRegister {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
         ItemStack erhaltVier = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IV").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IV", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.SPIDER_EYE).setDisplayname("§aSpinnenfuß").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
         ItemStack pfeilspitze = new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
         ItemStack erhaltDrei = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt III").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt III", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
@@ -1249,7 +1924,7 @@ public class WerkbankGUIRegister {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
         ItemStack erhaltFünf = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt V").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt V", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
-        ItemStack spider = new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aSpinnenfuß").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack spider = new ItemBuilder(Material.SPIDER_EYE).setDisplayname("§aSpinnenfuß").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
         ItemStack erhaltVier = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt IV").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt IV", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
         ItemStack zombie = new ItemBuilder(Material.SKULL_ITEM, (short) 2).setDisplayname("§aGammeliger Zombiekopf").setAmount(8).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
 
@@ -1427,7 +2102,7 @@ public class WerkbankGUIRegister {
 
         ItemStack erhaltAcht = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VIII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VIII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
         ItemStack lohen = new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
-        ItemStack wolle = new ItemBuilder(Material.GRASS, (short)1).setDisplayname("§aMagische Kräuter").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
+        ItemStack wolle = new ItemBuilder(Material.getMaterial(31), (short) 1).setDisplayname("§aMagische Kräuter").setAmount(32).setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §6§lCrafting-Rezept§7.").build("isInInv");
         ItemStack erhaltSieben = new ItemBuilder(Material.NETHER_STAR).setDisplayname("§8» §3§lItem-Erhalt VII").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§f§lErhalt VII", " ", "§6§l▶ §7Nutze diesen §6§lGegenstand §7im §5§lAmboss§7, um §7§lTools","§6§l▶ §7oder §7§lRüstungsleile §6§lprozentual §7zu §e§lversichern§7.").build("isInInv");
 
         for(int i = 0; i <= 8; i++){
@@ -1603,7 +2278,7 @@ public class WerkbankGUIRegister {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
         ItemStack rblock = new ItemBuilder(Material.REDSTONE_BLOCK).setDisplayname("§7Redstoneblock").setAmount(16).build("isInInv");
-        ItemStack staubr = new ItemBuilder(Material.REDSTONE).setDisplayname("§cRedstone Staub").addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieser §6Staub kann verwendet werden, um", "§6§l▶ §7einen §6mächtigen Apfel §7herzustellen.").build("isInInv");
+        ItemStack staubr = new ItemBuilder(Material.REDSTONE).setDisplayname("§cRedstone Staub").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §7Dieser §6Staub kann verwendet werden, um", "§6§l▶ §7einen §6mächtigen Apfel §7herzustellen.").build("isInInv");
         ItemStack apfel = new ItemBuilder(Material.APPLE).setDisplayname("§7Apfel").build("isInInv");
         ItemStack apfelench = new ItemBuilder(Material.APPLE).setDisplayname("§c§lRedstoneapfel").setLore("§8» §6Regeneration II §8- §78 Sekunden", "§8» §6Schnelligkeit II §8- §71 Minute").build("isInInv");
 
@@ -1662,7 +2337,7 @@ public class WerkbankGUIRegister {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
         ItemStack rblock = new ItemBuilder(Material.REDSTONE_BLOCK).setDisplayname("§7Redstoneblock").setAmount(64).build("isInInv");
-        ItemStack staubr = new ItemBuilder(Material.NETHER_BRICK_ITEM).setDisplayname("§4Gepresster Redstonebarren").addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieser §6Barren §7erscheint §5überaus selten§7.", "§6§l▶ §7Verwende ihn, um den §6mächtigsten Apfel", "§6§l▶ §7von allen herzustellen!").build("isInInv");
+        ItemStack staubr = new ItemBuilder(Material.NETHER_BRICK_ITEM).setDisplayname("§4Gepresster Redstonebarren").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §7Dieser §6Barren §7erscheint §5überaus selten§7.", "§6§l▶ §7Verwende ihn, um den §6mächtigsten Apfel", "§6§l▶ §7von allen herzustellen!").build("isInInv");
         ItemStack apfelneu = new ItemBuilder(Material.APPLE).addEnchant(Enchantment.ARROW_DAMAGE, 10, false).setDisplayname("§c§lVerzauberter Redstoneapfel").setLore("§8» §6Regeneration IV §8- §720 Sekunden", "§8» §6Schnelligkeit II §8- §73 Minuten").build("isInInv");
         ItemStack apfelench = new ItemBuilder(Material.APPLE).setDisplayname("§c§lRedstoneapfel").setLore("§8» §6Regeneration II §8- §78 Sekunden", "§8» §6Schnelligkeit II §8- §71 Minute").build("isInInv");
 
@@ -1721,7 +2396,7 @@ public class WerkbankGUIRegister {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
         ItemStack rblock = new ItemBuilder(Material.EMERALD_BLOCK).setDisplayname("§7Emeraldblock").setAmount(16).build("isInInv");
-        ItemStack staubr = new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayname("§aSmaragd Staub").addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieser §6Staub kann verwendet werden, um", "§6§l▶ §7einen §6mächtigen Apfel §7herzustellen.").build("isInInv");
+        ItemStack staubr = new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayname("§aSmaragd Staub").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §7Dieser §6Staub kann verwendet werden, um", "§6§l▶ §7einen §6mächtigen Apfel §7herzustellen.").build("isInInv");
         ItemStack apfel = new ItemBuilder(Material.APPLE).setDisplayname("§7Apfel").build("isInInv");
         ItemStack apfelench = new ItemBuilder(Material.GOLDEN_APPLE).setDisplayname("§a§lSmaragdapfel").setLore("§8» §6Regeneration III §8- §74 Sekunden", "§8» §6Absorption II §8- §71 Minute").build("isInInv");
 
@@ -1780,8 +2455,8 @@ public class WerkbankGUIRegister {
         Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
 
         ItemStack glassss = new ItemBuilder(Material.GLASS_BOTTLE).setDisplayname("§7Glasflasche").build("isInInv");
-        ItemStack zucker = new ItemBuilder(Material.SUGAR).setDisplayname("§7Flugpulver").addEnchant(Enchantment.ARROW_INFINITE, 10, true).setLore("§6§l▶ §7Dieses Pulver §6verleiht dir Flügel§7!", "§6§l▶ §7Verwende es um für §62 Minuten §7 zu §6§lfliegen§7,", "§6§l▶ §7oder stelle einen mächtigen §9§lFlugtrank §7her.").build("isInInv");
-        ItemStack pot = new ItemBuilder(Material.POTION, (short) 2).setDisplayname("§9§lFlugtrank").setLore("§6§l▶ §6Dieser Trank §7erlaubt es dir", "§6§l▶ §7für §645 Minuten §6§lfliegen §7zu können.").build("isInInv");
+        ItemStack zucker = new ItemBuilder(Material.SUGAR).setDisplayname("§7Flugpulver").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §7Dieses Pulver §6verleiht dir Flügel§7!", "§6§l▶ §7Verwende es um für §62 Minuten §7 zu §6§lfliegen§7,", "§6§l▶ §7oder stelle einen mächtigen §9§lFlugtrank §7her.").build("isInInv");
+        ItemStack pot = new ItemBuilder(Material.POTION).setDisplayname("§9§lFlugtrank").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore("§6§l▶ §6Dieser Trank §7erlaubt es dir", "§6§l▶ §7für §645 Minuten §6§lfliegen §7zu können.").build("isInInv");
 
         for(int i = 0; i <= 8; i++){
             inv.setItem(i, glas);
@@ -1826,7 +2501,7 @@ public class WerkbankGUIRegister {
             inv.setItem(i, zucker);
         }
         inv.setItem(4, sign);
-        inv.setItem(31, pot);
+        inv.setItem(35, pot);
 
         return inv;
     }
