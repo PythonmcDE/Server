@@ -24,7 +24,7 @@ public class AsyncPlayerChatEvent implements Listener {
     public void onChat(final org.bukkit.event.player.AsyncPlayerChatEvent e){
         Player p = (Player)e.getPlayer();
         if(ExpManager.getLevel(p.getUniqueId()) >= 3){
-        }else if(!p.hasPermission(PermissionsManager.CHAT)){
+        }else if(!p.hasPermission(PermissionsManager.vip)){
             e.setCancelled(true);
             p.sendMessage(MessageManager.PREFIX + "§7Du kannst erst ab Level 3 schreiben!");
             return;

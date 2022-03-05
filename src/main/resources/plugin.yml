@@ -32,6 +32,11 @@ commands:
       - fliegen
   test:
   getRunen:
+  taxi:
+  schmied:
+    aliases:
+      - smith
+      - sm
   testzwei:
   getcases:
   skill:

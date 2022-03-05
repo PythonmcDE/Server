@@ -18,6 +18,8 @@ import me.bluenitrox.school.features.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.features.KitAPI;
 import me.bluenitrox.school.haendler.NPCAPI;
+import me.bluenitrox.school.haendler.rangfeatures.SchmiedCMD;
+import me.bluenitrox.school.haendler.rangfeatures.TaxiCMD;
 import me.bluenitrox.school.listener.*;
 import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.mine.angelmine.*;
@@ -202,6 +204,8 @@ public class SchoolMode extends JavaPlugin {
         getCommand("minensettings").setExecutor(new MineSettings());
         getCommand("plot").setExecutor(new PlotCMD());
         getCommand("getRunen").setExecutor(new GetRunenCMD());
+        getCommand("taxi").setExecutor(new TaxiCMD());
+        getCommand("schmied").setExecutor(new SchmiedCMD());
 
         getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
         getCommand("testsummon").setExecutor(new TestSummon());

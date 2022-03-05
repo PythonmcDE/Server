@@ -21,7 +21,7 @@ public class Warzone implements CommandExecutor {
             cs.sendMessage(MessageManager.NOPLAYER);
             return true;
         }
-        if(p.hasPermission(PermissionsManager.WZTELEPORT)) {
+        if(p.hasPermission(PermissionsManager.python)) {
             if (args.length == 0) {
                 if(!CombatAPI.playerinwarzone.containsKey(p.getUniqueId())){
                     p.teleport(new LocationManager("wzspawn").getLocation());

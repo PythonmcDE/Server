@@ -50,16 +50,13 @@ public class Ah_CMD implements CommandExecutor {
 
                     int allowedItems = 1;
 
-                    if (p.hasPermission(PermissionsManager.AHITEMSEINS)) {
-                        allowedItems += 1;
-                    }
-                    if (p.hasPermission(PermissionsManager.AHITEMSZWEI)) {
+                    if (p.hasPermission(PermissionsManager.vip)) {
                         allowedItems += 2;
                     }
-                    if (p.hasPermission(PermissionsManager.AHITEMSDREI)) {
+                    if (p.hasPermission(PermissionsManager.python)) {
                         allowedItems += 3;
                     }
-                    if (p.hasPermission(PermissionsManager.AHITEMSVIER)) {
+                    if (p.hasPermission(PermissionsManager.kingqueen)) {
                         allowedItems += 4;
                     }
 

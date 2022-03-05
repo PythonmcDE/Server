@@ -58,7 +58,7 @@ public class Mine implements CommandExecutor {
                         return false;
                     }
                 }
-                if(p.hasPermission(PermissionsManager.ALLPERMS) || p.hasPermission(PermissionsManager.TP_MINE)) {
+                if(p.hasPermission(PermissionsManager.ALLPERMS) || p.hasPermission(PermissionsManager.kingqueen)) {
                     try {
                         String mine = "mine";
                         int number = Integer.parseInt(args[0]);

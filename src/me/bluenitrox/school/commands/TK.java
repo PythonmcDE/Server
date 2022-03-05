@@ -19,7 +19,7 @@ public class TK implements CommandExecutor {
         if(args.length == 1){
             Player t = Bukkit.getPlayer(args[0]);
             if(t != null) {
-                if (p.hasPermission(PermissionsManager.TKCMD)) {
+                if (p.hasPermission(PermissionsManager.mod)) {
                     t.setVelocity(t.getVelocity().setX(0.5D));
                     t.setVelocity(t.getVelocity().setZ(0.5D));
                     t.setVelocity(t.getVelocity().setY(0.5D));

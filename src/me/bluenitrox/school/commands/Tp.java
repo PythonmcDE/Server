@@ -18,7 +18,7 @@ public class Tp implements CommandExecutor {
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
 
         final Player p = (Player)cs;
-        if(p.hasPermission(PermissionsManager.TP)) {
+        if(p.hasPermission(PermissionsManager.mod)) {
             if(args.length == 1) {
                 final Player target = Bukkit.getPlayer(args[0]);
                 if(target != null) {

@@ -51,7 +51,7 @@ public class Vanish implements CommandExecutor {
                 vanished.add(p);
                 p.sendMessage(MessageManager.PREFIX + "§7Du hast den Vanishmodus §abetreten§7!");
                 for (Player all : Bukkit.getOnlinePlayers()) {
-                    if (!all.hasPermission(PermissionsManager.VANISHBYPASS)) {
+                    if (!all.hasPermission(PermissionsManager.team)) {
                         all.hidePlayer(p);
                     }
                 }

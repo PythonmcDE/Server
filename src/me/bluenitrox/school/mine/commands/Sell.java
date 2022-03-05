@@ -106,7 +106,7 @@ public class Sell implements CommandExecutor {
 
 
         Player p = (Player) cs;
-        if (!p.hasPermission(PermissionsManager.SELL) || !p.hasPermission(PermissionsManager.ALLPERMS)) {
+        if (!p.hasPermission(PermissionsManager.python) || !p.hasPermission(PermissionsManager.ALLPERMS)) {
             p.sendMessage(MessageManager.NOPERMISSIONS(PlayerJoinManager.language));
             return true;
         }
