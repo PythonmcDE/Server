@@ -215,6 +215,13 @@ public class PacketReader {
                     return;
                 }
             }
+            if(NPCAPI.DungeonKeeper.getEntityID() == id){
+                if(getValue(packet, "action").toString().equalsIgnoreCase("INTERACT")){
+                    player.performCommand("dungeoninventory");
+                    interacted(player);
+                    return;
+                }
+            }
         }
     }
     private void interacted(Player player){

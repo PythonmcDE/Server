@@ -34,6 +34,16 @@ public class DungeonManager {
         playerdungeon.remove(p);
     }
 
+    public static boolean isInDungeon(Player player){
+        if(playerdungeon != null) {
+            if (playerdungeon.containsKey(player)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public static void startMonsterSpawn(int dungeon, Player player){
         /*
         Example Point: spawn1dungeon2

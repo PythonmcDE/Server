@@ -18,8 +18,8 @@ public class ProjectileHitEvent implements Listener {
 
     @EventHandler
     public void onHit(org.bukkit.event.entity.ProjectileHitEvent e){
-        Player p = (Player) e.getEntity().getShooter();
         if(e.getEntity().getType() == EntityType.SNOWBALL){
+            Player p = (Player) e.getEntity().getShooter();
             Block block = e.getEntity().getLocation().getBlock();
             int id = block.getTypeId();
             for (double i = 0.2D; i < 4.0D; i += 0.2D) {

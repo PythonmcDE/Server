@@ -1,5 +1,6 @@
 package me.bluenitrox.school.listener;
 
+import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.enchants.armor.*;
 import me.bluenitrox.school.enchants.bow.*;
 import me.bluenitrox.school.enchants.sword.*;
@@ -23,6 +24,12 @@ public class EntityDamageByEntityEvent implements Listener {
         Pet pet = new Pet();
         EntityHitDelay ehd = new EntityHitDelay();
         pet.damagePetEvent(e);
+        /*
+        In Dungeon
+         */
+        if(DungeonManager.isInDungeon((Player) e.getEntity())){
+            return;
+        }
         if(e.getEntity().getWorld().getName().equalsIgnoreCase(WorldManager.warzone)){
             CombatAPI combat = new CombatAPI();
             combat.onhitCombat(e);

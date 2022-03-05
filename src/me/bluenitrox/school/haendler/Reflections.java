@@ -32,7 +32,10 @@ public class Reflections {
     }
 
     public void sendPacket(Packet<?> packet,Player player){
-        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+        try {
+            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+        }catch (Exception e){
+        }
     }
 
 }

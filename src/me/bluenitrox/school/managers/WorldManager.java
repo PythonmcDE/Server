@@ -1,6 +1,7 @@
 package me.bluenitrox.school.managers;
 
 import com.mysql.jdbc.Buffer;
+import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,7 +14,8 @@ public class WorldManager {
     public static final String warzone = "FISCHMC";
     public static final String arena = "Arena";
     public static final String mine = "FISCHMC";
-    public static final String dungeon = "Dungeon";
+    public static final String dungeon = "FISCHMC";
+    public static final String angelmine = "angelminen";
 
     public static void turnDamageOff(EntityDamageEvent e) {
         if(e.getEntity() instanceof Player) {
@@ -23,6 +25,9 @@ public class WorldManager {
                     if(CombatAPI.playerinwarzone.containsKey((e.getEntity()).getUniqueId())){
                      return;
                     }
+                }
+                if(DungeonManager.isInDungeon(((Player) e.getEntity()).getPlayer())){
+                    return;
                 }
                 e.setCancelled(true);
             }

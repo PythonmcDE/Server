@@ -57,6 +57,7 @@ public class NPCAPI extends Reflections {
     public static NPCAPI Mine = new NPCAPI("§6§lMinenhändler", new LocationManager("NPCMine").getLocation(), skins.VALUE_MINE, skins.SIGNATURE_MINE);
     public static NPCAPI Angelmine = new NPCAPI("§6§lFischer", new LocationManager("NPCAngelmine").getLocation(), skins.VALUE_ANGELMINE, skins.SIGNATURE_ANGELMINE);
     public static NPCAPI Minensettings = new NPCAPI("§6§lSettings", new LocationManager("NPCMinensettings").getLocation(), skins.VALUE_MINE, skins.SIGNATURE_MINE);
+    public static NPCAPI DungeonKeeper = new NPCAPI("§6§lDungeons", new LocationManager("NPCDungeonKeeper").getLocation(), skins.VALUE_DUNGEON, skins.SIGNATURE_DUNGEON);
 
 
     public static LinkedList<Integer> entityids = new LinkedList<>();
@@ -104,53 +105,59 @@ public class NPCAPI extends Reflections {
     }
 
     public static void summonAllNPCS(Player player){
-        dailyreward.rmvFromTablist();
-        dailyreward.spawn(player);
-        Taxi.rmvFromTablist();
-        Taxi.spawn(player);
-        Schmied.rmvFromTablist();
-        Schmied.spawn(player);
-        Koch.rmvFromTablist();
-        Koch.spawn(player);
-        Abenteurer.rmvFromTablist();
-        Abenteurer.spawn(player);
-        Bauarbeiter.rmvFromTablist();
-        Bauarbeiter.spawn(player);
-        Bergmann.rmvFromTablist();
-        Bergmann.spawn(player);
-        Förster.rmvFromTablist();
-        Förster.spawn(player);
-        Gärtner.rmvFromTablist();
-        Gärtner.spawn(player);
-        Landwirt.rmvFromTablist();
-        Landwirt.spawn(player);
-        Künstlerin.rmvFromTablist();
-        Künstlerin.spawn(player);
-        Magier.rmvFromTablist();
-        Magier.spawn(player);
-        Techniker.rmvFromTablist();
-        Techniker.spawn(player);
-        Jäger.rmvFromTablist();
-        Jäger.spawn(player);
-        Dungeon.rmvFromTablist();
-        Dungeon.spawn(player);
-        Mine.rmvFromTablist();
-        Mine.spawn(player);
-        Angelmine.rmvFromTablist();
-        Angelmine.spawn(player);
-        Minensettings.rmvFromTablist();
-        Minensettings.spawn(player);
+        if(dailyreward.location.getWorld().equals(player.getWorld())) {
+            dailyreward.rmvFromTablist();
+            dailyreward.spawn(player);
+            Taxi.rmvFromTablist();
+            Taxi.spawn(player);
+            Schmied.rmvFromTablist();
+            Schmied.spawn(player);
+            Koch.rmvFromTablist();
+            Koch.spawn(player);
+            Abenteurer.rmvFromTablist();
+            Abenteurer.spawn(player);
+            Bauarbeiter.rmvFromTablist();
+            Bauarbeiter.spawn(player);
+            Bergmann.rmvFromTablist();
+            Bergmann.spawn(player);
+            Förster.rmvFromTablist();
+            Förster.spawn(player);
+            Gärtner.rmvFromTablist();
+            Gärtner.spawn(player);
+            Landwirt.rmvFromTablist();
+            Landwirt.spawn(player);
+            Künstlerin.rmvFromTablist();
+            Künstlerin.spawn(player);
+            Magier.rmvFromTablist();
+            Magier.spawn(player);
+            Techniker.rmvFromTablist();
+            Techniker.spawn(player);
+            Jäger.rmvFromTablist();
+            Jäger.spawn(player);
+            Dungeon.rmvFromTablist();
+            Dungeon.spawn(player);
+            Mine.rmvFromTablist();
+            Mine.spawn(player);
+            Angelmine.rmvFromTablist();
+            Angelmine.spawn(player);
+            Minensettings.rmvFromTablist();
+            Minensettings.spawn(player);
+            DungeonKeeper.rmvFromTablist();
+            DungeonKeeper.spawn(player);
 
-        for (int i = 0; i < minenNpcs.size(); i++) {
-            NPCAPI npc = minenNpcs.get(i);
-            npc.rmvFromTablist();
-            npc.spawn(player);
+            for (int i = 0; i < minenNpcs.size(); i++) {
+                NPCAPI npc = minenNpcs.get(i);
+                npc.rmvFromTablist();
+                npc.spawn(player);
+            }
         }
 
         for (int i = 0; i < angelNpcs.size(); i++) {
             NPCAPI npc = angelNpcs.get(i);
-            npc.rmvFromTablist();
-            npc.spawn(player);
+            if(npc.location.getWorld().equals(player.getWorld())) {
+                npc.rmvFromTablist();
+                npc.spawn(player);
+            }
         }
     }
 
@@ -173,6 +180,7 @@ public class NPCAPI extends Reflections {
         Mine.destroy(player);
         Angelmine.destroy(player);
         Minensettings.destroy(player);
+        DungeonKeeper.destroy(player);
 
         for (int i = 0; i < minenNpcs.size(); i++) {
             minenNpcs.get(i).destroy(player);

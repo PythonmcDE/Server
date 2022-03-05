@@ -11,6 +11,7 @@ import me.bluenitrox.school.boost.*;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.dungeon.command.Dungeon;
 import me.bluenitrox.school.dungeon.command.DungeonInventory;
+import me.bluenitrox.school.dungeon.manager.SafezoneManager;
 import me.bluenitrox.school.dungeon.runen.GetRunenCMD;
 import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.features.GetCases;
@@ -119,6 +120,7 @@ public class SchoolMode extends JavaPlugin {
         boosterenable();
         Bukkit.getConsoleSender().sendMessage("§4Befülle alle Minen... §4(8/8)");
         DiscordWebhook.setHook("SchoolAlive-1 wurde gestartet!");
+        SafezoneManager.safeZoneStart();
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
         startNPCS();
         setGameRules();
@@ -587,6 +589,11 @@ public class SchoolMode extends JavaPlugin {
                     world.setGameRuleValue("doTileDrops", "false");
                     world.setGameRuleValue("doDaylightCycle","false");
                     world.setDifficulty(Difficulty.NORMAL);
+                    for(Entity all: world.getEntities()){
+                        if(SafezoneManager.instanceOf(all)) {
+                            all.remove();
+                        }
+                    }
                 }
             }
         }.runTaskLater(getInstance(), 20*10);

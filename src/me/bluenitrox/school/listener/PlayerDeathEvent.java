@@ -2,6 +2,7 @@ package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
+import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.enchants.all.Erhalt;
 import me.bluenitrox.school.enchants.sword.Kopfgeld;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
@@ -33,6 +34,11 @@ public class PlayerDeathEvent implements Listener {
         e.setDeathMessage(null);
         KopfgeldManager km = new KopfgeldManager();
         km.onKill(e);
+        if(DungeonManager.isInDungeon(p)){
+            e.setKeepInventory(true);
+            p.sendMessage(MessageManager.PREFIX + "§7Du bist §cgestorben§7!");
+            return;
+        }
         if(k != null) {
             if(k.getWorld().getName().equalsIgnoreCase(WorldManager.warzone)) {
                 api.updateDeathsDatabase(p.getUniqueId(), 1, false);

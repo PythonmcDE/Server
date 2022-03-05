@@ -1,8 +1,11 @@
 package me.bluenitrox.school.mine.angelmine;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.mysql.MySQL;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +19,12 @@ public class AngelminenManager {
 
     public static HashMap<Player, Integer> playerangelmine = new HashMap<>();
     public static HashMap<String , Integer> angelminen = new HashMap<>();
+
+    public static void onDamage(EntityDamageEvent e){
+        if(e.getEntity().getWorld().getName().equalsIgnoreCase(WorldManager.angelmine)){
+            e.setCancelled(true);
+        }
+    }
 
     public static int getAngelmine(UUID uuid) {
         return SchoolMode.getPlayerAngelMine(uuid);

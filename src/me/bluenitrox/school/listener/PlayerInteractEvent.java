@@ -3,6 +3,7 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
+import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.enchants.pickaxe.Laser;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
@@ -32,7 +33,9 @@ public class PlayerInteractEvent implements Listener {
         Pet pet = new Pet();
 
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            Laser.shootLaser(p);
+            if(!DungeonManager.isInDungeon(p)) {
+                Laser.shootLaser(p);
+            }
             if (p.getItemInHand() != null) {
                 if (p.getItemInHand().getItemMeta() != null) {
                     if(p.getItemInHand().getItemMeta().getDisplayName() != null) {
