@@ -4,6 +4,7 @@ import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
+import me.bluenitrox.school.dungeon.runen.RunenFuctions;
 import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.enchants.pickaxe.Laser;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
@@ -31,6 +32,8 @@ public class PlayerInteractEvent implements Listener {
     public void onInteract(final org.bukkit.event.player.PlayerInteractEvent e){
         Player p = (Player)e.getPlayer();
         Pet pet = new Pet();
+        RunenFuctions runenFuctions = new RunenFuctions();
+        runenFuctions.onInterAct(e);
 
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if(!DungeonManager.isInDungeon(p)) {
