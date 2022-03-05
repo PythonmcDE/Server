@@ -2501,7 +2501,7 @@ public class WerkbankGUIRegister {
             inv.setItem(i, zucker);
         }
         inv.setItem(4, sign);
-        inv.setItem(35, pot);
+        inv.setItem(26, pot);
 
         return inv;
     }

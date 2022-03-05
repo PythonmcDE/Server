@@ -49,7 +49,7 @@ public class RunenFuctions {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20*20, 4));
                     break;
                 case "§eRune der Eile":
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20*60*5, 2));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20*60*5, 9));
                     break;
                 case "§2Rune der Weisheit":
                     runeweisheit.add(player.getUniqueId());

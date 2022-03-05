@@ -58,7 +58,7 @@ public class RunenUtils {
                         ItemStack rune = head.getItem();
                         ItemMeta runenMeta = rune.getItemMeta();
                         runenMeta.setDisplayName("§eRune der Eile");
-                        runenMeta.setLore(Arrays.asList("§6▶ §7Rechtsklicke dieses §eItem§7, um §65 Minuten", "§6▶ §7lang §aEile III §7zu erhalten."));
+                        runenMeta.setLore(Arrays.asList("§6▶ §7Rechtsklicke dieses §eItem§7, um §65 Minuten", "§6▶ §7lang §aEile X §7zu erhalten."));
                         rune.setItemMeta(runenMeta);
                         typeRune = rune;
                     }

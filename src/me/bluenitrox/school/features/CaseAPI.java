@@ -91,7 +91,7 @@ public class CaseAPI {
                     wininv.setItem(4, hopper);
 
 
-                    if(addItemIDBool(inv) == false) {
+                    if(!addItemIDBool(inv)) {
                         wininv.setItem(13, Antidupe.addID(inv.getItem(13)));
                     }else {
                         wininv.setItem(13, inv.getItem(13));
@@ -189,6 +189,7 @@ public class CaseAPI {
             allCasesGet(60, 50, 30, 10);
         } else if (cases == 4) {
             allCasesGet(60, 50, 40, 20);
+            //allCasesGet(5, 15, 20, 60);
         } else if (cases == 5) {
             for (int i = 0; i <= 60; i++) {
                 casepot.add(CaseItems.mysthische.get(new Random().nextInt(CaseItems.mysthische.size())));
@@ -256,11 +257,15 @@ public class CaseAPI {
             return 10;
         }else if(name.startsWith("§6")){
             return 1;
+        }else if(name.startsWith("§e")){
+            return 3;
+        }else if(name.startsWith("§a")){
+            return 1;
         }else if(name.startsWith("§8")){
             return 1;
         }else if(name.startsWith("§5")){
             return 10;
-        }else if(name.startsWith("§9")){
+        } else if(name.startsWith("§9")){
             return 3;
         }else {
             return 8;

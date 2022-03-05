@@ -10,6 +10,7 @@ import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.mine.manager.SellManager;
+import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.ValuetoString;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Material;
@@ -19,8 +20,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Sell implements CommandExecutor {
@@ -67,14 +70,15 @@ public class Sell implements CommandExecutor {
                     }
                 }
                 if(p.getInventory().getItem(i) != null) {
-                    if (p.getInventory().getItem(i).getItemMeta() != null) {
-                        if (p.getInventory().getItem(i).getItemMeta().getDisplayName() != null) {
-                            if (p.getInventory().getItem(i).getItemMeta().getDisplayName().equalsIgnoreCase("§7Lapis")) {
-                                lapispreis += SellManager.pricelapis * p.getInventory().getItem(i).getAmount();
-                                ItemStack air = new ItemStack(Material.AIR);
-                                p.getInventory().setItem(i, air);
-                            }
-                        }
+                    ItemStack redstone = new ItemBuilder(Material.REDSTONE).build();
+                    if (Objects.equals(p.getInventory().getItem(i), new ItemStack(Material.INK_SACK, p.getInventory().getItem(i).getAmount(), (short) 4))) {
+                        lapispreis += SellManager.pricelapis * p.getInventory().getItem(i).getAmount();
+                        ItemStack air = new ItemStack(Material.AIR);
+                        p.getInventory().setItem(i, air);
+                    } else if (p.getInventory().getItem(i) == redstone) {
+                        lapispreis += SellManager.priceredstone * p.getInventory().getItem(i).getAmount();
+                        ItemStack air = new ItemStack(Material.AIR);
+                        p.getInventory().setItem(i, air);
                     }
                 }
             }
@@ -158,18 +162,15 @@ public class Sell implements CommandExecutor {
                         }
                     }
                     if(p.getInventory().getItem(i) != null) {
-                        if (p.getInventory().getItem(i).getItemMeta() != null) {
-                            if (p.getInventory().getItem(i).getItemMeta().getDisplayName() != null) {
-                                if (p.getInventory().getItem(i).getItemMeta().getDisplayName().equalsIgnoreCase("§7Lapis")) {
-                                    lapispreis += SellManager.pricelapis * p.getInventory().getItem(i).getAmount();
-                                    ItemStack air = new ItemStack(Material.AIR);
-                                    p.getInventory().setItem(i, air);
-                                }else if (p.getInventory().getItem(i).getItemMeta().getDisplayName().equalsIgnoreCase("§7Redstone")) {
-                                    lapispreis += SellManager.priceredstone * p.getInventory().getItem(i).getAmount();
-                                    ItemStack air = new ItemStack(Material.AIR);
-                                    p.getInventory().setItem(i, air);
-                                }
-                            }
+                        ItemStack redstone = new ItemBuilder(Material.REDSTONE).build();
+                        if (Objects.equals(p.getInventory().getItem(i), new ItemStack(Material.INK_SACK, p.getInventory().getItem(i).getAmount(), (short) 4))) {
+                            lapispreis += SellManager.pricelapis * p.getInventory().getItem(i).getAmount();
+                            ItemStack air = new ItemStack(Material.AIR);
+                            p.getInventory().setItem(i, air);
+                        } else if (p.getInventory().getItem(i) == redstone) {
+                            lapispreis += SellManager.priceredstone * p.getInventory().getItem(i).getAmount();
+                            ItemStack air = new ItemStack(Material.AIR);
+                            p.getInventory().setItem(i, air);
                         }
                     }
                 }

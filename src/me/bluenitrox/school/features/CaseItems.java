@@ -70,15 +70,15 @@ public class CaseItems {
 
         //Seltene Daily-Items
         ItemStack s1 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                .setAmount(16).setDisplayname("§7Diamantblöcke").build();
+                .setAmount(16).setDisplayname("§eDiamantblöcke").build();
         ItemStack s2 = new ItemBuilder(Material.EMERALD_BLOCK)
-                .setAmount(16).setDisplayname("§7Emeraldblöcke").build();
+                .setAmount(16).setDisplayname("§eEmeraldblöcke").build();
         ItemStack s3 = new ItemBuilder(Material.GOLDEN_APPLE)
-                .setAmount(16).setDisplayname("§7Goldene Äpfel").build();
+                .setAmount(16).setDisplayname("§eGoldene Äpfel").build();
         ItemStack s4 = new ItemBuilder(Material.ENDER_PEARL)
-                .setAmount(16).setDisplayname("§7Enderperlen").build();
+                .setAmount(16).setDisplayname("§eEnderperlen").build();
         ItemStack s5 = new ItemBuilder(Material.ARROW)
-                .setAmount(16).setDisplayname("§7Pfeile").build();
+                .setAmount(16).setDisplayname("§ePfeile").build();
         ItemStack s6 = new ItemBuilder(Material.EXP_BOTTLE)
                 .setDisplayname("§6§lSchool XP").setLore("§b» §6§l2500 XP").build();
 
@@ -117,15 +117,15 @@ public class CaseItems {
 
         //Epische Daily-Items
         ItemStack e1 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                .setAmount(32).setDisplayname("§7Diamantblöcke").build();
+                .setAmount(32).setDisplayname("§5Diamantblöcke").build();
         ItemStack e2 = new ItemBuilder(Material.EMERALD_BLOCK)
-                .setAmount(32).setDisplayname("§7Emeraldblöcke").build();
+                .setAmount(32).setDisplayname("§5Emeraldblöcke").build();
         ItemStack e3 = new ItemBuilder(Material.GOLDEN_APPLE)
-                .setAmount(32).setDisplayname("§7Goldene Äpfel").build();
+                .setAmount(32).setDisplayname("§5Goldene Äpfel").build();
         ItemStack e4 = new ItemBuilder(Material.ENDER_PEARL)
-                .setAmount(32).setDisplayname("§7Enderperlen").build();
+                .setAmount(32).setDisplayname("§5Enderperlen").build();
         ItemStack e5 = new ItemBuilder(Material.ARROW)
-                .setAmount(32).setDisplayname("§7Pfeile").build();
+                .setAmount(32).setDisplayname("§5Pfeile").build();
         ItemStack e6 = new ItemBuilder(Material.EXP_BOTTLE)
                 .setDisplayname("§6§lSchool XP").setLore("§b» §6§l5000 XP").build();
 
@@ -417,15 +417,15 @@ public class CaseItems {
                     .addEnchant(Enchantment.DAMAGE_ALL, 9, true).build();
 
             ItemStack Selten16 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                    .setAmount(16).setDisplayname("§7Diamantblöcke").build();
+                    .setAmount(16).setDisplayname("§eDiamantblöcke").build();
             ItemStack Selten17 = new ItemBuilder(Material.EMERALD_BLOCK)
-                    .setAmount(16).setDisplayname("§7Emeraldblöcke").build();
+                    .setAmount(16).setDisplayname("§eEmeraldblöcke").build();
             ItemStack Selten18 = new ItemBuilder(Material.GOLDEN_APPLE)
-                    .setAmount(16).setDisplayname("§7Goldene Äpfel").build();
+                    .setAmount(16).setDisplayname("§eGoldene Äpfel").build();
             ItemStack Selten19 = new ItemBuilder(Material.ENDER_PEARL)
-                    .setAmount(16).setDisplayname("§7Enderperlen").build();
+                    .setAmount(16).setDisplayname("§eEnderperlen").build();
             ItemStack Selten20 = new ItemBuilder(Material.ARROW)
-                    .setAmount(16).setDisplayname("§7Pfeile").build();
+                    .setAmount(16).setDisplayname("§ePfeile").build();
             ItemStack Selten21 = new ItemBuilder(Material.EXP_BOTTLE)
                     .setDisplayname("§6§lSchool XP").setLore("§b» §6§l2500 XP").build();
 
@@ -529,15 +529,15 @@ public class CaseItems {
                     .addEnchant(Enchantment.DURABILITY, 8, true).addEnchant(Enchantment.LURE, 2, false).build();
 
             ItemStack Episch16 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                    .setAmount(32).setDisplayname("§7Diamantblöcke").build();
+                    .setAmount(32).setDisplayname("§5Diamantblöcke").build();
             ItemStack Episch17 = new ItemBuilder(Material.EMERALD_BLOCK)
-                    .setAmount(32).setDisplayname("§7Emeraldblöcke").build();
+                    .setAmount(32).setDisplayname("§5Emeraldblöcke").build();
             ItemStack Episch18 = new ItemBuilder(Material.GOLDEN_APPLE)
-                    .setAmount(32).setDisplayname("§7Goldene Äpfel").build();
+                    .setAmount(32).setDisplayname("§5Goldene Äpfel").build();
             ItemStack Episch19 = new ItemBuilder(Material.ENDER_PEARL)
-                    .setAmount(32).setDisplayname("§7Enderperlen").build();
+                    .setAmount(32).setDisplayname("§5Enderperlen").build();
             ItemStack Episch20 = new ItemBuilder(Material.ARROW)
-                    .setAmount(32).setDisplayname("§7Pfeile").build();
+                    .setAmount(32).setDisplayname("§5Pfeile").build();
             ItemStack Episch21 = new ItemBuilder(Material.EXP_BOTTLE)
                     .setDisplayname("§6§lSchool XP").setLore("§b» §6§l5000 XP").build();
 
@@ -614,9 +614,9 @@ public class CaseItems {
                     .addEnchant(Enchantment.DAMAGE_ALL, 6, true).addEnchant(Enchantment.DURABILITY, 10, true).build();
 
             ItemStack Legi11 = new ItemBuilder(Material.DIAMOND_BLOCK)
-                    .setAmount(64).setDisplayname("§7Diamantblock").build();
+                    .setAmount(64).setDisplayname("§8Diamantblock").build();
             ItemStack Legi12 = new ItemBuilder(Material.EMERALD_BLOCK)
-                    .setAmount(64).setDisplayname("§7Emeraldblock").build();
+                    .setAmount(64).setDisplayname("§8Emeraldblock").build();
             ItemStack Legi13 = new ItemBuilder(Material.EXP_BOTTLE)
                     .setDisplayname("§6§lSchool XP").setLore("§b» §6§l12000 XP").build();
 
