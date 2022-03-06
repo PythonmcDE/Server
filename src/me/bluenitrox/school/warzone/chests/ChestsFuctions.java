@@ -1,56 +1,94 @@
 package me.bluenitrox.school.warzone.chests;
 
+import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
+import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.managers.LocationManager;
+import me.bluenitrox.school.managers.WorldManager;
+import me.bluenitrox.school.mine.angelmine.PartikelManager;
+import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.RandomGen;
 import me.bluenitrox.school.warzone.CombatAPI;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Random;
 
 public class ChestsFuctions {
 
-    public void onInterAct(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
+    private int maxchestwz1 = 1;
+    private int maxchestwz2 = 0;
+    private int maxchestwz3 = 0;
 
-        if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
-        if(event.getClickedBlock() == null) return;
-        if(event.getClickedBlock().getType() != Material.CHEST) return;
+    public void spawnChest(int warzone, int amount){
+        for(int i = 1; i <= amount; i++){
+            getRandomChestLocation(warzone).getBlock().setType(Material.CHEST);
+            Block block = getRandomChestLocation(warzone).getBlock();
+            Chest chest = (Chest) block.getState();
+            addItems(chest);
+        }
+    }
 
-        CombatAPI combatAPI = new CombatAPI();
-        if(combatAPI.getWarzoneByLocation(player.getLocation()) != null) {
-            if(!(event.getClickedBlock().getType() == Material.CHEST)) return;
-            Chest chest = (Chest) event.getClickedBlock().getState();
-            /*
-            set Books into the chest
-             */
-            //TODO set Item here
-            this.registerAllLoot();
-
-            while (this.registerChestLoot().size() != 0) {
-                Random random = new Random();
-                for (int i = 0; i < this.registerChestLoot().size(); i++) {
-                    if(chest.getInventory().getItem(random.nextInt(chest.getInventory().getSize())) != null) {
-                        chest.getInventory().setItem(random.nextInt(chest.getInventory().getSize()), this.registerChestLoot().get(i));
-                    }
+    private void addItems(Chest chest){
+        LinkedList<Integer> slot = new LinkedList<>();
+        LinkedList<ItemStack> items = registerChestLoot();
+        for(int i = 0; i< items.size(); i++) {
+            if(items.get(i) != null) {
+                Random r = new Random();
+                int z = r.nextInt(chest.getBlockInventory().getSize());
+                while (slot.contains(z)){
+                    z = r.nextInt(chest.getBlockInventory().getSize());
                 }
+                slot.add(z);
+                chest.getBlockInventory().setItem(z, items.get(i));
             }
         }
     }
 
-    private void registerAllLoot() {
-        ChestLoot chestLoot = new ChestLoot();
-        chestLoot.registerBooks();
-        chestLoot.registerCases();
-        chestLoot.registerErze();
-        chestLoot.registerPotions();
-        chestLoot.registerExtra();
-        chestLoot.registerFood();
-        chestLoot.registerSchoolXP();
+    private Location getRandomChestLocation(int warzone){
+        Random r = new Random();
+        int z = r.nextInt(getMaxChest(warzone) +1);
+        while (z == 0){
+            z =  r.nextInt(getMaxChest(warzone) +1);
+        }
+        return new LocationManager("Chest" +z+ "Warzone" + warzone).getLocation();
+    }
+
+    private int getMaxChest(int warzone){
+        if(warzone == 1){
+            return maxchestwz1;
+        }else if(warzone == 2){
+            return maxchestwz2;
+        }else if(warzone == 3){
+            return maxchestwz3;
+        }
+        return 0;
+    }
+
+    public void closeChest(InventoryCloseEvent event){
+        CombatAPI api = new CombatAPI();
+        if(api.getWarzoneByLocation(event.getPlayer().getLocation()) != null){
+            if(event.getInventory().getHolder() instanceof Chest){
+                Chest chest = (Chest) event.getInventory().getHolder();
+                chest.getBlockInventory().clear();
+                chest.getBlock().breakNaturally();
+                Player player = (Player)event.getPlayer();
+                player.playSound(player.getLocation(), Sound.BAT_DEATH, 1L, 1L);
+            }
+        }
     }
 
     private LinkedList<ItemStack> registerChestLoot() {

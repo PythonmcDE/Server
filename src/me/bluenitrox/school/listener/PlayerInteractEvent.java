@@ -18,6 +18,7 @@ import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.warzone.CombatAPI;
 import me.bluenitrox.school.warzone.chests.ChestsFuctions;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -27,6 +28,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashMap;
+
 public class PlayerInteractEvent implements Listener {
 
     @EventHandler
@@ -35,9 +38,6 @@ public class PlayerInteractEvent implements Listener {
         Pet pet = new Pet();
         RunenFuctions runenFuctions = new RunenFuctions();
         runenFuctions.onInterAct(e);
-        ChestsFuctions chestsFuctions = new ChestsFuctions();
-        chestsFuctions.onInterAct(e);
-
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if(!DungeonManager.isInDungeon(p)) {
                 Laser.shootLaser(p);

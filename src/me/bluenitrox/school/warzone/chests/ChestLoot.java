@@ -216,21 +216,21 @@ public class ChestLoot {
         /**
          * @normal Potions
          */
-        ItemStack speed = new ItemStack(Material.POTION, (short) 8194);
-        ItemStack strenght = new ItemStack(Material.POTION, (short) 8201);
-        ItemStack fireresistance = new ItemStack(Material.POTION, (short) 8227);
-        ItemStack heal = new ItemStack(Material.POTION, (short) 8261);
-        ItemStack jumpboost = new ItemStack(Material.POTION, (short) 8203);
-        ItemStack regeneration = new ItemStack(Material.POTION, (short) 8193);
-        ItemStack invisibility = new ItemStack(Material.POTION, (short) 8238);
+        ItemStack speed = new ItemStack(Material.POTION, 1,(short) 8194);
+        ItemStack strenght = new ItemStack(Material.POTION, 1,(short) 8201);
+        ItemStack fireresistance = new ItemStack(Material.POTION, 1,(short) 8227);
+        ItemStack heal = new ItemStack(Material.POTION, 1,(short) 8261);
+        ItemStack jumpboost = new ItemStack(Material.POTION, 1,(short) 8203);
+        ItemStack regeneration = new ItemStack(Material.POTION, 1,(short) 8193);
+        ItemStack invisibility = new ItemStack(Material.POTION, 1,(short) 8238);
 
         /**
          * @splash Potions
          */
-        ItemStack damage = new ItemStack(Material.POTION, (short) 16428);
-        ItemStack poison = new ItemStack(Material.POTION, (short) 16388);
-        ItemStack schwaeche = new ItemStack(Material.POTION, (short) 16424);
-        ItemStack slowness = new ItemStack(Material.POTION, (short) 16426);
+        ItemStack damage = new ItemStack(Material.POTION, 1,(short) 16428);
+        ItemStack poison = new ItemStack(Material.POTION, 1,(short) 16388);
+        ItemStack schwaeche = new ItemStack(Material.POTION,1, (short) 16424);
+        ItemStack slowness = new ItemStack(Material.POTION, 1,(short) 16426);
 
         /**
          * @this.potions add Potions in LinkedList

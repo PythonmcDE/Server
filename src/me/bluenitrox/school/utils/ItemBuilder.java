@@ -131,7 +131,6 @@ public class ItemBuilder {
             NBTTags nbttags = new NBTTags(itemStack);
             nbttags.setNBTTag("Rareness", "Selten");
         }else{
-            itemStack.setItemMeta(itemMeta);
             NBTTags nbttags = new NBTTags(itemStack);
             nbttags.setNBTTag("Rareness", "Gewöhnlich");
         }

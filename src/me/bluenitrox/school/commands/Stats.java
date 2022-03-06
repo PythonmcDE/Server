@@ -1,17 +1,13 @@
 package me.bluenitrox.school.commands;
 
-import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.features.CaseAPI;
 import me.bluenitrox.school.features.StatsAPI;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
-import me.bluenitrox.school.mine.angelmine.AngelminenManager;
-import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.utils.GetDisplayColor;
+import me.bluenitrox.school.utils.NameFetcher;
 import me.bluenitrox.school.utils.UUIDFetcher;
-import me.bluenitrox.school.utils.UUIDFetcherWithName;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -63,7 +59,7 @@ public class Stats implements CommandExecutor {
                 p.sendMessage(MessageManager.PREFIX + "§7Dieser Spieler wurde §cnicht §7gefunden.");
                 return true;
             }
-            playername = GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(uuid)) + UUIDFetcherWithName.getName(uuid);
+            playername = GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(uuid)) + NameFetcher.getName(uuid);
             try {
                 p.sendMessage("§a§lPythonMC " + "§b» §7Statistiken von " + playername);
                 p.sendMessage("§b» §7Kills: §6§l" + api.getKillsDatabase(uuid));

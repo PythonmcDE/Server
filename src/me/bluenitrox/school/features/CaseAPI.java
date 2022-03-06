@@ -50,9 +50,6 @@ public class CaseAPI {
 
         for (int i = 9; i <= 17; i++) {
             inv.setItem(i, caseitemshash.get(p).get(i));
-            Bukkit.broadcastMessage("§9" + ItemBuilder.getRareness(caseitemshash.get(p).get(i)));
-            Bukkit.broadcastMessage(rareFromItemToShort(caseitemshash.get(p).get(i)) + "");
-            Bukkit.broadcastMessage(rareFromShort(caseitemshash.get(p).get(i)) + "");
             inv.setItem(i - 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromItemToShort(caseitemshash.get(p).get(i))).setDisplayname(rareFromShort(caseitemshash.get(p).get(i))).build());
             inv.setItem(i + 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromItemToShort(caseitemshash.get(p).get(i))).setDisplayname(rareFromShort(caseitemshash.get(p).get(i))).build());
         }
