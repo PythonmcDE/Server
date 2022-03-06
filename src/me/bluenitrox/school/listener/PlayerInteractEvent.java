@@ -16,6 +16,7 @@ import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.warzone.CombatAPI;
+import me.bluenitrox.school.warzone.chests.ChestsFuctions;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -34,6 +35,8 @@ public class PlayerInteractEvent implements Listener {
         Pet pet = new Pet();
         RunenFuctions runenFuctions = new RunenFuctions();
         runenFuctions.onInterAct(e);
+        ChestsFuctions chestsFuctions = new ChestsFuctions();
+        chestsFuctions.onInterAct(e);
 
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if(!DungeonManager.isInDungeon(p)) {
