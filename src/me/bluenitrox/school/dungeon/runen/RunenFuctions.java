@@ -60,6 +60,7 @@ public class RunenFuctions {
                             player.sendMessage(MessageManager.PREFIX + "§7Deine Rune ist nun §cabgelaufen§7!");
                         }
                     }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20*60*15);
+                    //TODO CHEST SYSTEM ADD
                     break;
                 case "§6Rune der Stärke":
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*60*5, 1));

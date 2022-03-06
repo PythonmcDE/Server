@@ -1,6 +1,7 @@
 package me.bluenitrox.school.utils;
 
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -9,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ItemBuilder {
     public static ItemStack itemStack;
@@ -43,6 +45,42 @@ public class ItemBuilder {
 		return this;
 	}*/
 
+    public static Rareness getRareness(ItemStack item){
+        if(NBTTags.hasTag("Rareness", item)){
+            NBTTags nbt = new NBTTags(item);
+            String[] test = nbt.getNBTTag("Rareness").toString().split("\"");
+            String rareness = test[1];
+            if(Objects.equals(rareness, "Legendär")){
+                return Rareness.LEGENDÄR;
+            }else if(Objects.equals(rareness, "Episch")){
+                return Rareness.EPISCH;
+            }else if(Objects.equals(rareness, "Mysthisch")){
+                return Rareness.MYSTHISCH;
+            }else if(Objects.equals(rareness, "Selten")){
+                return Rareness.SELTEN;
+            }else if(Objects.equals(rareness, "Gewöhnlich")){
+                return Rareness.GEWÖHNLICH;
+            }
+        }
+        return Rareness.GEWÖHNLICH;
+    }
+
+    public static String getColorByRareness(Rareness rareness){
+        if(rareness == Rareness.MYSTHISCH){
+            return "§6";
+        }else if(rareness == Rareness.LEGENDÄR){
+            return "§6";
+        }else if(rareness == Rareness.EPISCH){
+            return "§5";
+        }else if(rareness == Rareness.SELTEN){
+            return "§e";
+        }else if(rareness == Rareness.GEWÖHNLICH){
+            return "§7";
+        }else {
+            return "§7";
+        }
+    }
+
     public ItemBuilder setAmount(int amount) {
         this.itemStack.setAmount(amount);
         return this;
@@ -75,6 +113,28 @@ public class ItemBuilder {
         this.itemStack.setItemMeta(this.itemMeta);
         NBTTags nbttags = new NBTTags(this.itemStack);
         nbttags.setNBTTag("invsafeid", nbt);
+        return this.itemStack;
+    }
+
+    public ItemStack build(Rareness rareness) {
+        this.itemStack.setItemMeta(this.itemMeta);
+        if(rareness.equals(Rareness.MYSTHISCH)){
+            NBTTags nbttags = new NBTTags(itemStack);
+            nbttags.setNBTTag("Rareness", "Mysthisch");
+        }else if(rareness.equals(Rareness.LEGENDÄR)){
+            NBTTags nbttags = new NBTTags(itemStack);
+            nbttags.setNBTTag("Rareness", "Legendär");
+        }else if(rareness.equals(Rareness.EPISCH)){
+            NBTTags nbttags = new NBTTags(itemStack);
+            nbttags.setNBTTag("Rareness", "Episch");
+        }else if(rareness.equals(Rareness.SELTEN)){
+            NBTTags nbttags = new NBTTags(itemStack);
+            nbttags.setNBTTag("Rareness", "Selten");
+        }else{
+            itemStack.setItemMeta(itemMeta);
+            NBTTags nbttags = new NBTTags(itemStack);
+            nbttags.setNBTTag("Rareness", "Gewöhnlich");
+        }
         return this.itemStack;
     }
 

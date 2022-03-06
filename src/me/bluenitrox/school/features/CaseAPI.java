@@ -2,13 +2,12 @@ package me.bluenitrox.school.features;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
-import me.bluenitrox.school.utils.Antidupe;
-import me.bluenitrox.school.utils.Firework;
-import me.bluenitrox.school.utils.ItemBuilder;
+import me.bluenitrox.school.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -51,10 +50,11 @@ public class CaseAPI {
 
         for (int i = 9; i <= 17; i++) {
             inv.setItem(i, caseitemshash.get(p).get(i));
-            inv.setItem(i - 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))
-                    .setDisplayname(rareFromShort(rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))).build());
-            inv.setItem(i + 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))
-                    .setDisplayname(rareFromShort(rareFromColor(caseitemshash.get(p).get(i).getItemMeta().getDisplayName()))).build());
+            Bukkit.broadcastMessage("§9" + ItemBuilder.getRareness(caseitemshash.get(p).get(i)));
+            Bukkit.broadcastMessage(rareFromItemToShort(caseitemshash.get(p).get(i)) + "");
+            Bukkit.broadcastMessage(rareFromShort(caseitemshash.get(p).get(i)) + "");
+            inv.setItem(i - 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromItemToShort(caseitemshash.get(p).get(i))).setDisplayname(rareFromShort(caseitemshash.get(p).get(i))).build());
+            inv.setItem(i + 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromItemToShort(caseitemshash.get(p).get(i))).setDisplayname(rareFromShort(caseitemshash.get(p).get(i))).build());
         }
 
         inv.setItem(4, hopper);
@@ -110,22 +110,19 @@ public class CaseAPI {
                     if (i1 <= 16) {
                         if(i1 == 13){
                             inv.setItem(i1, inv.getItem(i1 + 1));
-                            inv.setItem(i1+9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(inv.getItem(i1+1).getItemMeta().getDisplayName()))
-                                    .setDisplayname(rareFromShort(rareFromColor(inv.getItem(i1+1).getItemMeta().getDisplayName()))).build());
+                            inv.setItem(i1+9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromItemToShort(inv.getItem(i1+1)))
+                                    .setDisplayname(rareFromShort(inv.getItem(i1+1))).build());
                         }else {
                             inv.setItem(i1, inv.getItem(i1 + 1));
-                            inv.setItem(i1 + 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(inv.getItem(i1 + 1).getItemMeta().getDisplayName()))
-                                    .setDisplayname(rareFromShort(rareFromColor(inv.getItem(i1 + 1).getItemMeta().getDisplayName()))).build());
-                            inv.setItem(i1 - 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(inv.getItem(i1 + 1).getItemMeta().getDisplayName()))
-                                    .setDisplayname(rareFromShort(rareFromColor(inv.getItem(i1 + 1).getItemMeta().getDisplayName()))).build());
+                            inv.setItem(i1 + 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromItemToShort(inv.getItem(i1 + 1))).setDisplayname(rareFromShort(inv.getItem(i1 + 1))).build());
+                            inv.setItem(i1 - 9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromItemToShort(inv.getItem(i1 + 1)))
+                                    .setDisplayname(rareFromShort(inv.getItem(i1 + 1))).build());
                         }
                     } else {
                         ItemStack is = caseitemshash.get(p).get(new Random().nextInt(caseitemshash.get(p).size()));
                         inv.setItem(i1, is);
-                        inv.setItem(i1-9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(is.getItemMeta().getDisplayName()))
-                                .setDisplayname(rareFromShort(rareFromColor(is.getItemMeta().getDisplayName()))).build());
-                        inv.setItem(i1+9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromColor(is.getItemMeta().getDisplayName()))
-                                .setDisplayname(rareFromShort(rareFromColor(is.getItemMeta().getDisplayName()))).build());
+                        inv.setItem(i1-9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromItemToShort(is)).setDisplayname(rareFromShort(is)).build());
+                        inv.setItem(i1+9, new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromItemToShort(is)).setDisplayname(rareFromShort(is)).build());
 
                     }
                 }
@@ -154,7 +151,6 @@ public class CaseAPI {
 
         registerAllInRightOrder(cases, caseitems);
 
-
         caseitemshash.put(p, casepot);
 
     }
@@ -178,7 +174,7 @@ public class CaseAPI {
 
 
         if (cases == 0) {
-            for (int i = 0; i <= 128; i++) {
+            for (int i = 0; i < CaseItems.daily.size(); i++) {
                 casepot.add(CaseItems.daily.get(new Random().nextInt(CaseItems.daily.size())));
             }
         } else if (cases == 1) {
@@ -252,37 +248,33 @@ public class CaseAPI {
         }
     }
 
-    private short rareFromColor(String name){
-        if(name.startsWith("§6§l")){
-            return 10;
-        }else if(name.startsWith("§6")){
+    private short rareFromItemToShort(ItemStack item){
+        if(ItemBuilder.getRareness(item).equals(Rareness.MYSTHISCH)){
             return 1;
-        }else if(name.startsWith("§e")){
-            return 3;
-        }else if(name.startsWith("§a")){
-            return 1;
-        }else if(name.startsWith("§8")){
-            return 1;
-        }else if(name.startsWith("§5")){
-            return 10;
-        } else if(name.startsWith("§9")){
+        }else if(ItemBuilder.getRareness(item).equals(Rareness.LEGENDÄR)){
+            return 14;
+        }else if(ItemBuilder.getRareness(item).equals(Rareness.EPISCH)){
+            return 2;
+        }else if(ItemBuilder.getRareness(item).equals(Rareness.SELTEN)){
             return 3;
         }else {
-            return 8;
+            return 7;
         }
     }
 
-    private String rareFromShort(short rare){
-        if(rare == 1){
-            return "§6§lLegendär";
-        }else if(rare == 10){
+    private String rareFromShort(ItemStack item){
+        if(ItemBuilder.getRareness(item).equals(Rareness.LEGENDÄR)){
+            return "§c§lLegendär";
+        }else if(ItemBuilder.getRareness(item).equals(Rareness.EPISCH)){
             return "§5§lEpisch";
-        }else if(rare == 3){
+        }else if(ItemBuilder.getRareness(item).equals(Rareness.MYSTHISCH)){
+            return "§6§lMysthisch";
+        }else if(ItemBuilder.getRareness(item).equals(Rareness.SELTEN)) {
             return "§b§lSelten";
-        }else if(rare == 8){
+        }else if(ItemBuilder.getRareness(item).equals(Rareness.GEWÖHNLICH)){
             return "§7§lGewöhnlich";
         }else {
-            return null;
+            return "§7§lGewöhnlich";
         }
     }
 
