@@ -3,17 +3,11 @@ package me.bluenitrox.school.listener;
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.aufgabensystem.Aufgaben;
 import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
-import me.bluenitrox.school.commands.NBTTagtest;
-import me.bluenitrox.school.commands.School;
 import me.bluenitrox.school.haendler.NPCAPI;
-import me.bluenitrox.school.haendler.PacketReader;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
 import me.bluenitrox.school.mine.manager.MinenSettings;
-import me.bluenitrox.school.utils.Antidupe;
-import me.bluenitrox.school.utils.ArmorUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,9 +16,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.HashMap;
-import java.util.LinkedList;
 
 public class PlayerJoinListener implements Listener {
 

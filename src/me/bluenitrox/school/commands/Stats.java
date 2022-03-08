@@ -1,6 +1,6 @@
 package me.bluenitrox.school.commands;
 
-import me.bluenitrox.school.features.StatsAPI;
+import me.bluenitrox.school.features.stats.StatsAPI;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;

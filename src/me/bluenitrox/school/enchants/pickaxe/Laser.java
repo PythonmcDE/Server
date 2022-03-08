@@ -1,8 +1,8 @@
 package me.bluenitrox.school.enchants.pickaxe;
 
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.enchants.EnchantAPI;
-import me.bluenitrox.school.managers.EnchantManager;
+import me.bluenitrox.school.enchants.function.EnchantAPI;
+import me.bluenitrox.school.enchants.function.EnchantManager;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.scheduler.BukkitRunnable;

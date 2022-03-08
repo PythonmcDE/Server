@@ -1,6 +1,6 @@
 package me.bluenitrox.school.commands;
 
-import me.bluenitrox.school.features.KitAPI;
+import me.bluenitrox.school.features.kit.KitAPI;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.warzone.CombatAPI;

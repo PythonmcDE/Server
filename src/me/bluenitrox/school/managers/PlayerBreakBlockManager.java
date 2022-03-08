@@ -1,19 +1,11 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.commands.Build;
 import me.bluenitrox.school.enchants.pickaxe.Zorn;
 import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mysql.MySQL;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.enchantments.EnchantmentTarget;
-import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

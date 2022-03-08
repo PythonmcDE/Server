@@ -5,7 +5,6 @@ import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
-import me.bluenitrox.school.plots.PlotCommandList;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

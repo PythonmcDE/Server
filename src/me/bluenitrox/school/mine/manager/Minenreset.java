@@ -1,18 +1,12 @@
 package me.bluenitrox.school.mine.manager;
 
 import de.Herbystar.TTA.TTA_Methods;
-import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.commands.School;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.WorldManager;
-import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.MaterialData;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 

@@ -1,6 +1,10 @@
 package me.bluenitrox.school.boost;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.boost.booster.Angelbooster;
+import me.bluenitrox.school.boost.booster.Dungeonbooster;
+import me.bluenitrox.school.boost.booster.Gembooster;
+import me.bluenitrox.school.boost.booster.Xpbooster;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

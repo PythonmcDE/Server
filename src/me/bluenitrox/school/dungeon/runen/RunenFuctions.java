@@ -12,18 +12,16 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Member;
+import java.sql.DatabaseMetaData;
 import java.util.LinkedList;
 import java.util.UUID;
 
 public class RunenFuctions {
 
-    public static LinkedList<UUID> runejagd = new LinkedList<>();
-    public static LinkedList<UUID> runebeschleunigung = new LinkedList<>();
-    public static LinkedList<UUID> runeweisheit = new LinkedList<>();
-
-
+    Data data = new Data();
     public void onInterAct(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+
 
         if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if(event.getItem() == null) return;
@@ -32,17 +30,17 @@ public class RunenFuctions {
 
             switch (event.getItem().getItemMeta().getDisplayName()) {
                 case "§cRune der Jagd":
-                    runejagd.add(player.getUniqueId());
+                    data.setRuneJagd(player.getUniqueId());
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            runejagd.remove(player.getUniqueId());
+                            data.removeRuneJagd(player.getUniqueId());
                             player.sendMessage(MessageManager.PREFIX + "§7Deine Rune ist nun §cabgelaufen§7!");
                         }
                     }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20*60*10);
                     break;
                 case "§fRune der Beschleunigung":
-                    runebeschleunigung.add(player.getUniqueId());
+                    //runebeschleunigung.add(player.getUniqueId());
                     break;
                 case "§6Engelsrune":
                     player.setMaxHealth(player.getMaxHealth());
@@ -52,11 +50,11 @@ public class RunenFuctions {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20*60*5, 9));
                     break;
                 case "§2Rune der Weisheit":
-                    runeweisheit.add(player.getUniqueId());
+                    //runeweisheit.add(player.getUniqueId());
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            runeweisheit.remove(player.getUniqueId());
+                            //data.runeweisheit.remove(player.getUniqueId());
                             player.sendMessage(MessageManager.PREFIX + "§7Deine Rune ist nun §cabgelaufen§7!");
                         }
                     }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20*60*15);
@@ -82,12 +80,13 @@ public class RunenFuctions {
     }
 
     public static boolean speedUpRune(UUID uuid){
-        if(runebeschleunigung != null) {
-            if (runebeschleunigung.contains(uuid)) {
+        Data data = new Data();
+        //if(data.runebeschleunigung != null) {
+            //if (data.runebeschleunigung.contains(uuid)) {
                 return true;
-            }
-        }
-        return false;
+           // }
+        //}
+       // return false;
     }
 
 }

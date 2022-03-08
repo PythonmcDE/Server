@@ -10,13 +10,10 @@ import java.util.List;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.commands.Mine;
-import me.bluenitrox.school.commands.NBTTagtest;
-import me.bluenitrox.school.commands.School;
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
-import me.bluenitrox.school.features.DailyReward;
+import me.bluenitrox.school.features.dailyreward.DailyReward;
 import me.bluenitrox.school.haendler.commands.*;
 import me.bluenitrox.school.managers.LocationManager;
-import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.mine.angelmine.Angelmine;
 import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import me.bluenitrox.school.mine.commands.Sell;

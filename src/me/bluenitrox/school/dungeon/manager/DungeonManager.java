@@ -2,10 +2,15 @@ package me.bluenitrox.school.dungeon.manager;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
+import me.bluenitrox.school.dungeon.runen.RunenUtils;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.WorldManager;
+import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
+import me.bluenitrox.school.utils.RandomGen;
+import net.minecraft.server.v1_8_R3.EntitySkeleton;
+import net.minecraft.server.v1_8_R3.World;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -34,9 +39,9 @@ public class DungeonManager {
         playerdungeon.remove(p);
     }
 
-    public static boolean isInDungeon(Player player){
+    public static boolean isInDungeon(Player entity){
         if(playerdungeon != null) {
-            if (playerdungeon.containsKey(player)) {
+            if (playerdungeon.containsKey(entity)) {
                 return true;
             }
         }
@@ -81,6 +86,8 @@ public class DungeonManager {
                     LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
                     entity.setCustomName("§fZombie §8(§7Level §61§8)");
                     entity.setCustomNameVisible(true);
+                    entity.setMaxHealth(60);
+                    entity.setHealth(60);
                     entity.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
                     entity.getEquipment().setChestplate(new ItemBuilder(Material.AIR).build());
                     entity.getEquipment().setLeggings(new ItemBuilder(Material.AIR).build());
@@ -91,6 +98,8 @@ public class DungeonManager {
                     LivingEntity entity2 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
                     entity2.setCustomName("§fSkelett §8(§7Level §61§8)");
                     entity2.setCustomNameVisible(true);
+                    entity2.setMaxHealth(70);
+                    entity2.setHealth(70);
                     entity2.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
                     entity2.getEquipment().setChestplate(new ItemBuilder(Material.AIR).build());
                     entity2.getEquipment().setLeggings(new ItemBuilder(Material.AIR).build());
@@ -101,6 +110,8 @@ public class DungeonManager {
                     LivingEntity entity3 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SPIDER);
                     entity3.setCustomName("§fSpinne §8(§7Level §61§8)");
                     entity3.setCustomNameVisible(true);
+                    entity3.setMaxHealth(60);
+                    entity3.setHealth(60);
                     break;
             }
         }else if (dungeon == 2) {
@@ -109,6 +120,8 @@ public class DungeonManager {
                     //Zombie
                     LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
                     entity.setCustomName("§fZombie §8(§7Level §65§8)");
+                    entity.setMaxHealth(120);
+                    entity.setHealth(120);
                     entity.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
                     entity.getEquipment().setBoots(new ItemBuilder(Material.AIR).build());
                     entity.getEquipment().setItemInHand(new ItemBuilder(Material.IRON_SWORD).addEnchant(Enchantment.DAMAGE_ALL, 4, false).build());
@@ -121,6 +134,8 @@ public class DungeonManager {
                     LivingEntity entity2 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
                     entity2.setCustomName("§fSkelett §8(§7Level §65§8)");
                     entity2.setCustomNameVisible(true);
+                    entity2.setMaxHealth(140);
+                    entity2.setHealth(140);
                     entity2.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
                     entity2.getEquipment().setChestplate(new ItemBuilder(Material.AIR).build());
                     entity2.getEquipment().setLeggings(new ItemBuilder(Material.AIR).build());
@@ -132,6 +147,8 @@ public class DungeonManager {
                     //Hexe
                     LivingEntity entity3 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.WITCH);
                     entity3.setCustomName("§fHexe §8(§7Level §65§8)");
+                    entity3.setMaxHealth(120);
+                    entity3.setHealth(120);
                     entity3.setCustomNameVisible(true);
                     break;
             }
@@ -140,9 +157,12 @@ public class DungeonManager {
                 case 1:
                     //Skelett
                     //TODO am besten zu Witherskelett ändern
-                    LivingEntity entity3 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
-                    entity3.setCustomName("§fSkelett §8(§7Level §610§8)");
+                    Skeleton entity3 = (Skeleton) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
+                    entity3.setSkeletonType(Skeleton.SkeletonType.WITHER);
+                    entity3.setCustomName("§fWitherskelett §8(§7Level §610§8)");
                     entity3.setCustomNameVisible(true);
+                    entity3.setMaxHealth(180);
+                    entity3.setHealth(180);
                     entity3.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
                     entity3.getEquipment().setBoots(new ItemBuilder(Material.AIR).build());
                     entity3.getEquipment().setItemInHand(new ItemBuilder(Material.STONE_SWORD).addEnchant(Enchantment.DAMAGE_ALL, 6, true).build());
@@ -154,6 +174,8 @@ public class DungeonManager {
                     LivingEntity entity2 = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.PIG_ZOMBIE);
                     entity2.setCustomName("§fZombie-Pigman §8(§7Level §610§8)");
                     entity2.setCustomNameVisible(true);
+                    entity2.setMaxHealth(210);
+                    entity2.setHealth(210);
                     entity2.getEquipment().setHelmet(new ItemBuilder(Material.AIR).build());
                     entity2.getEquipment().setBoots(new ItemBuilder(Material.AIR).build());
                     entity2.getEquipment().setItemInHand(new ItemBuilder(Material.GOLD_SWORD).addEnchant(Enchantment.DAMAGE_ALL, 6, true).build());
@@ -164,13 +186,24 @@ public class DungeonManager {
                     //Blaze
                     LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.BLAZE);
                     entity.setCustomName("§fLohe §8(§7Level §610§8)");
+                    entity.setMaxHealth(180);
+                    entity.setHealth(180);
                     entity.setCustomNameVisible(true);
                     break;
             }
         }
     }
 
-    public static void entityDeathItemAdd(EntityDeathEvent e){
+    public void entityDeathItemAdd(EntityDeathEvent e){
+
+        if(e.getEntity().getKiller() == null) return;
+            if(!(e.getEntity().getKiller() instanceof Player)) return;
+                Player player = e.getEntity().getKiller();
+                UUID uuid = e.getEntity().getKiller().getUniqueId();
+                if (AufgabenManager.getTask(uuid) == 21) {
+                    AufgabenManager.onComplete(uuid,21);
+                }
+
         if(e.getEntity().getWorld().getName().equalsIgnoreCase(WorldManager.dungeon)){
             if(e.getEntity() instanceof Zombie){
                 if(e.getEntity().getName() != null) {
@@ -178,12 +211,23 @@ public class DungeonManager {
                         if(e.getDrops() != null) {
                             e.getDrops().clear();
                         }
+                        e.setDroppedExp(0);
+                        //e.getDrops().add(new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombie Haut").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
                         e.getDrops().add(new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombie Haut").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
+                        if(runenChance(1, 2) == 1) {
+                            RunenUtils runenUtils = new RunenUtils();
+                            player.getInventory().addItem(Antidupe.addID(runenUtils.getRune("fire_rune")));
+                        }
                     }else if (e.getEntity().getName().equalsIgnoreCase("§fZombie §8(§7Level §65§8)")) {
                         if(e.getDrops() != null) {
                             e.getDrops().clear();
                         }
+                        e.setDroppedExp(0);
                         e.getDrops().add(new ItemBuilder(Material.SKULL_ITEM,(short) 2).setDisplayname("§aGammeliger Zombiekopf").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
+                        if(runenChance(1, 1500) == 5) {
+                            RunenUtils runenUtils = new RunenUtils();
+                            player.getInventory().addItem(Antidupe.addID(runenUtils.getRune("strenght_rune")));
+                        }
                     }
                 }
             }else if(e.getEntity() instanceof Skeleton){
@@ -192,17 +236,32 @@ public class DungeonManager {
                         if(e.getDrops() != null) {
                             e.getDrops().clear();
                         }
+                        e.setDroppedExp(0);
                         e.getDrops().add(new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebroche Pfeilspitze").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
+                        if(runenChance(1, 250) == 5) {
+                            RunenUtils runenUtils = new RunenUtils();
+                            player.getInventory().addItem(Antidupe.addID(runenUtils.getRune("water_rune")));
+                        }
                     }else if (e.getEntity().getName().equalsIgnoreCase("§fSkelett §8(§7Level §65§8)")) {
                         if(e.getDrops() != null) {
                             e.getDrops().clear();
                         }
+                        e.setDroppedExp(0);
                         e.getDrops().add(new ItemBuilder(Material.SKULL_ITEM).setDisplayname("§aZerbrechlicher Skelettschädel").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
-                    }else if (e.getEntity().getName().equalsIgnoreCase("§fSkelett §8(§7Level §610§8)")) {
+                        if(runenChance(1, 1500) == 5) {
+                            RunenUtils runenUtils = new RunenUtils();
+                            player.getInventory().addItem(Antidupe.addID(runenUtils.getRune("earth_rune")));
+                        }
+                    }else if (e.getEntity().getName().equalsIgnoreCase("§fWitherskelett §8(§7Level §610§8)")) {
                         if(e.getDrops() != null) {
                             e.getDrops().clear();
                         }
+                        e.setDroppedExp(0);
                         e.getDrops().add(new ItemBuilder(Material.SKULL_ITEM,(short)1).setDisplayname("§aVerkohlter Skelettschädel").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
+                        if(runenChance(1, 2000) == 5) {
+                            RunenUtils runenUtils = new RunenUtils();
+                            player.getInventory().addItem(Antidupe.addID(runenUtils.getRune("engels_rune")));
+                        }
                     }
                 }
             }else if(e.getEntity() instanceof Spider){
@@ -211,7 +270,12 @@ public class DungeonManager {
                         if(e.getDrops() != null) {
                             e.getDrops().clear();
                         }
+                        e.setDroppedExp(0);
                         e.getDrops().add(new ItemBuilder(Material.SPIDER_EYE).setDisplayname("§aSpinnenfuß").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
+                        if(runenChance(1, 500) == 5) {
+                            RunenUtils runenUtils = new RunenUtils();
+                            player.getInventory().addItem(Antidupe.addID(runenUtils.getRune("speed_rune")));
+                        }
                     }
                 }
             }else if(e.getEntity() instanceof Witch){
@@ -220,7 +284,12 @@ public class DungeonManager {
                         if(e.getDrops() != null){
                             e.getDrops().clear();
                         }
+                        e.setDroppedExp(0);
                         e.getDrops().add(new ItemBuilder(Material.INK_SACK,(short)7).setDisplayname("§aWollfetzen eines Hexenhuts").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
+                        if(runenChance(1, 1500) == 5) {
+                            RunenUtils runenUtils = new RunenUtils();
+                            player.getInventory().addItem(Antidupe.addID(runenUtils.getRune("fastmine_rune")));
+                        }
                     }
                 }
             }else if(e.getEntity() instanceof PigZombie){
@@ -229,7 +298,12 @@ public class DungeonManager {
                         if(e.getDrops() != null){
                             e.getDrops().clear();
                         }
+                        e.setDroppedExp(0);
                         e.getDrops().add(new ItemBuilder(Material.GOLD_NUGGET).setDisplayname("§aGoldener Klumpen").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
+                        if(runenChance(1, 2500) == 5) {
+                            RunenUtils runenUtils = new RunenUtils();
+                            player.getInventory().addItem(Antidupe.addID(runenUtils.getRune("darkness_rune")));
+                        }
                     }
                 }
             }else if(e.getEntity() instanceof Blaze){
@@ -238,20 +312,24 @@ public class DungeonManager {
                         if(e.getDrops() != null){
                             e.getDrops().clear();
                         }
+                        e.setDroppedExp(0);
                         e.getDrops().add(new ItemBuilder(Material.BLAZE_POWDER).setDisplayname("§aHeiße Lohenglut").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
-                    }
-                }
-            }
-            if(e.getEntity().getKiller() != null) {
-                if(e.getEntity().getKiller() instanceof Player) {
-                    UUID uuid = e.getEntity().getKiller().getUniqueId();
-                    if (AufgabenManager.getTask(uuid) == 21) {
-                        AufgabenManager.onComplete(uuid,21);
+                        if(runenChance(1, 1500) == 5) {
+                            RunenUtils runenUtils = new RunenUtils();
+                            player.getInventory().addItem(Antidupe.addID(runenUtils.getRune("regeneration_rune")));
+                        }
                     }
                 }
             }
         }
 
-           }
+    }
+
+    private int runenChance(int min, int max) {
+        RandomGen randomGen = new RandomGen(min, max);
+        return randomGen.nextInt();
+    }
+
+
 
 }

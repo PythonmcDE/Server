@@ -1,10 +1,7 @@
 package me.bluenitrox.school.enchants.pickaxe;
 
-import me.bluenitrox.school.enchants.Enchant;
-import me.bluenitrox.school.enchants.EnchantAPI;
-import me.bluenitrox.school.managers.EnchantManager;
-import me.bluenitrox.school.utils.KopfUtil;
-import org.bukkit.Sound;
+import me.bluenitrox.school.enchants.function.EnchantAPI;
+import me.bluenitrox.school.enchants.function.EnchantManager;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;

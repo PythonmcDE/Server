@@ -1,6 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.commands.Mine;
+import me.bluenitrox.school.enchants.pickaxe.BlockCounter;
 import me.bluenitrox.school.enchants.pickaxe.Duplizierung;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;
 import me.bluenitrox.school.mine.manager.MinenManager;
@@ -31,6 +32,8 @@ public class ProjectileHitEvent implements Listener {
             if(MinenManager.isAllowedtoMine(p, block.getLocation())) {
                 MinenManager.updateMinenMapTrue(block.getLocation(), p, MinenManager.getMineByLocation(block.getLocation()));
                 BreakBlockEvent.addItemToInv(p, block, Duplizierung.Dupliauslöser(p)); // Break block & add to inv
+                BlockCounter blockCounter = new BlockCounter(p.getItemInHand());
+                blockCounter.activateBlockCounter();
             }
         }
     }

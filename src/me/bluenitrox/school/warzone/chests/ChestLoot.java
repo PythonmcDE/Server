@@ -1,14 +1,14 @@
 package me.bluenitrox.school.warzone.chests;
 
-import me.bluenitrox.school.features.CaseAPI;
-import me.bluenitrox.school.managers.EnchantManager;
+import me.bluenitrox.school.enchants.function.EnchantAPI;
+import me.bluenitrox.school.features.cases.CaseAPI;
+import me.bluenitrox.school.features.cases.GetCases;
+import me.bluenitrox.school.enchants.function.EnchantManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.PotionMeta;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ChestLoot {
@@ -46,7 +46,7 @@ public class ChestLoot {
     void registerBooks() {
         /**
          * create all books for the chests
-         * {@link me.bluenitrox.school.enchants.EnchantAPI}
+         * {@link EnchantAPI}
          */
 
         /**
@@ -165,7 +165,7 @@ public class ChestLoot {
 
     void registerCases() {
         /**
-         * register all cases {@link CaseAPI} {@link me.bluenitrox.school.features.GetCases}
+         * register all cases {@link CaseAPI} {@link GetCases}
          */
         ItemStack daily = new ItemBuilder(Material.DRAGON_EGG).setDisplayname(CaseAPI.daily).setLore("§8» §7Dieser §6§lFund §7verspricht dir", "§8» §5§lbesondere §6Belohnungen§7.").setAmount(1).addEnchant(Enchantment.ARROW_INFINITE, 10, false).build();
         ItemStack gewoenlich = new ItemBuilder(Material.DRAGON_EGG).setDisplayname(CaseAPI.gewöhnlich).setLore("§8» §7Dieser §6§lFund §7verspricht dir", "§8» §5§lbesondere §6Belohnungen§7.").setAmount(1).addEnchant(Enchantment.ARROW_INFINITE, 10, false).build();

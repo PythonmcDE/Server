@@ -2,9 +2,8 @@ package me.bluenitrox.school.managers;
 
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.boost.Xpbooster;
-import me.bluenitrox.school.commands.School;
-import me.bluenitrox.school.features.SkillAPI;
+import me.bluenitrox.school.boost.booster.Xpbooster;
+import me.bluenitrox.school.features.skill.SkillAPI;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.Firework;
 import me.daarkii.nicksystem.NickAddon;

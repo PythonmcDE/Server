@@ -1,15 +1,13 @@
 package me.bluenitrox.school.enchants.all;
 
-import me.bluenitrox.school.enchants.EnchantAPI;
-import me.bluenitrox.school.managers.EnchantManager;
+import me.bluenitrox.school.enchants.function.EnchantAPI;
+import me.bluenitrox.school.enchants.function.EnchantManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ItemBuilder;
-import net.minecraft.server.v1_8_R3.EnchantmentManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

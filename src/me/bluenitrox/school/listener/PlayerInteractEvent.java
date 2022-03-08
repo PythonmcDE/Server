@@ -1,24 +1,19 @@
 package me.bluenitrox.school.listener;
 
-import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.dungeon.runen.RunenFuctions;
-import me.bluenitrox.school.enchants.CraftAPI;
+import me.bluenitrox.school.enchants.function.CraftAPI;
 import me.bluenitrox.school.enchants.pickaxe.Laser;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
-import me.bluenitrox.school.features.CaseAPI;
-import me.bluenitrox.school.features.Pet;
-import me.bluenitrox.school.haendler.NPCAPI;
+import me.bluenitrox.school.features.cases.CaseAPI;
+import me.bluenitrox.school.features.pets.Pet;
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.warzone.CombatAPI;
-import me.bluenitrox.school.warzone.chests.ChestsFuctions;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -26,9 +21,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.HashMap;
 
 public class PlayerInteractEvent implements Listener {
 

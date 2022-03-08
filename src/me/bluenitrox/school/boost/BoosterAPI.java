@@ -1,14 +1,12 @@
 package me.bluenitrox.school.boost;
 
 import de.Herbystar.TTA.TTA_Methods;
-import eu.thesimplecloud.api.CloudAPI;
-import eu.thesimplecloud.api.player.ICloudPlayer;
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.boost.booster.*;
 import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.Firework;
 import me.bluenitrox.school.utils.GetDisplayColor;
-import me.bluenitrox.school.utils.NameFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -22,7 +20,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.UUID;
 
 public class BoosterAPI implements CommandExecutor {

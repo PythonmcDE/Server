@@ -1,16 +1,19 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
+import me.bluenitrox.school.dungeon.runen.Data;
 import me.bluenitrox.school.dungeon.runen.RunenFuctions;
 import me.bluenitrox.school.enchants.armor.*;
 import me.bluenitrox.school.enchants.bow.*;
 import me.bluenitrox.school.enchants.sword.*;
-import me.bluenitrox.school.features.Pet;
+import me.bluenitrox.school.features.pets.Pet;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.utils.ArmorUtil;
 import me.bluenitrox.school.utils.EntityHitDelay;
 import me.bluenitrox.school.warzone.CombatAPI;
+import net.minecraft.server.v1_8_R3.MinecraftServer;
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -18,7 +21,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.LinkedList;
+import java.util.UUID;
+
 public class EntityDamageByEntityEvent implements Listener {
+
+    Data data = new Data();
 
     @EventHandler
     public void onDamage(final org.bukkit.event.entity.EntityDamageByEntityEvent e){
@@ -28,18 +36,23 @@ public class EntityDamageByEntityEvent implements Listener {
         /*
         In Dungeon
          */
-        if(DungeonManager.isInDungeon((Player) e.getEntity())){
-            if(e.getDamager() instanceof Player && e.getEntity() instanceof Player){
-                e.setCancelled(true);
-            }
-            if(e.getDamager() instanceof  Player){
-                if(RunenFuctions.runejagd != null){
-                    if(RunenFuctions.runejagd.contains(((Player) e.getDamager()).getPlayer().getUniqueId())){
-                        e.setDamage(e.getDamage()*2);
-                    }
+        if(e.getDamager() instanceof CraftPlayer) {
+            CraftPlayer player = (CraftPlayer) e.getDamager();
+            Player bukkitPlayer = Bukkit.getPlayer(player.getUniqueId());
+            Data data = new Data();
+            Bukkit.broadcastMessage("1");
+            if (DungeonManager.isInDungeon(bukkitPlayer)) {
+                Bukkit.broadcastMessage("2");
+                if (e.getEntity() instanceof CraftPlayer) {
+                    Bukkit.broadcastMessage("3");
+                    e.setCancelled(true);
                 }
+                   if (data.isInRuneJagd(player.getUniqueId())) {
+                       Bukkit.broadcastMessage("4");
+                       e.setDamage(e.getDamage() * 2);
+                 }
+                return;
             }
-            return;
         }
         if(e.getEntity().getWorld().getName().equalsIgnoreCase(WorldManager.warzone)){
             CombatAPI combat = new CombatAPI();

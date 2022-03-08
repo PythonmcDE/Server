@@ -1,6 +1,5 @@
 package me.bluenitrox.school.crafting;
 
-import me.bluenitrox.school.managers.EnchantManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
@@ -17,8 +16,6 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.Arrays;
 
 public class WerkbankGUIRegister {
 

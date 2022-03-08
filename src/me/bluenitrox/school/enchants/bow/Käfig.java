@@ -1,11 +1,9 @@
 package me.bluenitrox.school.enchants.bow;
 
-import me.bluenitrox.school.enchants.EnchantAPI;
-import me.bluenitrox.school.managers.EnchantManager;
+import me.bluenitrox.school.enchants.function.EnchantAPI;
+import me.bluenitrox.school.enchants.function.EnchantManager;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class Käfig extends EnchantAPI {

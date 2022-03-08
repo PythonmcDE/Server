@@ -2,9 +2,9 @@ package me.bluenitrox.school.listener;
 
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
-import me.bluenitrox.school.commands.Build;
+import me.bluenitrox.school.commands.admincommands.Build;
+import me.bluenitrox.school.enchants.pickaxe.BlockCounter;
 import me.bluenitrox.school.enchants.pickaxe.Duplizierung;
-import me.bluenitrox.school.enchants.pickaxe.Rausch;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;
 import me.bluenitrox.school.managers.WorldManager;
@@ -50,6 +50,8 @@ public class BreakBlockEvent implements Listener {
         if(p.getWorld().getName().equalsIgnoreCase(WorldManager.mine)) {
             if ((PlayerBreakBlockManager.breakBlock(p, e.getBlock().getLocation()))) {
                 addItemToInv(p, e.getBlock(), Duplizierung.Dupliauslöser(p));
+                BlockCounter blockCounter = new BlockCounter(p.getItemInHand());
+                blockCounter.activateBlockCounter();
                 aufgaben.onBlockBreak(e);
                 PlayerBreakBlockManager.updateBlocks(p.getUniqueId(), false);
             } else {

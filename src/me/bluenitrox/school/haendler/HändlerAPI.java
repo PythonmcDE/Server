@@ -1,20 +1,12 @@
 package me.bluenitrox.school.haendler;
 
-import me.bluenitrox.school.aufgabensystem.Aufgaben;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
-import me.bluenitrox.school.features.DailyReward;
-import me.bluenitrox.school.haendler.commands.*;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
-import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.utils.ItemBuilder;
-import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;

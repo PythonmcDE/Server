@@ -1,7 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.boost.Xpbooster;
+import me.bluenitrox.school.boost.booster.Xpbooster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

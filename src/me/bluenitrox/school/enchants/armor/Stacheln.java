@@ -1,8 +1,8 @@
 package me.bluenitrox.school.enchants.armor;
 
 import de.Herbystar.TTA.TTA_Methods;
-import me.bluenitrox.school.enchants.EnchantAPI;
-import me.bluenitrox.school.managers.EnchantManager;
+import me.bluenitrox.school.enchants.function.EnchantAPI;
+import me.bluenitrox.school.enchants.function.EnchantManager;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

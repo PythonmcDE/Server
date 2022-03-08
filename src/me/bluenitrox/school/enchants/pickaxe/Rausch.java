@@ -1,11 +1,9 @@
 package me.bluenitrox.school.enchants.pickaxe;
 
-import me.bluenitrox.school.enchants.EnchantAPI;
-import me.bluenitrox.school.managers.EnchantManager;
+import me.bluenitrox.school.enchants.function.EnchantAPI;
+import me.bluenitrox.school.enchants.function.EnchantManager;
 import me.bluenitrox.school.managers.MoneyManager;
-import me.bluenitrox.school.mine.commands.Sell;
 import me.bluenitrox.school.mine.manager.SellManager;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 

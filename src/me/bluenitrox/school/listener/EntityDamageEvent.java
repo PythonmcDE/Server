@@ -1,6 +1,6 @@
 package me.bluenitrox.school.listener;
 
-import me.bluenitrox.school.features.Pet;
+import me.bluenitrox.school.features.pets.Pet;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.mine.angelmine.AngelminenManager;
 import org.bukkit.event.EventHandler;

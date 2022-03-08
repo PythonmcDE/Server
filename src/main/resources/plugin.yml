@@ -32,6 +32,10 @@ commands:
       - fliegen
   test:
   getRunen:
+  wb:
+    aliases:
+      - workbench
+      - werkbank
   taxi:
   schmied:
     aliases:
@@ -117,10 +121,20 @@ commands:
   giveSchoolXP:
   testsummon:
   angelmine:
+  anvil:
+    aliases:
+      - amboss
+      - av
+  enchanter:
+    aliases:
+      - zaubertisch
   gemlimit:
     aliases:
       - gl
   aufgaben:
+    aliases:
+      - task
+      - tasks
   createnpc:
     aliases:
       - task

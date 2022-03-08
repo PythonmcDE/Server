@@ -26,13 +26,7 @@ public class AufgabenCMD implements CommandExecutor {
         Player player = (Player) commandSender;
         UUID uuid = player.getUniqueId();
 
-        if(!(commandSender instanceof Player)) {
-            return true;
-        }
-
         switch (args.length) {
-
-
             case 0:
                 if(AufgabenManager.getToggle(uuid) == 1) {
                     AufgabenManager.setToggle(uuid, 0);
@@ -48,7 +42,6 @@ public class AufgabenCMD implements CommandExecutor {
                 player.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
 
         }
-
         return false;
     }
 }

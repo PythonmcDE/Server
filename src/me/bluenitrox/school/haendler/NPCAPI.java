@@ -6,13 +6,11 @@ import java.util.Random;
 import java.util.UUID;
 
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.commands.School;
 import me.bluenitrox.school.managers.LocationManager;
 import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.DataWatcher;
 import net.minecraft.server.v1_8_R3.ItemStack;
 import net.minecraft.server.v1_8_R3.MathHelper;
-import net.minecraft.server.v1_8_R3.MobSpawnerAbstract.a;
 import net.minecraft.server.v1_8_R3.PacketPlayOutAnimation;
 import net.minecraft.server.v1_8_R3.PacketPlayOutBed;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntity.PacketPlayOutEntityLook;

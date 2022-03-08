@@ -1,16 +1,12 @@
 package me.bluenitrox.school.commands;
 
-import me.bluenitrox.school.ah.AhManager;
-import me.bluenitrox.school.features.SkillSystem;
+import me.bluenitrox.school.features.skill.SkillSystem;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
 
 public class Skill implements CommandExecutor {
 

@@ -1,7 +1,7 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.boost.Gembooster;
+import me.bluenitrox.school.boost.booster.Gembooster;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;

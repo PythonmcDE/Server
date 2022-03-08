@@ -1,9 +1,7 @@
 package me.bluenitrox.school.listener;
 
-import me.bluenitrox.school.features.Pet;
-import me.bluenitrox.school.features.PetAPI;
-import me.bluenitrox.school.haendler.NPCAPI;
-import org.bukkit.Bukkit;
+import me.bluenitrox.school.features.pets.Pet;
+import me.bluenitrox.school.features.pets.PetAPI;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

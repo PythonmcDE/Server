@@ -1,7 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.enchants.armor.Tank;
-import me.bluenitrox.school.features.Pet;
+import me.bluenitrox.school.features.pets.Pet;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

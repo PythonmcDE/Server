@@ -2,26 +2,15 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.aufgabensystem.AufgabenManager;
-import me.bluenitrox.school.boost.BoosterAPI;
-import me.bluenitrox.school.commands.Skill;
-import me.bluenitrox.school.features.SkillAPI;
-import me.bluenitrox.school.features.StatsAPI;
-import me.bluenitrox.school.mine.angelmine.AngelminenManager;
-import me.bluenitrox.school.mine.manager.MinenManager;
 import me.bluenitrox.school.mine.manager.MinenSettings;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.UUID;
 
 public class PlayerJoinManager {

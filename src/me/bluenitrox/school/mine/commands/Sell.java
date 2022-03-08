@@ -2,9 +2,7 @@ package me.bluenitrox.school.mine.commands;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
-import me.bluenitrox.school.boost.BoosterAPI;
-import me.bluenitrox.school.boost.BoosterManager;
-import me.bluenitrox.school.boost.Gembooster;
+import me.bluenitrox.school.boost.booster.Gembooster;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PermissionsManager;
@@ -20,7 +18,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.MaterialData;
 
 import java.util.HashMap;
 import java.util.Objects;

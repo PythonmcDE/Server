@@ -1,6 +1,6 @@
 package me.bluenitrox.school.commands;
 
-import me.bluenitrox.school.features.Pet;
+import me.bluenitrox.school.features.pets.Pet;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import org.bukkit.command.Command;
