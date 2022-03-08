@@ -19,13 +19,13 @@ import java.util.Random;
 
 public class CaseAPI {
 
-    public static String gewöhnlich = "§8§lGewöhnliche Case";
-    public static String selten = "§b§lSeltene Case";
-    public static String episch = "§5§lEpische Case";
-    public static String legendär = "§c§lLegendäre Case";
-    public static String mysthische = "§6§lMysthische Case";
-    public static String daily = "§e§lDaily Case";
-    public static String tier = "§6§lTier Case";
+    public static String gewöhnlich = "§8» §8§lGewöhnliche Case";
+    public static String selten = "§8» §b§lSeltene Case";
+    public static String episch = "§8» §5§lEpische Case";
+    public static String legendär = "§8» §c§lLegendäre Case";
+    public static String mysthische = "§8» §6§lMysthische Case";
+    public static String daily = "§8» §e§lDaily Case";
+    public static String tier = "§8» §6§lTier Case";
     private int rounds = 0;
     public static HashMap<Player, ArrayList<ItemStack>> caseitemshash = new HashMap<>();
     public static ArrayList<ItemStack> casepot;
@@ -46,7 +46,7 @@ public class CaseAPI {
 
         Inventory inv = Bukkit.getServer().createInventory(null, 9 * 3, toCase(cases));
 
-        ItemStack hopper = new ItemBuilder(Material.HOPPER).setDisplayname("§e§lDein Gewinn").setLore("§b» §7Wenn die Case zum Stillstand kommt, bekommst", "§b» §7du das Item auf diesem Slot.").addEnchant(Enchantment.ARROW_DAMAGE, 10, false).build();
+        ItemStack hopper = new ItemBuilder(Material.HOPPER).setDisplayname("§8» §e§lDein Gewinn").setLore("§b» §7Wenn die Case zum Stillstand kommt, bekommst", "§b» §7du das Item auf diesem Slot.").addEnchant(Enchantment.ARROW_DAMAGE, 10, false).build();
 
         for (int i = 9; i <= 17; i++) {
             inv.setItem(i, caseitemshash.get(p).get(i));
@@ -70,10 +70,11 @@ public class CaseAPI {
             public void run() {
                 if(rounds >= 40){
                     this.cancel();
-                    Inventory wininv = Bukkit.getServer().createInventory(null, 9*3, "§e§lCase Gewinn");
+                    Inventory wininv = Bukkit.getServer().createInventory(null, 9*3, "§8» §e§lCase Gewinn");
                     p.playSound(p.getLocation(), Sound.LEVEL_UP , 1L, 1L);
-                    ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE,(short) 15).setDisplayname(" ").build();
-                    ItemStack hopper = new ItemBuilder(Material.HOPPER).setDisplayname("§e§lDein Gewinn").setLore("§b» §7Wenn die Case zum Stillstand kommt, bekommst", "§b» §7du das Item auf diesem Slot.").addEnchant(Enchantment.ARROW_DAMAGE, 10, false).build();
+                    //ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE,(short) 15).setDisplayname(" ").build();
+                    ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE, rareFromItemToShort(inv.getItem(13))).setDisplayname(rareFromShort(inv.getItem(13))).build();
+                    ItemStack hopper = new ItemBuilder(Material.HOPPER).setDisplayname("§8» §e§lDein Gewinn").setLore("§b» §7Wenn die Case zum Stillstand kommt, bekommst", "§b» §7du das Item auf diesem Slot.").addEnchant(Enchantment.ARROW_DAMAGE, 10, false).build();
 
                     for(int i = 0; i <= 12; i++){
                         if(i != 4) {
@@ -175,13 +176,17 @@ public class CaseAPI {
                 casepot.add(CaseItems.daily.get(new Random().nextInt(CaseItems.daily.size())));
             }
         } else if (cases == 1) {
-            allCasesGet(80, 30, 10, 5);
+            //allCasesGet(80, 30, 10, 5);
+            allCasesGet(82, 10, 5, 3);
         } else if (cases == 2) {
-            allCasesGet(60, 50, 16, 7);
+            //allCasesGet(60, 50, 16, 7);
+            allCasesGet(50, 35, 10, 5);
         } else if (cases == 3) {
-            allCasesGet(60, 50, 30, 10);
+            //allCasesGet(60, 50, 30, 10);
+            allCasesGet(30, 30, 30, 10);
         } else if (cases == 4) {
-            allCasesGet(60, 50, 40, 20);
+            //allCasesGet(60, 50, 40, 20);
+            allCasesGet(15, 25, 40, 20);
             //allCasesGet(5, 15, 20, 60);
         } else if (cases == 5) {
             for (int i = 0; i <= 60; i++) {

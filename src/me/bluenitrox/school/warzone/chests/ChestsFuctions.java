@@ -1,30 +1,17 @@
 package me.bluenitrox.school.warzone.chests;
 
-import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
-import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.managers.LocationManager;
-import me.bluenitrox.school.managers.WorldManager;
-import me.bluenitrox.school.mine.angelmine.PartikelManager;
-import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.RandomGen;
 import me.bluenitrox.school.warzone.CombatAPI;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Random;
 
 public class ChestsFuctions {

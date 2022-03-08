@@ -73,6 +73,7 @@ public class Mine implements CommandExecutor {
                         if(new LocationManager(mineToTp).getLocation() != null) {
                             p.teleport(new LocationManager(mineToTp).getLocation());
                             AngelminenManager.quitAngelmine(p);
+                            p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in Mine §a" + number + "§7 teleportiert!");
                         }
 
                     }catch (NumberFormatException e) {

@@ -38,6 +38,11 @@ commands:
       - smith
       - sm
   testzwei:
+  blocks:
+  mymine:
+  myangelmine:
+    aliases:
+      - myangel
   getcases:
   skill:
   tp:

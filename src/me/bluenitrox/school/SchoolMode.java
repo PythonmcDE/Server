@@ -206,6 +206,9 @@ public class SchoolMode extends JavaPlugin {
         getCommand("getRunen").setExecutor(new GetRunenCMD());
         getCommand("taxi").setExecutor(new TaxiCMD());
         getCommand("schmied").setExecutor(new SchmiedCMD());
+        getCommand("blocks").setExecutor(new Blocks());
+        getCommand("mymine").setExecutor(new MyMine());
+        getCommand("myangelmine").setExecutor(new MyAngelMine());
 
         getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
         getCommand("testsummon").setExecutor(new TestSummon());

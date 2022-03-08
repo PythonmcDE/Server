@@ -13,6 +13,7 @@ public enum Enchant {
     WILDEREI,
     JÄGER, //Hunter umbennen
     ENTDECKER,
+    KILLTRACKER,
 
     TANK,
     HEILZAUBER,

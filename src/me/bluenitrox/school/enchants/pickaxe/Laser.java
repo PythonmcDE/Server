@@ -25,25 +25,25 @@ public class Laser extends EnchantAPI {
             shoot.add(player);
             player.launchProjectile(Snowball.class);
             if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 1){
-                timer(30, player);
+                timer(25, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 2){
-                timer(27, player);
+                timer(22, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 3){
-                timer(24, player);
+                timer(19, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 4){
-                timer(21, player);
+                timer(16, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 5){
-                timer(18, player);
+                timer(13, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 6){
-                timer(15, player);
+                timer(10, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 7){
-                timer(12, player);
+                timer(7, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 8){
-                timer(9, player);
+                timer(5, player);
             }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 9){
-                timer(6, player);
-            }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 10){
                 timer(3, player);
+            }else if(stringToNumber(player.getItemInHand(), EnchantManager.Laser) == 10){
+                timer(1, player);
             }
         }
     }

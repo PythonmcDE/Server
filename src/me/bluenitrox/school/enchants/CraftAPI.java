@@ -128,6 +128,7 @@ public class CraftAPI {
         sword.add(EnchantManager.Wilderei);
         sword.add(EnchantManager.Jäger);
         sword.add(EnchantManager.Entdecker);
+        sword.add(EnchantManager.Killtracker);
 
         bow.add(EnchantManager.Blackout);
         bow.add(EnchantManager.Dynamite);
@@ -391,7 +392,11 @@ public class CraftAPI {
                 ||is.getType() == Material.DIAMOND_SWORD
                 ||is.getType() == Material.BOW
                 ||is.getType() == Material.IRON_SWORD
+                ||is.getType() == Material.STONE_SWORD
+                ||is.getType() == Material.WOOD_SWORD
                 ||is.getType() == Material.DIAMOND_PICKAXE
+                ||is.getType() == Material.STONE_PICKAXE
+                ||is.getType() == Material.WOOD_PICKAXE
                 ||is.getType() == Material.FISHING_ROD
                 ||is.getType() == Material.IRON_PICKAXE){
             return true;
@@ -572,6 +577,8 @@ public class CraftAPI {
                     return EnchantManager.Entdecker;
                 }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.schatzmeister)){
                     return EnchantManager.schatzmeister;
+                }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Killtracker)){
+                    return EnchantManager.Killtracker;
                 }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Blackout)){
                     return EnchantManager.Blackout;
                 }else if(i.getItemMeta().getLore().get(0).startsWith(EnchantManager.Dynamite)){

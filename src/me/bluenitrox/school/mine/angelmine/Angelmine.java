@@ -1,10 +1,8 @@
 package me.bluenitrox.school.mine.angelmine;
 
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
-import me.bluenitrox.school.managers.LocationManager;
-import me.bluenitrox.school.managers.MessageManager;
-import me.bluenitrox.school.managers.MoneyManager;
-import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.dungeon.manager.DungeonManager;
+import me.bluenitrox.school.managers.*;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.KopfUtil;
 import me.bluenitrox.school.utils.NBTTags;
@@ -40,7 +38,37 @@ public class Angelmine implements CommandExecutor {
         if(args.length == 0) {
             Inventory inv = Bukkit.createInventory(null, 9*6, guiname);
             setInventoryContent(inv, p);
-        }else {
+        } else if(args.length == 1) {
+
+            if(p.hasPermission(PermissionsManager.ALLPERMS) || p.hasPermission(PermissionsManager.kingqueen)) {
+                try {
+                    String angelmine = "Angelmine";
+                    int number = Integer.parseInt(args[0]);
+                    if(number > 10 || number < 1) {
+                        p.sendMessage(MessageManager.PREFIX + "§7Die angegebene Angelmine existiert §cnicht§7.");
+                        return false;
+                    }
+
+                    String angelMineToTp = angelmine + number;
+                    DungeonManager dm = new DungeonManager();
+                    dm.onQuitDungeon(p);
+                    if(new LocationManager(angelMineToTp).getLocation() != null) {
+                        p.teleport(new LocationManager(angelMineToTp).getLocation());
+                        p.sendMessage(MessageManager.PREFIX + "§7Du wurdest in Angelmine §a" + number + "§7 teleportiert!");
+                        AngelminenManager.joinAngelmine(p, number);
+                    }
+
+                }catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    p.sendMessage(MessageManager.ERROR);
+                    return false;
+                }
+            }else {
+                p.sendMessage(MessageManager.NOPERMISSIONS(PlayerJoinManager.language));
+                return false;
+            }
+        }
+        else {
             p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
         }
         return false;

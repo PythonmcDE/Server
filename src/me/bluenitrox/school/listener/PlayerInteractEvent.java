@@ -47,8 +47,8 @@ public class PlayerInteractEvent implements Listener {
                     if(p.getItemInHand().getItemMeta().getDisplayName() != null) {
                         interactCase(p, e);
                         interactSchoolXP(p, e);
-                        Schatzmeister.openInventory(p, e);
-                        pet.petEinlösen(p,e);
+                        Schatzmeister.openInventory(e);
+                        pet.petEinlösen(e);
                     }
                 }
             }

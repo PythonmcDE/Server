@@ -81,9 +81,11 @@ public class Schatzmeister {
         return returninv;
     }
 
-    public static void openInventory(Player p, PlayerInteractEvent e){
-        if(p.getItemInHand().getType() == Material.CHEST){
-            if(p.getItemInHand().getItemMeta().getDisplayName().startsWith("§8» §cInventar von §b")){
+    public static void openInventory(PlayerInteractEvent e){
+        if(e.getItem().getType() == Material.CHEST){
+            Player p = e.getPlayer();
+            if(e.getItem().getItemMeta().getDisplayName().startsWith("§8» §cInventar von §b")){
+                e.setCancelled(true);
                 NBTTags nbt = new NBTTags(p.getItemInHand());
                 String[] idarray = nbt.getNBTTag("itemsiddata").toString().split(" ");
                 String[] idarrayend = idarray[0].split("\"");
@@ -102,7 +104,6 @@ public class Schatzmeister {
                 return;
             }
         }
-        e.setCancelled(true);
     }
 
     private static int putInDatabase(Inventory inv){

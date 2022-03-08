@@ -195,17 +195,19 @@ public class Pet {
         }
     }
 
-    public void petEinlösen(Player p, PlayerInteractEvent e){
+    public void petEinlösen(PlayerInteractEvent e){
         PetAPI api = new PetAPI();
+        Player p = e.getPlayer();
         UUID uuid = p.getUniqueId();
 
-        if(p.getItemInHand() != null) {
-            if (p.getItemInHand().getItemMeta() != null) {
-                if (p.getItemInHand().getItemMeta().getDisplayName() != null) {
-                    if (p.getItemInHand().getItemMeta().getDisplayName().startsWith("§6Haustier")) {
-                        e.setCancelled(true);
+        if(e.getItem() != null) {
+            if (e.getItem().getItemMeta() != null) {
+                if (e.getItem().getItemMeta().getDisplayName() != null) {
+                    if(e.getItem().getType() != Material.MONSTER_EGG) return;
+                    if (e.getItem().getItemMeta().getDisplayName().startsWith("§6Haustier")) {
 
-                        if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Benjamin")) {
+                        if (e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Benjamin")) {
+                            e.setCancelled(true);
                             if (api.getBenjamin(uuid) == 0) {
                                 api.updateBenjamin(uuid, 1, false);
                                 p.sendMessage(MessageManager.PETUSED);
@@ -215,7 +217,8 @@ public class Pet {
                                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                                 return;
                             }
-                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Merlin")) {
+                        } else if (e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Merlin")) {
+                            e.setCancelled(true);
                             if (api.getMerlin(uuid) == 0) {
                                 api.updateMerlin(uuid, 1, false);
                                 p.sendMessage(MessageManager.PETUSED);
@@ -225,7 +228,8 @@ public class Pet {
                                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                                 return;
                             }
-                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Eddy")) {
+                        } else if (e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Eddy")) {
+                            e.setCancelled(true);
                             if (api.getEddy(uuid) == 0) {
                                 api.updateEddy(uuid, 1, false);
                                 p.sendMessage(MessageManager.PETUSED);
@@ -235,7 +239,8 @@ public class Pet {
                                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                                 return;
                             }
-                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Anton")) {
+                        } else if (e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Anton")) {
+                            e.setCancelled(true);
                             if (api.getAnton(uuid) == 0) {
                                 api.updateAnton(uuid, 1, false);
                                 p.sendMessage(MessageManager.PETUSED);
@@ -245,7 +250,8 @@ public class Pet {
                                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                                 return;
                             }
-                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Helgar")) {
+                        } else if (e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Helgar")) {
+                            e.setCancelled(true);
                             if (api.getHelgar(uuid) == 0) {
                                 api.updateHelgar(uuid, 1, false);
                                 p.sendMessage(MessageManager.PETUSED);
@@ -255,7 +261,8 @@ public class Pet {
                                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                                 return;
                             }
-                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Farid")) {
+                        } else if (e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Farid")) {
+                            e.setCancelled(true);
                             if (api.getFarid(uuid) == 0) {
                                 api.updateFarid(uuid, 1, false);
                                 p.sendMessage(MessageManager.PETUSED);
@@ -265,7 +272,8 @@ public class Pet {
                                 p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                                 return;
                             }
-                        } else if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Peter")) {
+                        } else if (e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6Haustier : Peter")) {
+                            e.setCancelled(true);
                             if (api.getPeter(uuid) == 0) {
                                 api.updatePeter(uuid, 1, false);
                                 p.sendMessage(MessageManager.PETUSED);
@@ -276,9 +284,9 @@ public class Pet {
                                 return;
                             }
                         }
-                        if (p.getItemInHand().getAmount() > 1) {
-                            p.getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
-                        } else if (p.getItemInHand().getAmount() == 1) {
+                        if (e.getItem().getAmount() > 1) {
+                            e.getItem().setAmount(p.getItemInHand().getAmount() - 1);
+                        } else if (e.getItem().getAmount() == 1) {
                             ItemStack air = new ItemStack(Material.AIR);
                             p.setItemInHand(air);
                         }

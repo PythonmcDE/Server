@@ -18,6 +18,7 @@ public class Rausch extends EnchantAPI {
                     if(hasEnchant(p.getItemInHand(), EnchantManager.Rausch)){
                         if(makeOrNot10(stringToNumber(p.getItemInHand(), EnchantManager.Rausch))) {
                             float money = SellManager.getPriceByMaterial(material.toString());
+                            if(MoneyManager.getGemlimit(p.getUniqueId()) < money) return;
                             MoneyManager.updateMoney(p.getUniqueId(), money, false, true, false);
                         }
                     }

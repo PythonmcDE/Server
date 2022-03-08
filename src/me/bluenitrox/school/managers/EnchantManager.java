@@ -19,6 +19,7 @@ public class EnchantManager {
     public static final String AntiVenom = "§c§lAnti-Venom ";
     public static final String Wilderei = "§c§lWilderei ";
     public static final String Jäger = "§c§lJäger ";
+    public static final String Killtracker = "§c§lKill-Counter ";
     public static final String Entdecker = "§c§lEntdecker ";
 
     /*

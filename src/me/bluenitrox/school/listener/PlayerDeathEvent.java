@@ -4,6 +4,7 @@ import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.enchants.all.Erhalt;
+import me.bluenitrox.school.enchants.sword.KillTracker;
 import me.bluenitrox.school.enchants.sword.Kopfgeld;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.features.StatsAPI;
@@ -78,6 +79,8 @@ public class PlayerDeathEvent implements Listener {
                     AufgabenManager.onComplete(k.getUniqueId(), 15);
                 }
                 warzonedeadmoney(p, k);
+                KillTracker killTracker = new KillTracker(k.getItemInHand());
+                killTracker.activateKillTracker();
             }
         }
         new BukkitRunnable(){

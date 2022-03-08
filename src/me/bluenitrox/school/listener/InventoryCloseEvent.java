@@ -22,7 +22,7 @@ public class InventoryCloseEvent implements Listener {
         WerkbankGUIRegister gui = new WerkbankGUIRegister();
         ChestsFuctions cf = new ChestsFuctions();
         cf.closeChest(e);
-        if(e.getInventory().getName().equalsIgnoreCase("§e§lCase Gewinn")){
+        if(e.getInventory().getName().equalsIgnoreCase("§8» §e§lCase Gewinn")){
             if(e.getInventory().getItem(13) != null){
                 if(!CaseAPI.caseöffnen.contains(p)) {
                     p.getInventory().addItem(e.getInventory().getItem(13));
