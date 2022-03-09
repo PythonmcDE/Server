@@ -1,7 +1,7 @@
 package me.bluenitrox.school.enchants.all;
 
-import me.bluenitrox.school.enchants.function.EnchantAPI;
-import me.bluenitrox.school.enchants.function.EnchantManager;
+import me.bluenitrox.school.enchants.EnchantAPI;
+import me.bluenitrox.school.enchants.EnchantManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;

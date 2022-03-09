@@ -3,7 +3,7 @@ package me.bluenitrox.school.listener;
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
-import me.bluenitrox.school.enchants.function.CraftAPI;
+import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.features.cases.CaseAPI;
 import me.bluenitrox.school.haendler.commands.Schmied;
 import me.bluenitrox.school.utils.ItemBuilder;

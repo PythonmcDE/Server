@@ -2,7 +2,6 @@ package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.boost.booster.Gembooster;
-import me.bluenitrox.school.managers.gemlimit.GemLimit;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -48,7 +47,7 @@ public class MoneyManager {
                     return true;
                 }
             }
-            GemLimit gemLimit = new GemLimit(uuid);
+            GemLimitManager gemLimit = new GemLimitManager(uuid);
             if(gemLimit.getRestGemLimit() > amount) {
                 if (!beachtungVonDoubleGemBooster) {
                     float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
@@ -96,7 +95,7 @@ public class MoneyManager {
                 ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
             }
         } else {
-            GemLimit gemLimit = new GemLimit(uuid);
+            GemLimitManager gemLimit = new GemLimitManager(uuid);
             if(gemLimit.getRestGemLimit() > amount) {
                 if (!beachtungVonDoubleGemBooster) {
                     float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;

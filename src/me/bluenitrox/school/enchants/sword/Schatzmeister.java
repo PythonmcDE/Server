@@ -1,6 +1,6 @@
 package me.bluenitrox.school.enchants.sword;
 
-import me.bluenitrox.school.enchants.function.EnchantManager;
+import me.bluenitrox.school.enchants.EnchantManager;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ArmorUtil;

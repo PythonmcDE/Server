@@ -1,12 +1,10 @@
-package me.bluenitrox.school.plots.commands;
+package me.bluenitrox.school.plots;
 
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.WorldManager;
 import me.bluenitrox.school.mine.angelmine.AngelminenManager;
-import me.bluenitrox.school.plots.inventory.PlotInventory;
-import me.bluenitrox.school.plots.manager.PlotManager;
 import me.bluenitrox.school.utils.UUIDFetcher;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;

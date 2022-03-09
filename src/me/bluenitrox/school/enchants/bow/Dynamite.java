@@ -1,7 +1,7 @@
 package me.bluenitrox.school.enchants.bow;
 
-import me.bluenitrox.school.enchants.function.EnchantAPI;
-import me.bluenitrox.school.enchants.function.EnchantManager;
+import me.bluenitrox.school.enchants.EnchantAPI;
+import me.bluenitrox.school.enchants.EnchantManager;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 

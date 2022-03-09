@@ -1,7 +1,6 @@
 package me.bluenitrox.school.commands.rangfeatures;
 
-import me.bluenitrox.school.crafting.WerkbankGUIRegister;
-import me.bluenitrox.school.enchants.function.CraftAPI;
+import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;

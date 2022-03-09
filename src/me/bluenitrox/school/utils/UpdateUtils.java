@@ -1,7 +1,7 @@
 package me.bluenitrox.school.utils;
 
 import me.bluenitrox.school.crafting.Enchanter;
-import me.bluenitrox.school.enchants.function.CraftAPI;
+import me.bluenitrox.school.enchants.CraftAPI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

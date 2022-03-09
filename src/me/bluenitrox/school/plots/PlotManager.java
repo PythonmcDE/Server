@@ -1,4 +1,4 @@
-package me.bluenitrox.school.plots.manager;
+package me.bluenitrox.school.plots;
 
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.UUIDFetcher;

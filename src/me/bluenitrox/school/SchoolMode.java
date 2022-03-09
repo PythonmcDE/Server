@@ -3,10 +3,7 @@ package me.bluenitrox.school;
 import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.ah.Ah_CMD;
-import me.bluenitrox.school.aufgabensystem.Aufgaben;
-import me.bluenitrox.school.aufgabensystem.AufgabenCMD;
-import me.bluenitrox.school.aufgabensystem.AufgabenManager;
-import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
+import me.bluenitrox.school.aufgabensystem.*;
 import me.bluenitrox.school.boost.*;
 import me.bluenitrox.school.boost.booster.Angelbooster;
 import me.bluenitrox.school.boost.booster.Dungeonbooster;
@@ -27,7 +24,7 @@ import me.bluenitrox.school.dungeon.command.Dungeon;
 import me.bluenitrox.school.dungeon.command.DungeonInventory;
 import me.bluenitrox.school.dungeon.manager.SafezoneManager;
 import me.bluenitrox.school.dungeon.runen.GetRunenCMD;
-import me.bluenitrox.school.enchants.function.CraftAPI;
+import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.features.cases.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.features.kit.KitAPI;
@@ -42,7 +39,7 @@ import me.bluenitrox.school.listener.BreakBlockEvent;
 import me.bluenitrox.school.mine.manager.Minenreset;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
-import me.bluenitrox.school.plots.commands.PlotCMD;
+import me.bluenitrox.school.plots.PlotCMD;
 import me.bluenitrox.school.utils.*;
 import me.bluenitrox.school.warzone.CombatAPI;
 import me.bluenitrox.school.warzone.Warzone;
@@ -213,6 +210,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("angelmine").setExecutor(new Angelmine());
         getCommand("gemlimit").setExecutor(new Gemlimit());
         getCommand("aufgaben").setExecutor(new AufgabenCMD());
+        getCommand("aufgabe").setExecutor(new AufgabeCMD());
         getCommand("school").setExecutor(new School());
         getCommand("wz").setExecutor(new Warzone());
         getCommand("minensettings").setExecutor(new MineSettings());
@@ -593,7 +591,6 @@ public class SchoolMode extends JavaPlugin {
                 PartikelManager.locations.clear();
                 for(Player all: Bukkit.getOnlinePlayers()) {
                     all.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20 * 60 * 20, 1));
-                    AufgabenMethods.sendActionBar(all, Aufgaben.getTask(all), 20*60*10);
                 }
                 for(Player all: Bukkit.getOnlinePlayers()) {
                     if (Bukkit.getOnlinePlayers().size() > 1) {

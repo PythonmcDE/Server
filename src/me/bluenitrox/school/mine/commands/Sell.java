@@ -7,7 +7,7 @@ import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
-import me.bluenitrox.school.managers.gemlimit.GemLimit;
+import me.bluenitrox.school.managers.GemLimitManager;
 import me.bluenitrox.school.mine.manager.SellManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.ValuetoString;
@@ -59,7 +59,7 @@ public class Sell implements CommandExecutor {
                     }
 
                     if(preis != 0) {
-                        GemLimit gemLimit = new GemLimit(p.getUniqueId());
+                        GemLimitManager gemLimit = new GemLimitManager(p.getUniqueId());
                             if (MoneyManager.updateMoney(p.getUniqueId(), preis, false, true, false)) {
                                 ItemStack air = new ItemStack(Material.AIR);
                                 p.getInventory().setItem(i, air);
@@ -68,7 +68,7 @@ public class Sell implements CommandExecutor {
                         }
                     }
                 }
-                GemLimit gemLimit = new GemLimit(p.getUniqueId());
+                GemLimitManager gemLimit = new GemLimitManager(p.getUniqueId());
                 if(p.getInventory().getItem(i) != null) {
                     ItemStack redstone = new ItemBuilder(Material.REDSTONE).build();
                     if (Objects.equals(p.getInventory().getItem(i), new ItemStack(Material.INK_SACK, p.getInventory().getItem(i).getAmount(), (short) 4))) {

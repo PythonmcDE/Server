@@ -65,6 +65,12 @@ public class AngelminenManager {
         SchoolMode.setPlayerAngelmine(uuid, mine);
     }
 
+    public static boolean isinAngelmine(Player p){
+        if(playerangelmine.containsKey(p)){
+            return true;
+        }
+        return false;
+    }
     public static void joinAngelmine(Player p, int angelmine){
         playerangelmine.put(p, angelmine);
         if(angelminen != null){

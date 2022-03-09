@@ -131,6 +131,7 @@ commands:
   gemlimit:
     aliases:
       - gl
+  aufgabe:
   aufgaben:
     aliases:
       - task

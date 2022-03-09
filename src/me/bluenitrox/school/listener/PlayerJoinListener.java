@@ -2,6 +2,7 @@ package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.aufgabensystem.Aufgaben;
+import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
 import me.bluenitrox.school.haendler.NPCAPI;
 import me.bluenitrox.school.managers.LocationManager;
@@ -36,12 +37,7 @@ public class PlayerJoinListener implements Listener {
         PlayerRespawnEvent.erhaltItems(p);
         MinenSettings.getMiningSettings().setInHashMap(e);
         e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20*60*20, 1));
-        new BukkitRunnable(){
-            @Override
-            public void run() {
-                AufgabenMethods.sendActionBar(p, Aufgaben.getTask(p), 20*60*60);
-            }
-        }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20*5);
+        AufgabenMethods.onJoin(e);
     }
 
 }

@@ -1,9 +1,9 @@
 package me.bluenitrox.school.warzone.chests;
 
-import me.bluenitrox.school.enchants.function.EnchantAPI;
+import me.bluenitrox.school.enchants.EnchantAPI;
 import me.bluenitrox.school.features.cases.CaseAPI;
 import me.bluenitrox.school.features.cases.GetCases;
-import me.bluenitrox.school.enchants.function.EnchantManager;
+import me.bluenitrox.school.enchants.EnchantManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

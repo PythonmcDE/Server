@@ -1,9 +1,8 @@
-package me.bluenitrox.school.plots.inventory;
+package me.bluenitrox.school.plots;
 
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
-import me.bluenitrox.school.plots.manager.PlotManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.KopfUtil;
 import me.bluenitrox.school.utils.NameFetcher;

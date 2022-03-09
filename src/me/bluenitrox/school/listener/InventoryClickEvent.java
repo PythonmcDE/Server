@@ -8,7 +8,7 @@ import me.bluenitrox.school.commands.admincommands.getBooks;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.dungeon.command.DungeonInventory;
-import me.bluenitrox.school.enchants.function.CraftAPI;
+import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.features.cases.CaseAPI;
 import me.bluenitrox.school.features.dailyreward.DailyReward;
 import me.bluenitrox.school.features.kit.KitAPI;
@@ -18,9 +18,9 @@ import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.haendler.commands.Schmied;
 import me.bluenitrox.school.haendler.commands.Taxi;
 import me.bluenitrox.school.mine.angelmine.Angelmine;
-import me.bluenitrox.school.plots.inventory.PlotInventory;
+import me.bluenitrox.school.mine.manager.MinenSettings;
+import me.bluenitrox.school.plots.PlotInventory;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -89,9 +89,13 @@ public class InventoryClickEvent implements Listener {
                     || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.mysthische)
                     || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.tier)) && e.getCurrentItem() != null) {
                 e.setCancelled(true);
-            } else if (e.getClickedInventory().getName().equalsIgnoreCase("§8» §e§lCase Gewinn")) {
-                if (e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE || e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §e§lDein Gewinn")) {
-                    e.setCancelled(true);
+            } else if (e.getClickedInventory().getName().equalsIgnoreCase("§e§lCase Gewinn")) {
+                if(e.getCurrentItem().getItemMeta() != null) {
+                    if (e.getCurrentItem().getItemMeta().getDisplayName() != null) {
+                        if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(" ") || e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§e§lDein Gewinn")) {
+                            e.setCancelled(true);
+                        }
+                    }
                 }
             }
         }

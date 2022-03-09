@@ -1,4 +1,4 @@
-package me.bluenitrox.school.enchants.function;
+package me.bluenitrox.school.enchants;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

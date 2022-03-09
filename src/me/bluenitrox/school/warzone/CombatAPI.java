@@ -83,7 +83,6 @@ public class CombatAPI {
                     if (!playerinwarzone.containsKey(e.getPlayer().getUniqueId())) {
                         Bukkit.broadcastMessage(getWarzoneByLocation(e.getPlayer().getLocation()));
                         playerinwarzone.put(e.getPlayer().getUniqueId(), getWarzoneByLocation(e.getPlayer().getLocation()));
-                        Bukkit.broadcastMessage("wz join");
                         TTA_Methods.sendActionBar(e.getPlayer(), "§b» §7Warzone betreten: §6Levelunterschied: " + getLevelunterschied(Integer.parseInt(getWarzoneByLocation(e.getPlayer().getLocation()))));
                         e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1L, 1L);
                     }
@@ -91,7 +90,6 @@ public class CombatAPI {
             }else if(playerinwarzone != null) {
                 if (playerinwarzone.containsKey(e.getPlayer().getUniqueId())) {
                     playerinwarzone.remove(e.getPlayer().getUniqueId());
-                    Bukkit.broadcastMessage("wz leave");
                     Bukkit.broadcastMessage(getWarzoneByLocation(e.getPlayer().getLocation()));
                     return;
                 }

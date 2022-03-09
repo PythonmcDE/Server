@@ -1,6 +1,6 @@
 package me.bluenitrox.school.commands.testcommands;
 
-import me.bluenitrox.school.enchants.function.EnchantManager;
+import me.bluenitrox.school.enchants.EnchantManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.NBTTags;
 import org.bukkit.Material;

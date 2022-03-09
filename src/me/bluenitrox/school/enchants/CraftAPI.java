@@ -1,4 +1,4 @@
-package me.bluenitrox.school.enchants.function;
+package me.bluenitrox.school.enchants;
 
 import de.Herbystar.TTA.TTA_Methods;
 import me.bluenitrox.school.managers.MessageManager;

@@ -23,6 +23,9 @@ public class AngelListener implements Listener {
 
     @EventHandler
     public void onInteract(final PlayerFishEvent e){
+        if(!AngelminenManager.isinAngelmine(e.getPlayer())){
+            e.setCancelled(true);
+        }
         if(e.getState() == PlayerFishEvent.State.FAILED_ATTEMPT){
             int line = 0;
             int spins = 0;

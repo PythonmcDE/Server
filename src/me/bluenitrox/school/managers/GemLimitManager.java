@@ -1,19 +1,20 @@
-package me.bluenitrox.school.managers.gemlimit;
+package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MoneyManager;
+import org.bukkit.Bukkit;
 
 import java.util.HashMap;
 import java.util.UUID;
 
-public class GemLimit {
+public class GemLimitManager {
 
     private int prestige;
     private int level;
     private UUID uuid;
     private float money;
 
-    public GemLimit(UUID uuid) {
+    public GemLimitManager(UUID uuid) {
         this.uuid = uuid;
        this.prestige = ExpManager.getPrestige(uuid);
        this.level = ExpManager.getLevel(uuid);
@@ -150,12 +151,15 @@ public class GemLimit {
         this.registerGemLimit();
 
         float lvlGemLimit = gl.get(level);
+        if(Bukkit.getPlayer(uuid).hasPermission(PermissionsManager.ALLPERMS)){
+            return 1000000000000000000F;
+        }
         if(prestige == 3) {
-            return lvlGemLimit / 100 * 140;
+            return (lvlGemLimit+40000000) / 100 * 140;
         } else if(prestige == 2) {
-            return lvlGemLimit / 100 * 125;
+            return (lvlGemLimit+15000000) / 100 * 125;
         } else if(prestige == 1) {
-            return lvlGemLimit / 100 * 110;
+            return (lvlGemLimit+5000000) / 100 * 110;
         } else {
             return lvlGemLimit;
         }

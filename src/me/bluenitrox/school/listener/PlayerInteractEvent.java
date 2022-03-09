@@ -4,7 +4,7 @@ import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.dungeon.runen.RunenFuctions;
-import me.bluenitrox.school.enchants.function.CraftAPI;
+import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.enchants.pickaxe.Laser;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.features.cases.CaseAPI;
