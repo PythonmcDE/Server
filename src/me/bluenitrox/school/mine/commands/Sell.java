@@ -7,6 +7,7 @@ import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.managers.gemlimit.GemLimit;
 import me.bluenitrox.school.mine.manager.SellManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.ValuetoString;
@@ -58,34 +59,42 @@ public class Sell implements CommandExecutor {
                     }
 
                     if(preis != 0) {
-                        if (MoneyManager.updateMoney(p.getUniqueId(), preis, false, true, false)) {
-                            ItemStack air = new ItemStack(Material.AIR);
-                            p.getInventory().setItem(i,air);
-                            alles = (int) (alles + preis);
-                            preis = 0;
+                        GemLimit gemLimit = new GemLimit(p.getUniqueId());
+                            if (MoneyManager.updateMoney(p.getUniqueId(), preis, false, true, false)) {
+                                ItemStack air = new ItemStack(Material.AIR);
+                                p.getInventory().setItem(i, air);
+                                alles = (int) (alles + preis);
+                                preis = 0;
                         }
                     }
                 }
+                GemLimit gemLimit = new GemLimit(p.getUniqueId());
                 if(p.getInventory().getItem(i) != null) {
                     ItemStack redstone = new ItemBuilder(Material.REDSTONE).build();
                     if (Objects.equals(p.getInventory().getItem(i), new ItemStack(Material.INK_SACK, p.getInventory().getItem(i).getAmount(), (short) 4))) {
                         lapispreis += SellManager.pricelapis * p.getInventory().getItem(i).getAmount();
-                        ItemStack air = new ItemStack(Material.AIR);
-                        p.getInventory().setItem(i, air);
+                        if(gemLimit.getRestGemLimit() > lapispreis) {
+                            ItemStack air = new ItemStack(Material.AIR);
+                            p.getInventory().setItem(i, air);
+                        }
                     } else if (p.getInventory().getItem(i) == redstone) {
                         lapispreis += SellManager.priceredstone * p.getInventory().getItem(i).getAmount();
-                        ItemStack air = new ItemStack(Material.AIR);
-                        p.getInventory().setItem(i, air);
+                        if (gemLimit.getRestGemLimit() > lapispreis) {
+                            ItemStack air = new ItemStack(Material.AIR);
+                            p.getInventory().setItem(i, air);
+                        }
                     }
                 }
             }
         }
+
         MoneyManager.updateMoney(p.getUniqueId(), lapispreis, false, true, false);
         alles += lapispreis;
         if(alles == 0) {
-            p.sendMessage(MessageManager.PREFIX + "§7Du hast §ckeine §7verkaufbaren Items im Inventar");
+            p.sendMessage(MessageManager.PREFIX + "§7Ich kann dir derzeit §cleider nichts §7abkaufen.");
             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-        }else {
+        }
+        else {
             Gembooster money = new Gembooster();
             if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(money.getName())))) {
                 p.playSound(p.getLocation(), Sound.VILLAGER_YES, 1L, 1L);

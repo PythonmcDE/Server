@@ -1,10 +1,8 @@
 package me.bluenitrox.school.ah;
 
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
-import me.bluenitrox.school.managers.MessageManager;
-import me.bluenitrox.school.managers.MoneyManager;
-import me.bluenitrox.school.managers.PermissionsManager;
-import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.managers.*;
+import me.bluenitrox.school.managers.gemlimit.GemLimit;
 import me.bluenitrox.school.warzone.CombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -86,7 +84,8 @@ public class Ah_CMD implements CommandExecutor {
                         p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                         return true;
                     }
-                    if(preis > MoneyManager.getGemlimit(p.getUniqueId())){
+                    GemLimit gemLimit = new GemLimit(p.getUniqueId());
+                    if(preis > gemLimit.getRestGemLimit()){
                         p.sendMessage(MessageManager.PREFIX + "§7Du kannst heute §ckeine §7Gems mehr verdienen.");
                         p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                         return true;

@@ -2,7 +2,9 @@ package me.bluenitrox.school.enchants.pickaxe;
 
 import me.bluenitrox.school.enchants.function.EnchantAPI;
 import me.bluenitrox.school.enchants.function.EnchantManager;
+import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MoneyManager;
+import me.bluenitrox.school.managers.gemlimit.GemLimit;
 import me.bluenitrox.school.mine.manager.SellManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,7 +18,8 @@ public class Rausch extends EnchantAPI {
                     if(hasEnchant(p.getItemInHand(), EnchantManager.Rausch)){
                         if(makeOrNot10(stringToNumber(p.getItemInHand(), EnchantManager.Rausch))) {
                             float money = SellManager.getPriceByMaterial(material.toString());
-                            if(MoneyManager.getGemlimit(p.getUniqueId()) < money) return;
+                            GemLimit gemLimit = new GemLimit(p.getUniqueId());
+                            if(gemLimit.getRestGemLimit() < money) return;
                             MoneyManager.updateMoney(p.getUniqueId(), money, false, true, false);
                         }
                     }

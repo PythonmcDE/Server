@@ -2,9 +2,11 @@ package me.bluenitrox.school.ah;
 
 import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 import me.bluenitrox.school.aufgabensystem.AufgabenManager;
+import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.managers.gemlimit.GemLimit;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.NameFetcher;
@@ -98,7 +100,9 @@ public class AhManager {
 
     public static void sellItem(ItemStack is, Player p, int preis, Inventory inv){
 
-        if(MoneyManager.getGemlimit(p.getUniqueId()) < preis){
+        GemLimit gemLimit = new GemLimit(p.getUniqueId());
+
+        if(gemLimit.getRestGemLimit() < preis){
             p.sendMessage(MessageManager.PREFIX + "§7Dein §aGemlimit §7ist heute schon verbraucht. Morgen kannst du wieder Gems verdienen.");
             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
             return;
@@ -259,7 +263,8 @@ public class AhManager {
                     buyer.playSound(buyer.getLocation(), Sound.VILLAGER_NO, 1L , 1L);
                     return;
                 }
-                if(MoneyManager.getGemlimit(UUID.fromString(rs.getString(2))) < rs.getInt(4)){
+                GemLimit gemLimit = new GemLimit(UUID.fromString(rs.getString(2)));
+                if(gemLimit.getRestGemLimit() < rs.getInt(4)){
                     buyer.sendMessage(MessageManager.PREFIX + "§7Du kannst dieses Item §cnicht §7kaufen, da das §aGemlimit §7des Verkäufers voll ist.");
                     return;
                 }

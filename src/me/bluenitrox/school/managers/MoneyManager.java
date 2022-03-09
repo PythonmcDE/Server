@@ -2,6 +2,7 @@ package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.boost.booster.Gembooster;
+import me.bluenitrox.school.managers.gemlimit.GemLimit;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -47,12 +48,13 @@ public class MoneyManager {
                     return true;
                 }
             }
-            if(getGemlimit(uuid) > amount) {
+            GemLimit gemLimit = new GemLimit(uuid);
+            if(gemLimit.getRestGemLimit() > amount) {
                 if (!beachtungVonDoubleGemBooster) {
                     float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
                     SchoolMode.setPlayerMoney(uuid, newAmount);
                     ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
-                    updateGemlimit(uuid,amount, true);
+                    //updateGemlimit(uuid,amount, true);
                     return true;
                 } else {
                     Gembooster money = new Gembooster();
@@ -60,19 +62,19 @@ public class MoneyManager {
                         float newAmount = SchoolMode.getPlayerMoney(uuid) + (amount* MessageManager.MONEY_BOOSTER_BOOST);
                         SchoolMode.setPlayerMoney(uuid, newAmount);
                         ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
-                        updateGemlimit(uuid,amount, true);
+                        //updateGemlimit(uuid,amount, true);
                         return true;
                     }
                     float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
                     SchoolMode.setPlayerMoney(uuid, newAmount);
                     ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
-                    updateGemlimit(uuid,amount, true);
+                    //updateGemlimit(uuid,amount, true);
                     return true;
                 }
             }
             if(!sendChatMSG.contains(Bukkit.getPlayer(uuid))) {
                 sendChatMSG.add(Bukkit.getPlayer(uuid));
-                Bukkit.getPlayer(uuid).sendMessage(MessageManager.PREFIX + "§7Du kannst heute §ckeine §7Gems mehr verdienen.");
+                Bukkit.getPlayer(uuid).sendMessage(MessageManager.PREFIX + "§7Dein Gemlimit ist §cvoll§7, steige im §6§lLeveln §7auf, damit es  höher wird.");
                 Bukkit.getPlayer(uuid).playSound(Bukkit.getPlayer(uuid).getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                 new BukkitRunnable(){
                     @Override
@@ -94,12 +96,13 @@ public class MoneyManager {
                 ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
             }
         } else {
-            if(getGemlimit(uuid) > amount) {
+            GemLimit gemLimit = new GemLimit(uuid);
+            if(gemLimit.getRestGemLimit() > amount) {
                 if (!beachtungVonDoubleGemBooster) {
                     float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
                     SchoolMode.setPlayerMoney(uuid, newAmount);
                     ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
-                    updateGemlimit(uuid,amount, true);
+                   // updateGemlimit(uuid,amount, true);
                     return true;
                 } else {
                     Gembooster money = new Gembooster();
@@ -107,13 +110,13 @@ public class MoneyManager {
                         float newAmount = SchoolMode.getPlayerMoney(uuid) + (amount* MessageManager.MONEY_BOOSTER_BOOST);
                         SchoolMode.setPlayerMoney(uuid, newAmount);
                         ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
-                        updateGemlimit(uuid,amount, true);
+                        //updateGemlimit(uuid,amount, true);
                         return true;
                     }
                     float newAmount = SchoolMode.getPlayerMoney(uuid) + amount;
                     SchoolMode.setPlayerMoney(uuid, newAmount);
                     ScoreboardManager.setBoard(Bukkit.getPlayer(uuid));
-                    updateGemlimit(uuid,amount, true);
+                    //updateGemlimit(uuid,amount, true);
                     return true;
                 }
             }
@@ -135,23 +138,6 @@ public class MoneyManager {
 
     public static float getMoney(UUID uuid){
         return SchoolMode.getPlayerMoney(uuid);
-    }
-
-    public static float getGemlimit(UUID uuid){
-        return SchoolMode.getGemLimit(uuid);
-    }
-    public static boolean updateGemlimit(UUID uuid, float amount, boolean remove) {
-        if (remove) {
-            if (SchoolMode.getGemLimit(uuid) >= amount) {
-                int newAmount = (int) (SchoolMode.getGemLimit(uuid) - amount);
-                SchoolMode.setGemLimit(uuid, newAmount);
-            }
-        } else {
-            int newAmount = (int) (SchoolMode.getGemLimit(uuid) + amount);
-            SchoolMode.setGemLimit(uuid, newAmount);
-            return true;
-        }
-        return true;
     }
 
     public static float getMoneyDatabase(UUID uuid) {
@@ -196,24 +182,6 @@ public class MoneyManager {
         }
 
         try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE spielerdaten SET money = ? WHERE spieleruuid = ?")) {
-            ps.setFloat(1, newAmount);
-            ps.setString(2, uuid.toString());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void updateGemlimitDatabase(UUID uuid, float amount, boolean remove) {
-        float currMoney = getGemlimit(uuid);
-        float newAmount;
-        if (remove) {
-            newAmount = currMoney - amount;
-        } else {
-            newAmount = (currMoney + amount);
-        }
-
-        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE DailyReward SET GemLimit = ? WHERE spieleruuid = ?")) {
             ps.setFloat(1, newAmount);
             ps.setString(2, uuid.toString());
             ps.executeUpdate();

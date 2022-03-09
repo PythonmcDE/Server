@@ -7,7 +7,7 @@ public class ValuetoString {
     public static String valueToString(double number){
 
         if(number >= 1000000000){
-            return String.format("%.2f Mrd", number/ 1000000000.0);
+            return String.format("%.2f Mio", number/ 1000000.0);
         }
 
         if(number >= 1000000){
@@ -15,6 +15,35 @@ public class ValuetoString {
         }
 
         if(number >=1000){
+            return String.format("%.2f Tsd", number/ 1000.0);
+        }
+        return String.valueOf(number);
+
+    }
+
+    public static String valueToStringGemLimit(double number){
+
+        if(number >= 1000000000){
+            return String.format("%.2f Mio", number/ 1000000.0);
+        }
+
+        if(number >= 1000000){
+            return String.format("%.2f Mio", number/ 1000000.0);
+        }
+
+        if(number >=1000){
+            return String.format("%.2f Tsd", number/ 1000.0);
+        }
+
+        if(number >= -1000000000){
+            return String.format("%.2f Mio", number/ 1000000.0);
+        }
+
+        if(number >= -1000000){
+            return String.format("%.2f Mio", number/ 1000000.0);
+        }
+
+        if(number >= -1000){
             return String.format("%.2f Tsd", number/ 1000.0);
         }
         return String.valueOf(number);

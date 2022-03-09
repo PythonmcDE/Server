@@ -9,6 +9,7 @@ import me.bluenitrox.school.utils.Firework;
 import me.bluenitrox.school.utils.GetDisplayColor;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.NameFetcher;
+import me.daarkii.nicksystem.NickAddon;
 import org.apache.logging.log4j.message.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -109,6 +110,10 @@ public class Prestige implements CommandExecutor {
                         p.sendMessage(MessageManager.PREFIX + "§7Du hast §65 Mio Gems §7erhalten.");
                         Bukkit.broadcastMessage(MessageManager.PREFIX + GetDisplayColor.getRankColor(GetDisplayColor.getIPermissionPlayer(p.getUniqueId())) + NameFetcher.getName(p.getUniqueId()) + "§7 hat gerade ein §6§lPrestige Upgrade §7erhalten. §6§lHerzlichen Glückwunsch!!");
                         ExpManager.updatePrestige(uuid, 1, false);
+
+                        for (Player all : Bukkit.getOnlinePlayers()) {
+                            NickAddon.getInstance().updateNameTags(all);
+                        }
                     }
                 }
             }

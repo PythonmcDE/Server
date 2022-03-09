@@ -1,8 +1,10 @@
 package me.bluenitrox.school.commands.infocommands;
 
+import me.bluenitrox.school.managers.ExpManager;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
+import me.bluenitrox.school.managers.gemlimit.GemLimit;
 import me.bluenitrox.school.utils.ValuetoString;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -19,7 +21,9 @@ public class Gemlimit implements CommandExecutor {
             return true;
         }
         if(args.length == 0){
-            p.sendMessage(MessageManager.PREFIX + "§7Von deinem Gemlimit sind noch §6§l" + ValuetoString.valueToString(MoneyManager.getGemlimit(p.getUniqueId())) + " Gems§7 übrig!");
+            GemLimit gemLimit = new GemLimit(p.getUniqueId());
+            p.sendMessage(MessageManager.PREFIX + "§7Dein maximales Gemlimit ist §6§l" + ValuetoString.valueToString(gemLimit.getGemLimit()) + " Gems§7.");
+            p.sendMessage(MessageManager.PREFIX + "§7Davon sind noch §6§l" + ValuetoString.valueToStringGemLimit(gemLimit.getRestGemLimit()) + " Gems§7 übrig!");
         }else {
             p.sendMessage(MessageManager.FALSECOMMAND(PlayerJoinManager.language));
             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
