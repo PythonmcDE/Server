@@ -1,14 +1,13 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.aufgabensystem.Aufgaben;
-import me.bluenitrox.school.aufgabensystem.AufgabenManager;
 import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
 import me.bluenitrox.school.haendler.NPCAPI;
 import me.bluenitrox.school.managers.LocationManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.ScoreboardManager;
-import me.bluenitrox.school.mine.manager.MinenSettings;
+import me.bluenitrox.school.mine.minensettings.GetOptions;
+import me.bluenitrox.school.mine.minensettings.SellOptions;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,7 +15,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerJoinListener implements Listener {
 
@@ -27,6 +25,7 @@ public class PlayerJoinListener implements Listener {
         SchoolMode.playerwason.add(p.getUniqueId());
 
         NPCAPI.setJoinNPC(e);
+        SellOptions sellOptions = new SellOptions();
 
         ScoreboardManager.setBoard(p);
         p.setGameMode(GameMode.SURVIVAL);
@@ -35,7 +34,8 @@ public class PlayerJoinListener implements Listener {
             p.teleport(new LocationManager("spawn").getLocation());
         }
         PlayerRespawnEvent.erhaltItems(p);
-        MinenSettings.getMiningSettings().setInHashMap(e);
+        GetOptions.getMiningSettings().setInHashMap(e);
+        sellOptions.setInHashMap(e);
         e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20*60*20, 1));
         AufgabenMethods.onJoin(e);
     }

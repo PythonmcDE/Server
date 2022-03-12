@@ -16,6 +16,9 @@ import me.bluenitrox.school.commands.infocommands.Exp;
 import me.bluenitrox.school.commands.infocommands.Gemlimit;
 import me.bluenitrox.school.commands.infocommands.Money;
 import me.bluenitrox.school.commands.infocommands.School;
+import me.bluenitrox.school.commands.minensettings.GetOptions;
+import me.bluenitrox.school.commands.minensettings.MinenSettings;
+import me.bluenitrox.school.commands.minensettings.SellOptions;
 import me.bluenitrox.school.commands.rangfeatures.*;
 import me.bluenitrox.school.commands.testcommands.NBTTagtest;
 import me.bluenitrox.school.commands.testcommands.OtherTest;
@@ -213,7 +216,9 @@ public class SchoolMode extends JavaPlugin {
         getCommand("aufgabe").setExecutor(new AufgabeCMD());
         getCommand("school").setExecutor(new School());
         getCommand("wz").setExecutor(new Warzone());
-        getCommand("minensettings").setExecutor(new MineSettings());
+        getCommand("getoptions").setExecutor(new GetOptions());
+        getCommand("selloptions").setExecutor(new SellOptions());
+        getCommand("minensettings").setExecutor(new MinenSettings());
         getCommand("plot").setExecutor(new PlotCMD());
         getCommand("getRunen").setExecutor(new GetRunenCMD());
         getCommand("taxi").setExecutor(new TaxiCMD());
@@ -334,6 +339,9 @@ public class SchoolMode extends JavaPlugin {
                 ps.executeUpdate();
             }
             try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `miningblocksettings` ( `spieleruuid` CHAR(36) NOT NULL , `stone` BOOL, `gravil` BOOL, `coal` BOOL, `brick` BOOL, `iron` BOOL, `quarz` BOOL, `redstone` BOOL, `lapis` BOOL, `prismarin` BOOL, `gold` BOOL, `diamond` BOOL, `netherbrick` BOOL, `emerald` BOOL, `coalblock` BOOL, `redsandstone` BOOL, `quarzblock` BOOL, `ice` BOOL, `netherrack` BOOL, `ironblock` BOOL, `packedice` BOOL, `sealatern` BOOL, `endstone` BOOL, `redstoneblock` BOOL, `lapisblock` BOOL, `goldblock` BOOL, `diamondblock` BOOL, `emeraldblock` BOOL)");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `minenselloptions` ( `spieleruuid` CHAR(36) NOT NULL , `stone` BOOL, `gravil` BOOL, `coal` BOOL, `brick` BOOL, `iron` BOOL, `quarz` BOOL, `redstone` BOOL, `lapis` BOOL, `prismarin` BOOL, `gold` BOOL, `diamond` BOOL, `netherbrick` BOOL, `emerald` BOOL, `coalblock` BOOL, `redsandstone` BOOL, `quarzblock` BOOL, `ice` BOOL, `netherrack` BOOL, `ironblock` BOOL, `packedice` BOOL, `sealatern` BOOL, `endstone` BOOL, `redstoneblock` BOOL, `lapisblock` BOOL, `goldblock` BOOL, `diamondblock` BOOL, `emeraldblock` BOOL)");) {
                 ps.executeUpdate();
             }
         } catch (SQLException e) {

@@ -4,15 +4,14 @@ import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.mine.angelmine.AngelminenManager;
-import me.bluenitrox.school.mine.manager.MinenSettings;
+import me.bluenitrox.school.mine.minensettings.GetOptions;
+import me.bluenitrox.school.mine.minensettings.SellOptions;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.warzone.CombatAPI;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +22,9 @@ public class PlayerQuitListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        MinenSettings.getMiningSettings().savePlayer(e);
+        SellOptions sellOptions = new SellOptions();
+        sellOptions.savePlayer(e);
+        GetOptions.getMiningSettings().savePlayer(e);
         Player p = e.getPlayer();
         DungeonManager dm = new DungeonManager();
         e.setQuitMessage(null);

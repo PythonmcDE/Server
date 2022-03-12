@@ -2,7 +2,8 @@
 package me.bluenitrox.school.managers;
 
 import me.bluenitrox.school.SchoolMode;
-import me.bluenitrox.school.mine.manager.MinenSettings;
+import me.bluenitrox.school.mine.minensettings.GetOptions;
+import me.bluenitrox.school.mine.minensettings.SellOptions;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.*;
@@ -24,8 +25,10 @@ public class PlayerJoinManager {
 
 
     public static void cachPlayerData(UUID uuid) {
-        MinenSettings minenSettings = new MinenSettings();
-        minenSettings.createPlayer(uuid);
+        GetOptions getOptions = new GetOptions();
+        SellOptions sellOptions = new SellOptions();
+        sellOptions.createPlayer(uuid);
+        getOptions.createPlayer(uuid);
         if(!isTaskUserExists(uuid)) {
             configuratePlayer(uuid);
             configurateKitPlayer(uuid);

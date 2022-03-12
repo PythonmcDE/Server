@@ -32,6 +32,7 @@ commands:
       - fliegen
   test:
   getRunen:
+  selloptions:
   wb:
     aliases:
       - workbench
@@ -142,6 +143,7 @@ commands:
       - tasks
   school:
   itemspawner:
+  getoptions:
   minensettings:
     aliases:
       - ms

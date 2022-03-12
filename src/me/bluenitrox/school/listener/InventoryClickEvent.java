@@ -5,6 +5,8 @@ import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
 import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.commands.admincommands.getBooks;
+import me.bluenitrox.school.commands.minensettings.GetOptions;
+import me.bluenitrox.school.commands.minensettings.SellOptions;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
 import me.bluenitrox.school.dungeon.command.DungeonInventory;
@@ -18,7 +20,6 @@ import me.bluenitrox.school.haendler.HändlerAPI;
 import me.bluenitrox.school.haendler.commands.Schmied;
 import me.bluenitrox.school.haendler.commands.Taxi;
 import me.bluenitrox.school.mine.angelmine.Angelmine;
-import me.bluenitrox.school.mine.manager.MinenSettings;
 import me.bluenitrox.school.plots.PlotInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -38,7 +39,8 @@ public class InventoryClickEvent implements Listener {
         Kopfgeld k = new Kopfgeld();
         Angelmine am = new Angelmine();
         AufgabenMethods.onCLick(e);
-        MineSettings settings = new MineSettings();
+        GetOptions settings = new GetOptions();
+        SellOptions sellOptions = new SellOptions();
 
         if(CaseAPI.caseöffnen != null) {
             if (CaseAPI.caseöffnen.contains(p)) {
@@ -50,6 +52,7 @@ public class InventoryClickEvent implements Listener {
             if (e.getClickedInventory().getName() != null) {
                 try {
                 settings.onInventoryClick(e);
+                sellOptions.onInventoryClick(e);
                 Prestige.onClick(e);
                 craft.onClick(e);
                 SkillSystem.onClick(e);

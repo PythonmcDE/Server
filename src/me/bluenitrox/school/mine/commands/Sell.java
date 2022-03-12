@@ -9,6 +9,7 @@ import me.bluenitrox.school.managers.PermissionsManager;
 import me.bluenitrox.school.managers.PlayerJoinManager;
 import me.bluenitrox.school.managers.GemLimitManager;
 import me.bluenitrox.school.mine.manager.SellManager;
+import me.bluenitrox.school.mine.minensettings.SellOptions;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.ValuetoString;
 import me.bluenitrox.school.warzone.CombatAPI;
@@ -34,6 +35,9 @@ public class Sell implements CommandExecutor {
         for (int i = 0; i <= p.getInventory().getSize(); i++) {
             if (p.getInventory().getItem(i) != null) {
                 if (SellManager.Preise.getByName(p.getInventory().getItem(i).getType().toString()) != null) {
+                    SellOptions sellOptions = new SellOptions();
+                    HashMap<Material, Boolean> blocks = sellOptions.getMinenSellOptions().get(p.getUniqueId());
+                    if(!blocks.get(p.getInventory().getItem(i).getType())) return;
                     int amount = p.getInventory().getItem(i).getAmount();
                     float preis = SellManager.getPriceByMaterial(p.getInventory().getItem(i).getType().toString());
                     preis = preis*amount;
@@ -135,6 +139,9 @@ public class Sell implements CommandExecutor {
             for (int i = 0; i <= p.getInventory().getSize(); i++) {
                 if (p.getInventory().getItem(i) != null) {
                     if (SellManager.Preise.getByName(p.getInventory().getItem(i).getType().toString()) != null) {
+                        SellOptions sellOptions = new SellOptions();
+                        HashMap<Material, Boolean> blocks = sellOptions.getMinenSellOptions().get(p.getUniqueId());
+                        if(!blocks.get(p.getInventory().getItem(i).getType())) return true;
                         int amount = p.getInventory().getItem(i).getAmount();
                         float preis = SellManager.getPriceByMaterial(p.getInventory().getItem(i).getType().toString());
                         preis = preis*amount;

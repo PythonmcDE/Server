@@ -8,7 +8,7 @@ import me.bluenitrox.school.enchants.pickaxe.Duplizierung;
 import me.bluenitrox.school.managers.MessageManager;
 import me.bluenitrox.school.managers.PlayerBreakBlockManager;
 import me.bluenitrox.school.managers.WorldManager;
-import me.bluenitrox.school.mine.manager.MinenSettings;
+import me.bluenitrox.school.mine.minensettings.GetOptions;
 import me.bluenitrox.school.utils.InventoryUtil;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -82,7 +82,7 @@ public class BreakBlockEvent implements Listener {
     public static void addItemToInv(Player p, Block b, int multiplier){
         ItemStack item;
         UUID uuid = p.getUniqueId();
-        HashMap<Material, Boolean> value = MinenSettings.getMiningSettings().getMinenSettings().get(uuid);
+        HashMap<Material, Boolean> value = GetOptions.getMiningSettings().getMinenSettings().get(uuid);
         if(b.getType() == Material.STONE){
             if(value.get(Material.STONE)) {
                 item = new ItemBuilder(Material.STONE).setDisplayname("§7Stein").build();
