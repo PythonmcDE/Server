@@ -13,6 +13,7 @@ import me.bluenitrox.school.mine.minensettings.SellOptions;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.ValuetoString;
 import me.bluenitrox.school.warzone.CombatAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -34,56 +35,50 @@ public class Sell implements CommandExecutor {
         int lapispreis = 0;
         for (int i = 0; i <= p.getInventory().getSize(); i++) {
             if (p.getInventory().getItem(i) != null) {
-                if (SellManager.Preise.getByName(p.getInventory().getItem(i).getType().toString()) != null) {
-                    SellOptions sellOptions = new SellOptions();
-                    HashMap<Material, Boolean> blocks = sellOptions.getMinenSellOptions().get(p.getUniqueId());
-                    if(!blocks.get(p.getInventory().getItem(i).getType())) return;
-                    int amount = p.getInventory().getItem(i).getAmount();
-                    float preis = SellManager.getPriceByMaterial(p.getInventory().getItem(i).getType().toString());
-                    preis = preis*amount;
-                    if(AufgabenManager.getTask(p.getUniqueId()) == 6) {
-                        if(p.getInventory().getItem(i).getType() == Material.STONE) {
-                            if(amount >= 50) {
-                                AufgabenManager.getPrice(p, 6);
-                            } else {
-                                if(task6 != null) {
-                                    if(task6.containsKey(p.getUniqueId())) {
-                                        int stone = task6.get(p.getUniqueId()) + amount;
-                                        if(stone >= 50) {
-                                            AufgabenManager.getPrice(p, 6);
+                HashMap<Material, Boolean> blocks = SellOptions.getInstance().getMinenSellOptions().get(p.getUniqueId());
+                if(!blocks.containsKey(p.getInventory().getItem(i).getType())) return;
+                if(blocks.get(p.getInventory().getItem(i).getType())) {
+                    if (SellManager.Preise.getByName(p.getInventory().getItem(i).getType().toString()) != null) {
+                        int amount = p.getInventory().getItem(i).getAmount();
+                        float preis = SellManager.getPriceByMaterial(p.getInventory().getItem(i).getType().toString());
+                        preis = preis * amount;
+                        if (AufgabenManager.getTask(p.getUniqueId()) == 6) {
+                            if (p.getInventory().getItem(i).getType() == Material.STONE) {
+                                if (amount >= 50) {
+                                    AufgabenManager.getPrice(p, 6);
+                                } else {
+                                    if (task6 != null) {
+                                        if (task6.containsKey(p.getUniqueId())) {
+                                            int stone = task6.get(p.getUniqueId()) + amount;
+                                            if (stone >= 50) {
+                                                AufgabenManager.getPrice(p, 6);
+                                            } else {
+                                                task6.put(p.getUniqueId(), task6.get(p.getUniqueId()) + stone);
+                                            }
                                         } else {
-                                            task6.put(p.getUniqueId(), task6.get(p.getUniqueId()) + stone);
+                                            task6.put(p.getUniqueId(), amount);
                                         }
-                                    } else {
-                                        task6.put(p.getUniqueId(), amount);
                                     }
                                 }
                             }
                         }
-                    }
 
-                    if(preis != 0) {
-                        GemLimitManager gemLimit = new GemLimitManager(p.getUniqueId());
+                        if (preis != 0) {
+                            GemLimitManager gemLimit = new GemLimitManager(p.getUniqueId());
                             if (MoneyManager.updateMoney(p.getUniqueId(), preis, false, true, false)) {
                                 ItemStack air = new ItemStack(Material.AIR);
                                 p.getInventory().setItem(i, air);
                                 alles = (int) (alles + preis);
                                 preis = 0;
+                            }
                         }
                     }
                 }
                 GemLimitManager gemLimit = new GemLimitManager(p.getUniqueId());
                 if(p.getInventory().getItem(i) != null) {
-                    ItemStack redstone = new ItemBuilder(Material.REDSTONE).build();
                     if (Objects.equals(p.getInventory().getItem(i), new ItemStack(Material.INK_SACK, p.getInventory().getItem(i).getAmount(), (short) 4))) {
                         lapispreis += SellManager.pricelapis * p.getInventory().getItem(i).getAmount();
                         if(gemLimit.getRestGemLimit() > lapispreis) {
-                            ItemStack air = new ItemStack(Material.AIR);
-                            p.getInventory().setItem(i, air);
-                        }
-                    } else if (p.getInventory().getItem(i) == redstone) {
-                        lapispreis += SellManager.priceredstone * p.getInventory().getItem(i).getAmount();
-                        if (gemLimit.getRestGemLimit() > lapispreis) {
                             ItemStack air = new ItemStack(Material.AIR);
                             p.getInventory().setItem(i, air);
                         }
@@ -134,26 +129,27 @@ public class Sell implements CommandExecutor {
         }
 
         if (args.length == 0) {
+            HashMap<Material, Boolean> blocks = SellOptions.getInstance().getMinenSellOptions().get(p.getUniqueId());
             int alles = 0;
             int lapispreis = 0;
             for (int i = 0; i <= p.getInventory().getSize(); i++) {
                 if (p.getInventory().getItem(i) != null) {
-                    if (SellManager.Preise.getByName(p.getInventory().getItem(i).getType().toString()) != null) {
-                        SellOptions sellOptions = new SellOptions();
-                        HashMap<Material, Boolean> blocks = sellOptions.getMinenSellOptions().get(p.getUniqueId());
-                        if(!blocks.get(p.getInventory().getItem(i).getType())) return true;
-                        int amount = p.getInventory().getItem(i).getAmount();
-                        float preis = SellManager.getPriceByMaterial(p.getInventory().getItem(i).getType().toString());
-                        preis = preis*amount;
-                        if(AufgabenManager.getTask(p.getUniqueId()) == 6) {
-                            if(p.getInventory().getItem(i).getType() == Material.STONE) {
-                                if(amount >= 50) {
+                    if(!blocks.containsKey(p.getInventory().getItem(i).getType())) return true;
+                    if(blocks.get(p.getInventory().getItem(i).getType())) {
+                        if (SellManager.Preise.getByName(p.getInventory().getItem(i).getType().toString()) != null) {
+                            int amount = p.getInventory().getItem(i).getAmount();
+                            float preis = SellManager.getPriceByMaterial(p.getInventory().getItem(i).getType().toString());
+                            preis = preis * amount;
+
+                        if (AufgabenManager.getTask(p.getUniqueId()) == 6) {
+                            if (p.getInventory().getItem(i).getType() == Material.STONE) {
+                                if (amount >= 50) {
                                     AufgabenManager.getPrice(p, 6);
                                 } else {
-                                    if(task6 != null) {
-                                        if(task6.containsKey(p.getUniqueId())) {
+                                    if (task6 != null) {
+                                        if (task6.containsKey(p.getUniqueId())) {
                                             int stone = task6.get(p.getUniqueId()) + amount;
-                                            if(stone >= 50) {
+                                            if (stone >= 50) {
                                                 AufgabenManager.getPrice(p, 6);
                                             } else {
                                                 task6.put(p.getUniqueId(), task6.get(p.getUniqueId()) + stone);
@@ -165,25 +161,23 @@ public class Sell implements CommandExecutor {
                                 }
                             }
                         }
-                        if(preis != 0) {
+                        if (preis != 0) {
                             if (MoneyManager.updateMoney(p.getUniqueId(), preis, false, true, false)) {
                                 ItemStack air = new ItemStack(Material.AIR);
-                                p.getInventory().setItem(i,air);
+                                p.getInventory().setItem(i, air);
                                 alles = (int) (alles + preis);
                                 preis = 0;
                             }
                         }
                     }
+                    }
                     if(p.getInventory().getItem(i) != null) {
-                        ItemStack redstone = new ItemBuilder(Material.REDSTONE).build();
                         if (Objects.equals(p.getInventory().getItem(i), new ItemStack(Material.INK_SACK, p.getInventory().getItem(i).getAmount(), (short) 4))) {
-                            lapispreis += SellManager.pricelapis * p.getInventory().getItem(i).getAmount();
-                            ItemStack air = new ItemStack(Material.AIR);
-                            p.getInventory().setItem(i, air);
-                        } else if (p.getInventory().getItem(i) == redstone) {
-                            lapispreis += SellManager.priceredstone * p.getInventory().getItem(i).getAmount();
-                            ItemStack air = new ItemStack(Material.AIR);
-                            p.getInventory().setItem(i, air);
+                            if (blocks.get(Material.INK_SACK)) {
+                                lapispreis += SellManager.pricelapis * p.getInventory().getItem(i).getAmount();
+                                ItemStack air = new ItemStack(Material.AIR);
+                                p.getInventory().setItem(i, air);
+                            }
                         }
                     }
                 }

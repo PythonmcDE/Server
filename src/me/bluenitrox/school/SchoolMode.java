@@ -43,6 +43,9 @@ import me.bluenitrox.school.mine.manager.Minenreset;
 import me.bluenitrox.school.mysql.MySQL;
 import me.bluenitrox.school.mysql.MySQL_File;
 import me.bluenitrox.school.plots.PlotCMD;
+import me.bluenitrox.school.seasonpass.SeasonpassCMD;
+import me.bluenitrox.school.seasonpass.SeasonpassManager;
+import me.bluenitrox.school.seasonpass.SeasonpassRewardManager;
 import me.bluenitrox.school.utils.*;
 import me.bluenitrox.school.warzone.CombatAPI;
 import me.bluenitrox.school.warzone.Warzone;
@@ -140,6 +143,9 @@ public class SchoolMode extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§4----------------------------------");
         startNPCS();
         setGameRules();
+
+        SeasonpassRewardManager seasonpassRewardManager = new SeasonpassRewardManager();
+        seasonpassRewardManager.registerSeasonpassRewards();
     }
 
     private void startNPCS(){
@@ -229,6 +235,7 @@ public class SchoolMode extends JavaPlugin {
         getCommand("wb").setExecutor(new WB());
         getCommand("anvil").setExecutor(new Anvil());
         getCommand("enchanter").setExecutor(new EnchanterCMD());
+        getCommand("seasonpass").setExecutor(new SeasonpassCMD());
 
         getCommand("giveSchoolXP").setExecutor(new giveSchoolXP());
         getCommand("testsummon").setExecutor(new TestSummon());
@@ -321,6 +328,9 @@ public class SchoolMode extends JavaPlugin {
                 ps.executeUpdate();
             }
             try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `PetSystem` ( `UUID` CHAR(36) NOT NULL , `Benjamin` INT(11) NOT NULL , `Merlin` INT(11) NOT NULL , `Eddy` INT(11) NOT NULL , `Anton` INT(11) NOT NULL , `Helgar` INT(11) NOT NULL , `Farid` INT(11) NOT NULL , `Peter` INT(11) NOT NULL )");){
+                ps.executeUpdate();
+            }
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `seasonpass` ( `UUID` CHAR(36) NOT NULL, `goldpass` BOOL, `fortschritt` INT(11), `items` TEXT(32000), `xp` FLOAT)");){
                 ps.executeUpdate();
             }
             try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `DailyReward` ( `UUID` CHAR(36) NOT NULL , `Belohnung` INT(11) NOT NULL , `Erfahrung` INT(11) NOT NULL , `Cases` INT(11) NOT NULL  , `GemLimit` INT(11) NOT NULL )");){

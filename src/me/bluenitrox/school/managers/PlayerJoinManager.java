@@ -5,6 +5,7 @@ import me.bluenitrox.school.SchoolMode;
 import me.bluenitrox.school.mine.minensettings.GetOptions;
 import me.bluenitrox.school.mine.minensettings.SellOptions;
 import me.bluenitrox.school.mysql.MySQL;
+import me.bluenitrox.school.seasonpass.SeasonpassManager;
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.*;
 
@@ -39,6 +40,9 @@ public class PlayerJoinManager {
         if(!isBoostUserExists(uuid)) {
             configurateBoosterPlayer(uuid);
         }
+
+        SeasonpassManager seasonpassManager = new SeasonpassManager();
+        seasonpassManager.configuratePlayer(uuid);
         /*
         important values money etc.
          */

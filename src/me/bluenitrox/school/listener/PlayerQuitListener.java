@@ -22,9 +22,9 @@ public class PlayerQuitListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        SellOptions sellOptions = new SellOptions();
-        sellOptions.savePlayer(e);
+        SellOptions.getInstance().savePlayer(e);
         GetOptions.getMiningSettings().savePlayer(e);
+
         Player p = e.getPlayer();
         DungeonManager dm = new DungeonManager();
         e.setQuitMessage(null);

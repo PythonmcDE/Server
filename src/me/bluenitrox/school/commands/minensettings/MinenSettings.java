@@ -17,7 +17,7 @@ public class MinenSettings implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
-        if(!(sender instanceof Player)) return true;
+        if (!(sender instanceof Player)) return true;
         ((Player) sender).openInventory(inventory());
 
         return false;
@@ -25,26 +25,27 @@ public class MinenSettings implements CommandExecutor {
 
     public void onClick(InventoryClickEvent event) {
 
-        if(event.getClickedInventory() == null) return;
-        if(!event.getClickedInventory().getName().equalsIgnoreCase("§8» §6§lMineneinstellungen")) return;
-        if(event.getCurrentItem() == null) return;
-        if(event.getCurrentItem().getItemMeta() == null) return;
-        if(event.getCurrentItem().getItemMeta().getDisplayName() == null) return;
+        if (event.getClickedInventory() == null) return;
+        if (event.getClickedInventory().getName().equalsIgnoreCase("§8» §6§lMineneinstellungen")) {
 
-        event.setCancelled(true);
+        if (event.getCurrentItem() == null) return;
+
         Player player = (Player) event.getWhoClicked();
 
-        if(event.getCurrentItem().getType() == Material.WATCH) {
+        if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lBreakoptions")) {
             player.closeInventory();
             player.performCommand("getoptions");
-        } else if(event.getCurrentItem().getType() == Material.CHEST) {
+        } else if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lLageroptionen")) {
             player.closeInventory();
             player.performCommand("minebackpack");
-        } else if(event.getCurrentItem().getType() == Material.EMERALD) {
+        } else if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §6§lSelloptions")) {
             player.closeInventory();
             player.performCommand("selloptions");
         }
+        event.setCancelled(true);
     }
+
+}
 
     private Inventory inventory() {
         String guiname = "§8» §6§lMineneinstellungen";
@@ -55,9 +56,9 @@ public class MinenSettings implements CommandExecutor {
             inventory.setItem(i, glass);
         }
 
-        inventory.setItem(8+3, new ItemBuilder(Material.WATCH).setDisplayname("§8» §6§lMinenitems").build());
+        inventory.setItem(8+3, new ItemBuilder(Material.WATCH).setDisplayname("§8» §6§lBreakoptions").build());
         inventory.setItem(8+5, new ItemBuilder(Material.CHEST).setDisplayname("§8» §6§lLageroptionen").build());
-        inventory.setItem(8+7, new ItemBuilder(Material.EMERALD).setDisplayname("§8» §6§lVerkaufsoptionen").build());
+        inventory.setItem(8+7, new ItemBuilder(Material.EMERALD).setDisplayname("§8» §6§lSelloptions").build());
 
         return inventory;
     }

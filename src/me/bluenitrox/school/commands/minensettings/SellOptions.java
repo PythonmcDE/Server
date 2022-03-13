@@ -12,9 +12,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 
 import java.util.HashMap;
 import java.util.UUID;
+
+import static org.bukkit.Material.*;
 
 public class SellOptions implements CommandExecutor {
 
@@ -36,11 +39,11 @@ public class SellOptions implements CommandExecutor {
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         UUID uuid = player.getUniqueId();
-        me.bluenitrox.school.mine.minensettings.SellOptions sellOptions = new me.bluenitrox.school.mine.minensettings.SellOptions();
-        HashMap<Material, Boolean> value = sellOptions.getMinenSellOptions().get(uuid);
+        HashMap<Material, Boolean> value = me.bluenitrox.school.mine.minensettings.SellOptions.getInstance().getMinenSellOptions().get(uuid);
         if(event.getClickedInventory() != null && event.getCurrentItem() != null) {
             if(!event.getClickedInventory().getName().equalsIgnoreCase("§8» §6§lVerkaufsoptionen")) return;
             event.setCancelled(true);
+
             switch (event.getCurrentItem().getType()) {
                 case STONE:
                     Material stone = Material.STONE;
@@ -62,8 +65,8 @@ public class SellOptions implements CommandExecutor {
                         event.setCurrentItem(gravilActive);
                     }
                     break;
-                case COAL_ORE:
-                    Material coalOre = Material.COAL_ORE;
+                case COAL:
+                    Material coalOre = Material.COAL;
                     if(value.get(coalOre)) {
                         value.replace(coalOre, false);
                         event.setCurrentItem(coalDeactivated);
@@ -82,8 +85,8 @@ public class SellOptions implements CommandExecutor {
                         event.setCurrentItem(brickActive);
                     }
                     break;
-                case IRON_ORE:
-                    Material ironOre = Material.IRON_ORE;
+                case IRON_INGOT:
+                    Material ironOre = IRON_INGOT;
                     if(value.get(ironOre)) {
                         value.replace(ironOre, false);
                         event.setCurrentItem(ironDeactivated);
@@ -92,8 +95,8 @@ public class SellOptions implements CommandExecutor {
                         event.setCurrentItem(ironActive);
                     }
                     break;
-                case QUARTZ_ORE:
-                    Material quartzOre = Material.QUARTZ_ORE;
+                case QUARTZ:
+                    Material quartzOre = Material.QUARTZ;
                     if(value.get(quartzOre)) {
                         value.replace(quartzOre, false);
                         event.setCurrentItem(quarzDeactivated);
@@ -102,8 +105,8 @@ public class SellOptions implements CommandExecutor {
                         event.setCurrentItem(quarzActive);
                     }
                     break;
-                case REDSTONE_ORE:
-                    Material redstoneOre = Material.REDSTONE_ORE;
+                case REDSTONE:
+                    Material redstoneOre = Material.REDSTONE;
                     if(value.get(redstoneOre)) {
                         value.replace(redstoneOre, false);
                         event.setCurrentItem(redstoneDeactivated);
@@ -112,8 +115,8 @@ public class SellOptions implements CommandExecutor {
                         event.setCurrentItem(redstoneActive);
                     }
                     break;
-                case LAPIS_ORE:
-                    Material lapisOre = Material.LAPIS_ORE;
+                case INK_SACK:
+                    Material lapisOre = INK_SACK;
                     if(value.get(lapisOre)) {
                         value.replace(lapisOre, false);
                         event.setCurrentItem(lapisDeactivated);
@@ -132,8 +135,8 @@ public class SellOptions implements CommandExecutor {
                         event.setCurrentItem(prismarinActive);
                     }
                     break;
-                case GOLD_ORE:
-                    Material goldOre = Material.GOLD_ORE;
+                case GOLD_INGOT:
+                    Material goldOre = GOLD_INGOT;
                     if(value.get(goldOre)) {
                         value.replace(goldOre, false);
                         event.setCurrentItem(goldDeactivated);
@@ -142,8 +145,8 @@ public class SellOptions implements CommandExecutor {
                         event.setCurrentItem(goldActive);
                     }
                     break;
-                case DIAMOND_ORE:
-                    Material diamondOre = Material.DIAMOND_ORE;
+                case DIAMOND:
+                    Material diamondOre = Material.DIAMOND;
                     if(value.get(diamondOre)) {
                         value.replace(diamondOre, false);
                         event.setCurrentItem(diamondActive);
@@ -162,8 +165,8 @@ public class SellOptions implements CommandExecutor {
                         event.setCurrentItem(netherbrickActive);
                     }
                     break;
-                case EMERALD_ORE:
-                    Material emeraldOre = Material.EMERALD_ORE;
+                case EMERALD:
+                    Material emeraldOre = Material.EMERALD;
                     if(value.get(emeraldOre)) {
                         value.replace(emeraldOre, false);
                         event.setCurrentItem(emeraldDeactivated);
@@ -320,11 +323,11 @@ public class SellOptions implements CommandExecutor {
     create Inventory, open it above
      */
     private Inventory inventory(UUID uuid) {
-        String guiname = "§8» §6§lMineneinstellungen";
+        String guiname = "§8» §6§lVerkaufsoptionen";
 
         Inventory inventory = Bukkit.createInventory(null, 9*5, guiname);
 
-        HashMap<Material, Boolean> value = GetOptions.getMiningSettings().getMinenSettings().get(uuid);
+        HashMap<Material, Boolean> value = me.bluenitrox.school.mine.minensettings.SellOptions.getInstance().getMinenSellOptions().get(uuid);
 
         for(int i = 0; i <= 8; i++){
             inventory.setItem(i, glass);
@@ -346,7 +349,7 @@ public class SellOptions implements CommandExecutor {
             inventory.setItem(10, gravilDeactivated);
         }
 
-        if(value.get(Material.COAL_ORE)) {
+        if(value.get(Material.COAL)) {
             inventory.setItem(11, coalActive);
         } else {
             inventory.setItem(11, coalDeactivated);
@@ -358,25 +361,25 @@ public class SellOptions implements CommandExecutor {
             inventory.setItem(12, brickDeactivated);
         }
 
-        if(value.get(Material.IRON_ORE)) {
+        if(value.get(IRON_INGOT)) {
             inventory.setItem(13, ironActive);
         } else {
             inventory.setItem(13, ironDeactivated);
         }
 
-        if(value.get(Material.QUARTZ_ORE)) {
+        if(value.get(QUARTZ)) {
             inventory.setItem(14, quarzActive);
         } else {
             inventory.setItem(14, quarzDeactivated);
         }
 
-        if(value.get(Material.REDSTONE_ORE)) {
+        if(value.get(Material.REDSTONE)) {
             inventory.setItem(15, redstoneActive);
         } else {
             inventory.setItem(15, redstoneDeactivated);
         }
 
-        if(value.get(Material.LAPIS_ORE)) {
+        if(value.get(INK_SACK)) {
             inventory.setItem(16, lapisActive);
         } else {
             inventory.setItem(16, lapisDeactivated);
@@ -388,13 +391,13 @@ public class SellOptions implements CommandExecutor {
             inventory.setItem(17, prismarinDeactivated);
         }
 
-        if(value.get(Material.GOLD_ORE)) {
+        if(value.get(GOLD_INGOT)) {
             inventory.setItem(18, goldActive);
         } else {
             inventory.setItem(18, goldDeactivated);
         }
 
-        if(value.get(Material.DIAMOND_ORE)) {
+        if(value.get(Material.DIAMOND)) {
             inventory.setItem(19, diamondActive);
         } else {
             inventory.setItem(19, diamondDeactivated);
@@ -406,7 +409,7 @@ public class SellOptions implements CommandExecutor {
             inventory.setItem(20, netherbrickDeactivated);
         }
 
-        if(value.get(Material.EMERALD_ORE)) {
+        if(value.get(Material.EMERALD)) {
             inventory.setItem(21, emeraldActive);
         } else {
             inventory.setItem(21, emeraldDeactivated);
@@ -511,9 +514,8 @@ public class SellOptions implements CommandExecutor {
     String statusDeactivated = "§c§lnicht verkaufbar";
 
     ItemStack glass = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
-    ItemStack glassBlack = new ItemBuilder(Material.STAINED_GLASS_PANE,(short) 15).setDisplayname(" ").build();
 
-    ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8§l» §6§lMinensettings").setLore("§6§l▶ §7Hier kannst du auswählen, welche","§6§l▶ §&§lItems §7du beim abbauen von Blöcken","§6§l▶ §7in der §6§lMine §7erhälst.").build();
+    ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8§l» §6§lSelloptions").setLore("§6§l▶ §7Hier kannst du auswählen, welche","§6§l▶ §&§lItems §7beim Verkaufen,","§6§l▶ §7auch verkauft werden.").build();
 
     //stone
     ItemStack stoneActive = new ItemBuilder(Material.STONE).setDisplayname("§7Stein").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
@@ -524,48 +526,48 @@ public class SellOptions implements CommandExecutor {
     ItemStack gravilDeactivated = new ItemBuilder(Material.GRAVEL).setDisplayname("§7Kies").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //Kohle
-    ItemStack coalActive = new ItemBuilder(Material.COAL_ORE).setDisplayname("§7Kohle").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
-    ItemStack coalDeactivated = new ItemBuilder(Material.COAL_ORE).setDisplayname("§7Kohle").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
+    ItemStack coalActive = new ItemBuilder(Material.COAL).setDisplayname("§7Kohle").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
+    ItemStack coalDeactivated = new ItemBuilder(Material.COAL).setDisplayname("§7Kohle").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //Brick
     ItemStack brickActive = new ItemBuilder(Material.BRICK).setDisplayname("§7Ziegel").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
     ItemStack brickDeactivated = new ItemBuilder(Material.BRICK).setDisplayname("§7Ziegel").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //iron
-    ItemStack ironActive = new ItemBuilder(Material.IRON_ORE).setDisplayname("§7Eisen").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
-    ItemStack ironDeactivated = new ItemBuilder(Material.IRON_ORE).setDisplayname("§7Eisen").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
+    ItemStack ironActive = new ItemBuilder(Material.IRON_INGOT).setDisplayname("§7Eisen").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
+    ItemStack ironDeactivated = new ItemBuilder(Material.IRON_INGOT).setDisplayname("§7Eisen").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //quarz
-    ItemStack quarzActive = new ItemBuilder(Material.QUARTZ_ORE).setDisplayname("§7Quarz").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
-    ItemStack quarzDeactivated = new ItemBuilder(Material.QUARTZ_ORE).setDisplayname("§7Quarz").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
+    ItemStack quarzActive = new ItemBuilder(Material.QUARTZ).setDisplayname("§7Quarz").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
+    ItemStack quarzDeactivated = new ItemBuilder(Material.QUARTZ).setDisplayname("§7Quarz").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //Redstone
-    ItemStack redstoneActive = new ItemBuilder(Material.REDSTONE_ORE).setDisplayname("§7Redstone").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
-    ItemStack redstoneDeactivated = new ItemBuilder(Material.REDSTONE_ORE).setDisplayname("§7Redstone").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
+    ItemStack redstoneActive = new ItemBuilder(Material.REDSTONE).setDisplayname("§7Redstone").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
+    ItemStack redstoneDeactivated = new ItemBuilder(Material.REDSTONE).setDisplayname("§7Redstone").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //Lapis
-    ItemStack lapisActive = new ItemBuilder(Material.LAPIS_ORE).setDisplayname("§7Lapis").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
-    ItemStack lapisDeactivated = new ItemBuilder(Material.LAPIS_ORE).setDisplayname("§7Lapis").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
+    ItemStack lapisActive = new ItemBuilder(Material.INK_SACK, (short) 4).setDisplayname("§7Lapis").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
+    ItemStack lapisDeactivated = new ItemBuilder(Material.INK_SACK, (short) 4).setDisplayname("§7Lapis").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //Prismarin
     ItemStack prismarinActive = new ItemBuilder(Material.PRISMARINE).setDisplayname("§7Prismarin").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
     ItemStack prismarinDeactivated = new ItemBuilder(Material.PRISMARINE).setDisplayname("§7Prismarin").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //Gold
-    ItemStack goldActive = new ItemBuilder(Material.GOLD_ORE).setDisplayname("§7Gold").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
-    ItemStack goldDeactivated = new ItemBuilder(Material.GOLD_ORE).setDisplayname("§7Gold").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
+    ItemStack goldActive = new ItemBuilder(Material.GOLD_INGOT).setDisplayname("§7Gold").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
+    ItemStack goldDeactivated = new ItemBuilder(Material.GOLD_INGOT).setDisplayname("§7Gold").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //Diamond
-    ItemStack diamondActive = new ItemBuilder(Material.DIAMOND_ORE).setDisplayname("§7Diamant").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
-    ItemStack diamondDeactivated = new ItemBuilder(Material.DIAMOND_ORE).setDisplayname("§7Diamant").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
+    ItemStack diamondActive = new ItemBuilder(Material.DIAMOND).setDisplayname("§7Diamant").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
+    ItemStack diamondDeactivated = new ItemBuilder(Material.DIAMOND).setDisplayname("§7Diamant").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //Netherbricks
     ItemStack netherbrickActive = new ItemBuilder(Material.NETHER_BRICK).setDisplayname("§7Netherziegel").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
     ItemStack netherbrickDeactivated = new ItemBuilder(Material.NETHER_BRICK).setDisplayname("§7Netherziegel").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //emerald
-    ItemStack emeraldActive = new ItemBuilder(Material.EMERALD_ORE).setDisplayname("§7Smaragd").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
-    ItemStack emeraldDeactivated = new ItemBuilder(Material.EMERALD_ORE).setDisplayname("§7Smaragd").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
+    ItemStack emeraldActive = new ItemBuilder(Material.EMERALD).setDisplayname("§7Smaragd").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();
+    ItemStack emeraldDeactivated = new ItemBuilder(Material.EMERALD).setDisplayname("§7Smaragd").setLore(doppelPfeil + "§7Derzeitiger Status: " + statusDeactivated).build();
 
     //coalblock
     ItemStack coalblockActive = new ItemBuilder(Material.COAL_BLOCK).setDisplayname("§7Kohleblock").addEnchant(Enchantment.ARROW_INFINITE, 10, false).setLore(doppelPfeil + "§7Derzeitiger Status: " + statusActive).build();

@@ -1,6 +1,7 @@
 package me.bluenitrox.school.commands.testcommands;
 
 import me.bluenitrox.school.enchants.EnchantManager;
+import me.bluenitrox.school.seasonpass.SeasonpassManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.NBTTags;
 import org.bukkit.Material;
@@ -12,9 +13,9 @@ import org.bukkit.entity.Player;
 public class OtherTest implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender cs, Command command, String s, String[] strings) {
-        Player p = (Player)cs;
-        NBTTags nbt = new NBTTags(p.getItemInHand());
-        p.getInventory().addItem(new ItemBuilder(Material.DIAMOND_PICKAXE).setDisplayname("Felix coole Picke").addEnchant(org.bukkit.enchantments.Enchantment.DIG_SPEED, 10, true).addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true).setLore(EnchantManager.Rausch + "I").build());
+        SeasonpassManager seasonpassManager = new SeasonpassManager();
+        Player player = (Player)cs;
+        seasonpassManager.addXP(player.getUniqueId(), 50);
         return false;
     }
 }

@@ -1,6 +1,7 @@
 package me.bluenitrox.school.mine.minensettings;
 
 import me.bluenitrox.school.mysql.MySQL;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -16,18 +17,26 @@ import java.util.UUID;
 
 public class SellOptions {
 
-    private HashMap<UUID, HashMap<Material, Boolean>> selloptions;
-    private HashMap<Material, Boolean> blocks;
+    private static HashMap<UUID, HashMap<Material, Boolean>> selloptions = new HashMap<>();
+    private static HashMap<Material, Boolean> blocks;
+    private static SellOptions sellOptions;
 
     public HashMap<UUID, HashMap<Material, Boolean>> getMinenSellOptions() {
         return selloptions;
+    }
+
+    public SellOptions() {
+        sellOptions = this;
+    }
+
+    public static SellOptions getInstance() {
+        return sellOptions;
     }
 
     public void setInHashMap(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
         blocks = new HashMap<>();
-        Random r = new Random(10);
         /*
         create booleans for all mining items
          */
@@ -59,7 +68,7 @@ public class SellOptions {
         boolean diamondblock;
         boolean emeraldblock;
 
-        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM miningblocksettings WHERE spieleruuid = ?")) {
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM minenselloptions WHERE spieleruuid = ?")) {
             preparedStatement.setString(1, uuid.toString());
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 if(resultSet.next()) {
@@ -93,17 +102,17 @@ public class SellOptions {
 
                     blocks.put(Material.STONE, stone);
                     blocks.put(Material.GRAVEL, gravil);
-                    blocks.put(Material.COAL_ORE, coal);
+                    blocks.put(Material.COAL, coal);
                     blocks.put(Material.BRICK, brick);
-                    blocks.put(Material.IRON_ORE, iron);
-                    blocks.put(Material.QUARTZ_ORE, quarz);
-                    blocks.put(Material.REDSTONE_ORE, redstone);
-                    blocks.put(Material.LAPIS_ORE, lapis);
+                    blocks.put(Material.IRON_INGOT, iron);
+                    blocks.put(Material.QUARTZ, quarz);
+                    blocks.put(Material.REDSTONE, redstone);
+                    blocks.put(Material.INK_SACK, lapis);
                     blocks.put(Material.PRISMARINE, prismarin);
-                    blocks.put(Material.GOLD_ORE, gold);
-                    blocks.put(Material.DIAMOND_ORE, diamond);
+                    blocks.put(Material.GOLD_INGOT, gold);
+                    blocks.put(Material.DIAMOND, diamond);
                     blocks.put(Material.NETHER_BRICK, netherbrick);
-                    blocks.put(Material.EMERALD_ORE, emerald);
+                    blocks.put(Material.EMERALD, emerald);
                     blocks.put(Material.COAL_BLOCK, coalblock);
                     blocks.put(Material.RED_SANDSTONE, sandstone);
                     blocks.put(Material.QUARTZ_BLOCK, quarzblock);
@@ -118,10 +127,12 @@ public class SellOptions {
                     blocks.put(Material.GOLD_BLOCK, goldblock);
                     blocks.put(Material.DIAMOND_BLOCK, diamondblock);
                     blocks.put(Material.EMERALD_BLOCK, emeraldblock);
+
                     selloptions.put(uuid, blocks);
                 }
             }
         } catch (SQLException e) {
+            System.out.println("ERROR");
             e.printStackTrace();
         }
 
@@ -137,21 +148,21 @@ public class SellOptions {
     public void savePlayer(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
-        HashMap<Material, Boolean> blockMap = GetOptions.getMiningSettings().getMinenSettings().get(uuid);
+        HashMap<Material, Boolean> blockMap = SellOptions.getInstance().getMinenSellOptions().get(uuid);
 
         boolean stone = blockMap.get(Material.STONE);
         boolean gravil = blockMap.get(Material.GRAVEL);
-        boolean coal = blockMap.get(Material.COAL_ORE);
+        boolean coal = blockMap.get(Material.COAL);
         boolean brick = blockMap.get(Material.BRICK);
-        boolean iron = blockMap.get(Material.IRON_ORE);
-        boolean quarz = blockMap.get(Material.QUARTZ_ORE);
-        boolean redstone = blockMap.get(Material.REDSTONE_ORE);
-        boolean lapis = blockMap.get(Material.LAPIS_ORE);
+        boolean iron = blockMap.get(Material.IRON_INGOT);
+        boolean quarz = blockMap.get(Material.QUARTZ);
+        boolean redstone = blockMap.get(Material.REDSTONE);
+        boolean lapis = blockMap.get(Material.INK_SACK);
         boolean prismarin = blockMap.get(Material.PRISMARINE);
-        boolean gold = blockMap.get(Material.GOLD_ORE);
-        boolean diamond = blockMap.get(Material.DIAMOND_ORE);
+        boolean gold = blockMap.get(Material.GOLD_INGOT);
+        boolean diamond = blockMap.get(Material.DIAMOND);
         boolean netherbrick = blockMap.get(Material.NETHER_BRICK);
-        boolean emerald = blockMap.get(Material.EMERALD_ORE);
+        boolean emerald = blockMap.get(Material.EMERALD);
         boolean coalblock = blockMap.get(Material.COAL_BLOCK);
         boolean sandstone = blockMap.get(Material.RED_SANDSTONE);
         boolean quarzblock = blockMap.get(Material.QUARTZ_BLOCK);
@@ -167,7 +178,7 @@ public class SellOptions {
         boolean diamondblock = blockMap.get(Material.DIAMOND_BLOCK);
         boolean emeraldblock = blockMap.get(Material.EMERALD_BLOCK);
 
-        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE miningblocksettings SET stone = ?, gravil = ?, coal = ?, brick = ?, iron = ?, quarz = ?, redstone = ?, lapis = ?, prismarin = ?, gold = ?, diamond = ?, netherbrick = ?, emerald = ?, coalblock = ?, redsandstone = ?, quarzblock = ?, ice = ?, netherrack = ?, ironblock = ?, packedice = ?, sealatern = ?, endstone = ?, redstoneblock = ?, lapisblock = ?, goldblock = ?, diamondblock = ?, emeraldblock = ? WHERE spieleruuid = ?")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("UPDATE minenselloptions SET stone = ?, gravil = ?, coal = ?, brick = ?, iron = ?, quarz = ?, redstone = ?, lapis = ?, prismarin = ?, gold = ?, diamond = ?, netherbrick = ?, emerald = ?, coalblock = ?, redsandstone = ?, quarzblock = ?, ice = ?, netherrack = ?, ironblock = ?, packedice = ?, sealatern = ?, endstone = ?, redstoneblock = ?, lapisblock = ?, goldblock = ?, diamondblock = ?, emeraldblock = ? WHERE spieleruuid = ?")) {
             preparedStatement.setBoolean(1, stone);
             preparedStatement.setBoolean(2, gravil);
             preparedStatement.setBoolean(3, coal);
@@ -211,7 +222,7 @@ public class SellOptions {
      */
     public void createPlayer(UUID uuid) {
         if(isUserExists(uuid)) return;
-        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO miningblocksettings (spieleruuid, stone, gravil, coal, brick, iron, quarz, redstone, lapis, prismarin, gold, diamond, netherbrick, emerald, coalblock, redsandstone, quarzblock, ice, netherrack, ironblock, packedice, sealatern, endstone, redstoneblock, lapisblock, goldblock, diamondblock, emeraldblock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO minenselloptions (spieleruuid, stone, gravil, coal, brick, iron, quarz, redstone, lapis, prismarin, gold, diamond, netherbrick, emerald, coalblock, redsandstone, quarzblock, ice, netherrack, ironblock, packedice, sealatern, endstone, redstoneblock, lapisblock, goldblock, diamondblock, emeraldblock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             preparedStatement.setString(1, uuid.toString());
             preparedStatement.setBoolean(2, true);
             preparedStatement.setBoolean(3, true);
@@ -250,7 +261,7 @@ public class SellOptions {
     check if the user is already in database
      */
     private boolean isUserExists(UUID uuid) {
-        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT spieleruuid FROM miningblocksettings WHERE spieleruuid = ?");){
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT spieleruuid FROM minenselloptions WHERE spieleruuid = ?");){
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
             return rs.next();

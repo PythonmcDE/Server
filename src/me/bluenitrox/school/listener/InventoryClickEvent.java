@@ -6,6 +6,7 @@ import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.commands.admincommands.getBooks;
 import me.bluenitrox.school.commands.minensettings.GetOptions;
+import me.bluenitrox.school.commands.minensettings.MinenSettings;
 import me.bluenitrox.school.commands.minensettings.SellOptions;
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
@@ -21,10 +22,12 @@ import me.bluenitrox.school.haendler.commands.Schmied;
 import me.bluenitrox.school.haendler.commands.Taxi;
 import me.bluenitrox.school.mine.angelmine.Angelmine;
 import me.bluenitrox.school.plots.PlotInventory;
+import me.bluenitrox.school.seasonpass.listener.ClickEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.checkerframework.checker.units.qual.C;
 
 public class InventoryClickEvent implements Listener {
 
@@ -41,6 +44,8 @@ public class InventoryClickEvent implements Listener {
         AufgabenMethods.onCLick(e);
         GetOptions settings = new GetOptions();
         SellOptions sellOptions = new SellOptions();
+        MinenSettings minenSettings = new MinenSettings();
+        ClickEvent clickEvent = new ClickEvent();
 
         if(CaseAPI.caseöffnen != null) {
             if (CaseAPI.caseöffnen.contains(p)) {
@@ -53,6 +58,8 @@ public class InventoryClickEvent implements Listener {
                 try {
                 settings.onInventoryClick(e);
                 sellOptions.onInventoryClick(e);
+                minenSettings.onClick(e);
+                clickEvent.onClick(e);
                 Prestige.onClick(e);
                 craft.onClick(e);
                 SkillSystem.onClick(e);

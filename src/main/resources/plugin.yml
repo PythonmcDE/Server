@@ -122,6 +122,7 @@ commands:
   giveSchoolXP:
   testsummon:
   angelmine:
+  seasonpass:
   anvil:
     aliases:
       - amboss
