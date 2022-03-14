@@ -1,6 +1,7 @@
 package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.ah.AhListener;
+import me.bluenitrox.school.aufgabensystem.AufgabeCMD;
 import me.bluenitrox.school.aufgabensystem.AufgabenMethods;
 import me.bluenitrox.school.boost.BoostInv;
 import me.bluenitrox.school.commands.*;
@@ -70,6 +71,7 @@ public class InventoryClickEvent implements Listener {
                 Schmied.onClickSchmied(e);
                 am.onInventoryClick(e);
                 PlotInventory.inventoryClick(e);
+                AufgabeCMD.onClick(e);
 
                 k.onClick(e);
                 wgr.onClick(e);

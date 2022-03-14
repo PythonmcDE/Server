@@ -23,7 +23,7 @@ public class ClickEvent implements Listener {
             Player player = (Player) event.getWhoClicked();
             SeasonpassInventorys inventorys = new SeasonpassInventorys(player);
             if (event.getCurrentItem().getType() == Material.CHEST) {
-                player.openInventory(inventorys.itemPage());
+                //TODO Set all Items in inventory
             } else if (event.getCurrentItem().getType() == Material.ENDER_CHEST) {
                 SeasonpassManager seasonpassManager = new SeasonpassManager();
                 if (seasonpassManager.hasGoldPass(player.getUniqueId())) {
@@ -35,6 +35,11 @@ public class ClickEvent implements Listener {
             if (event.getCurrentItem().getItemMeta() == null) return;
             if (event.getCurrentItem().getItemMeta().getDisplayName() == null) return;
             event.setCancelled(true);
+            if(event.getCurrentItem().getType() == Material.REDSTONE) {
+                Player player = (Player) event.getWhoClicked();
+                SeasonpassInventorys seasonpassInventorys = new SeasonpassInventorys(player);
+                player.openInventory(seasonpassInventorys.normalPage());
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package me.bluenitrox.school.mine.minensettings;
 
 import me.bluenitrox.school.mysql.MySQL;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -130,6 +131,7 @@ public class GetOptions {
                      blocks.put(Material.GOLD_BLOCK, goldblock);
                      blocks.put(Material.DIAMOND_BLOCK, diamondblock);
                      blocks.put(Material.EMERALD_BLOCK, emeraldblock);
+
                      map.put(uuid, blocks);
                 }
             }

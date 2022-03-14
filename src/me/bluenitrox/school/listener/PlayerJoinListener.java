@@ -35,7 +35,7 @@ public class PlayerJoinListener implements Listener {
         }
         PlayerRespawnEvent.erhaltItems(p);
         GetOptions.getMiningSettings().setInHashMap(e);
-        sellOptions.setInHashMap(e);
+        SellOptions.getInstance().setInHashMap(e);
         e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20*60*20, 1));
         AufgabenMethods.onJoin(e);
     }

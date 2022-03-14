@@ -35,9 +35,9 @@ public class SeasonpassInventorys {
         register ItemStacks
          */
 
-        ItemStack belohnungen = new ItemBuilder(Material.CHEST).setDisplayname("§8» §6§lVerfügbare Belohnungen").build();
-        ItemStack bonusbank = new ItemBuilder(Material.ENDER_CHEST).setDisplayname("§8» §6§lBonusbank").build();
-        ItemStack bonusbankWithoutGoldPass = new ItemBuilder(Material.ENDER_CHEST).setDisplayname("§8» §6§lBonusbank").setLore("§8» §7Dieses Feature ist nur mit dem", "§8» §6§lGoldpass §averfügbar§7!", " ", "§7Du kannst ihn hier erwerben:", "§bpythonmc.de/go/shop").build();
+        ItemStack belohnungen = new ItemBuilder(Material.CHEST).setDisplayname("§8» §6§lVerfügbare Belohnungen").setLore("§8» §7Klicke hier, um alle §6Belohnungen §7abzuholen", "§7Du hast §b§l0 §7nicht abgeholte Belohnungen.").build();
+        ItemStack bonusbank = new ItemBuilder(Material.ENDER_CHEST).setDisplayname("§8» §6§lBonusbank").setLore("§8» §7Die überschüssigen §6§lSeasonpass XP §7werden", "§8» §7am Ende der Season in §6§lSchoolXP §aumgewandelt§7!").build();
+        ItemStack bonusbankWithoutGoldPass = new ItemBuilder(Material.ENDER_CHEST).setDisplayname("§8» §6§lBonusbank").setLore("§8» §7Die überschüssigen §6§lSeasonpass XP §7werden", "§8» §7am Ende der Season in §6§lSchoolXP §aumgewandelt§7!", " ", "§8» §7Dieses Feature ist nur mit dem", "§8» §6§lGoldpass §averfügbar§7!", " ", "§7Du kannst ihn hier erwerben:", "§bpythonmc.de/go/shop").build();
         ItemStack goldpass = new ItemBuilder(Material.GOLD_INGOT).setDisplayname("§8» §6§lGoldpass").setLore("§7Erhalte zusätzliche Belohnungen" , "§7durch den §6§lGoldpass!", " ", "§7Du kannst ihn hier erwerben:", "§bpythonmc.de/go/shop").build();
 
         for(int i = 9*5;i < 9*6-1; i++) {
@@ -92,7 +92,7 @@ public class SeasonpassInventorys {
             overXP = 0;
         }
 
-        ItemStack xpBottle = new ItemBuilder(Material.EXP_BOTTLE).setDisplayname("§b» §6§lBonus XP").setLore("§8» §7Deine zusätzlich gesammelten XP: §6§l" + overXP, " ", "§8» §7Diese §6§lXP §7werden nächste Season", "§8» §7auf deinen §6§lneuen Seasonpass §7gerechnet.").build();
+        ItemStack xpBottle = new ItemBuilder(Material.EXP_BOTTLE).setDisplayname("§b» §6§lBonus XP").setLore("§8» §7Deine zusätzlich gesammelten XP: §6§l" + overXP, " ", "§8» §7Diese §6§lXP §7werden nach der ", "§8» §7Season in §6§lSchool XP §aumgewandelt§7!").build();
         ItemStack backToMainMenu = new ItemBuilder(Material.REDSTONE).setDisplayname("§b» §6§lZurück").setLore("§8» §7Klicke hier, um zum Hauptmenu zurückzukehren.").build();
 
         for(int i = 0; i < inventory.getSize(); i++) {

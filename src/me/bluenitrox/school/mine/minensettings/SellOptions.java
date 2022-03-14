@@ -17,20 +17,21 @@ import java.util.UUID;
 
 public class SellOptions {
 
-    private static HashMap<UUID, HashMap<Material, Boolean>> selloptions = new HashMap<>();
-    private static HashMap<Material, Boolean> blocks;
-    private static SellOptions sellOptions;
-
-    public HashMap<UUID, HashMap<Material, Boolean>> getMinenSellOptions() {
-        return selloptions;
-    }
 
     public SellOptions() {
         sellOptions = this;
     }
 
+    private static HashMap<UUID, HashMap<Material, Boolean>> map = new HashMap<>();
+    private static HashMap<Material, Boolean> blocks;
+    private static SellOptions sellOptions;
+
     public static SellOptions getInstance() {
         return sellOptions;
+    }
+
+    public HashMap<UUID, HashMap<Material, Boolean>> getMinenSellOptions() {
+        return map;
     }
 
     public void setInHashMap(PlayerJoinEvent event) {
@@ -128,7 +129,7 @@ public class SellOptions {
                     blocks.put(Material.DIAMOND_BLOCK, diamondblock);
                     blocks.put(Material.EMERALD_BLOCK, emeraldblock);
 
-                    selloptions.put(uuid, blocks);
+                    map.put(uuid, blocks);
                 }
             }
         } catch (SQLException e) {
@@ -210,7 +211,7 @@ public class SellOptions {
 
             preparedStatement.executeUpdate();
 
-            selloptions.remove(uuid);
+            map.remove(uuid);
         } catch (SQLException e){
             e.printStackTrace();
         }
