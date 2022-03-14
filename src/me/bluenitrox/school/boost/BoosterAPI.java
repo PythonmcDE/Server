@@ -293,6 +293,18 @@ public class BoosterAPI implements CommandExecutor {
         return amount;
     }
 
+    public void updateBoosterDatabase(UUID uuid, String type, int amount) {
+
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE booster SET " + type + " = ? WHERE spieleruuid = ?")) {
+                ps.setInt(1, amount);
+                ps.setString(2, uuid.toString());
+                ps.executeUpdate();
+
+            }catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+    }
+
     public int getBoosterDatabase(UUID uuid, String booster) {
         int amount = 0;
         PreparedStatement preparedStatement;

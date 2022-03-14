@@ -11,6 +11,9 @@ import me.bluenitrox.school.boost.booster.Gembooster;
 import me.bluenitrox.school.boost.booster.Xpbooster;
 import me.bluenitrox.school.boost.manager.BoosterManager;
 import me.bluenitrox.school.commands.admincommands.*;
+import me.bluenitrox.school.commands.consolecommands.BoosterAdd;
+import me.bluenitrox.school.commands.consolecommands.GoldPassAdd;
+import me.bluenitrox.school.commands.consolecommands.RankAdd;
 import me.bluenitrox.school.commands.hidedcommands.Plugin;
 import me.bluenitrox.school.commands.infocommands.Exp;
 import me.bluenitrox.school.commands.infocommands.Gemlimit;
@@ -243,6 +246,11 @@ public class SchoolMode extends JavaPlugin {
         getCommand("books").setExecutor(new getBooks());
         getCommand("test").setExecutor(new NBTTagtest());
         getCommand("testzwei").setExecutor(new OtherTest());
+
+        //Shop Commands - Console only
+        getCommand("consoleboosteradd").setExecutor(new BoosterAdd());
+        getCommand("rankconsole").setExecutor(new RankAdd());
+        getCommand("goldpassconsole").setExecutor(new GoldPassAdd());
         //
         Bukkit.getConsoleSender().sendMessage("§4Commands §4Aktiviert! (1/8)");
         Bukkit.getConsoleSender().sendMessage("§4Lade §4Events...");

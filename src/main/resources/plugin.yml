@@ -32,6 +32,9 @@ commands:
       - fliegen
   test:
   getRunen:
+  consoleboosteradd:
+  rankconsole:
+  goldpassconsole:
   selloptions:
   wb:
     aliases:

@@ -64,6 +64,21 @@ public class SeasonpassManager {
     }
 
     /**
+     * Activate the Gold-Pass for a User
+     * @param uuid from the player who get the Gold Pass
+     */
+    public void setGoldpass(UUID uuid) {
+
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE seasonpass SET goldpass = ? WHERE UUID = ?");) {
+            ps.setBoolean(1, true);
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Get the Seasonpass-XP from a player
      * @param uuid uuid from the player
      * @return the Seasonpass-XP from the player
