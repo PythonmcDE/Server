@@ -1,10 +1,32 @@
 package me.bluenitrox.school.seasonpass;
 
+import me.bluenitrox.school.mysql.MySQL;
+import me.bluenitrox.school.utils.ItemBuilder;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.UUID;
 
 public class SeasonpassRewardManager {
 
+    /**
+     * Set all Displaynames from the Reward Items from the Default Pass in this HashMap
+     * @param Integer the reward number
+     * @return the Displayname from the Item which the user got as Reward
+     */
     private HashMap<Integer, String> normalRewards = new HashMap<>();
+
+    /**
+     * Set all Displaynames from the Reward Items from the Goldpass in this HashMap
+     * @param Integer the reward number
+     * @return the Displayname from the Item which the user got as Reward
+     */
     private HashMap<Integer, String> goldRewards = new HashMap<>();
 
 
@@ -34,6 +56,481 @@ public class SeasonpassRewardManager {
 
     private final int defaultXP = 50;
 
+    /**
+     * Use this to get the reward for an Seasonpass Lvl Up
+     * @param itemid is the Seasonpass Task
+     * @return the item which the player gets
+     */
+    public ItemStack getItem(int itemid) {
+
+        ItemStack itemStack = null;
+        switch (itemid) {
+
+            case 1:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("1").build();
+                break;
+            case 2:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("2").build();
+                break;
+            case 3:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("3").build();
+                break;
+            case 4:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("4").build();
+                break;
+            case 5:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("5").build();
+                break;
+            case 6:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("6").build();
+                break;
+            case 7:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("7").build();
+                break;
+            case 8:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 9:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 10:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 11:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 12:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 13:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 14:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 15:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 16:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 17:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 18:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 19:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 20:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 21:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 22:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 23:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 24:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 25:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 26:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 27:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 28:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 29:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 30:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 31:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 32:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 33:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 34:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 35:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 36:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 37:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 38:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 39:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 40:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 41:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 42:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 43:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 44:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 45:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+        }
+        return itemStack;
+    }
+
+    /**
+     * Use this to get the Goldpass reward for an Seasonpass Lvl Up
+     * @param itemid is the Seasonpass Task
+     * @return the item which the player gets
+     */
+    public ItemStack getGoldPassItem(int itemid) {
+
+        ItemStack itemStack = null;
+        switch (itemid) {
+
+            case 1:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 2:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 3:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 4:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 5:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 6:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 7:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 8:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 9:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 10:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 11:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 12:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 13:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 14:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 15:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 16:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 17:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 18:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 19:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 20:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 21:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 22:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 23:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 24:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 25:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 26:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 27:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 28:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 29:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 30:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 31:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 32:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 33:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 34:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 35:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 36:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 37:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 38:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 39:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 40:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 41:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 42:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 43:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 44:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+            case 45:
+                itemStack = new ItemBuilder(Material.DIAMOND_SWORD).build();
+                break;
+        }
+        return itemStack;
+    }
+
+
+    /**
+     * Delete all int Arrays with the items (use only if the player has 1 item yet)
+     * @param uuid from the player who get the items removed
+     */
+    public void resetItems(UUID uuid) {
+
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE seasonpass SET items = ? WHERE UUID = ?")) {
+            ps.setString(1, new LinkedList<>().toString());
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Remove a specified number of rewards
+     * @param uuid from the player who get the items removed
+     * @param itemids LinkedList<Integer> which has the amount how much Items should be removed
+     */
+    public void removeItems(UUID uuid, String itemids) {
+        LinkedList<Integer> items = this.getItems(uuid);
+
+        if(items.toString().equalsIgnoreCase(itemids)) {
+            items.clear();
+        } else {
+            for(String string : itemids.replace("[", "").replace("]", "").split(", ")) {
+                items.remove(0);
+            }
+        }
+
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE seasonpass SET items = ? WHERE UUID = ?")) {
+            ps.setString(1, items.toString());
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Remove a specified number of rewards from the Goldpass Items
+     * @param uuid from the player who get the items removed
+     * @param itemids LinkedList<Integer> which has the amount how much Items should be removed
+     */
+    public void removeGoldPassItems(UUID uuid, String itemids) {
+        LinkedList<Integer> items = this.getItems(uuid);
+
+        if(items.toString().equalsIgnoreCase(itemids)) {
+            items.clear();
+        } else {
+            for(String string : itemids.replace("[", "").replace("]", "").split(", ")) {
+                items.remove(0);
+            }
+        }
+
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE seasonpass SET goldpassitems = ? WHERE UUID = ?")) {
+            ps.setString(1, items.toString());
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Delete all int Arrays with the items from the Goldpass (use only if the player has 1 item yet)
+     * @param uuid from the player who get the items removed
+     */
+    public void resetGoldPassItems(UUID uuid) {
+
+        try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE seasonpass SET goldpassitems = ? WHERE UUID = ?")) {
+            ps.setString(1, new LinkedList<>().toString());
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Give the user his reward from the normal Seasonpass for a Level Up
+     * @param uuid from the player who gets the item
+     * @param itemid this is the old "Fortschritt" int from the player
+     */
+    public void addItem(UUID uuid, int itemid) {
+
+        LinkedList<Integer> items = this.getItems(uuid);
+        items.add(itemid);
+
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE seasonpass SET items = ? WHERE UUID = ?")) {
+            ps.setString(1, items.toString());
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Give the user his reward from the Gold Seasonpass for a Level Up
+     * @param uuid from the player who gets the item
+     * @param itemid this is the old "Fortschritt" int from the player
+     */
+    public void addGoldPassItem(UUID uuid, int itemid) {
+
+        LinkedList<Integer> items = this.getGoldPassItems(uuid);
+        items.add(itemid);
+
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE seasonpass SET goldpassitems = ? WHERE UUID = ?")) {
+            ps.setString(1, items.toString());
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Select all item ids for reward from the nomal pass
+     * @param uuid from the player who gets the rewards later
+     * @return an LinkedList with ids for this.getItem
+     */
+    public LinkedList<Integer> getItems(UUID uuid) {
+        LinkedList<Integer> items = new LinkedList<>();
+
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT items FROM seasonpass WHERE UUID = ?");) {
+            ps.setString(1, uuid.toString());
+            ResultSet resultSet = ps.executeQuery();
+            if(resultSet.next()) {
+                String s = resultSet.getString("items");
+                if(s != null && !s.equalsIgnoreCase("[]")) {
+                    for (String string : s.replace("[", "").replace("]", "").split(", ")) {
+                        items.add(Integer.parseInt(string.trim()));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return items;
+
+    }
+
+    /**
+     * Select all item ids for reward from the Goldpass
+     * @param uuid from the player who gets the rewards later
+     * @return an LinkedList with ids for this.getGoldPassItem
+     */
+    public LinkedList<Integer> getGoldPassItems(UUID uuid) {
+        LinkedList<Integer> items = new LinkedList<>();
+
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT goldpassitems FROM seasonpass WHERE UUID = ?");) {
+            ps.setString(1, uuid.toString());
+            ResultSet resultSet = ps.executeQuery();
+            if(resultSet.next()) {
+                String s = resultSet.getString("goldpassitems");
+                if(s != null && !s.equalsIgnoreCase("[]")) {
+                    for (String string : s.replace("[", "").replace("]", "").split(", ")) {
+                        items.add(Integer.parseInt(string.trim()));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return items;
+
+    }
+
+    /**
+     * register all Season Rewards
+     */
     public void registerSeasonpassRewards() {
         normalRewards.put(1, season1normal1);
         normalRewards.put(2, season1normal2);
@@ -136,6 +633,10 @@ public class SeasonpassRewardManager {
         goldRewards.put(45, season1gold45);
     }
 
+
+    /**
+     * the Strings return the Displayname of the reward which the user got
+     */
 
     /*
     Normal-Rewards:

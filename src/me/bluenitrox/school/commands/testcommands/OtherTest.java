@@ -15,7 +15,7 @@ public class OtherTest implements CommandExecutor {
     public boolean onCommand(CommandSender cs, Command command, String s, String[] strings) {
         SeasonpassManager seasonpassManager = new SeasonpassManager();
         Player player = (Player)cs;
-        seasonpassManager.addXP(player.getUniqueId(), 50);
+        seasonpassManager.addXP(player.getUniqueId(), 20);
         return false;
     }
 }

@@ -338,7 +338,7 @@ public class SchoolMode extends JavaPlugin {
             try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `PetSystem` ( `UUID` CHAR(36) NOT NULL , `Benjamin` INT(11) NOT NULL , `Merlin` INT(11) NOT NULL , `Eddy` INT(11) NOT NULL , `Anton` INT(11) NOT NULL , `Helgar` INT(11) NOT NULL , `Farid` INT(11) NOT NULL , `Peter` INT(11) NOT NULL )");){
                 ps.executeUpdate();
             }
-            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `seasonpass` ( `UUID` CHAR(36) NOT NULL, `goldpass` BOOL, `fortschritt` INT(11), `items` TEXT(32000), `xp` FLOAT)");){
+            try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `seasonpass` ( `UUID` CHAR(36) NOT NULL, `goldpass` BOOL, `fortschritt` INT(11), `items` TEXT(32000), `goldpassitems` TEXT(32000), `xp` FLOAT)");){
                 ps.executeUpdate();
             }
             try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `DailyReward` ( `UUID` CHAR(36) NOT NULL , `Belohnung` INT(11) NOT NULL , `Erfahrung` INT(11) NOT NULL , `Cases` INT(11) NOT NULL  , `GemLimit` INT(11) NOT NULL )");){

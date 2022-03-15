@@ -11,12 +11,10 @@ import java.util.UUID;
 
 public class SeasonpassInventorys {
 
-    private Player player;
-    private UUID uuid;
-    private ItemStack glass;
+    private final UUID uuid;
+    private final ItemStack glass;
 
     public SeasonpassInventorys(Player player) {
-        this.player = player;
         this.uuid = player.getUniqueId();
         glass = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 15).setDisplayname(" ").build();
     }
@@ -31,11 +29,19 @@ public class SeasonpassInventorys {
         String guiname = "§b» §6Seasonpass §8(§7Season 1§8)";
         Inventory inventory = Bukkit.createInventory(null, 9*6, guiname);
 
+        SeasonpassManager seasonpassManager = new SeasonpassManager();
+        SeasonpassRewardManager seasonpassRewardManager = new SeasonpassRewardManager();
         /*
         register ItemStacks
          */
+        int item;
+        if(seasonpassManager.hasGoldPass(uuid)) {
+            item = seasonpassRewardManager.getItems(uuid).size() + seasonpassRewardManager.getGoldPassItems(uuid).size();
+        } else {
+            item = seasonpassRewardManager.getItems(uuid).size();
+        }
 
-        ItemStack belohnungen = new ItemBuilder(Material.CHEST).setDisplayname("§8» §6§lVerfügbare Belohnungen").setLore("§8» §7Klicke hier, um alle §6Belohnungen §7abzuholen", "§7Du hast §b§l0 §7nicht abgeholte Belohnungen.").build();
+        ItemStack belohnungen = new ItemBuilder(Material.CHEST).setDisplayname("§8» §6§lVerfügbare Belohnungen").setLore("§8» §7Klicke hier, um alle §6Belohnungen §7abzuholen", "§7Du hast §b§l"+ item + " §7nicht abgeholte Belohnungen.").build();
         ItemStack bonusbank = new ItemBuilder(Material.ENDER_CHEST).setDisplayname("§8» §6§lBonusbank").setLore("§8» §7Die überschüssigen §6§lSeasonpass XP §7werden", "§8» §7am Ende der Season in §6§lSchoolXP §aumgewandelt§7!").build();
         ItemStack bonusbankWithoutGoldPass = new ItemBuilder(Material.ENDER_CHEST).setDisplayname("§8» §6§lBonusbank").setLore("§8» §7Die überschüssigen §6§lSeasonpass XP §7werden", "§8» §7am Ende der Season in §6§lSchoolXP §aumgewandelt§7!", " ", "§8» §7Dieses Feature ist nur mit dem", "§8» §6§lGoldpass §averfügbar§7!", " ", "§7Du kannst ihn hier erwerben:", "§bpythonmc.de/go/shop").build();
         ItemStack goldpass = new ItemBuilder(Material.GOLD_INGOT).setDisplayname("§8» §6§lGoldpass").setLore("§7Erhalte zusätzliche Belohnungen" , "§7durch den §6§lGoldpass!", " ", "§7Du kannst ihn hier erwerben:", "§bpythonmc.de/go/shop").build();
@@ -45,8 +51,6 @@ public class SeasonpassInventorys {
         }
         inventory.setItem(9*5, belohnungen);
 
-        SeasonpassManager seasonpassManager = new SeasonpassManager();
-        SeasonpassRewardManager seasonpassRewardManager = new SeasonpassRewardManager();
 
         if(!seasonpassManager.hasGoldPass(uuid)) {
             inventory.setItem(9*5+4, goldpass);
@@ -58,19 +62,6 @@ public class SeasonpassInventorys {
         for(int i = 0; i < 45; i++) {
             inventory.setItem(i, this.getItem(i+1, seasonpassManager.getFortschritt(uuid), seasonpassRewardManager.getNormalSeason1Reward(i+1), seasonpassRewardManager.getGoldSeason1Reward(i+1), seasonpassManager.getXP(uuid), seasonpassRewardManager.getNeededXp(i+1)));
         }
-
-        return inventory;
-    }
-
-    /**
-     * Inventory with rewards which the player got from the Seasonpass
-     * {@link SeasonpassManager}
-     * @return inventory with all items
-     */
-    public Inventory itemPage() {
-
-        String guiname = "§b» §6Seasonpass Belohnungen";
-        Inventory inventory = Bukkit.createInventory(null, 9*6, guiname);
 
         return inventory;
     }

@@ -1,9 +1,7 @@
 package me.bluenitrox.school.seasonpass;
 
-import me.bluenitrox.school.mine.reward.Reward;
 import me.bluenitrox.school.mysql.MySQL;
 import org.bukkit.Warning;
-import org.bukkit.inventory.ItemStack;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,13 +13,21 @@ import java.util.UUID;
 public class SeasonpassManager {
 
 
+    /**
+     * Check if a User get a Seasonpass Level up
+     * @param uuid from the player
+     * @param xp the xp which should be added to the player
+     */
     public void checkFortschrittUP(UUID uuid, int xp) {
 
         SeasonpassRewardManager rewardManager = new SeasonpassRewardManager();
+        SeasonpassManager seasonpassManager = new SeasonpassManager();
         int fortschritt = this.getFortschritt(uuid);
         int neededXP = rewardManager.getNeededXp(fortschritt);
         if(xp >= neededXP) {
             //TODO add Item to the Inv
+            rewardManager.addItem(uuid, fortschritt);
+            rewardManager.addGoldPassItem(uuid, fortschritt);
             this.updateFortschritt(uuid, fortschritt+1);
         }
 
@@ -135,20 +141,30 @@ public class SeasonpassManager {
         return false;
     }
 
+    /**
+     * Set the User in the database if he is not existing
+     * @param uuid from the User who get configuratet
+     */
     public void configuratePlayer(UUID uuid) {
         if(isExist(uuid)) return;
-        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO seasonpass (UUID, goldpass, fortschritt, items, xp) VALUES (?, ?, ?, ?, ?)")) {
+        try (Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO seasonpass (UUID, goldpass, fortschritt, items, goldpassitems, xp) VALUES (?, ?, ?, ?, ?, ?)")) {
             ps.setString(1, uuid.toString());
             ps.setBoolean(2, false);
             ps.setInt(3, 1);
             ps.setString(4, new LinkedList<>().toString());
-            ps.setInt(5, 0);
+            ps.setString(5, new LinkedList<>().toString());
+            ps.setInt(6, 0);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Check if a User is already in the database. Otherwise configurate him
+     * @param uuid from the User who got checked
+     * @return true if he is existing. Otherwise return false
+     */
     private boolean isExist(UUID uuid) {
 
         try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT UUID FROM seasonpass WHERE UUID = ?")) {
