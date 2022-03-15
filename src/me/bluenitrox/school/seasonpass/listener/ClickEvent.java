@@ -55,6 +55,10 @@ public class ClickEvent implements Listener {
                                 //add Item to inventory
                                 player.getInventory().addItem(Antidupe.addID(seasonpassRewardManager.getItem(seasonpassRewardManager.getItems(player.getUniqueId()).get(0))));
                                 seasonpassRewardManager.resetItems(player.getUniqueId()); //reset all Items. Carefull! Every Item will be removed from the database
+
+                                player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 1.0F);
+                                player.closeInventory();
+                                player.sendMessage(MessageManager.PREFIX + "§7Du hast §6§leine §7Belohnung vom §7§lDefaultpass §7abgeholt.");
                                 return; //return after this to get no issues with other methods
                             }
                         }
@@ -66,6 +70,10 @@ public class ClickEvent implements Listener {
                                 //add Item to inventory
                                 player.getInventory().addItem(Antidupe.addID(seasonpassRewardManager.getItem(seasonpassRewardManager.getGoldPassItems(player.getUniqueId()).get(0))));
                                 seasonpassRewardManager.resetGoldPassItems(player.getUniqueId()); //reset all Items. Carefull! Every Item will be removed from the database
+
+                                player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 1.0F);
+                                player.closeInventory();
+                                player.sendMessage(MessageManager.PREFIX + "§7Du hast §6§leine §7Belohnung vom §6§lGoldpass §7abgeholt.");
                                 return; //return after this to get no issues with other methods
                             }
                         }
@@ -83,6 +91,12 @@ public class ClickEvent implements Listener {
                                 freeslots.add(i);
                             }
                         }
+                        if(freeslots.size() == 0) { //Check if the free Slots from the inv is 0. Then Close Inventory and return
+                            player.closeInventory();
+                            player.sendMessage(MessageManager.PREFIX + "§7Du hast §ckein §7Inventar Platz.");
+                            player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1.0F, 1.0F);
+                            return;
+                        }
                         LinkedList<Integer> usedItemIds = new LinkedList<>(); //create a List, send it later to remove the itemids from the database
                         if (freeslots.size() <= seasonpassRewardManager.getItems(player.getUniqueId()).size()) { //check if the reward items List is bigger than the free inventory Slots
                             for (int i = 0; i < freeslots.size(); i++) {
@@ -90,6 +104,9 @@ public class ClickEvent implements Listener {
                                 int itemID = seasonpassRewardManager.getItems(player.getUniqueId()).get(i);
                                 player.getInventory().addItem(Antidupe.addID(seasonpassRewardManager.getItem(itemID))); //add Item to inventory
                                 usedItemIds.add(i+1); //the i+1 is random and "useless"
+                                player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 1.0F);
+                                player.closeInventory();
+                                player.sendMessage(MessageManager.PREFIX + "§7Du hast §6§l" + freeslots.size() + " §7Belohnungen vom §7§lDefaultpass §7abgeholt.");
                             }
                             seasonpassRewardManager.removeItems(player.getUniqueId(), usedItemIds.toString()); //say that the ids should be removed from the database
                         } else {
@@ -98,6 +115,9 @@ public class ClickEvent implements Listener {
                                 int itemID = seasonpassRewardManager.getItems(player.getUniqueId()).get(i);
                                 player.getInventory().addItem(Antidupe.addID(seasonpassRewardManager.getItem(itemID))); //add Item to inventory
                                 usedItemIds.add(i+1); //the i+1 is random and "useless"
+                                player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 1.0F);
+                                player.closeInventory();
+                                player.sendMessage(MessageManager.PREFIX + "§7Du hast §6§l" + freeslots.size() + " §7Belohnungen vom §6§lGoldpass §7abgeholt.");
                             }
                             seasonpassRewardManager.removeItems(player.getUniqueId(), usedItemIds.toString()); //say that the ids should be removed from the database
                         }
@@ -116,6 +136,12 @@ public class ClickEvent implements Listener {
                                 freeslots.add(i);
                             }
                         }
+                        if(freeslots.size() == 0) { //Check if the free Slots from the inv is 0. Then Close Inventory and return
+                            player.closeInventory();
+                            player.sendMessage(MessageManager.PREFIX + "§7Du hast §ckein §7Inventar Platz.");
+                            player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1.0F, 1.0F);
+                            return;
+                        }
                         LinkedList<Integer> usedItemIds = new LinkedList<>(); //create a List, send it later to remove the itemids from the database
                         if (freeslots.size() <= seasonpassRewardManager.getGoldPassItems(player.getUniqueId()).size()) { //check if the reward items List is bigger than the free inventory Slots
                             for (int i = 0; i < freeslots.size(); i++) {
@@ -123,6 +149,10 @@ public class ClickEvent implements Listener {
                                 int itemID = seasonpassRewardManager.getGoldPassItems(player.getUniqueId()).get(i);
                                 player.getInventory().addItem(Antidupe.addID(seasonpassRewardManager.getGoldPassItem(itemID))); //add Item to inventory
                                 usedItemIds.add(i+1); //the i+1 is random and "useless"
+
+                                player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 1.0F);
+                                player.closeInventory();
+                                player.sendMessage(MessageManager.PREFIX + "§7Du hast §6§lalle §7Belohnungen vom §7§lDefaultpass §7abgeholt.");
                             }
                             seasonpassRewardManager.removeGoldPassItems(player.getUniqueId(), usedItemIds.toString()); //say that the ids should be removed from the database
                         } else {
@@ -131,6 +161,9 @@ public class ClickEvent implements Listener {
                                 int itemID = seasonpassRewardManager.getGoldPassItems(player.getUniqueId()).get(i);
                                 player.getInventory().addItem(Antidupe.addID(seasonpassRewardManager.getGoldPassItem(itemID))); //add Item to inventory
                                 usedItemIds.add(i+1); //the i+1 is not used later and "useless"
+                                player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 1.0F);
+                                player.closeInventory();
+                                player.sendMessage(MessageManager.PREFIX + "§7Du hast §6§lalle §7Belohnungen vom §6§lGoldpass §7abgeholt.");
                             }
                             seasonpassRewardManager.removeItems(player.getUniqueId(), usedItemIds.toString()); //say that the ids should be removed from the database
                         }
