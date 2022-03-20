@@ -25,6 +25,7 @@ import me.bluenitrox.school.mine.angelmine.Angelmine;
 import me.bluenitrox.school.plots.PlotInventory;
 import me.bluenitrox.school.seasonpass.listener.ClickEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -101,10 +102,11 @@ public class InventoryClickEvent implements Listener {
                     || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.mysthische)
                     || e.getClickedInventory().getName().equalsIgnoreCase(CaseAPI.tier)) && e.getCurrentItem() != null) {
                 e.setCancelled(true);
-            } else if (e.getClickedInventory().getName().equalsIgnoreCase("§e§lCase Gewinn")) {
+            } else if (e.getClickedInventory().getName().equalsIgnoreCase("§8» §e§lCase Gewinn")) {
                 if(e.getCurrentItem().getItemMeta() != null) {
                     if (e.getCurrentItem().getItemMeta().getDisplayName() != null) {
-                        if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(" ") || e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§e§lDein Gewinn")) {
+                        if(e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE) e.setCancelled(true);
+                        if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(" ") || e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8» §e§lDein Gewinn")) {
                             e.setCancelled(true);
                         }
                     }

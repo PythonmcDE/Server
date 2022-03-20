@@ -52,6 +52,7 @@ public class SellManager {
 
     public static float getPriceByMaterial(String material) {
         material = material.toUpperCase();
+        if(material.equalsIgnoreCase("ink_sack")) return 0F;
         float preis = Preise.getByName(material).price;
 
         return preis;

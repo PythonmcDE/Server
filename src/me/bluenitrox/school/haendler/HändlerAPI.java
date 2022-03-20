@@ -24,6 +24,7 @@ public class HändlerAPI {
                 UUID uuid = p.getUniqueId();
                 if (e.getClick().isLeftClick()) {
                     if (e.getClick().isShiftClick()) {
+                        if(e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE) return;
                         Material clickeditem = e.getCurrentItem().getType();
                         short dura = e.getCurrentItem().getDurability();
                         String diplayname = e.getCurrentItem().getItemMeta().getDisplayName();

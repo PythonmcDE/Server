@@ -219,7 +219,7 @@ public class SellOptions implements CommandExecutor {
                     Material netherrack = Material.NETHERRACK;
                     if(value.get(netherrack)) {
                         value.replace(netherrack, false);
-                        event.setCurrentItem(netherrackDeactivated);
+                        event.setCurrentItem(netherrackActive);
                     } else {
                         value.replace(netherrack, true);
                         event.setCurrentItem(netherrackDeactivated);

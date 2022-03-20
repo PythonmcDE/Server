@@ -1,5 +1,6 @@
 package me.bluenitrox.school.commands.minensettings;
 
+import jdk.nashorn.internal.objects.annotations.Setter;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

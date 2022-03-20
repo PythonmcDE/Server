@@ -56,8 +56,8 @@ public class BreakBlockEvent implements Listener {
                 PlayerBreakBlockManager.updateBlocks(p.getUniqueId(), false);
             } else {
                 e.setCancelled(true);
-                e.setExpToDrop(0);
             }
+            e.setExpToDrop(0);
         } else {
             e.setCancelled(true);
             e.setExpToDrop(0);
@@ -121,7 +121,7 @@ public class BreakBlockEvent implements Listener {
             }
         }else if(b.getType() == Material.QUARTZ_ORE){
             if(value.get(Material.QUARTZ_ORE)) {
-                item = new ItemBuilder(Material.EMERALD).setDisplayname("§7Quarz").build();
+                item = new ItemBuilder(Material.QUARTZ).setDisplayname("§7Quarz").build();
             }else {
                 item = new ItemBuilder(Material.AIR).build();
             }

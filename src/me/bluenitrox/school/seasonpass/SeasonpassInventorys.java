@@ -27,7 +27,7 @@ public class SeasonpassInventorys {
     public Inventory normalPage() {
 
         String guiname = "§b» §6Seasonpass §8(§7Season 1§8)";
-        Inventory inventory = Bukkit.createInventory(null, 9*6, guiname);
+        Inventory inventory = Bukkit.createInventory(null, 9*5, guiname);
 
         SeasonpassManager seasonpassManager = new SeasonpassManager();
         SeasonpassRewardManager seasonpassRewardManager = new SeasonpassRewardManager();
@@ -46,20 +46,20 @@ public class SeasonpassInventorys {
         ItemStack bonusbankWithoutGoldPass = new ItemBuilder(Material.ENDER_CHEST).setDisplayname("§8» §6§lBonusbank").setLore("§8» §7Die überschüssigen §6§lSeasonpass XP §7werden", "§8» §7am Ende der Season in §6§lSchoolXP §aumgewandelt§7!", " ", "§8» §7Dieses Feature ist nur mit dem", "§8» §6§lGoldpass §averfügbar§7!", " ", "§7Du kannst ihn hier erwerben:", "§bpythonmc.de/go/shop").build();
         ItemStack goldpass = new ItemBuilder(Material.GOLD_INGOT).setDisplayname("§8» §6§lGoldpass").setLore("§7Erhalte zusätzliche Belohnungen" , "§7durch den §6§lGoldpass!", " ", "§7Du kannst ihn hier erwerben:", "§bpythonmc.de/go/shop").build();
 
-        for(int i = 9*5;i < 9*6-1; i++) {
+        for(int i = 30;i < 9*5-1; i++) {
             inventory.setItem(i, glass);
         }
-        inventory.setItem(9*5, belohnungen);
+        inventory.setItem(9*4, belohnungen);
 
 
         if(!seasonpassManager.hasGoldPass(uuid)) {
-            inventory.setItem(9*5+4, goldpass);
-            inventory.setItem(9*6-1, bonusbankWithoutGoldPass);
+            inventory.setItem(9*4+4, goldpass);
+            inventory.setItem(9*5-1, bonusbankWithoutGoldPass);
         } else {
-            inventory.setItem(9*6-1, bonusbank);
+            inventory.setItem(9*5-1, bonusbank);
         }
 
-        for(int i = 0; i < 45; i++) {
+        for(int i = 0; i < 30; i++) {
             inventory.setItem(i, this.getItem(i+1, seasonpassManager.getFortschritt(uuid), seasonpassRewardManager.getNormalSeason1Reward(i+1), seasonpassRewardManager.getGoldSeason1Reward(i+1), seasonpassManager.getXP(uuid), seasonpassRewardManager.getNeededXp(i+1)));
         }
 
@@ -107,7 +107,7 @@ public class SeasonpassInventorys {
 
         ItemStack itemStack = null;
         if(zahl > fortschritt) {
-            itemStack = new ItemBuilder(Material.SULPHUR).setDisplayname("§6Level " + zahl).setLore("§8» §7Noch nicht freigeschaltet.").build();
+            itemStack = new ItemBuilder(Material.SULPHUR).setDisplayname("§6Level " + zahl).setLore("§8» §7Schließe zuerst das vorherige Level ab").build();
         }
         if(zahl == fortschritt) {
             itemStack = new ItemBuilder(Material.GOLD_NUGGET).setDisplayname("§6Level " + zahl).setLore("§8» §7Fortschritt: §a" + xp + "§8/§6" + neededxp + " XP").build();

@@ -103,60 +103,61 @@ public class NPCAPI extends Reflections {
     }
 
     public static void summonAllNPCS(Player player){
-        if(dailyreward.location.getWorld().equals(player.getWorld())) {
-            dailyreward.rmvFromTablist();
-            dailyreward.spawn(player);
-            Taxi.rmvFromTablist();
-            Taxi.spawn(player);
-            Schmied.rmvFromTablist();
-            Schmied.spawn(player);
-            Koch.rmvFromTablist();
-            Koch.spawn(player);
-            Abenteurer.rmvFromTablist();
-            Abenteurer.spawn(player);
-            Bauarbeiter.rmvFromTablist();
-            Bauarbeiter.spawn(player);
-            Bergmann.rmvFromTablist();
-            Bergmann.spawn(player);
-            Förster.rmvFromTablist();
-            Förster.spawn(player);
-            Gärtner.rmvFromTablist();
-            Gärtner.spawn(player);
-            Landwirt.rmvFromTablist();
-            Landwirt.spawn(player);
-            Künstlerin.rmvFromTablist();
-            Künstlerin.spawn(player);
-            Magier.rmvFromTablist();
-            Magier.spawn(player);
-            Techniker.rmvFromTablist();
-            Techniker.spawn(player);
-            Jäger.rmvFromTablist();
-            Jäger.spawn(player);
-            Dungeon.rmvFromTablist();
-            Dungeon.spawn(player);
-            Mine.rmvFromTablist();
-            Mine.spawn(player);
-            Angelmine.rmvFromTablist();
-            Angelmine.spawn(player);
-            Minensettings.rmvFromTablist();
-            Minensettings.spawn(player);
-            DungeonKeeper.rmvFromTablist();
-            DungeonKeeper.spawn(player);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if(dailyreward.location.getWorld().equals(player.getWorld())) {
+                    dailyreward.rmvFromTablist();
+                    dailyreward.spawn(player);
+                    Taxi.rmvFromTablist();
+                    Taxi.spawn(player);
+                    Schmied.rmvFromTablist();
+                    Schmied.spawn(player);
+                    Koch.rmvFromTablist();
+                    Koch.spawn(player);
+                    Abenteurer.rmvFromTablist();
+                    Abenteurer.spawn(player);
+                    Bauarbeiter.rmvFromTablist();
+                    Bauarbeiter.spawn(player);
+                    Bergmann.rmvFromTablist();
+                    Bergmann.spawn(player);
+                    Förster.rmvFromTablist();
+                    Förster.spawn(player);
+                    Gärtner.rmvFromTablist();
+                    Gärtner.spawn(player);
+                    Landwirt.rmvFromTablist();
+                    Landwirt.spawn(player);
+                    Künstlerin.rmvFromTablist();
+                    Künstlerin.spawn(player);
+                    Magier.rmvFromTablist();
+                    Magier.spawn(player);
+                    Techniker.rmvFromTablist();
+                    Techniker.spawn(player);
+                    Jäger.rmvFromTablist();
+                    Jäger.spawn(player);
+                    Dungeon.rmvFromTablist();
+                    Dungeon.spawn(player);
+                    Mine.rmvFromTablist();
+                    Mine.spawn(player);
+                    Angelmine.rmvFromTablist();
+                    Angelmine.spawn(player);
+                    Minensettings.rmvFromTablist();
+                    Minensettings.spawn(player);
+                    DungeonKeeper.rmvFromTablist();
+                    DungeonKeeper.spawn(player);
 
-            for (int i = 0; i < minenNpcs.size(); i++) {
-                NPCAPI npc = minenNpcs.get(i);
-                npc.rmvFromTablist();
-                npc.spawn(player);
-            }
-        }
+                    for (NPCAPI npc : minenNpcs) {
+                        npc.rmvFromTablist();
+                        npc.spawn(player);
+                    }
+                    for (NPCAPI npc : angelNpcs) {
+                        npc.rmvFromTablist();
+                        npc.spawn(player);
+                    }
+                }
 
-        for (int i = 0; i < angelNpcs.size(); i++) {
-            NPCAPI npc = angelNpcs.get(i);
-            if(npc.location.getWorld().equals(player.getWorld())) {
-                npc.rmvFromTablist();
-                npc.spawn(player);
             }
-        }
+        }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20*2);
     }
 
     public static void destroyAllNPCS(Player player) {
@@ -333,6 +334,32 @@ public class NPCAPI extends Reflections {
                 sendPacket(packet, localplayer);
             }
         }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20*2);
+    }
+
+    public void startRemoving() {
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                PacketPlayOutPlayerInfo packet = new PacketPlayOutPlayerInfo();
+                PacketPlayOutPlayerInfo.PlayerInfoData data = packet.new PlayerInfoData(gameprofile, 1, EnumGamemode.NOT_SET, CraftChatMessage.fromString(gameprofile.getName())[0]);
+                @SuppressWarnings("unchecked")
+                List<PacketPlayOutPlayerInfo.PlayerInfoData> players = (List<PacketPlayOutPlayerInfo.PlayerInfoData>) getValue(packet, "b");
+                players.add(data);
+
+                setValue(packet, "a", PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER);
+                setValue(packet, "b", players);
+
+
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        sendPacket(packet, localplayer);
+                    }
+                }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 20*2);
+            }
+        }.runTaskTimerAsynchronously(SchoolMode.getInstance(), 20*10, 20*10);
+
     }
 
     public int getFixLocation(double pos){

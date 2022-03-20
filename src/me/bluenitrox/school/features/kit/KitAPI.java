@@ -493,8 +493,8 @@ public class KitAPI {
                     p.sendMessage(MessageManager.PREFIX + "§7Du hast das Kit §aerfolgreich §7gekauft!");
                     MoneyManager.updateMoney(uuid, 5000000, true, false);
                     p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
-                    if(getBergarbeiter(uuid) > 0) {
-                        updateBergarbeiter(uuid, 50, true);
+                    if(getNinja(uuid) > 0) {
+                        updateNinja(uuid, 50, true);
                     }
                     p.closeInventory();
                 }else {

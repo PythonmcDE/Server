@@ -16,12 +16,7 @@ public class PlayerDropItemEvent implements Listener {
             if(e.getItemDrop().getItemStack().getItemMeta().getLore() != null){
                 if(e.getItemDrop().getItemStack().getItemMeta().getLore().contains("§6§l▶ §7Du kannst dieses Item §cnicht droppen§7!")){
                     e.setCancelled(true);
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            e.getPlayer().setItemInHand(new ItemBuilder(Material.AIR).build());
-                        }
-                    }.runTaskLaterAsynchronously(SchoolMode.getInstance(), 2);
+                    e.getItemDrop().getItemStack().setType(Material.AIR);
                 }
             }
         }

@@ -22,6 +22,7 @@ public class Förster {
         Inventory inv = Bukkit.createInventory(null, 9*5, GUI_NAME);
 
         ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
+        ItemStack glasblack = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 15).setDisplayname(" ").build();
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lHändler").setLore("§6§l▶ §7Bei §9§lHändlern §7kannst du bestimmt", "§6§l▶ Items §aerwerben §7oder auch §averkaufen§7.").build();
 
         ItemStack eichenholz = new ItemBuilder(Material.WOOD).setDisplayname("§7Eichenholzbretter").setLore("§8» §7Kaufen:§6 50 Gems").build();
@@ -34,12 +35,15 @@ public class Förster {
         ItemStack fichte = new ItemBuilder(Material.LOG, (short) 1).setDisplayname("§7Fichtenholz").setLore("§8» §7Kaufen:§6 60 Gems", "§8» §7Verkaufen:§6 10 Gems").build();
         ItemStack birke = new ItemBuilder(Material.LOG, (short) 2).setDisplayname("§7Birkenholz").setLore("§8» §7Kaufen:§6 60 Gems", "§8» §7Verkaufen:§6 10 Gems").build();
         ItemStack trope = new ItemBuilder(Material.LOG, (short) 3).setDisplayname("§7Tropenholz").setLore("§8» §7Kaufen:§6 60 Gems", "§8» §7Verkaufen:§6 10 Gems").build();
-        ItemStack akazie = new ItemBuilder(Material.LOG_2).setDisplayname("§7Akazienholz").setLore("§8» §7Kaufen:§6 60 Gems", "§8» §7Verkaufen:§6 10 Gems").build();
-        ItemStack schwarzeiche = new ItemBuilder(Material.LOG_2).setDisplayname("§7Schwarzeichenholz").setLore("§8» §7Kaufen:§6 60 Gems", "§8» §7Verkaufen:§6 10 Gems").build();
+        ItemStack akazie = new ItemBuilder(Material.LOG, (short) 4).setDisplayname("§7Akazienholz").setLore("§8» §7Kaufen:§6 60 Gems", "§8» §7Verkaufen:§6 10 Gems").build();
+        ItemStack schwarzeiche = new ItemBuilder(Material.LOG, (short) 5).setDisplayname("§7Schwarzeichenholz").setLore("§8» §7Kaufen:§6 60 Gems", "§8» §7Verkaufen:§6 10 Gems").build();
 
 
         for(int i = 0; i<= 8; i++){
             inv.setItem(i, glas);
+        }
+        for(int i = 9; i<= 36; i++){
+            inv.setItem(i, glasblack);
         }
         for(int i = 36; i<=44;i++){
             inv.setItem(i,glas);

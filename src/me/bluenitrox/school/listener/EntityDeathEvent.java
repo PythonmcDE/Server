@@ -17,25 +17,28 @@ public class EntityDeathEvent implements Listener {
     @EventHandler
     public void onDeath(final org.bukkit.event.entity.EntityDeathEvent e){
         Entity entity = e.getEntity();
-        if(e.getEntity().getKiller() != null){
+        if(e.getEntity().getKiller() != null) {
             Player killer = e.getEntity().getKiller();
-            StatsAPI api = new StatsAPI();
+            if (!DungeonManager.isInDungeon(killer)) {
+                StatsAPI api = new StatsAPI();
 
-            api.updateMob(killer.getUniqueId(), 1, false);
-            Xpbooster xp = new Xpbooster();
-            MobCounter mobCounter = new MobCounter(killer.getItemInHand());
-            mobCounter.activateMobCounter();
-            if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(xp.getName())))) {
+                api.updateMob(killer.getUniqueId(), 1, false);
+                Xpbooster xp = new Xpbooster();
+                MobCounter mobCounter = new MobCounter(killer.getItemInHand());
+                mobCounter.activateMobCounter();
+                if (SchoolMode.getInstance().getBoostermanager().getAktivboost().stream().anyMatch((b -> b.getName().equals(xp.getName())))) {
 
-                float exp = (e.getDroppedExp() * Wilderei.getEXPMultipyer(e.getEntity().getKiller()))*2;
-                e.getEntity().getKiller().setExp(e.getEntity().getKiller().getExp() + exp);
-            }else {
-                float exp = (e.getDroppedExp() * Wilderei.getEXPMultipyer(e.getEntity().getKiller()));
-                e.getEntity().getKiller().setExp(e.getEntity().getKiller().getExp() + exp);
+                    float exp = (e.getDroppedExp() * Wilderei.getEXPMultipyer(e.getEntity().getKiller())) * 2;
+                    e.getEntity().getKiller().setExp(e.getEntity().getKiller().getExp() + exp);
+                } else {
+                    float exp = (e.getDroppedExp() * Wilderei.getEXPMultipyer(e.getEntity().getKiller()));
+                    e.getEntity().getKiller().setExp(e.getEntity().getKiller().getExp() + exp);
+                }
+            } else {
+                DungeonManager dungeonManager = new DungeonManager();
+                dungeonManager.entityDeathItemAdd(e);
             }
         }
-        DungeonManager dungeonManager = new DungeonManager();
-        dungeonManager.entityDeathItemAdd(e);
     }
 
 }

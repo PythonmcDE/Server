@@ -34,7 +34,7 @@ public class AufgabenMethods {
             AufgabenManager.onComplete(event.getPlayer().getUniqueId(), 1);
         } else if(msg.equalsIgnoreCase("/xp") && AufgabenManager.getTask(event.getPlayer().getUniqueId()) == 2) {
             AufgabenManager.onComplete(event.getPlayer().getUniqueId(), 2);
-        } else if(msg.equalsIgnoreCase("/clan") && AufgabenManager.getTask(event.getPlayer().getUniqueId()) == 7) {
+        } else if(msg.equalsIgnoreCase("/seasonpass") && AufgabenManager.getTask(event.getPlayer().getUniqueId()) == 7) {
             AufgabenManager.onComplete(event.getPlayer().getUniqueId(), 7);
         } else if(msg.equalsIgnoreCase("/plotworld") && AufgabenManager.getTask(event.getPlayer().getUniqueId()) == 11) {
             AufgabenManager.onComplete(event.getPlayer().getUniqueId(), 11);

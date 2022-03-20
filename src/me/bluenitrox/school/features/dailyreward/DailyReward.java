@@ -40,11 +40,11 @@ public class DailyReward {
         for(int i = 0; i<=8; i++){
             inv.setItem(i,glas);
         }
+        for(int i =9; i<= 53; i++){
+            inv.setItem(i,glasblack);
+        }
         for(int i = 36; i <=44; i++){
             inv.setItem(i,glas);
-        }
-        for(int i =45; i<= 53; i++){
-            inv.setItem(i,glasblack);
         }
         inv.setItem(49,sign);
         if(getBelohnung(uuid) == 0) {

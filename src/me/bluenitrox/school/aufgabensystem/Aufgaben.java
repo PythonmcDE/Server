@@ -11,7 +11,7 @@ public class Aufgaben {
     public static String TASK_4 = "§8» §aTeleportiere dich beim Minenhändler in die erste Mine";
     public static String TASK_5 = "§8» §aBaue 50 Blöcke in der Mine ab";
     public static String TASK_6 = "§8» §aVerkaufe 50 Steine beim Minenhändler";
-    public static String TASK_7 = "§8» §aFühre den Befehl /clan aus.";
+    public static String TASK_7 = "§8» §aSuche den Seasonpass Npc";
     public static String TASK_8 = "§8» §Kaufe ein Item im /ah";
     public static String TASK_9 = "§8» §aVerkaufe ein Item im /ah";
     public static String TASK_10 = "§8» §aKaufe ein Item bei einem Händler";

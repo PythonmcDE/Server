@@ -4,6 +4,8 @@ import me.bluenitrox.school.ah.AhListener;
 import me.bluenitrox.school.ah.AhManager;
 import me.bluenitrox.school.ah.Ah_CMD;
 import me.bluenitrox.school.aufgabensystem.*;
+import me.bluenitrox.school.aufgabensystem.daily.DailyTaskData;
+import me.bluenitrox.school.aufgabensystem.daily.TaskManager;
 import me.bluenitrox.school.boost.*;
 import me.bluenitrox.school.boost.booster.Angelbooster;
 import me.bluenitrox.school.boost.booster.Dungeonbooster;
@@ -149,6 +151,8 @@ public class SchoolMode extends JavaPlugin {
 
         SeasonpassRewardManager seasonpassRewardManager = new SeasonpassRewardManager();
         seasonpassRewardManager.registerSeasonpassRewards();
+        TaskManager manager = new TaskManager();
+        manager.createDailyTasks();
     }
 
     private void startNPCS(){
@@ -348,6 +352,9 @@ public class SchoolMode extends JavaPlugin {
                 ps.executeUpdate();
             }
             try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `erhaltitems` ( `UUID` CHAR(36) NOT NULL , `item` TEXT NOT NULL)");) {
+                ps.executeUpdate();
+            }
+            try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `dailytasks` (`pvp` TEXT, `mining` TEXT, `angel` TEXT, `dungeon` TEXT, `crafting` TEXT)");) {
                 ps.executeUpdate();
             }
             try(Connection connection = MySQL.getHikariDataSource().getConnection(); PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `aufgaben` ( `spieleruuid` CHAR(36) NOT NULL , `aufgabenfortschritt` INT(11) NOT NULL , `toggle` INT(2) NOT NULL)");) {

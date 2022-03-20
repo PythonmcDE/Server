@@ -23,6 +23,7 @@ public class Künstlerin {
         Inventory inv = Bukkit.createInventory(null, 9*5, GUI_NAME);
 
         ItemStack glas = new ItemBuilder(Material.STAINED_GLASS_PANE).setDisplayname(" ").build();
+        ItemStack glasblack = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 15).setDisplayname(" ").build();
         ItemStack sign = new ItemBuilder(Material.SIGN).setDisplayname("§8» §6§lHändler").setLore("§6§l▶ §7Bei §9§lHändlern §7kannst du bestimmt", "§6§l▶ Items §aerwerben §7oder auch §averkaufen§7.").build();
 
         ItemStack nr1 = new ItemBuilder(Material.WOOL).setDisplayname("§7Weiße Wolle").setLore("§8» §7Kaufen:§6 50 Gems").build();
@@ -46,6 +47,9 @@ public class Künstlerin {
 
         for(int i = 0; i<= 8; i++){
             inv.setItem(i, glas);
+        }
+        for(int i = 9; i<= 36; i++){
+            inv.setItem(i, glasblack);
         }
         for(int i = 36; i<=44;i++){
             inv.setItem(i,glas);
