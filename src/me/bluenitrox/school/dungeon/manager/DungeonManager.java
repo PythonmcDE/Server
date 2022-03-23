@@ -212,7 +212,7 @@ public class DungeonManager {
                             e.getDrops().clear();
                         }
                         //e.getDrops().add(new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombie Haut").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
-                        e.getDrops().add(new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombie Haut").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
+                        e.getDrops().add(new ItemBuilder(Material.ROTTEN_FLESH).setDisplayname("§aZombiehaut").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
                         if(runenChance(1, 2) == 1) {
                             RunenUtils runenUtils = new RunenUtils();
                             player.getInventory().addItem(Antidupe.addID(runenUtils.getRune("fire_rune")));
@@ -235,7 +235,7 @@ public class DungeonManager {
                         if(e.getDrops() != null) {
                             e.getDrops().clear();
                         }
-                        e.getDrops().add(new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebroche Pfeilspitze").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
+                        e.getDrops().add(new ItemBuilder(Material.FLINT).setDisplayname("§aAbgebrochene Pfeilspitze").setLore("§8» §7Dieses §6§lItem §7wurde von einem §c§lMonster §7aus", "§8» §7dem §c§lDungeon §7fallengelassen, verwende es", "§8» §7für ein §6mächtiges §lCrafting-Rezept§7.").build());
                         if(runenChance(1, 250) == 5) {
                             RunenUtils runenUtils = new RunenUtils();
                             player.getInventory().addItem(Antidupe.addID(runenUtils.getRune("water_rune")));

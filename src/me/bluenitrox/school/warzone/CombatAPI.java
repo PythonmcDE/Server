@@ -48,6 +48,7 @@ public class CombatAPI {
                     fight.put(p, 25);
                     fight.put(d, 25);
                     updateTimeBar();
+                    p.getItemInHand().getDurability();
                 }
             }else if(e.getDamager() instanceof Projectile && e.getEntity() instanceof Player){
                 if (getWarzoneByLocation(e.getEntity().getLocation()) != null) {

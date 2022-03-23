@@ -31,6 +31,9 @@ public class RunenFuctions {
             switch (event.getItem().getItemMeta().getDisplayName()) {
                 case "§cRune der Jagd":
                     data.setRuneJagd(player.getUniqueId());
+                    player.playSound(player.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                    player.sendMessage(MessageManager.PREFIX + "§7Du hast " + event.getItem().getItemMeta().getDisplayName() + "§7 aktiviert!");
+                    player.getInventory().remove(event.getItem());
                     new BukkitRunnable() {
                         @Override
                         public void run() {
@@ -41,16 +44,28 @@ public class RunenFuctions {
                     break;
                 case "§fRune der Beschleunigung":
                     //runebeschleunigung.add(player.getUniqueId());
+                    player.playSound(player.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                    player.sendMessage(MessageManager.PREFIX + "§7Du hast " + event.getItem().getItemMeta().getDisplayName() + "§7 aktiviert!");
+                    player.getInventory().remove(event.getItem());
                     break;
                 case "§6Engelsrune":
                     player.setMaxHealth(player.getMaxHealth());
                     player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20*20, 4));
+                    player.playSound(player.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                    player.sendMessage(MessageManager.PREFIX + "§7Du hast " + event.getItem().getItemMeta().getDisplayName() + "§7 aktiviert!");
+                    player.getInventory().remove(event.getItem());
                     break;
                 case "§eRune der Eile":
                     player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20*60*5, 9));
+                    player.playSound(player.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                    player.sendMessage(MessageManager.PREFIX + "§7Du hast " + event.getItem().getItemMeta().getDisplayName() + "§7 aktiviert!");
+                    player.getInventory().remove(event.getItem());
                     break;
                 case "§2Rune der Weisheit":
                     //runeweisheit.add(player.getUniqueId());
+                    player.playSound(player.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                    player.sendMessage(MessageManager.PREFIX + "§7Du hast " + event.getItem().getItemMeta().getDisplayName() + "§7 aktiviert!");
+                    player.getInventory().remove(event.getItem());
                     new BukkitRunnable() {
                         @Override
                         public void run() {
@@ -62,20 +77,29 @@ public class RunenFuctions {
                     break;
                 case "§6Rune der Stärke":
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*60*5, 1));
+                    player.playSound(player.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                    player.sendMessage(MessageManager.PREFIX + "§7Du hast " + event.getItem().getItemMeta().getDisplayName() + "§7 aktiviert!");
+                    player.getInventory().remove(event.getItem());
                     break;
                 case "§fRune der Geschwindigkeit":
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*60, 1));
+                    player.playSound(player.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                    player.sendMessage(MessageManager.PREFIX + "§7Du hast " + event.getItem().getItemMeta().getDisplayName() + "§7 aktiviert!");
+                    player.getInventory().remove(event.getItem());
                     break;
                 case "§8Rune der Todesaura":
+                    player.playSound(player.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                    player.sendMessage(MessageManager.PREFIX + "§7Du hast " + event.getItem().getItemMeta().getDisplayName() + "§7 aktiviert!");
+                    player.getInventory().remove(event.getItem());
                     //TODO
                     break;
                 case "§aRune der Regeneration":
                     player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20*60*5, 1));
+                    player.playSound(player.getLocation(), Sound.NOTE_PLING, 1L, 1L);
+                    player.sendMessage(MessageManager.PREFIX + "§7Du hast " + event.getItem().getItemMeta().getDisplayName() + "§7 aktiviert!");
+                    player.getInventory().remove(event.getItem());
                     break;
             }
-            player.playSound(player.getLocation(), Sound.NOTE_PLING, 1L, 1L);
-            player.sendMessage(MessageManager.PREFIX + "§7Du hast " + event.getItem().getItemMeta().getDisplayName() + "§7 aktiviert!");
-            player.getInventory().remove(event.getItem());
         }
     }
 

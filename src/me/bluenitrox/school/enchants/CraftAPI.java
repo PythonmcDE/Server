@@ -6,6 +6,7 @@ import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.utils.Antidupe;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -91,7 +92,8 @@ public class CraftAPI {
                                 }
                             }
                         }
-                    } else if (shouldCraftOn(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
+                    }
+                    else if (shouldCraftOn(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
                         String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
                         float price = getPrice(preis[1]);
                         int level = getLevel(preis[1]);
@@ -108,7 +110,26 @@ public class CraftAPI {
                             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                             p.closeInventory();
                         }
-                    } else {
+                    }
+                    else if(isSpecial(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
+                        String[] preis = e.getClickedInventory().getItem(slot2).getItemMeta().getLore().get(0).split(" ");
+                        float price = getPrice(preis[1]);
+                        int level = getLevel(preis[1]);
+                        if (MoneyManager.getMoney(uuid) >= price && p.getLevel() >= level) {
+                            if(checkTrackerForItem(e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2))) {
+                                craftSpecialOn(p, e.getClickedInventory().getItem(slot1), e.getClickedInventory().getItem(slot2), stringToInt(preis[1]), e.getClickedInventory());
+                            } else {
+                                p.sendMessage(MessageManager.PREFIX + "§7Dein Item besitzt bereits Counter.");
+                                p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                                p.closeInventory();
+                            }
+                        } else {
+                            p.sendMessage(MessageManager.PREFIX + "§7Du hast §cnicht §7genug §6Geld §7oder §6Level§7.");
+                            p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+                            p.closeInventory();
+                        }
+                    }
+                    else {
                         p.sendMessage(MessageManager.PREFIX + "§7Das ist so nicht möglich. Schaue auf unserer Website §8(§fPythonMC.de§8) §7wie du es richtig machst!");
                         p.playSound(p.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
                         p.closeInventory();
@@ -338,6 +359,20 @@ public class CraftAPI {
         return false;
     }
 
+    private boolean isSpecial(ItemStack is1, ItemStack is2){
+
+        if(is2.getType() == Material.PRISMARINE_CRYSTALS || is2.getType() == Material.NETHER_STAR) {
+            if(is2.getItemMeta() != null) {
+                if(is2.getItemMeta().getDisplayName() != null) {
+                    if(is2.getItemMeta().getDisplayName().contains("Item-Verhärtung") || is2.getItemMeta().getDisplayName().contains("Item-Erhalt")) {
+                        return isItemForEnchant(is1);
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public static void onClose(final InventoryCloseEvent e){
         if(e.getInventory().getName().equalsIgnoreCase(guiname)){
             if(!dontgiveItem.contains(e.getPlayer())){
@@ -356,6 +391,39 @@ public class CraftAPI {
                 dontgiveItem.remove(e.getPlayer());
             }
         }
+    }
+
+    private void craftSpecialOn(Player player, ItemStack item, ItemStack special, int enchantlevel, Inventory clicked) {
+        if(hasSpezial(item, special.getItemMeta().getDisplayName())) {
+            if (item.getItemMeta().getLore().contains(special + intToString(enchantlevel))) {
+                if (isEnchantForItem(item, special.getItemMeta().getDisplayName())) {
+                    ItemMeta meta = item.getItemMeta();
+                    List<String> lore = meta.getLore();
+
+                    lore.remove(special.getItemMeta().getDisplayName() + intToString(enchantlevel));
+                    lore.add(special.getItemMeta().getDisplayName() + intToString(enchantlevel + 1));
+
+                    meta.setLore(lore);
+                    item.setItemMeta(meta);
+
+                    dontgiveItem.add(player);
+                    player.getInventory().addItem(item);
+
+                    clicked.setItem(slot1, new ItemBuilder(Material.AIR).build());
+                    clicked.setItem(slot2, new ItemBuilder(Material.AIR).build());
+                    player.closeInventory();
+                    player.playSound(player.getLocation(), Sound.ANVIL_USE, 1L, 1L);
+                    MoneyManager.updateMoney(player.getUniqueId(), getPrice(intToString(enchantlevel + 1)), true, false);
+                    player.setLevel(player.getLevel() - (enchantlevel * 20));
+                }
+            } else {
+                player.closeInventory();
+                player.sendMessage(MessageManager.PREFIX + "§7Du musst die selbe Stufe des Enchants draufmachen!");
+                player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1L, 1L);
+            }
+        }
+
+
     }
 
     private void craftbookon(Player p, ItemStack item, String enchant, int enchantlevel,Inventory clickedInv){
@@ -543,6 +611,22 @@ public class CraftAPI {
         }else {
             return true;
         }
+    }
+
+    private boolean hasSpezial(ItemStack item, String enchant){
+
+        List<String> lore = item.getItemMeta().getLore();
+
+        if(enchant.contains("Erhalt")) {
+            if(lore.contains("Erhalt")) {
+                return true;
+            }
+        } else if(enchant.contains("Verhärtung")) {
+            if(lore.contains("Verhärtung")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static float getPrice(String s){
