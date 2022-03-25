@@ -21,6 +21,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
+import org.checkerframework.checker.units.qual.A;
 
 public class PlayerInteractEvent implements Listener {
 
@@ -146,10 +147,15 @@ public class PlayerInteractEvent implements Listener {
     }
 
     private void interactAnvil(Player p, org.bukkit.event.player.PlayerInteractEvent e){
-        if(e.getClickedBlock().getType() == Material.ANVIL){
+        /*if(e.getClickedBlock().getType() == Material.ANVIL){
             e.setCancelled(true);
             CraftAPI api = new CraftAPI();
             p.openInventory(api.openCraftInv(p));
+        }*/
+        if(e.getClickedBlock().getType() == Material.ANVIL) {
+            e.setCancelled(true);
+            AnvilListener anvilListener = new AnvilListener();
+            p.openInventory(anvilListener.anvilInv());
         }
     }
 

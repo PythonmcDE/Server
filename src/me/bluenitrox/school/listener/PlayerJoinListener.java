@@ -24,8 +24,7 @@ public class PlayerJoinListener implements Listener {
         PlayerJoinManager.cachPlayerData(p.getUniqueId());
         SchoolMode.playerwason.add(p.getUniqueId());
 
-        NPCAPI.setJoinNPC(e);
-        SellOptions sellOptions = new SellOptions();
+        //NPCAPI.setJoinNPC(e);
 
         ScoreboardManager.setBoard(p);
         p.setGameMode(GameMode.SURVIVAL);

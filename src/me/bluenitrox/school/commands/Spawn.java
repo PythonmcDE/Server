@@ -39,7 +39,7 @@ public class Spawn implements CommandExecutor {
                 if (new LocationManager("spawn").getLocation() != null) {
                     p.teleport(new LocationManager("spawn").getLocation());
                     AngelminenManager.quitAngelmine(p);
-                    NPCAPI.updateNPCs(p);
+                    //NPCAPI.updateNPCs(p);
                 }
             }
         }else if(args.length == 1){

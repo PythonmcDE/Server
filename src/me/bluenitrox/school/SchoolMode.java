@@ -37,6 +37,7 @@ import me.bluenitrox.school.features.cases.GetCases;
 import me.bluenitrox.school.commands.*;
 import me.bluenitrox.school.features.kit.KitAPI;
 import me.bluenitrox.school.haendler.NPCAPI;
+import me.bluenitrox.school.haendler.npc.NpcCommandConsole;
 import me.bluenitrox.school.haendler.rangfeatures.SchmiedCMD;
 import me.bluenitrox.school.haendler.rangfeatures.TaxiCMD;
 import me.bluenitrox.school.listener.*;
@@ -251,6 +252,9 @@ public class SchoolMode extends JavaPlugin {
         getCommand("test").setExecutor(new NBTTagtest());
         getCommand("testzwei").setExecutor(new OtherTest());
 
+        //Händler click
+        getCommand("haendlerconsole").setExecutor(new NpcCommandConsole());
+
         //Shop Commands - Console only
         getCommand("consoleboosteradd").setExecutor(new BoosterAdd());
         getCommand("rankconsole").setExecutor(new RankAdd());
@@ -261,6 +265,7 @@ public class SchoolMode extends JavaPlugin {
         //Event register
 
         pm.registerEvents(new PlayerJoinListener(), this);
+        pm.registerEvents(new AnvilListener(), this);
         pm.registerEvents(new PlayerQuitListener(), this);
         pm.registerEvents(new EntityDeathEvent(), this);
         pm.registerEvents(new InventoryClickEvent(), this);
@@ -625,12 +630,12 @@ public class SchoolMode extends JavaPlugin {
                 for(Player all: Bukkit.getOnlinePlayers()) {
                     all.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20 * 60 * 20, 1));
                 }
-                for(Player all: Bukkit.getOnlinePlayers()) {
+                /*for(Player all: Bukkit.getOnlinePlayers()) {
                     if (Bukkit.getOnlinePlayers().size() > 1) {
                         NPCAPI.destroyAllNPCS(all);
                         NPCAPI.summonAllNPCS(all);
                     }
-                }
+                }*/
             }
         }.runTaskTimer(getInstance(), 20*60*10, 20*60*10);
     }
