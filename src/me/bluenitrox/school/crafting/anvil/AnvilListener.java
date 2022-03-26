@@ -1,7 +1,5 @@
-package me.bluenitrox.school.listener;
+package me.bluenitrox.school.crafting.anvil;
 
-import me.bluenitrox.school.event.AnvilOpenEvent;
-import me.bluenitrox.school.haendler.npc.OutPut;
 import me.bluenitrox.school.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -11,28 +9,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.checkerframework.checker.units.qual.A;
 
 public class AnvilListener implements Listener {
 
-    OutPut outPut = new OutPut();
-
-    @EventHandler
-    public void onAnvil(AnvilOpenEvent event) {
-
-        Player player = event.getPlayer();
-        ItemStack item1 = event.getItem1();
-        ItemStack item2 = event.getItem2();
-        Inventory inventory = event.getInventory();
-
-        Bukkit.broadcastMessage("1");
-        if(item1 == null || item2 == null) return;
-        Bukkit.broadcastMessage("Ja");
-
-    }
+    Anvil anvil = new Anvil(); //Main Anvil System
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
@@ -41,6 +23,7 @@ public class AnvilListener implements Listener {
             Inventory inventory = event.getInventory();
             Player player = (Player) event.getPlayer();
 
+            //Put Items back to Player Inventory
             if(inventory.getItem(11) != null) {
                 player.getInventory().addItem(inventory.getItem(11));
             }
@@ -58,7 +41,7 @@ public class AnvilListener implements Listener {
                     event.setCancelled(true);
                 } else if(i == 11 || i == 13) {
                     //Update Inventory
-                    outPut.update(event.getView().getTopInventory(), (Player) event.getWhoClicked());
+                    anvil.update(event.getView().getTopInventory(), (Player) event.getWhoClicked());
                 }
             }
         }
@@ -74,15 +57,15 @@ public class AnvilListener implements Listener {
                     //Main Amboss inv
                     if(event.getSlot() == 11 || event.getSlot() == 13) {
                         if(action == InventoryAction.PLACE_ALL) {
-                            outPut.update(event.getClickedInventory(), (Player) event.getWhoClicked());
+                            anvil.update(event.getClickedInventory(), (Player) event.getWhoClicked());
                         } else if(action == InventoryAction.PLACE_ONE) {
-                            outPut.update(event.getClickedInventory(), (Player) event.getWhoClicked());
+                            anvil.update(event.getClickedInventory(), (Player) event.getWhoClicked());
                         } else if(action == InventoryAction.PLACE_SOME) {
-                            outPut.update(event.getClickedInventory(), (Player) event.getWhoClicked());
+                            anvil.update(event.getClickedInventory(), (Player) event.getWhoClicked());
                         } else if(action == InventoryAction.SWAP_WITH_CURSOR) {
-                            outPut.update(event.getClickedInventory(), (Player) event.getWhoClicked());
+                            anvil.update(event.getClickedInventory(), (Player) event.getWhoClicked());
                         } else {
-                            outPut.update(event.getView().getTopInventory(), (Player) event.getWhoClicked());
+                            anvil.update(event.getView().getTopInventory(), (Player) event.getWhoClicked());
                         }
                     } else if(event.getSlot() == 15) {
                         Material Slimeball = Material.SLIME_BALL;
@@ -91,7 +74,30 @@ public class AnvilListener implements Listener {
                                 if (action == InventoryAction.HOTBAR_SWAP || action == InventoryAction.HOTBAR_MOVE_AND_READD || action == InventoryAction.SWAP_WITH_CURSOR) {
                                     event.setCancelled(true);
                                 } else {
-                                    //TODO
+                                    ItemStack craftitem = event.getClickedInventory().getItem(15);
+                                    if(craftitem.getItemMeta().getLore().get(2).startsWith("§c") || craftitem.getItemMeta().getLore().get(3).startsWith("§c")) {
+                                        event.setCancelled(true);
+                                    } else {
+                                        event.setCancelled(true);
+                                        ItemStack item1 = event.getClickedInventory().getItem(11);
+                                        ItemStack item2 = event.getClickedInventory().getItem(13);
+
+                                        if(item1.getType() == Material.ENCHANTED_BOOK && item2.getType() == Material.ENCHANTED_BOOK) {
+                                            /*
+                                            both Items are books
+                                             */
+                                            anvil.craftBooksTogether(event.getClickedInventory(), (Player) event.getWhoClicked());
+                                        } else if(item1.getType() != Material.ENCHANTED_BOOK && item2.getType() == Material.ENCHANTED_BOOK) {
+                                            /*
+                                            craft an book on an item
+                                             */
+                                        } else {
+                                            /*
+                                            we craft erhalt or Verhärtung together
+                                             */
+                                            anvil.craftSpecialOnItem(event.getClickedInventory(), (Player) event.getWhoClicked());
+                                        }
+                                    }
                                 }
                             } else {
                                 event.setCancelled(true);
@@ -108,8 +114,7 @@ public class AnvilListener implements Listener {
                                 if (ItemType == BSG) {
                                     event.setCancelled(true);
                                 }else {
-                                    //TODO
-                                    outPut.update(event.getView().getTopInventory(), (Player) event.getWhoClicked());
+                                    anvil.update(event.getView().getTopInventory(), (Player) event.getWhoClicked());
                                 }
                             }else {
                                 event.setCancelled(true);
@@ -138,7 +143,7 @@ public class AnvilListener implements Listener {
 
                                 }
                                 if (needUpdate) {
-                                    outPut.update(event.getView().getTopInventory(), (Player) event.getWhoClicked());
+                                    anvil.update(event.getView().getTopInventory(), (Player) event.getWhoClicked());
                                 }
                             }
                         }

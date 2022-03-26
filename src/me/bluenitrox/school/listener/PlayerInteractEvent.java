@@ -2,9 +2,9 @@ package me.bluenitrox.school.listener;
 
 import me.bluenitrox.school.crafting.Enchanter;
 import me.bluenitrox.school.crafting.WerkbankGUIRegister;
+import me.bluenitrox.school.crafting.anvil.AnvilListener;
 import me.bluenitrox.school.dungeon.manager.DungeonManager;
 import me.bluenitrox.school.dungeon.runen.RunenFuctions;
-import me.bluenitrox.school.enchants.CraftAPI;
 import me.bluenitrox.school.enchants.pickaxe.Laser;
 import me.bluenitrox.school.enchants.sword.Schatzmeister;
 import me.bluenitrox.school.features.cases.CaseAPI;
@@ -21,7 +21,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
-import org.checkerframework.checker.units.qual.A;
 
 public class PlayerInteractEvent implements Listener {
 
