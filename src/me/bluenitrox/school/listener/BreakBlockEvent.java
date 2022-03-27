@@ -35,17 +35,19 @@ public class BreakBlockEvent implements Listener {
     AufgabenMethods aufgaben = new AufgabenMethods();
 
     public BreakBlockEvent() {
-        allowedWorldToBuild.add("plotworld");
+        allowedWorldToBuild.add("PlotWorld");
     }
 
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
         tooldown(p);
+
+        if(p.getWorld().getName().equalsIgnoreCase(WorldManager.plotworld)) return;
+
         if(Build.build.contains(p)) {
             return;
         }
-        if(p.getWorld().getName().equalsIgnoreCase(WorldManager.plotworld)) return;
 
         if(p.getWorld().getName().equalsIgnoreCase(WorldManager.mine)) {
             if ((PlayerBreakBlockManager.breakBlock(p, e.getBlock().getLocation()))) {
@@ -57,9 +59,6 @@ public class BreakBlockEvent implements Listener {
             } else {
                 e.setCancelled(true);
             }
-            e.setExpToDrop(0);
-        } else {
-            e.setCancelled(true);
             e.setExpToDrop(0);
         }
     }

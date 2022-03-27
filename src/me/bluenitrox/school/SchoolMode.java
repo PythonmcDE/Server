@@ -644,7 +644,11 @@ public class SchoolMode extends JavaPlugin {
             public void run() {
                 Bukkit.setWhitelist(false);
                 for(World world : Bukkit.getWorlds()){
-                    world.setGameRuleValue("doTileDrops", "false");
+                    if(world.getName().equalsIgnoreCase(WorldManager.plotworld)) {
+                        world.setGameRuleValue("doTileDrops", "true");
+                    } else {
+                        world.setGameRuleValue("doTileDrops", "false");
+                    }
                     world.setGameRuleValue("doDaylightCycle","false");
                     world.setDifficulty(Difficulty.NORMAL);
                     for(Entity all: world.getEntities()){

@@ -21,8 +21,11 @@ public class OtherTest implements CommandExecutor {
 
         ItemStack is2 = new ItemBuilder(Material.ENCHANTED_BOOK).setDisplayname("§5Verzaubertes Buch").setLore("§7Explosionsschutz III", "§7Schusssicher I").build();
 
+        ItemStack is3 = new ItemBuilder(Material.DIAMOND_SWORD).setDisplayname("§6§lOP Sword").setLore(EnchantManager.KILL_COUNTER + "I").build();
+
         player.getInventory().addItem(is);
         player.getInventory().addItem(is2);
+        player.getInventory().addItem(is3);
 
         return false;
     }

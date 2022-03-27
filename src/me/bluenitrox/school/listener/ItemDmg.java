@@ -1,7 +1,9 @@
 package me.bluenitrox.school.listener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
@@ -12,44 +14,53 @@ import java.util.List;
 
 public class ItemDmg implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onItemDamage(PlayerItemDamageEvent event) {
 
         Player player = event.getPlayer();
 
-        if(!hasEnchant(player)) return;
-        if(getRestDurability(player) == 0) return;
+        Bukkit.broadcastMessage("0");
+        if(!hasEnchant(event.getItem())) return;
+        Bukkit.broadcastMessage("1");
+        if(getRestDurability(event.getItem()) == 0) return;
+        Bukkit.broadcastMessage("2");
 
         event.setCancelled(true);
-        this.setDura(player, event.getDamage());
+        Bukkit.broadcastMessage("3");
+        this.setDura(event.getItem(), event.getDamage());
+        Bukkit.broadcastMessage("4");
     }
 
-    private void setDura(Player player, int removedura) {
+    private void setDura(ItemStack item, int removedura) {
 
-        ItemStack item = player.getItemInHand();
         ItemMeta meta = item.getItemMeta();
 
         List<String> lore = meta.getLore();
         List<String> newlore = new LinkedList<>();
 
         int maxDura = getMaxDurability(getEnchantLevelInt(getEnchantLevel(item)));
-        int itemdura = getRestDurability(player) - removedura;
+        int itemdura = getRestDurability(item) - removedura;
 
-        newlore.add("§8» §7Haltbarkeit: §6§l" + itemdura + "§7/§6§l" + maxDura);
+        for(int i = 0; i < lore.size(); i++) {
+            if(lore.get(i).contains("Bonus-Haltbarkeit")) {
+                lore.remove(i);
+            }
+        }
+
+        newlore.add("§8Bonus-Haltbarkeit: " + itemdura + "/" + maxDura);
         newlore.addAll(lore);
 
         meta.setLore(newlore);
         item.setItemMeta(meta);
     }
 
-    private boolean hasEnchant(Player player) {
+    private boolean hasEnchant(ItemStack item) {
 
-        if(player.getItemInHand() == null) return false;
-        if(player.getItemInHand().getItemMeta() == null) return false;
-        if(player.getItemInHand().getItemMeta().getDisplayName() == null) return false;
-        if(player.getItemInHand().getItemMeta().getLore() == null) return false;
+        if(item == null) return false;
+        if(item.getItemMeta() == null) return false;
+        if(item.getItemMeta().getLore() == null) return false;
 
-        List<String> lore = player.getItemInHand().getItemMeta().getLore();
+        List<String> lore = item.getItemMeta().getLore();
 
         for (String string : lore) {
             if(string.contains("Verhärtung")) {
@@ -60,7 +71,7 @@ public class ItemDmg implements Listener {
         return false;
     }
 
-    private int getMaxDurability(int enchantlevel) {
+    public int getMaxDurability(int enchantlevel) {
 
         switch (enchantlevel) {
             case 10:
@@ -123,16 +134,14 @@ public class ItemDmg implements Listener {
         }
     }
 
-    private int getRestDurability(Player player) {
-
-        ItemStack item = player.getItemInHand();
+    private int getRestDurability(ItemStack item) {
 
         List<String> lore = item.getItemMeta().getLore();
 
         for (String s : lore) {
 
-            if(s.contains("Haltbarkeit: ")) {
-                String fi = s.replace("§8» §7Haltbarkeit: §6§l", "").replace("§7/§6§l" + getMaxDurability(getEnchantLevelInt(getEnchantLevel(item))), "");
+            if(s.contains("Bonus-Haltbarkeit: ")) {
+                String fi = s.replace("§8Bonus-Haltbarkeit: ", "").replace("/" + getMaxDurability(getEnchantLevelInt(getEnchantLevel(item))), "");
                 return Integer.parseInt(fi);
             }
         }

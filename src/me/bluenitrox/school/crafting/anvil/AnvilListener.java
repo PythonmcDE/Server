@@ -91,12 +91,15 @@ public class AnvilListener implements Listener {
                                             /*
                                             craft an book on an item
                                              */
+                                            anvil.craftBookOnItem(event.getClickedInventory(), (Player) event.getWhoClicked());
                                         } else {
                                             /*
                                             we craft erhalt or Verhärtung together
                                              */
                                             anvil.craftSpecialOnItem(event.getClickedInventory(), (Player) event.getWhoClicked());
                                         }
+                                        ItemStack barrier = new ItemBuilder(Material.BARRIER).setDisplayname("§cUngültige Verzauberung").setLore("§b» §7Bitte überprüfe deine Items").build();
+                                        event.getClickedInventory().setItem(15, barrier);
                                     }
                                 }
                             } else {

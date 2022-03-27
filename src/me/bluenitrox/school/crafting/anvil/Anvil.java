@@ -1,6 +1,8 @@
 package me.bluenitrox.school.crafting.anvil;
 
 import me.bluenitrox.school.SchoolMode;
+import me.bluenitrox.school.enchants.EnchantManager;
+import me.bluenitrox.school.listener.ItemDmg;
 import me.bluenitrox.school.managers.MoneyManager;
 import me.bluenitrox.school.utils.ItemBuilder;
 import me.bluenitrox.school.utils.ValuetoString;
@@ -21,12 +23,182 @@ public class Anvil {
 
     private final ItemStack barrier = new ItemBuilder(Material.BARRIER).setDisplayname("§cUngültige Verzauberung").setLore("§b» §7Bitte überprüfe deine Items").build();
 
-    //TODO Check in the {check} Method For Tracker
-    //TODO add custom Dura to an item on enchant
+
+    /**
+     * Craft a Enchanted Book (Vanilla or Special School Enchant) to an item and set the item to the player inventory
+     * @param inventory the inventory which requested the crafting
+     * @param player the player who get the item
+     */
+    public void craftBookOnItem(Inventory inventory, Player player) {
+
+        /*
+        Get the items
+        */
+
+        ItemStack item1 = inventory.getItem(11); //Item 1 is on slot 11
+        ItemStack item2 = inventory.getItem(13); //Item 1 is on slot 13
+
+        ItemStack craftItem = inventory.getItem(15); //The clicked slimeball is on slot 15
+
+        /*
+        Check if item 1 has a lore
+         */
+        ItemMeta meta = item1.getItemMeta();
+        List<String> loreitem1;
+
+        if(item1.getItemMeta() == null || item1.getItemMeta().getLore() == null) {
+            /*
+            If not create a new one
+             */
+            loreitem1 = new LinkedList<>();
+        } else {
+            /*
+            use the existing
+             */
+            loreitem1 = item1.getItemMeta().getLore();
+        }
+
+
+            /*
+            the item has no enchant. So we can easy add it
+             */
+
+            List<String> item2enchants = getEnchants(item2); //only the enchants from item2
+
+            /*
+            add the enchant to the lore
+             */
+
+            for (String s : item2enchants) {
+                /*
+                Check first if a item is a vanilla Enchant.
+                 */
+                if(!s.startsWith("§7")) {
+                    /*
+                    The Item is a special School Enchantment
+                     */
+
+                    /*
+                    add Enchant to the item
+                     */
+                    if (loreitem1.size() > 0) {
+                        int enchantmentlevel;
+                        String enchant = "";
+
+                        for (int i = 0; i < loreitem1.size(); i++) {
+                            if (loreitem1.get(i).contains(s)) {
+
+                                enchantmentlevel = getLevel(item2, s) + 1;
+                                enchant = s + " " + numberToString(enchantmentlevel);
+
+                                loreitem1.remove(i);
+                            } else {
+
+                                enchantmentlevel = getLevel(item2, s);
+                                enchant = s + " " + numberToString(enchantmentlevel);
+                            }
+                        }
+
+                        loreitem1.add(enchant);
+                    } else {
+                        /*
+                        Item has no enchant
+                         */
+                        int enchantmentlevel = getLevel(item2, s);
+                        String enchant = s + " " + numberToString(enchantmentlevel);
+                        loreitem1.add(enchant);
+                    }
+                }
+            }
+
+            if(loreitem1.size() != 0) {
+                meta.setLore(loreitem1);
+                item1.setItemMeta(meta);
+            }
+
+            for (String s : item2enchants) {
+                     /*
+                    Enchant is a Vanilla Enchant
+                     */
+                if (s.startsWith("§7")) {
+
+                    Enchantment enchantment = getVanillaEnchant(s);
+                    int enchantmentlevel = getLevel(item2, s);
+
+                    if (item1.containsEnchantment(enchantment)) {
+                        item1.removeEnchantment(enchantment);
+                        item1.addEnchantment(enchantment, enchantmentlevel + 1);
+                    } else {
+                        item1.addEnchantment(enchantment, enchantmentlevel);
+                    }
+                }
+            }
+
+            //Get the level from the lore.
+            String levelstring = craftItem.getItemMeta().getLore().get(3).replace("§b", "").replace(" §7Vanilla-XP", "");
+
+            //Get the price from the lore. Carefull we used ValueToString for it. So we need to replace Tsd, Mio to the numbers.
+            String priceasstring = craftItem.getItemMeta().getLore().get(2).replace("§b", "").replace(" §7Gems", "").replace(",", "");
+            String finalprice;
+            float price;
+
+            if(priceasstring.contains("Tsd") || priceasstring.contains("Mio")) {
+                /*
+                Our Price includes Tsd or Mio from Valuetostring.
+                Replace Tsd with 3 zeros or Mio with 6 zeros.
+                 */
+                if(priceasstring.contains("Tsd")) {
+                    finalprice = priceasstring.replace(" Tsd", "");
+                    price = Float.parseFloat(finalprice) * 10;
+                } else {
+                    finalprice = priceasstring.replace(" Mio", "");
+                    price = Float.parseFloat(finalprice) * 10000;
+                }
+            } else {
+                /*
+                the price is the default price without mio or thausend
+                 */
+                finalprice = priceasstring;
+                price = Float.parseFloat(finalprice);
+            }
+
+            int level = Integer.parseInt(levelstring); //Get the level as int to remove them from the player
+            int newlevel = player.getLevel() - level;
+
+            MoneyManager.updateMoney(player.getUniqueId(), price, true, false);
+            Bukkit.broadcastMessage(String.valueOf(price));
+            player.setLevel(newlevel);
+
+            /*
+            Add Item to the player and remove the other from the inventory
+             */
+            inventory.setItem(11, null);
+            inventory.setItem(13, null);
+
+            int freeslots = 0;
+
+            /*
+            check for free inventory slots
+             */
+            for(int i = 0; i < player.getInventory().getSize(); i++) {
+                if(player.getInventory().getItem(i) == null) {
+                    freeslots += 1;
+                }
+            }
+
+            if(freeslots != 0) {
+                player.getInventory().addItem(item1);
+            } else {
+                player.getWorld().dropItem(player.getLocation(), item1);
+            }
+
+            player.playSound(player.getLocation(), Sound.ANVIL_USE, 1.0F, 1.0F);
+
+    }
 
     /**
      * Craft a special Item to an item and set the item to the player inv
-     * @param inventory the inventory which is requested the crafting
+     * @param inventory the inventory which requested the crafting
      * @param player the player who get the item
      */
     public void craftSpecialOnItem(Inventory inventory, Player player) {
@@ -48,8 +220,22 @@ public class Anvil {
             /*
             the item has no enchant. So we can easy add it
              */
+
             ItemMeta meta2 = item1.getItemMeta();
             List<String> loreitem1 = new LinkedList<>();
+
+            if(item2.getItemMeta().getLore().get(0).contains("Verhärtung")) {
+                /*
+                The requested Item is a Verhärtung Special Enchant.
+                For this reason we need to add the Bonus Haltbarkeit first
+                 */
+                ItemDmg verhaertung = new ItemDmg();
+                int dura = getLevel(item2, "§f§lVerhärtung");
+
+                //Add dura to the item
+                loreitem1.add("§8Bonus-Haltbarkeit: " + verhaertung.getMaxDurability(dura) + "/" + verhaertung.getMaxDurability(dura));
+
+            }
 
             loreitem1.add(item2.getItemMeta().getLore().get(0));
 
@@ -64,6 +250,7 @@ public class Anvil {
             ItemMeta meta1 = item1.getItemMeta();
             List<String> loreitem1 = meta1.getLore();
             List<String> item2enchants = getEnchants(item2); //CAREFULL use only get(0)!!!!
+            List<String> newlore = new LinkedList<>();
 
             List<String> done = new LinkedList<>();
 
@@ -73,15 +260,34 @@ public class Anvil {
                     String newenchant = item2enchants.get(0) + " " + numberToString(getLevel(item2, item2enchants.get(0)) + 1);
                     loreitem1.add(newenchant);
                     done.add(s);
+
+                    if(s.contains("Verhärtung")) {
+                        /*
+                        The requested Item is a Verhärtung Special Enchant.
+                        For this reason we need to add the Bonus Haltbarkeit first
+                        */
+                        ItemDmg verhaertung = new ItemDmg();
+                        int dura = getLevel(item2, "§f§lVerhärtung");
+
+                        //Add dura to the item
+                        newlore.add("§8Bonus-Haltbarkeit: " + verhaertung.getMaxDurability(dura) + "/" + verhaertung.getMaxDurability(dura));
+                    }
+
                 }
             }
+
+            newlore.addAll(loreitem1);
 
             if(done.size() == 0) {
                 String newenchant = item2.getItemMeta().getLore().get(0);
                 loreitem1.add(newenchant);
             }
 
-            meta1.setLore(loreitem1);
+            /*
+            set the new item
+             */
+
+            meta1.setLore(newlore);
             item1.setItemMeta(meta1);
 
         }
@@ -168,26 +374,27 @@ public class Anvil {
         ItemMeta meta1 = item1.getItemMeta();
         ItemMeta meta2 = item2.getItemMeta();
 
-        List<String> item1enchants = meta1.getLore();
-        List<String> item2enchants = meta2.getLore();
+        List<String> item2enchants = getEnchants(item2); //only enchants from the item
+
+        List<String> item1lore = meta1.getLore();
 
         List<String> done = new LinkedList<>();
 
-        for (int i = 0; i < item1enchants.size(); i++) {
+        for (int i = 0; i < item1lore.size(); i++) {
             if(item2enchants.size() != 0) {
                 for (String item2ench : item2enchants) {
-                    if (item1enchants.get(i).contains(item2ench)) {
+                    if (item1lore.get(i).contains(item2ench)) {
                     /*
                     the enchants which Item 1 contains are now updated
                      */
                         if(!done.contains(item2ench)) {
-                            item1enchants.add(item1enchants.get(i) + numberToString(getLevel(item1, item1enchants.get(i))));
-                            item1enchants.remove(i);
+                            item1lore.add(item2ench + " " +  numberToString(getLevel(item2, item2ench) + 1));
+                            item1lore.remove(i);
                             done.add(item2ench);
                         }
                     } else {
                         if(!done.contains(item2ench)) {
-                            item1enchants.add(item2ench);
+                            item1lore.add(item2ench + " " +  numberToString(getLevel(item2, item2ench)));
                             done.add(item2ench);
                         }
                     }
@@ -199,7 +406,7 @@ public class Anvil {
             Now set the new item and get the player the item
              */
 
-            meta1.setLore(item1enchants);
+            meta1.setLore(item1lore);
             item1.setItemMeta(meta1);
 
             //Get the level from the lore.
@@ -304,6 +511,8 @@ public class Anvil {
                             /*
                             books are on the same level
                              */
+                            if(!counterCheck(item1, item2)) return;
+
                             int enchantlevel = stringToNumber(item1, getEnchant(item1));
                             int vanillaxp = getLevel(numberToString(enchantlevel));
                             float price = getPrice(numberToString(enchantlevel));
@@ -328,6 +537,9 @@ public class Anvil {
                         /*
                         books has not the same enchant
                          */
+
+                        if(!counterCheck(item1, item2)) return;
+
                         float price;
                         int levelItem1 = getLevel(item1, getEnchant(item1));
                         int levelItem2 = getLevel(item2, getEnchant(item2));
@@ -374,6 +586,8 @@ public class Anvil {
                             }
                         }
                     }
+
+                    if(!counterCheck(item1, item2)) return;
 
                     int vanillaxp = 0;
                     float price = 0;
@@ -605,6 +819,8 @@ public class Anvil {
                             /*
                             Our enchant is compatible with our item.
                              */
+                            if(!counterCheck(item1, item2)) return;
+
                             int enchantlevel = stringToNumber(item2, getEnchant(item2));
 
                             //We are on the end, the items can be crafted together
@@ -639,6 +855,8 @@ public class Anvil {
                         Okay good, the enchants passed the check.
                         Now calculate the level and the price for this enchantment.
                          */
+
+                        if(!counterCheck(item1, item2)) return;
 
                         int level = 0;
                         float price = 0;
@@ -701,6 +919,8 @@ public class Anvil {
                             If our Item has the same enchant we passed the check.
                             Now we can calculate the level and gems.
                              */
+                            if(!counterCheck(item1, item2)) return;
+
                             int enchantlevel = stringToNumber(item2, getEnchant(item2));
                             float price = getPriceForItem(numberToString(enchantlevel));
                             int level = getLevel(numberToString(enchantlevel)) - 10;
@@ -742,6 +962,8 @@ public class Anvil {
                         Okay good, the enchants passed the check.
                         Now calculate the level and the price for this enchantment.
                          */
+
+                        if(!counterCheck(item1, item2)) return;
 
                         int level = 0;
                         float price = 0;
@@ -964,6 +1186,159 @@ public class Anvil {
 
     }
 
+
+    /**
+     * Check here if Counter enchants are already on it.
+     * Only use this for Special School enchants.
+     * @param item1 the first item from the anvil inventory
+     * @param item2 the second item from the anvil inventory
+     * @return true if the items has passed the check.
+     */
+    private boolean counterCheck(ItemStack item1, ItemStack item2) {
+
+        if(item1.getType() == Material.ENCHANTED_BOOK) {
+            /*
+            Check both books for counter. If both have Counter return
+             */
+
+            List<String> loreitem1 = item1.getItemMeta().getLore();
+            List<String> loreitem2 = item2.getItemMeta().getLore();
+
+            boolean counterItem1 = false;
+            boolean counterItem2 = false;
+
+            /*
+            Check item1 for Counter
+             */
+            for(String s : loreitem1) {
+                if (s.contains("Counter")) {
+                    counterItem1 = true;
+                    break;
+                }
+            }
+
+            /*
+            Check Item2 for Counter
+             */
+            for (String s : loreitem2) {
+                if (s.contains("Counter")) {
+                    counterItem2 = true;
+                    break;
+                }
+            }
+            /*
+            return now
+             */
+            if(counterItem1 && counterItem2) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
+
+            if(item1.getItemMeta() == null || item1.getItemMeta().getLore() == null) {
+                /*
+                The Item has no enchants on it.
+                So this Item can't have a Counter enchant on it.
+                 */
+                return true;
+            } else {
+
+                /*
+                The Item has enchants on it.
+                First check if the item2 has a Counter enchant
+                 */
+
+                List<String> loreitem2 = item2.getItemMeta().getLore();
+                List<String> loreitem1 = item1.getItemMeta().getLore();
+
+                boolean counteritem1 = false;
+                boolean counteritem2 = false;
+
+                boolean counterSwordMobCounter = false;
+                boolean counterSwordKillCounter = false;
+
+                boolean counterSwordMobCounterItem1 = false;
+                boolean counterSwordKillCounterItem1 = false;
+
+                /*
+                Check item2
+                 */
+
+                for(String s : loreitem2) {
+                    if(s.contains("Counter") && s.contains("§c§l")) {
+                        if(s.equalsIgnoreCase(EnchantManager.KILL_COUNTER + "I")) {
+                            counterSwordKillCounter = true;
+                        } else if(s.equalsIgnoreCase(EnchantManager.Mob_Counter + "I")) {
+                            counterSwordMobCounter = true;
+                        }
+                        break;
+                    } else if(s.contains("Counter")) {
+                        counteritem2 = true;
+                    }
+                }
+
+                /*
+                Check item1
+                 */
+
+                if(item1.getType() != Material.DIAMOND_SWORD || item1.getType() != Material.IRON_SWORD || item1.getType() != Material.STONE_SWORD || item1.getType() != Material.WOOD_SWORD) {
+                    /*
+                    The Item is a sword.
+                    We need this check because we have to sword counter
+                     */
+
+                    for(String s : loreitem1) {
+                        if(s.contains("Counter") && s.contains("§c§l")) {
+                            if(s.equalsIgnoreCase(EnchantManager.KILL_COUNTER + "I")) {
+                                counterSwordKillCounterItem1 = true;
+                            } else if(s.equalsIgnoreCase(EnchantManager.Mob_Counter + "I")) {
+                                counterSwordMobCounterItem1 = true;
+                            }
+                            break;
+                        } else if(s.contains("Counter")) {
+                            counteritem2 = true;
+                        }
+                    }
+
+                    if(counterSwordKillCounter && counterSwordKillCounterItem1) {
+                        return false;
+                    } else if(counterSwordMobCounter && counterSwordMobCounterItem1) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+
+                }
+
+                /*
+                Our Item is not a sword
+                 */
+
+                for (String s : loreitem1) {
+                    if(s.contains("Counter")) {
+                        counteritem1 = true;
+                        break;
+                    }
+                }
+
+                /*
+                return now
+                 */
+
+                if(counteritem1 && counteritem2) {
+                    return false;
+                } else {
+                    return true;
+                }
+
+            }
+
+        }
+
+    }
+
     /**
      * Check if an Item is compatible with Erhalt or Verhärtung
      * @param item1 the item which get checked
@@ -1056,7 +1431,7 @@ public class Anvil {
         List<String> lore = item.getItemMeta().getLore();
 
         //replace Erhalt and Verhärtung, so we don't need to create two methods
-        return lore.get(0).replace("§f§lErhalt ", "");
+        return lore.get(0).replace("§f§lErhalt ", "").replace("§f§lVerhärtung ", "");
     }
 
     /**
